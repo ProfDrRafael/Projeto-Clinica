@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class AgendaVO {
     private int id;

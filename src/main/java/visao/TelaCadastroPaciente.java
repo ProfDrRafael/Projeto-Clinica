@@ -7,7 +7,7 @@
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class TelaCadastroPaciente extends javax.swing.JFrame {
 

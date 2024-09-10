@@ -7,7 +7,7 @@ package visao;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class TelaLogin extends javax.swing.JFrame {
 

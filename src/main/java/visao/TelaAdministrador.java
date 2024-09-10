@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class TelaAdministrador extends javax.swing.JFrame {
 

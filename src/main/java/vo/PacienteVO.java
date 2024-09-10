@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class PacienteVO {
     private int id;

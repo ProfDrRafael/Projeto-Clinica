@@ -7,7 +7,7 @@ package visao;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class TelaAgenda extends javax.swing.JFrame {
 

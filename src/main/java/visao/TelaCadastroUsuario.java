@@ -7,7 +7,7 @@ package visao;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class TelaCadastroUsuario extends javax.swing.JFrame {
 

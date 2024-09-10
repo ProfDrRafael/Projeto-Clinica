@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class ExemploRedimensionamentoIcones extends javax.swing.JFrame {
 

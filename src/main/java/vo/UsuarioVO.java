@@ -6,7 +6,7 @@ package vo;
 
 /**
  *
- * @author gani
+ * @author rafael
  */
 public class UsuarioVO {
 
