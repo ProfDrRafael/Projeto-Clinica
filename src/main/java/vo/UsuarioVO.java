@@ -10,6 +10,20 @@ package vo;
  */
 public class UsuarioVO {
 
+    private int id;
+    private String nomeCompleto;
+    private String email;
+    private String senha;
+    private String funcao;
+
+    public UsuarioVO(int id, String nomeCompleto, String email, String senha, String funcao) {
+        this.id = id;
+        this.nomeCompleto = nomeCompleto;
+        this.email = email;
+        this.senha = senha;
+        this.funcao = funcao;
+    }
+
     /**
      * @return the id
      */
@@ -79,18 +93,4 @@ public class UsuarioVO {
     public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
-    private int id;
-    private String nomeCompleto;
-    private String email;
-    private String senha;
-    private String funcao;
-    
-    public UsuarioVO(int id, String nomeCompleto, String email, String senha, String funcao) {
-        this.id = id;
-        this.nomeCompleto = nomeCompleto;
-        this.email = email;
-        this.senha = senha;
-        this.funcao = funcao;
-    }
-    
 }
