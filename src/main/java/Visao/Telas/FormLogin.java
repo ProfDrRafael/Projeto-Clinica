@@ -6,6 +6,7 @@ package Visao.Telas;
 import Persistencia.modelTemp.ModelUser;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+import java.awt.Color;
 
 
 /**
@@ -110,6 +111,11 @@ public class FormLogin extends SimpleForm {
         lbEsqueceuSenha.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lbEsqueceuSenha.setForeground(new java.awt.Color(51, 51, 255));
         lbEsqueceuSenha.setText("Esqueceu sua senha?");
+        lbEsqueceuSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbEsqueceuSenhaMouseClicked(evt);
+            }
+        });
 
         btEntrar.setBackground(new java.awt.Color(0, 102, 102));
         btEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -177,6 +183,14 @@ public class FormLogin extends SimpleForm {
         // Chama o método de login com o modelo do usuário (nome de usuário e flag se é admin)
         FormManager.login(new ModelUser(userName, isAdmin));
     }//GEN-LAST:event_btEntrarActionPerformed
+
+    private void lbEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEsqueceuSenhaMouseClicked
+        lbEsqueceuSenha.setBackground(Color.black);
+        
+        FormEsqueciSenha esqueciSenha = new FormEsqueciSenha();
+        
+        FormManager.EsqueciSenha(esqueciSenha);
+    }//GEN-LAST:event_lbEsqueceuSenhaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -10,6 +10,7 @@ import Visao.Login.Login; // Tela de login
 import Persistencia.modelTemp.ModelUser; // Modelo de usuário
 import Visao.Slider.PanelSlider; // Painel que implementa transições deslizantes
 import Visao.Slider.SimpleTransition; // Transições simples para o PanelSlider
+import Visao.Telas.FormEsqueciSenha;
 import Visao.Utils.UndoRedo; // Utilitário para funcionalidades de desfazer/refazer
 import Visao.Telas.FormLogin;
 import Visao.Telas.PageWelcome;
@@ -95,6 +96,37 @@ public class FormManager {
         }
     }
 
+    /**
+     * 
+     * @param esqueciSenha
+     */
+    public static void EsqueciSenha(SimpleForm esqueciSenha) {
+        FlatAnimatedLafChange.showSnapshot();
+
+        // Esconde a tela atual com fade-out
+        instance.frame.getContentPane().setVisible(false);
+
+        // Usar um SwingUtilities.invokeLater para garantir que a remoção e a adição de componentes ocorram de forma fluida
+        SwingUtilities.invokeLater(() -> {
+            // Remove todos os componentes do frame
+            instance.frame.getContentPane().removeAll();
+
+            // Configura MigLayout no container principal (mantém a consistência de layout)
+            instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]"));
+
+            // Adiciona o FormLogin centralizado tanto verticalmente quanto horizontalmente
+            instance.frame.getContentPane().add(esqueciSenha, "align center center, grow");
+
+            // Revalida e repinta a tela antes de exibi-la
+            instance.frame.revalidate();
+            instance.frame.repaint();
+
+            // Exibe o conteúdo novamente com fade-in
+            instance.frame.getContentPane().setVisible(true);
+            FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
+        });
+    }
+    
     /**
      * Realiza o logout, removendo os componentes atuais e exibindo a tela de login.
      */
