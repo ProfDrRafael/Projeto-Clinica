@@ -14,9 +14,14 @@ import javax.swing.JButton;
  */
 public class redimencionarIcones {
     
-    public void redimensionarIcones(JButton botao, String caminho){
+    public void redimensionarIcones(JButton botao, String caminho) {
+        // Chama a versão com tamanho padrão
+        redimensionarIcones(botao, caminho, 30);
+    }
+
+    public void redimensionarIcones(JButton botao, String caminho, int tamanho) {
         ImageIcon iconeOriginalBotao = new ImageIcon(getClass().getResource(caminho));
-        Image iconeEmEscalaBotao = iconeOriginalBotao.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+        Image iconeEmEscalaBotao = iconeOriginalBotao.getImage().getScaledInstance(tamanho, tamanho, java.awt.Image.SCALE_SMOOTH);
         botao.setIcon(new ImageIcon(iconeEmEscalaBotao));
         botao.setIconTextGap(10);
     }

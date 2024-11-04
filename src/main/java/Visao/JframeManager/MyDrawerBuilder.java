@@ -29,11 +29,15 @@ import Visao.Telas.FormAgenda;
 import Visao.Telas.FormEstagiario;
 import Visao.Telas.FormPaciente;
 import Visao.Telas.FormAtendimento;
-import Visao.Telas.TableListaEspera;
+import Visao.Telas.TableListaEsperaGeral;
 import Visao.Telas.FormProntuario;
 import Visao.Telas.FormUsuario;
 import Persistencia.modelTemp.ModelUser; // Modelo de usuário
 import Visao.Telas.PageWelcome;
+import Visao.Telas.TableListaEsperaEspecifica;
+import Visao.Telas.TableListaEstagiarios;
+import Visao.Telas.TableListaPacientes;
+import Visao.Telas.TableListaUsuarios;
 import Visao.Utils.MessagesAlert;
 import raven.swing.AvatarIcon;
 
@@ -137,7 +141,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Agenda", "calendar.svg"),
             new Item("Formulário de Atendimento", "forms.svg"),
             new Item.Label("Listagem"),
-            new Item("Lista de Espera", "listing.svg"),
+            new Item("Lista de Espera Geral", "listing.svg"),
+            new Item("Lista de Espera Especifica", "listing.svg"),
             new Item("Todos os Estagiários", "listing.svg"),
             new Item("Todos os Pacientes", "listing.svg"),
             new Item("Todos os Usuários", "listing.svg"),
@@ -271,12 +276,13 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         case 8 -> FormManager.showForm(new FormProntuario());
                         case 9 -> FormManager.showForm(new FormAgenda());
                         case 10 -> FormManager.showForm(new FormAtendimento());
-                        case 11 -> FormManager.showForm(new TableListaEspera());
-                        case 12 -> FormManager.showForm(new PageWelcome());
-                        case 13 -> FormManager.showForm(new PageWelcome());
-                        case 14 -> FormManager.showForm(new PageWelcome());
-                        case 15 -> FormManager.showForm(new PageWelcome());
-                        case 16 -> {
+                        case 11 -> FormManager.showForm(new TableListaEsperaGeral());
+                        case 12 -> FormManager.showForm(new TableListaEsperaEspecifica());
+                        case 13 -> FormManager.showForm(new TableListaEstagiarios());
+                        case 14 -> FormManager.showForm(new TableListaPacientes());
+                        case 15 -> FormManager.showForm(new TableListaUsuarios());
+                        case 16 -> FormManager.showForm(new PageWelcome());
+                        case 17 -> {
                             MessagesAlert logout = new MessagesAlert();
                             logout.MessageAlertDesconectarOpcoes();
                         }

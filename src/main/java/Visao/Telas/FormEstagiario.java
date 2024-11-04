@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
 import Visao.Utils.redimencionarIcones;
 
@@ -42,14 +40,11 @@ public class FormEstagiario extends SimpleForm {
         lbProntuario = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
         lbAtivo = new javax.swing.JLabel();
-        lbSemestre = new javax.swing.JLabel();
         lbAno = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
         lbUsuarioEstagiario = new javax.swing.JLabel();
         btEditar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
-        rbNono = new javax.swing.JRadioButton();
-        rbDecimo = new javax.swing.JRadioButton();
         cbAtivo = new javax.swing.JCheckBox();
         cbOrientador = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
@@ -103,21 +98,17 @@ public class FormEstagiario extends SimpleForm {
         lbAtivo.setForeground(new java.awt.Color(0, 102, 102));
         lbAtivo.setText("Ativo:");
 
-        lbSemestre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbSemestre.setForeground(new java.awt.Color(0, 102, 102));
-        lbSemestre.setText("Semestre:");
-
         lbAno.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbAno.setForeground(new java.awt.Color(0, 102, 102));
-        lbAno.setText("Ano:");
+        lbAno.setText("*Ano:");
 
         lbOrientador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbOrientador.setForeground(new java.awt.Color(0, 102, 102));
-        lbOrientador.setText("Orientador:");
+        lbOrientador.setText("*Orientador:");
 
         lbUsuarioEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbUsuarioEstagiario.setForeground(new java.awt.Color(0, 102, 102));
-        lbUsuarioEstagiario.setText("Estagiário:");
+        lbUsuarioEstagiario.setText("*Estagiário:");
 
         btEditar.setBackground(new java.awt.Color(255, 255, 51));
         btEditar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -128,14 +119,6 @@ public class FormEstagiario extends SimpleForm {
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(51, 51, 51));
         btSalvar.setText("Salvar");
-
-        bgSemestre.add(rbNono);
-        rbNono.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        rbNono.setText("9º");
-
-        bgSemestre.add(rbDecimo);
-        rbDecimo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        rbDecimo.setText("10º");
 
         cbAtivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -177,51 +160,36 @@ public class FormEstagiario extends SimpleForm {
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbAtivo)
                             .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(72, 72, 72)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbNono)
-                            .addComponent(rbDecimo)
-                            .addComponent(lbSemestre))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lbUsuarioEstagiario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbAno)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbAno)
+                    .addComponent(lbUsuarioEstagiario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbAtivo)
-                            .addComponent(lbSemestre))
+                        .addComponent(lbAtivo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pCentroLayout.createSequentialGroup()
-                                .addComponent(rbNono)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbDecimo))))
+                        .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pCentroLayout.createSequentialGroup()
                         .addComponent(lbOrientador)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(38, 38, 38)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btEditar)
                     .addComponent(btSalvar))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -242,27 +210,10 @@ public class FormEstagiario extends SimpleForm {
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JLabel lbProntuario;
-    private javax.swing.JLabel lbSemestre;
     private javax.swing.JLabel lbUsuarioEstagiario;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
-    private javax.swing.JRadioButton rbDecimo;
-    private javax.swing.JRadioButton rbNono;
     private javax.swing.JTextField tfData;
     // End of variables declaration//GEN-END:variables
-    private void redimensionarIcones(){
-        
-        //botao Salvar
-        ImageIcon iconeOriginalSalvar = new ImageIcon(getClass().getResource("/imagens/salvar-btn.png"));
-        Image iconeEmEscalaSalvar = iconeOriginalSalvar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btSalvar.setIcon(new ImageIcon(iconeEmEscalaSalvar));
-        btSalvar.setIconTextGap(10);
-        
-        //botao Editar
-        ImageIcon iconeOriginalEditar = new ImageIcon(getClass().getResource("/imagens/editar-btn.png"));
-        Image iconeEmEscalaEditar = iconeOriginalEditar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btEditar.setIcon(new ImageIcon(iconeEmEscalaEditar));
-        btEditar.setIconTextGap(10);
-    }
 
 }

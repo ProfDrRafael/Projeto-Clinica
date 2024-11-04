@@ -57,10 +57,12 @@ public class FormProntuario extends SimpleForm {
         jScrollPane4 = new javax.swing.JScrollPane();
         tpObservacoes = new javax.swing.JTextPane();
         jSeparator2 = new javax.swing.JSeparator();
+        cbEncaminhado = new javax.swing.JComboBox<>();
+        lbEncaminhado = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(950, 660));
-        setMinimumSize(new java.awt.Dimension(950, 660));
-        setPreferredSize(new java.awt.Dimension(950, 660));
+        setMaximumSize(new java.awt.Dimension(950, 764));
+        setMinimumSize(new java.awt.Dimension(950, 764));
+        setPreferredSize(new java.awt.Dimension(950, 764));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
@@ -112,15 +114,14 @@ public class FormProntuario extends SimpleForm {
 
         jlPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlPaciente.setForeground(new java.awt.Color(0, 102, 102));
-        jlPaciente.setText("Paciente:");
+        jlPaciente.setText("*Paciente:");
 
         cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbEstagiario.setForeground(new java.awt.Color(0, 102, 102));
         cbEstagiario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Isabella", "Pedro", "Bruno" }));
 
         jlEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlEstagiario.setForeground(new java.awt.Color(0, 102, 102));
-        jlEstagiario.setText("Estagiário:");
+        jlEstagiario.setText("*Estagiário:");
 
         btEditar.setBackground(new java.awt.Color(255, 102, 102));
         btEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -148,6 +149,13 @@ public class FormProntuario extends SimpleForm {
         tpObservacoes.setFont(cbEstagiario.getFont());
         jScrollPane4.setViewportView(tpObservacoes);
 
+        cbEncaminhado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbEncaminhado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Isabella", "Pedro", "Bruno" }));
+
+        lbEncaminhado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEncaminhado.setForeground(new java.awt.Color(0, 102, 102));
+        lbEncaminhado.setText("*Encaminhado por:");
+
         javax.swing.GroupLayout pnFormLayout = new javax.swing.GroupLayout(pnForm);
         pnForm.setLayout(pnFormLayout);
         pnFormLayout.setHorizontalGroup(
@@ -165,12 +173,17 @@ public class FormProntuario extends SimpleForm {
             .addGroup(pnFormLayout.createSequentialGroup()
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnFormLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator2))
+                    .addGroup(pnFormLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnFormLayout.createSequentialGroup()
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlEstagiario)
-                                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbEncaminhado)
+                                    .addComponent(cbEncaminhado, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnFormLayout.createSequentialGroup()
@@ -179,16 +192,17 @@ public class FormProntuario extends SimpleForm {
                                     .addComponent(tfPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)))
                             .addGroup(pnFormLayout.createSequentialGroup()
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlObservacoes)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlObservacoes))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlQueixaInicial)
+                                    .addGroup(pnFormLayout.createSequentialGroup()
+                                        .addComponent(jlQueixaInicial)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jScrollPane3)))))
-                    .addComponent(jSeparator1)
                     .addGroup(pnFormLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator2)))
+                        .addComponent(jSeparator1)))
                 .addContainerGap())
         );
         pnFormLayout.setVerticalGroup(
@@ -202,15 +216,19 @@ public class FormProntuario extends SimpleForm {
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(lbEncaminhado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbEncaminhado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(12, 12, 12)
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlQueixaInicial)
-                    .addComponent(jlObservacoes))
-                .addGap(26, 26, 26)
-                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addComponent(jlObservacoes)
+                    .addComponent(jlQueixaInicial))
+                .addGap(18, 18, 18)
+                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                     .addComponent(jScrollPane4))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,6 +251,7 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btHistoricoAtendimentos;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox<String> cbEncaminhado;
     private javax.swing.JComboBox<String> cbEstagiario;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -243,6 +262,7 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JLabel jlPaciente;
     private javax.swing.JLabel jlQueixaInicial;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbEncaminhado;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel pnForm;
@@ -250,31 +270,5 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JTextPane tpObservacoes;
     private javax.swing.JTextPane tpQueixa;
     // End of variables declaration//GEN-END:variables
-    private void redimensionarIcones(){
-        
-        //botao Salvar
-        ImageIcon iconeOriginalSalvar = new ImageIcon(getClass().getResource("/imagens/salvar-btn.png"));
-        Image iconeEmEscalaSalvar = iconeOriginalSalvar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btSalvar.setIcon(new ImageIcon(iconeEmEscalaSalvar));
-        btSalvar.setIconTextGap(10);
-        
-        //botao Editar
-        ImageIcon iconeOriginalEditar = new ImageIcon(getClass().getResource("/imagens/editar-btn.png"));
-        Image iconeEmEscalaEditar = iconeOriginalEditar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btEditar.setIcon(new ImageIcon(iconeEmEscalaEditar));
-        btEditar.setIconTextGap(10);
-        
-        //botao Cancelar
-        ImageIcon iconeOriginalCancelar = new ImageIcon(getClass().getResource("/imagens/excluir.png"));
-        Image iconeEmEscalaCancelar = iconeOriginalCancelar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btCancelar.setIcon(new ImageIcon(iconeEmEscalaCancelar));
-        btCancelar.setIconTextGap(10);
-        
-        //botao Histórico de Atendimento
-        ImageIcon iconeOriginalHistorico = new ImageIcon(getClass().getResource("/imagens/historicoAtendimentos.png"));
-        Image iconeEmEscalaHistorico = iconeOriginalHistorico.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btHistoricoAtendimentos.setIcon(new ImageIcon(iconeEmEscalaHistorico));
-        btHistoricoAtendimentos.setIconTextGap(10);
-    }
 
 }

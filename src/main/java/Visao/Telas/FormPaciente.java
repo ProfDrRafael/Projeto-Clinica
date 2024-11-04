@@ -1,8 +1,6 @@
 package Visao.Telas;
 import Visao.Components.SimpleForm;
 import Visao.Utils.redimencionarIcones;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -42,8 +40,8 @@ public class FormPaciente extends SimpleForm {
         lbProntuario = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
         pIdentificacao = new javax.swing.JPanel();
-        cbGenero = new javax.swing.JComboBox<>();
         lbGenero = new javax.swing.JLabel();
+        cbGenero = new javax.swing.JComboBox<>();
         lbContato2 = new javax.swing.JLabel();
         ftfCelularContato = new javax.swing.JFormattedTextField();
         ftfCelular = new javax.swing.JFormattedTextField();
@@ -52,37 +50,65 @@ public class FormPaciente extends SimpleForm {
         lbPaciente = new javax.swing.JLabel();
         lbDataNascimento = new javax.swing.JLabel();
         tfData = new javax.swing.JTextField();
+        lbInstrucao = new javax.swing.JLabel();
+        cbInstrucao = new javax.swing.JComboBox<>();
+        lbProfissao = new javax.swing.JLabel();
+        tfProfissao = new javax.swing.JTextField();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        lbEstadoCivil = new javax.swing.JLabel();
+        cbRaca = new javax.swing.JComboBox<>();
+        lbRaca = new javax.swing.JLabel();
+        cbCor = new javax.swing.JComboBox<>();
+        lbCor = new javax.swing.JLabel();
+        cbEtnia = new javax.swing.JComboBox<>();
+        lbEtnia = new javax.swing.JLabel();
+        lbOrientacao = new javax.swing.JLabel();
+        cbOrientacao = new javax.swing.JComboBox<>();
+        lbContato3 = new javax.swing.JLabel();
+        ftfCelularContato1 = new javax.swing.JFormattedTextField();
         pEndereco = new javax.swing.JPanel();
-        tfNaturalidade = new javax.swing.JTextField();
-        tfCidade = new javax.swing.JTextField();
         lbCidade = new javax.swing.JLabel();
-        lbNaturalidade = new javax.swing.JLabel();
         lbRua = new javax.swing.JLabel();
         tfRua = new javax.swing.JTextField();
         tfBairro = new javax.swing.JTextField();
         lbBairro = new javax.swing.JLabel();
         lbNumero = new javax.swing.JLabel();
         tfNumero = new javax.swing.JTextField();
+        lbNaturalidade1 = new javax.swing.JLabel();
+        cbEstado = new javax.swing.JComboBox<>();
+        lbCep = new javax.swing.JLabel();
+        ftfCep = new javax.swing.JFormattedTextField();
+        tfComplemento = new javax.swing.JTextField();
+        lbComplemento = new javax.swing.JLabel();
+        lbEstado = new javax.swing.JLabel();
+        cbNacionalidade = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        lbNaturalidade = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        pBotoes = new javax.swing.JPanel();
+        btEditar = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
         pInscricao = new javax.swing.JPanel();
         lbDisponibilidade = new javax.swing.JLabel();
-        tfDisponibilidade = new javax.swing.JTextField();
         cbEstagiario = new javax.swing.JComboBox<>();
         lbEstagiario = new javax.swing.JLabel();
         lbResponsavel = new javax.swing.JLabel();
-        cbResponsavel = new javax.swing.JComboBox<>();
         cbOrientador = new javax.swing.JComboBox<>();
         lbOrientador = new javax.swing.JLabel();
         cbAtendido = new javax.swing.JCheckBox();
         lbAtendido = new javax.swing.JLabel();
-        pBotoes = new javax.swing.JPanel();
-        btEditar = new javax.swing.JButton();
-        btSalvar = new javax.swing.JButton();
+        tfResponsavel = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane2 = new javax.swing.JTextPane();
+        lbDisponibilidade1 = new javax.swing.JLabel();
 
         dateChooser1.setTextField(tfData);
 
-        setMaximumSize(new java.awt.Dimension(1024, 1065));
-        setMinimumSize(new java.awt.Dimension(1024, 1065));
-        setPreferredSize(new java.awt.Dimension(1024, 1065));
+        setMaximumSize(new java.awt.Dimension(1024, 1426));
+        setMinimumSize(new java.awt.Dimension(1024, 1426));
+        setPreferredSize(new java.awt.Dimension(1024, 1426));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
@@ -102,7 +128,7 @@ public class FormPaciente extends SimpleForm {
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+                .addContainerGap(316, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
@@ -130,26 +156,26 @@ public class FormPaciente extends SimpleForm {
         pIdentificacao.setMaximumSize(new java.awt.Dimension(1024, 450));
         pIdentificacao.setMinimumSize(new java.awt.Dimension(1024, 450));
 
-        cbGenero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Feminino", "Masculino" }));
-
         lbGenero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbGenero.setForeground(new java.awt.Color(0, 102, 102));
-        lbGenero.setText("Gênero:");
+        lbGenero.setText("*Gênero:");
+
+        cbGenero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", "Não-binário", "Agênero", "Gênero fluido", "Gênero neutro", "Bigênero", "Pangênero", "Demiboy", "Demigirl", "Transgênero", "Cisgênero", "Genderqueer", "Two-Spirit", "Gênero não conformista", "Gênero expansivo", "Andrógino", "Intergênero", "Poligênero", "Terceiro gênero", "Maverique", "Neutrois", "Boyceta", "Apoligênero", "Multigênero", "Gênero diverso", "Omnigênero", "Intersexo" }));
 
         lbContato2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbContato2.setForeground(new java.awt.Color(0, 102, 102));
         lbContato2.setText("Celular (Contato):");
 
         try {
-            ftfCelularContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+            ftfCelularContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         ftfCelularContato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         try {
-            ftfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+            ftfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -157,20 +183,80 @@ public class FormPaciente extends SimpleForm {
 
         lbCelular.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbCelular.setForeground(new java.awt.Color(0, 102, 102));
-        lbCelular.setText("Celular:");
+        lbCelular.setText("*Celular:");
 
         tfPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfPaciente.setText("João Pedro da Silva");
+        tfPaciente.setToolTipText("ex. Rafael da Silva");
 
         lbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbPaciente.setForeground(new java.awt.Color(0, 102, 102));
-        lbPaciente.setText("Paciente:");
+        lbPaciente.setText("*Paciente:");
 
         lbDataNascimento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbDataNascimento.setForeground(new java.awt.Color(0, 102, 102));
-        lbDataNascimento.setText("Data de Nascimento:");
+        lbDataNascimento.setText("*Data de Nascimento:");
 
         tfData.setFont(tfPaciente.getFont());
+
+        lbInstrucao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbInstrucao.setForeground(new java.awt.Color(0, 102, 102));
+        lbInstrucao.setText("Grau de Instrução:");
+
+        cbInstrucao.setFont(cbGenero.getFont());
+        cbInstrucao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ensino Fundamental incompleto", "Ensino Fundamental completo", "Ensino Médio incompleto", "Ensino Médio completo", "Ensino Técnico", "Superior incompleto", "Superior completo", "Pós-graduação", "Mestrado", "Doutorado", "Pós-doutorado", "Analfabeto" }));
+
+        lbProfissao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbProfissao.setForeground(new java.awt.Color(0, 102, 102));
+        lbProfissao.setText("Profissão:");
+
+        tfProfissao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfProfissao.setToolTipText("ex. Rafael da Silva");
+
+        jComboBox3.setFont(cbGenero.getFont());
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro (a)", "Casado (a)", "Divorciado (a)", "Viúvo (a)", "Separado judicialmente" }));
+
+        lbEstadoCivil.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEstadoCivil.setForeground(new java.awt.Color(0, 102, 102));
+        lbEstadoCivil.setText("Estado Civil:");
+
+        cbRaca.setFont(cbGenero.getFont());
+        cbRaca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Negra", "Branca", "Amarela", "Parda", "Indígena" }));
+
+        lbRaca.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbRaca.setForeground(new java.awt.Color(0, 102, 102));
+        lbRaca.setText("Raça:");
+
+        cbCor.setFont(cbGenero.getFont());
+        cbCor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preta", "Branca", "Amarela", "Parda", "Vermelha", "Azul", "Verde" }));
+
+        lbCor.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbCor.setForeground(new java.awt.Color(0, 102, 102));
+        lbCor.setText("Cor:");
+
+        cbEtnia.setFont(cbGenero.getFont());
+        cbEtnia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Indígena", "Afrodescendente", "Asiática", "Europeia", "Latino-americana", "Árabe", "Judaica", "Romani" }));
+
+        lbEtnia.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEtnia.setForeground(new java.awt.Color(0, 102, 102));
+        lbEtnia.setText("Etnia:");
+
+        lbOrientacao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbOrientacao.setForeground(new java.awt.Color(0, 102, 102));
+        lbOrientacao.setText("Orientação Sexual:");
+
+        cbOrientacao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbOrientacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Heterossexual", "Homossexual", "Bissexual", "Assexual", "Pansexual", "Demissexual", "Queer", "Omnissexual" }));
+
+        lbContato3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbContato3.setForeground(new java.awt.Color(0, 102, 102));
+        lbContato3.setText("Telefone (Responsável):");
+
+        try {
+            ftfCelularContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        ftfCelularContato1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout pIdentificacaoLayout = new javax.swing.GroupLayout(pIdentificacao);
         pIdentificacao.setLayout(pIdentificacaoLayout);
@@ -178,91 +264,195 @@ public class FormPaciente extends SimpleForm {
             pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pIdentificacaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pIdentificacaoLayout.createSequentialGroup()
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbCelular))
-                        .addGap(26, 26, 26)
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ftfCelularContato, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbContato2))
+                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbOrientacao)
+                                .addComponent(cbOrientacao, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbProfissao))
+                            .addGap(18, 18, 18)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbInstrucao)
+                                .addComponent(cbInstrucao, 0, 0, Short.MAX_VALUE)))
+                        .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbEstadoCivil))
+                            .addGap(18, 18, 18)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbRaca)
+                                .addComponent(cbRaca, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbCor)
+                                .addComponent(cbCor, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                                    .addComponent(lbEtnia)
+                                    .addGap(170, 170, 170))
+                                .addComponent(cbEtnia, 0, 299, Short.MAX_VALUE))))
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ftfCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                            .addComponent(lbCelular, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(ftfCelularContato)
+                                .addComponent(tfData, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                                .addComponent(lbDataNascimento, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(lbContato2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbGenero)
-                            .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pIdentificacaoLayout.createSequentialGroup()
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbPaciente))
-                        .addGap(35, 35, 35)
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbDataNascimento))))
+                            .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbContato3)
+                            .addComponent(ftfCelularContato1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pIdentificacaoLayout.setVerticalGroup(
             pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(lbDataNascimento))
-                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(lbPaciente)))
+                .addGap(28, 28, 28)
+                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbDataNascimento)
+                    .addComponent(lbPaciente)
+                    .addComponent(lbGenero))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCelular)
-                    .addComponent(lbContato2)
-                    .addComponent(lbGenero))
+                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbCelular)
+                            .addComponent(lbContato2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftfCelularContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addComponent(lbContato3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ftfCelularContato1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftfCelularContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addComponent(lbProfissao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addComponent(lbInstrucao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbInstrucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addComponent(lbOrientacao)
+                        .addGap(12, 12, 12)
+                        .addComponent(cbOrientacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
+                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addComponent(lbEstadoCivil)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbRaca)
+                            .addComponent(lbCor)
+                            .addComponent(lbEtnia))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbRaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pEndereco.setBackground(java.awt.SystemColor.controlHighlight);
         pEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, cbEstagiario.getFont(), java.awt.SystemColor.controlDkShadow));
         pEndereco.setPreferredSize(new java.awt.Dimension(908, 500));
 
-        tfNaturalidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
-        tfCidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
         lbCidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbCidade.setForeground(new java.awt.Color(0, 102, 102));
-        lbCidade.setText("Cidade:");
-
-        lbNaturalidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbNaturalidade.setForeground(new java.awt.Color(0, 102, 102));
-        lbNaturalidade.setText("Naturalidade:");
+        lbCidade.setText("*Cidade:");
 
         lbRua.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbRua.setForeground(new java.awt.Color(0, 102, 102));
-        lbRua.setText("Rua:");
+        lbRua.setText("*Rua:");
 
         tfRua.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfRua.setText("América");
+        tfRua.setToolTipText("ex. Marechal Rondon");
 
         tfBairro.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfBairro.setText("Centro");
+        tfBairro.setToolTipText("ex. Centro");
 
         lbBairro.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbBairro.setForeground(new java.awt.Color(0, 102, 102));
-        lbBairro.setText("Bairro:");
+        lbBairro.setText("*Bairro:");
 
         lbNumero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbNumero.setForeground(new java.awt.Color(0, 102, 102));
-        lbNumero.setText("Número:");
+        lbNumero.setText("*Número:");
 
         tfNumero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNumeroKeyTyped(evt);
+            }
+        });
+
+        lbNaturalidade1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbNaturalidade1.setForeground(new java.awt.Color(0, 102, 102));
+        lbNaturalidade1.setText("*Nacionalidade:");
+
+        cbEstado.setFont(cbGenero.getFont());
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre (AC)", "Alagoas (AL)", "Amapá (AP)", "Amazonas (AM)", "Bahia (BA)", "Ceará (CE)", "Distrito Federal (DF)", "Espírito Santo (ES)", "Goiás (GO)", "Maranhão (MA)", "Mato Grosso (MT)", "Mato Grosso do Sul (MS)", "Minas Gerais (MG)", "Pará (PA)", "Paraíba (PB)", "Paraná (PR)", "Pernambuco (PE)", "Piauí (PI)", "Rio de Janeiro (RJ)", "Rio Grande do Norte (RN)", "Rio Grande do Sul (RS)", "Rondônia (RO)", "Roraima (RR)", "Santa Catarina (SC)", "São Paulo (SP)", "Sergipe (SE)", "Tocantins (TO)" }));
+        cbEstado.setMaximumSize(new java.awt.Dimension(128, 39));
+
+        lbCep.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbCep.setForeground(new java.awt.Color(0, 102, 102));
+        lbCep.setText("*CEP:");
+
+        try {
+            ftfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        ftfCep.setFont(ftfCelular.getFont());
+
+        tfComplemento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfComplemento.setToolTipText("ex. Centro");
+
+        lbComplemento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbComplemento.setForeground(new java.awt.Color(0, 102, 102));
+        lbComplemento.setText("Complemento:");
+
+        lbEstado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEstado.setForeground(new java.awt.Color(0, 102, 102));
+        lbEstado.setText("*Estado:");
+
+        cbNacionalidade.setFont(cbGenero.getFont());
+        cbNacionalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasil", "Afeganistão", "África do Sul", "Akrotiri", "Albânia", "Alemanha", "Andorra", "Angola", "Anguila", "Antárctida", "Antígua e Barbuda", "Arábia Saudita", "Arctic Ocean", "Argélia", "Argentina", "Arménia", "Aruba", "Ashmore and Cartier Islands", "Atlantic Ocean", "Austrália", "Áustria", "Azerbaijão", "Baamas", "Bangladeche", "Barbados", "Barém", "Bélgica", "Belize", "Benim", "Bermudas", "Bielorrússia", "Birmânia", "Bolívia", "Bósnia e Herzegovina", "Botsuana", "Brunei", "Bulgária", "Burquina Faso", "Burúndi", "Butão", "Cabo Verde", "Camarões", "Camboja", "Canadá", "Catar", "Cazaquistão", "Chade", "Chile", "China", "Chipre", "Clipperton Island", "Colômbia", "Comores", "Congo-Brazzaville", "Congo-Kinshasa", "Coral Sea Islands", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Croácia", "Cuba", "Curacao", "Dhekelia", "Dinamarca", "Domínica", "Egipto", "Emiratos Árabes Unidos", "Equador", "Eritreia", "Eslováquia", "Eslovénia", "Espanha", "Estados Unidos", "Estónia", "Etiópia", "Faroé", "Fiji", "Filipinas", "Finlândia", "França", "Gabão", "Gâmbia", "Gana", "Gaza Strip", "Geórgia", "Geórgia do Sul e Sandwich do Sul", "Gibraltar", "Granada", "Grécia", "Gronelândia", "Guame", "Guatemala", "Guernsey", "Guiana", "Guiné", "Guiné Equatorial", "Guiné-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "Iémen", "Ilha Bouvet", "Ilha do Natal", "Ilha Norfolk", "Ilhas Caimão", "Ilhas Cook", "Ilhas dos Cocos", "Ilhas Falkland", "Ilhas Heard e McDonald", "Ilhas Marshall", "Ilhas Salomão", "Ilhas Turcas e Caicos", "Ilhas Virgens Americanas", "Ilhas Virgens Britânicas", "Índia", "Indian Ocean", "Indonésia", "Irão", "Iraque", "Irlanda", "Islândia", "Israel", "Itália", "Jamaica", "Jan Mayen", "Japão", "Jersey", "Jibuti", "Jordânia", "Kosovo", "Kuwait", "Laos", "Lesoto", "Letónia", "Líbano", "Libéria", "Líbia", "Listenstaine", "Lituânia", "Luxemburgo", "Macau", "Macedónia", "Madagáscar", "Malásia", "Malávi", "Maldivas", "Mali", "Malta", "Man, Isle of", "Marianas do Norte", "Marrocos", "Maurícia", "Mauritânia", "México", "Micronésia", "Moçambique", "Moldávia", "Mónaco", "Mongólia", "Monserrate", "Montenegro", "Mundo", "Namíbia", "Nauru", "Navassa Island", "Nepal", "Nicarágua", "Níger", "Nigéria", "Niue", "Noruega", "Nova Caledónia", "Nova Zelândia", "Omã", "Pacific Ocean", "Países Baixos", "Palau", "Panamá", "Papua-Nova Guiné", "Paquistão", "Paracel Islands", "Paraguai", "Peru", "Pitcairn", "Polinésia Francesa", "Polónia", "Porto Rico", "Portugal", "Quénia", "Quirguizistão", "Quiribáti", "Reino Unido", "República Centro-Africana", "República Dominicana", "Roménia", "Ruanda", "Rússia", "Salvador", "Samoa", "Samoa Americana", "Santa Helena", "Santa Lúcia", "São Bartolomeu", "São Cristóvão e Neves", "São Marinho", "São Martinho", "São Pedro e Miquelon", "São Tomé e Príncipe", "São Vicente e Granadinas", "Sara Ocidental", "Seicheles", "Senegal", "Serra Leoa", "Sérvia", "Singapura", "Sint Maarten", "Síria", "Somália", "Southern Ocean", "Spratly Islands", "Sri Lanca", "Suazilândia", "Sudão", "Sudão do Sul", "Suécia", "Suíça", "Suriname", "Svalbard e Jan Mayen", "Tailândia", "Taiwan", "Tajiquistão", "Tanzânia", "Território Britânico do Oceano Índico", "Territórios Austrais Franceses", "Timor Leste", "Togo", "Tokelau", "Tonga", "Trindade e Tobago", "Tunísia", "Turquemenistão", "Turquia", "Tuvalu", "Ucrânia", "Uganda", "União Europeia", "Uruguai", "Usbequistão", "Vanuatu", "Vaticano", "Venezuela", "Vietname", "Wake Island", "Wallis e Futuna", "West Bank", "Zâmbia", "Zimbabué" }));
+        cbNacionalidade.setMaximumSize(new java.awt.Dimension(128, 39));
+
+        jComboBox4.setFont(lbAtendido.getFont());
+
+        lbNaturalidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbNaturalidade.setForeground(new java.awt.Color(0, 102, 102));
+        lbNaturalidade.setText("*Naturalidade:");
+
+        jComboBox1.setFont(cbGenero.getFont());
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abadia de Goiás (GO)", "Abadia dos Dourados (MG)", "Abadiânia (GO)", "Abaeté (MG)", "Abaetetuba (PA)", "Abaiara (CE)", "Abaíra (BA)", "Abaré (BA)", "Abatiá (PR)", "Abdon Batista (SC)", "Abelardo Luz (SC)", "Abel Figueiredo (PA)", "Abre Campo (MG)", "Abreu e Lima (PE)", "Abreulândia (TO)", "Acaiaca (MG)", "Açailândia (MA)", "Acajutiba (BA)", "Acará (PA)", "Acarape (CE)", "Acaraú (CE)", "Acari (RN)", "Acauã (PI)", "Aceguá (RS)", "Acopiara (CE)", "Acorizal (MT)", "Acrelândia (AC)", "Acreúna (GO)", "Açucena (MG)", "Adamantina (SP)", "Adelândia (GO)", "Adolfo (SP)", "Adrianópolis (PR)", "Adustina (BA)", "Afogados da Ingazeira (PE)", "Afonso Bezerra (RN)", "Afonso Cláudio (ES)", "Afonso Cunha (MA)", "Afrânio (PE)", "Afuá (PA)", "Agrestina (PE)", "Agricolândia (PI)", "Agrolândia (SC)", "Agronômica (SC)", "Água Azul do Norte (PA)", "Água Boa (MG)", "Água Boa (MT)", "Água Branca (AL)", "Água Branca (PB)", "Água Branca (PI)", "Água Clara (MS)", "Água Comprida (MG)", "Água Doce (SC)", "Água Doce do Maranhão (MA)", "Água Doce do Norte (ES)", "Água Fria (BA)", "Água Fria de Goiás (GO)", "Aguaí (SP)", "Água Limpa (GO)", "Aguanil (MG)", "Água Nova (RN)", "Água Preta (PE)", "Água Santa (RS)", "Águas Belas (PE)", "Águas da Prata (SP)", "Águas de Chapecó (SC)", "Águas de Lindóia (SP)", "Águas de Santa Bárbara (SP)", "Águas de São Pedro (SP)", "Águas Formosas (MG)", "Águas Frias (SC)", "Águas Lindas de Goiás (GO)", "Águas Mornas (SC)", "Águas Vermelhas (MG)", "Agudo (RS)", "Agudos (SP)", "Agudos do Sul (PR)", "Águia Branca (ES)", "Aguiar (PB)", "Aguiarnópolis (TO)", "Aimorés (MG)", "Aiquara (BA)", "Aiuaba (CE)", "Aiuruoca (MG)", "Ajuricaba (RS)", "Alagoa (MG)", "Alagoa Grande (PB)", "Alagoa Nova (PB)", "Alagoinha (PB)", "Alagoinha (PE)", "Alagoinha do Piauí (PI)", "Alagoinhas (BA)", "Alambari (SP)", "Albertina (MG)", "Alcântara (MA)", "Alcântaras (CE)", "Alcantil (PB)", "Alcinópolis (MS)", "Alcobaça (BA)", "Aldeias Altas (MA)", "Alecrim (RS)", "Alegre (ES)", "Alegrete (RS)", "Alegrete do Piauí (PI)", "Alegria (RS)", "Além Paraíba (MG)", "Alenquer (PA)", "Alexandria (RN)", "Alexânia (GO)", "Alfenas (MG)", "Alfredo Chaves (ES)", "Alfredo Marcondes (SP)", "Alfredo Vasconcelos (MG)", "Alfredo Wagner (SC)", "Algodão de Jandaíra (PB)", "Alhandra (PB)", "Aliança (PE)", "Aliança do Tocantins (TO)", "Almadina (BA)", "Almas (TO)", "Almeirim (PA)", "Almenara (MG)", "Almino Afonso (RN)", "Almirante Tamandaré (PR)", "Almirante Tamandaré do Sul (RS)", "Aloândia (GO)", "Alpercata (MG)", "Alpestre (RS)", "Alpinópolis (MG)", "Alta Floresta (MT)", "Alta Floresta d'Oeste (RO)", "Altair (SP)", "Altamira (PA)", "Altamira do Maranhão (MA)", "Altamira do Paraná (PR)", "Altaneira (CE)", "Alterosa (MG)", "Altinho (PE)", "Altinópolis (SP)", "Alto Alegre (RR)", "Alto Alegre (RS)", "Alto Alegre (SP)", "Alto Alegre do Maranhão (MA)", "Alto Alegre do Pindaré (MA)", "Alto Alegre dos Parecis (RO)", "Alto Araguaia (MT)", "Alto Bela Vista (SC)", "Alto da Boa Vista (MT)", "Alto Caparaó (MG)", "Alto do Rodrigues (RN)", "Alto Feliz (RS)", "Alto Garças (MT)", "Alto Horizonte (GO)", "Alto Jequitibá (MG)", "Alto Longá (PI)", "Altônia (PR)", "Alto Paraguai (MT)", "Alto Paraíso (PR)", "Alto Paraíso (RO)", "Alto Paraíso de Goiás (GO)", "Alto Paraná (PR)", "Alto Parnaíba (MA)", "Alto Piquiri (PR)", "Alto Rio Doce (MG)", "Alto Rio Novo (ES)", "Altos (PI)", "Alto Santo (CE)", "Alto Taquari (MT)", "Alumínio (SP)", "Alvarães (AM)", "Alvarenga (MG)", "Álvares Florence (SP)", "Álvares Machado (SP)", "Álvaro de Carvalho (SP)", "Alvinlândia (SP)", "Alvinópolis (MG)", "Alvorada (RS)", "Alvorada (TO)", "Alvorada de Minas (MG)", "Alvorada d'Oeste (RO)", "Alvorada do Gurgueia (PI)", "Alvorada do Norte (GO)", "Alvorada do Sul (PR)", "Amajari (RR)", "Amambai (MS)", "Amapá (AP)", "Amapá do Maranhão (MA)", "Amaporã (PR)", "Amaraji (PE)", "Amaral Ferrador (RS)", "Amaralina (GO)", "Amarante (PI)", "Amarante do Maranhão (MA)", "Amargosa (BA)", "Amaturá (AM)", "Amélia Rodrigues (BA)", "América Dourada (BA)", "Americana (SP)", "Americano do Brasil (GO)", "Américo Brasiliense (SP)", "Américo de Campos (SP)", "Ametista do Sul (RS)", "Amontada (CE)", "Amorinópolis (GO)", "Amparo (PB)", "Amparo (SP)", "Amparo do São Francisco (SE)", "Amparo do Serra (MG)", "Ampére (PR)", "Anadia (AL)", "Anagé (BA)", "Anahy (PR)", "Anajás (PA)", "Anajatuba (MA)", "Analândia (SP)", "Anamã (AM)", "Ananás (TO)", "Ananindeua (PA)", "Anápolis (GO)", "Anapu (PA)", "Anapurus (MA)", "Anastácio (MS)", "Anaurilândia (MS)", "Anchieta (ES)", "Anchieta (SC)", "Andaraí (BA)", "Andirá (PR)", "Andorinha (BA)", "Andradas (MG)", "Andradina (SP)", "André da Rocha (RS)", "Andrelândia (MG)", "Angatuba (SP)", "Angelândia (MG)", "Angélica (MS)", "Angelim (PE)", "Angelina (SC)", "Angical (BA)", "Angical do Piauí (PI)", "Angico (TO)", "Angicos (RN)", "Angra dos Reis (RJ)", "Anguera (BA)", "Ângulo (PR)", "Anhanguera (GO)", "Anhembi (SP)", "Anhumas (SP)", "Anicuns (GO)", "Anísio de Abreu (PI)", "Anita Garibaldi (SC)", "Anitápolis (SC)", "Anori (AM)", "Anta Gorda (RS)", "Antas (BA)", "Antonina (PR)", "Antonina do Norte (CE)", "Antônio Almeida (PI)", "Antônio Cardoso (BA)", "Antônio Carlos (MG)", "Antônio Carlos (SC)", "Antônio Dias (MG)", "Antônio Gonçalves (BA)", "Antônio João (MS)", "Antônio Martins (RN)", "Antônio Olinto (PR)", "Antônio Prado (RS)", "Antônio Prado de Minas (MG)", "Aparecida (PB)", "Aparecida (SP)", "Aparecida de Goiânia (GO)", "Aparecida d'Oeste (SP)", "Aparecida do Rio Doce (GO)", "Aparecida do Rio Negro (TO)", "Aparecida do Taboado (MS)", "Aperibé (RJ)", "Apiacá (ES)", "Apiacás (MT)", "Apiaí (SP)", "Apicum-Açu (MA)", "Apiúna (SC)", "Apodi (RN)", "Aporá (BA)", "Aporé (GO)", "Apuarema (BA)", "Apucarana (PR)", "Apuí (AM)", "Apuiarés (CE)", "Aquidabã (SE)", "Aquidauana (MS)", "Aquiraz (CE)", "Arabutã (SC)", "Araçagi (PB)", "Araçaí (MG)", "Aracaju (SE)", "Araçariguama (SP)", "Araçás (BA)", "Aracati (CE)", "Aracatu (BA)", "Araçatuba (SP)", "Araci (BA)", "Aracitaba (MG)", "Aracoiaba (CE)", "Araçoiaba (PE)", "Araçoiaba da Serra (SP)", "Aracruz (ES)", "Araçu (GO)", "Araçuaí (MG)", "Aragarças (GO)", "Aragoiânia (GO)", "Aragominas (TO)", "Araguacema (TO)", "Araguaçu (TO)", "Araguaiana (MT)", "Araguaína (TO)", "Araguainha (MT)", "Araguanã (MA)", "Araguanã (TO)", "Araguapaz (GO)", "Araguari (MG)", "Araguatins (TO)", "Araioses (MA)", "Aral Moreira (MS)", "Aramari (BA)", "Arambaré (RS)", "Arame (MA)", "Aramina (SP)", "Arandu (SP)", "Arantina (MG)", "Arapeí (SP)", "Arapiraca (AL)", "Arapoema (TO)", "Araponga (MG)", "Arapongas (PR)", "Araporã (MG)", "Arapoti (PR)", "Arapuá (MG)", "Arapuã (PR)", "Araputanga (MT)", "Araquari (SC)", "Arara (PB)", "Araranguá (SC)", "Araraquara (SP)", "Araras (SP)", "Ararendá (CE)", "Arari (MA)", "Araricá (RS)", "Araripe (CE)", "Araripina (PE)", "Araruama (RJ)", "Araruna (PB)", "Araruna (PR)", "Arataca (BA)", "Aratiba (RS)", "Aratuba (CE)", "Aratuípe (BA)", "Arauá (SE)", "Araucária (PR)", "Araújos (MG)", "Araxá (MG)", "Arceburgo (MG)", "Arco-Íris (SP)", "Arcos (MG)", "Arcoverde (PE)", "Areado (MG)", "Areal (RJ)", "Arealva (SP)", "Areia (PB)", "Areia Branca (RN)", "Areia Branca (SE)", "Areia de Baraúnas (PB)", "Areial (PB)", "Areias (SP)", "Areiópolis (SP)", "Arenápolis (MT)", "Arenópolis (GO)", "Arez (Rio Grande do Norte) (RN)", "Argirita (MG)", "Aricanduva (MG)", "Arinos (MG)", "Aripuanã (MT)", "Ariquemes (RO)", "Ariranha (SP)", "Ariranha do Ivaí (PR)", "Armação dos Búzios (RJ)", "Armazém (SC)", "Arneiroz (CE)", "Aroazes (PI)", "Aroeiras (PB)", "Aroeiras do Itaim (PI)", "Arraial (PI)", "Arraial do Cabo (RJ)", "Arraias (TO)", "Arroio do Meio (RS)", "Arroio do Padre (RS)", "Arroio do Sal (RS)", "Arroio dos Ratos (RS)", "Arroio do Tigre (RS)", "Arroio Grande (RS)", "Arroio Trinta (SC)", "Artur Nogueira (SP)", "Aruanã (GO)", "Arujá (SP)", "Arvoredo (SC)", "Arvorezinha (RS)", "Ascurra (SC)", "Aspásia (SP)", "Assaí (PR)", "Assaré (CE)", "Assis (SP)", "Assis Brasil (AC)", "Assis Chateaubriand (PR)", "Assu (RN)", "Assunção (PB)", "Assunção do Piauí (PI)", "Astolfo Dutra (MG)", "Astorga (PR)", "Atalaia (AL)", "Atalaia (PR)", "Atalaia do Norte (AM)", "Atalanta (SC)", "Ataléia (MG)", "Atibaia (SP)", "Atílio Vivácqua (ES)", "Augustinópolis (TO)", "Augusto Corrêa (PA)", "Augusto de Lima (MG)", "Augusto Pestana (RS)", "Áurea (RS)", "Aurelino Leal (BA)", "Auriflama (SP)", "Aurilândia (GO)", "Aurora (CE)", "Aurora (SC)", "Aurora do Pará (PA)", "Aurora do Tocantins (TO)", "Autazes (AM)", "Avaí (SP)", "Avanhandava (SP)", "Avaré (SP)", "Aveiro (PA)", "Avelino Lopes (PI)", "Avelinópolis (GO)", "Axixá (MA)", "Axixá do Tocantins (TO)" }));
 
         javax.swing.GroupLayout pEnderecoLayout = new javax.swing.GroupLayout(pEndereco);
         pEndereco.setLayout(pEnderecoLayout);
@@ -272,156 +462,84 @@ public class FormPaciente extends SimpleForm {
                 .addContainerGap()
                 .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pEnderecoLayout.createSequentialGroup()
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbRua)
+                            .addComponent(tfRua, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                            .addComponent(lbNaturalidade1)
+                            .addComponent(cbNacionalidade, 0, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbBairro)
+                            .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbEstado))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfComplemento, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                            .addComponent(lbComplemento)
                             .addComponent(lbCidade)
-                            .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(49, 49, 49)
-                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNaturalidade)
-                            .addComponent(tfNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pEnderecoLayout.createSequentialGroup()
                         .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbRua)
-                            .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(49, 49, 49)
-                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbBairro))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbCep)
+                            .addComponent(ftfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbNumero)
-                            .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(183, 183, 183))))
+                            .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbNaturalidade))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pEnderecoLayout.setVerticalGroup(
             pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pEnderecoLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbRua)
-                    .addComponent(lbBairro)
-                    .addComponent(lbNumero))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEnderecoLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEnderecoLayout.createSequentialGroup()
+                        .addComponent(lbCep)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ftfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEnderecoLayout.createSequentialGroup()
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbNaturalidade)
+                            .addComponent(lbNumero))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pEnderecoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEnderecoLayout.createSequentialGroup()
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbRua)
+                            .addComponent(lbBairro))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pEnderecoLayout.createSequentialGroup()
+                                .addComponent(lbEstado)
+                                .addGap(8, 8, 8)
+                                .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pEnderecoLayout.createSequentialGroup()
+                                .addComponent(lbNaturalidade1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEnderecoLayout.createSequentialGroup()
+                        .addComponent(lbComplemento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
                         .addComponent(lbCidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(pEnderecoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lbNaturalidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
-        );
-
-        pInscricao.setBackground(java.awt.SystemColor.controlHighlight);
-        pInscricao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inscrição", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, cbEstagiario.getFont(), java.awt.SystemColor.controlDkShadow));
-
-        lbDisponibilidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbDisponibilidade.setForeground(new java.awt.Color(0, 102, 102));
-        lbDisponibilidade.setText("Disponibilidade:");
-
-        tfDisponibilidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
-        cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbEstagiario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
-
-        lbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbEstagiario.setForeground(new java.awt.Color(0, 102, 102));
-        lbEstagiario.setText("Estagiário:");
-
-        lbResponsavel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbResponsavel.setForeground(new java.awt.Color(0, 102, 102));
-        lbResponsavel.setText("Responsável:");
-
-        cbResponsavel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbResponsavel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
-
-        cbOrientador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbOrientador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
-
-        lbOrientador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbOrientador.setForeground(new java.awt.Color(0, 102, 102));
-        lbOrientador.setText("Orientador:");
-
-        cbAtendido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
-        lbAtendido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbAtendido.setForeground(new java.awt.Color(0, 102, 102));
-        lbAtendido.setText("Atendido:");
-
-        javax.swing.GroupLayout pInscricaoLayout = new javax.swing.GroupLayout(pInscricao);
-        pInscricao.setLayout(pInscricaoLayout);
-        pInscricaoLayout.setHorizontalGroup(
-            pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pInscricaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pInscricaoLayout.createSequentialGroup()
-                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pInscricaoLayout.createSequentialGroup()
-                                .addComponent(lbDisponibilidade)
-                                .addGap(306, 306, 306)
-                                .addComponent(lbEstagiario))
-                            .addComponent(tfDisponibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pInscricaoLayout.createSequentialGroup()
-                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbOrientador))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbResponsavel)
-                            .addComponent(cbResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbAtendido))
-                        .addGap(185, 185, 185))))
-            .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pInscricaoLayout.createSequentialGroup()
-                    .addGap(500, 500, 500)
-                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(151, Short.MAX_VALUE)))
-        );
-        pInscricaoLayout.setVerticalGroup(
-            pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pInscricaoLayout.createSequentialGroup()
-                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pInscricaoLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lbDisponibilidade))
-                    .addGroup(pInscricaoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbEstagiario)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfDisponibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbResponsavel)
-                        .addComponent(lbAtendido))
-                    .addComponent(lbOrientador, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cbAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60))
-            .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pInscricaoLayout.createSequentialGroup()
-                    .addGap(53, 53, 53)
-                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(187, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8))
         );
 
         pBotoes.setBackground(java.awt.SystemColor.controlHighlight);
@@ -446,18 +564,130 @@ public class FormPaciente extends SimpleForm {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pBotoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btEditar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSalvar)
-                .addGap(109, 109, 109))
+                .addContainerGap())
         );
         pBotoesLayout.setVerticalGroup(
             pBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pBotoesLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(pBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btEditar)
-                    .addComponent(btSalvar))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(btSalvar)
+                    .addComponent(btEditar))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        pInscricao.setBackground(java.awt.SystemColor.controlHighlight);
+        pInscricao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inscrição", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, cbEstagiario.getFont(), java.awt.SystemColor.controlDkShadow));
+
+        lbDisponibilidade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbDisponibilidade.setForeground(new java.awt.Color(0, 102, 102));
+        lbDisponibilidade.setText("Disponibilidade:");
+
+        cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbEstagiario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
+
+        lbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEstagiario.setForeground(new java.awt.Color(0, 102, 102));
+        lbEstagiario.setText("*Estagiário:");
+
+        lbResponsavel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbResponsavel.setForeground(new java.awt.Color(0, 102, 102));
+        lbResponsavel.setText("Responsável:");
+
+        cbOrientador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbOrientador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
+
+        lbOrientador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbOrientador.setForeground(new java.awt.Color(0, 102, 102));
+        lbOrientador.setText("*Orientador:");
+
+        cbAtendido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        lbAtendido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbAtendido.setForeground(new java.awt.Color(0, 102, 102));
+        lbAtendido.setText("Atendido:");
+
+        tfResponsavel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jScrollPane1.setViewportView(jTextPane1);
+
+        jScrollPane2.setViewportView(jTextPane2);
+
+        lbDisponibilidade1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbDisponibilidade1.setForeground(new java.awt.Color(0, 102, 102));
+        lbDisponibilidade1.setText("Queixa:");
+
+        javax.swing.GroupLayout pInscricaoLayout = new javax.swing.GroupLayout(pInscricao);
+        pInscricao.setLayout(pInscricaoLayout);
+        pInscricaoLayout.setHorizontalGroup(
+            pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pInscricaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pInscricaoLayout.createSequentialGroup()
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbOrientador))
+                        .addGap(18, 18, 18)
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pInscricaoLayout.createSequentialGroup()
+                                .addComponent(lbEstagiario)
+                                .addGap(183, 183, 183)
+                                .addComponent(lbResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pInscricaoLayout.createSequentialGroup()
+                                .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pInscricaoLayout.createSequentialGroup()
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbDisponibilidade)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbDisponibilidade1)
+                            .addComponent(jScrollPane2))))
+                .addGap(586, 586, 586)
+                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbAtendido))
+                .addGap(185, 185, 185))
+        );
+        pInscricaoLayout.setVerticalGroup(
+            pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pInscricaoLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbDisponibilidade)
+                    .addComponent(lbDisponibilidade1))
+                .addGap(18, 18, 18)
+                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(12, 12, 12)
+                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pInscricaoLayout.createSequentialGroup()
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbAtendido, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbOrientador, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pInscricaoLayout.createSequentialGroup()
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pInscricaoLayout.createSequentialGroup()
+                                .addComponent(lbEstagiario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(pInscricaoLayout.createSequentialGroup()
+                                .addComponent(lbResponsavel)
+                                .addGap(6, 6, 6)))
+                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)))
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
@@ -465,59 +695,95 @@ public class FormPaciente extends SimpleForm {
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 1008, Short.MAX_VALUE)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 1002, Short.MAX_VALUE)
-                            .addComponent(pInscricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 1002, Short.MAX_VALUE))))
+                    .addComponent(pEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 1790, Short.MAX_VALUE)
+                    .addComponent(pIdentificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                        .addComponent(pBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(898, 898, 898))
+                    .addComponent(pInscricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
-                .addComponent(pIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pInscricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tfNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNumeroKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfNumeroKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JCheckBox cbAtendido;
+    private javax.swing.JComboBox<String> cbCor;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JComboBox<String> cbEstagiario;
+    private javax.swing.JComboBox<String> cbEtnia;
     private javax.swing.JComboBox<String> cbGenero;
+    private javax.swing.JComboBox<String> cbInstrucao;
+    private javax.swing.JComboBox<String> cbNacionalidade;
+    private javax.swing.JComboBox<String> cbOrientacao;
     private javax.swing.JComboBox<String> cbOrientador;
-    private javax.swing.JComboBox<String> cbResponsavel;
+    private javax.swing.JComboBox<String> cbRaca;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JFormattedTextField ftfCelular;
     private javax.swing.JFormattedTextField ftfCelularContato;
+    private javax.swing.JFormattedTextField ftfCelularContato1;
+    private javax.swing.JFormattedTextField ftfCep;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
     private javax.swing.JLabel lbAtendido;
     private javax.swing.JLabel lbBairro;
     private javax.swing.JLabel lbCelular;
+    private javax.swing.JLabel lbCep;
     private javax.swing.JLabel lbCidade;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbComplemento;
     private javax.swing.JLabel lbContato2;
+    private javax.swing.JLabel lbContato3;
+    private javax.swing.JLabel lbCor;
     private javax.swing.JLabel lbDataNascimento;
     private javax.swing.JLabel lbDisponibilidade;
+    private javax.swing.JLabel lbDisponibilidade1;
+    private javax.swing.JLabel lbEstado;
+    private javax.swing.JLabel lbEstadoCivil;
     private javax.swing.JLabel lbEstagiario;
+    private javax.swing.JLabel lbEtnia;
     private javax.swing.JLabel lbGenero;
+    private javax.swing.JLabel lbInstrucao;
     private javax.swing.JLabel lbNaturalidade;
+    private javax.swing.JLabel lbNaturalidade1;
     private javax.swing.JLabel lbNumero;
+    private javax.swing.JLabel lbOrientacao;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JLabel lbPaciente;
+    private javax.swing.JLabel lbProfissao;
     private javax.swing.JLabel lbProntuario;
+    private javax.swing.JLabel lbRaca;
     private javax.swing.JLabel lbResponsavel;
     private javax.swing.JLabel lbRua;
     private javax.swing.JPanel pBotoes;
@@ -527,27 +793,13 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JPanel pInscricao;
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextField tfBairro;
-    private javax.swing.JTextField tfCidade;
+    private javax.swing.JTextField tfComplemento;
     private javax.swing.JTextField tfData;
-    private javax.swing.JTextField tfDisponibilidade;
-    private javax.swing.JTextField tfNaturalidade;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPaciente;
+    private javax.swing.JTextField tfProfissao;
+    private javax.swing.JTextField tfResponsavel;
     private javax.swing.JTextField tfRua;
     // End of variables declaration//GEN-END:variables
-    private void redimensionarIcones(){
-        
-        //botao Salvar
-        ImageIcon iconeOriginalSalvar = new ImageIcon(getClass().getResource("/imagens/salvar-btn.png"));
-        Image iconeEmEscalaSalvar = iconeOriginalSalvar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btSalvar.setIcon(new ImageIcon(iconeEmEscalaSalvar));
-        btSalvar.setIconTextGap(10);
-        
-        //botao Editar
-        ImageIcon iconeOriginalEditar = new ImageIcon(getClass().getResource("/imagens/editar-btn.png"));
-        Image iconeEmEscalaEditar = iconeOriginalEditar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btEditar.setIcon(new ImageIcon(iconeEmEscalaEditar));
-        btEditar.setIconTextGap(10);
-    }
 
 }

@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
 import Visao.Utils.redimencionarIcones;
 
@@ -63,27 +61,27 @@ public class FormUsuario extends SimpleForm {
 
         lbNome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbNome.setForeground(new java.awt.Color(0, 102, 102));
-        lbNome.setText("Nome:");
+        lbNome.setText("*Nome:");
 
         tfEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         lbEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbEmail.setForeground(new java.awt.Color(0, 102, 102));
-        lbEmail.setText("Email:");
+        lbEmail.setText("*Email:");
 
         cbFuncao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Orientador", "Estagiário", "Secretária" }));
+        cbFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Orientador", "Estagiário", "Secretária", "Pesquisador" }));
 
         lbFuncao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbFuncao.setForeground(new java.awt.Color(0, 102, 102));
-        lbFuncao.setText("Função:");
+        lbFuncao.setText("*Função:");
 
         pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         pfSenha.setText("jPasswordField1");
 
         lbSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbSenha.setForeground(new java.awt.Color(0, 102, 102));
-        lbSenha.setText("Senha:");
+        lbSenha.setText("*Senha:");
 
         btSalvar.setBackground(new java.awt.Color(102, 255, 102));
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -95,7 +93,7 @@ public class FormUsuario extends SimpleForm {
 
         lbConfirmarSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbConfirmarSenha.setForeground(new java.awt.Color(0, 102, 102));
-        lbConfirmarSenha.setText("Confirmar senha:");
+        lbConfirmarSenha.setText("*Confirmar senha:");
 
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
@@ -218,13 +216,5 @@ public class FormUsuario extends SimpleForm {
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
-    private void redimensionarIcones(){
-        
-        //botao Salvar
-        ImageIcon iconeOriginalSalvar = new ImageIcon(getClass().getResource("/imagens/salvar-btn.png"));
-        Image iconeEmEscalaSalvar = iconeOriginalSalvar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btSalvar.setIcon(new ImageIcon(iconeEmEscalaSalvar));
-        btSalvar.setIconTextGap(10);
-    }
 
 }

@@ -201,7 +201,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Data:"/>
+            <Property name="text" type="java.lang.String" value="*Data:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbHora">
@@ -212,7 +212,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Hora:"/>
+            <Property name="text" type="java.lang.String" value="*Hora:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbPaciente">
@@ -223,7 +223,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Paciente:"/>
+            <Property name="text" type="java.lang.String" value="*Paciente:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfPaciente">
@@ -231,7 +231,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Maria Aparecida da Silva"/>
+            <Property name="toolTipText" type="java.lang.String" value="ex. Maria Aparecida da Silva"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbCelular">
@@ -242,7 +242,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Celular:"/>
+            <Property name="text" type="java.lang.String" value="*Celular:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbContato2">
@@ -272,7 +272,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="email@email.com"/>
+            <Property name="toolTipText" type="java.lang.String" value="email@email.com"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbObservacoes">
@@ -320,7 +320,7 @@
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
+              <StringArray count="8">
                 <StringItem index="0" value="8:00"/>
                 <StringItem index="1" value="9:00"/>
                 <StringItem index="2" value="10:00"/>
@@ -328,6 +328,7 @@
                 <StringItem index="4" value="15:00"/>
                 <StringItem index="5" value="16:00"/>
                 <StringItem index="6" value="17:00"/>
+                <StringItem index="7" value="18:00"/>
               </StringArray>
             </Property>
           </Properties>
@@ -343,7 +344,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Sala:"/>
+            <Property name="text" type="java.lang.String" value="*Sala:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbSala">
@@ -374,7 +375,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Estagi&#xe1;rio:"/>
+            <Property name="text" type="java.lang.String" value="*Estagi&#xe1;rio:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="ftfCelular">

@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
 import Visao.Utils.redimencionarIcones;
 
@@ -78,22 +76,22 @@ public class FormAgenda extends SimpleForm {
 
         lbData.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbData.setForeground(new java.awt.Color(0, 102, 102));
-        lbData.setText("Data:");
+        lbData.setText("*Data:");
 
         lbHora.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbHora.setForeground(new java.awt.Color(0, 102, 102));
-        lbHora.setText("Hora:");
+        lbHora.setText("*Hora:");
 
         lbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbPaciente.setForeground(new java.awt.Color(0, 102, 102));
-        lbPaciente.setText("Paciente:");
+        lbPaciente.setText("*Paciente:");
 
         tfPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfPaciente.setText("Maria Aparecida da Silva");
+        tfPaciente.setToolTipText("ex. Maria Aparecida da Silva");
 
         lbCelular.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbCelular.setForeground(new java.awt.Color(0, 102, 102));
-        lbCelular.setText("Celular:");
+        lbCelular.setText("*Celular:");
 
         lbContato2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbContato2.setForeground(new java.awt.Color(0, 102, 102));
@@ -104,7 +102,7 @@ public class FormAgenda extends SimpleForm {
         lbEmail.setText("Email:");
 
         tfEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfEmail.setText("email@email.com");
+        tfEmail.setToolTipText("email@email.com");
 
         lbObservacoes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbObservacoes.setForeground(new java.awt.Color(0, 102, 102));
@@ -121,18 +119,18 @@ public class FormAgenda extends SimpleForm {
         btCancelar.setText("Cancelar");
 
         cbHora.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8:00", "9:00", "10:00", "14:00", "15:00", "16:00", "17:00" }));
+        cbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8:00", "9:00", "10:00", "14:00", "15:00", "16:00", "17:00", "18:00" }));
 
         lbSala.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbSala.setForeground(new java.awt.Color(0, 102, 102));
-        lbSala.setText("Sala:");
+        lbSala.setText("*Sala:");
 
         cbSala.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         cbSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06" }));
 
         lbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbEstagiario.setForeground(new java.awt.Color(0, 102, 102));
-        lbEstagiario.setText("Estagiário:");
+        lbEstagiario.setText("*Estagiário:");
 
         try {
             ftfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
@@ -338,18 +336,5 @@ public class FormAgenda extends SimpleForm {
     private javax.swing.JTextField tfPaciente;
     private javax.swing.JTextPane tpObservacoes;
     // End of variables declaration//GEN-END:variables
-     private void redimensionarIcones(){
-        
-        //botao Salvar
-        ImageIcon iconeOriginalSalvar = new ImageIcon(getClass().getResource("/imagens/salvar-btn.png"));
-        Image iconeEmEscalaSalvar = iconeOriginalSalvar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btSalvar.setIcon(new ImageIcon(iconeEmEscalaSalvar));
-        btSalvar.setIconTextGap(10);
-        
-        //botao Cancelar
-        ImageIcon iconeOriginalCancelar = new ImageIcon(getClass().getResource("/imagens/excluir.png"));
-        Image iconeEmEscalaCancelar = iconeOriginalCancelar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btCancelar.setIcon(new ImageIcon(iconeEmEscalaCancelar));
-        btCancelar.setIconTextGap(10);
-    }
+
 }

@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
+import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.redimencionarIcones;
 
@@ -20,14 +19,13 @@ public class MenuEstagiario extends SimpleForm {
      */
     public MenuEstagiario() {
         initComponents();
-        //redimensionarIcones();
         
         redimencionarIcones redimencionarIcone = new redimencionarIcones();
         redimencionarIcone.redimensionarIcones(btGerenciarPacientes, "/Multimidia/imagens/cadastrar.png");
         redimencionarIcone.redimensionarIcones(btAcessarProntuario, "/Multimidia/imagens/prontuario.png");
         redimencionarIcone.redimensionarIcones(btAgendarConsulta, "/Multimidia/imagens/agendarConsulta.png");
-        redimencionarIcone.redimensionarIcones(btProduzirRelato, "/Multimidia/imagens/editar-btn.png");
-        redimencionarIcone.redimensionarIcones(btAcessarListaEspera, "/Multimidia/imagens/listaEspera.png");
+        redimencionarIcone.redimensionarIcones(btListaEsperaEspecifica, "/Multimidia/imagens/editar-btn.png");
+        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaGeral, "/Multimidia/imagens/listaEspera.png");
         redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png");
     }
 
@@ -45,8 +43,8 @@ public class MenuEstagiario extends SimpleForm {
         btGerenciarPacientes = new javax.swing.JButton();
         btAgendarConsulta = new javax.swing.JButton();
         btAcessarProntuario = new javax.swing.JButton();
-        btProduzirRelato = new javax.swing.JButton();
-        btAcessarListaEspera = new javax.swing.JButton();
+        btListaEsperaEspecifica = new javax.swing.JButton();
+        btAcessarListaEsperaGeral = new javax.swing.JButton();
         btDesconectar = new javax.swing.JButton();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
@@ -67,6 +65,11 @@ public class MenuEstagiario extends SimpleForm {
         btGerenciarPacientes.setMaximumSize(new java.awt.Dimension(300, 40));
         btGerenciarPacientes.setMinimumSize(new java.awt.Dimension(300, 40));
         btGerenciarPacientes.setPreferredSize(new java.awt.Dimension(300, 40));
+        btGerenciarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciarPacientesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -83,6 +86,11 @@ public class MenuEstagiario extends SimpleForm {
         btAgendarConsulta.setMaximumSize(new java.awt.Dimension(300, 40));
         btAgendarConsulta.setMinimumSize(new java.awt.Dimension(300, 40));
         btAgendarConsulta.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAgendarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgendarConsultaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -99,6 +107,11 @@ public class MenuEstagiario extends SimpleForm {
         btAcessarProntuario.setMaximumSize(new java.awt.Dimension(300, 40));
         btAcessarProntuario.setMinimumSize(new java.awt.Dimension(300, 40));
         btAcessarProntuario.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarProntuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAcessarProntuarioActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -108,13 +121,18 @@ public class MenuEstagiario extends SimpleForm {
         gridBagConstraints.insets = new java.awt.Insets(10, 6, 10, 6);
         pCentro.add(btAcessarProntuario, gridBagConstraints);
 
-        btProduzirRelato.setBackground(new java.awt.Color(115, 87, 81));
-        btProduzirRelato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btProduzirRelato.setForeground(new java.awt.Color(255, 255, 255));
-        btProduzirRelato.setText("Produzir Relato");
-        btProduzirRelato.setMaximumSize(new java.awt.Dimension(300, 40));
-        btProduzirRelato.setMinimumSize(new java.awt.Dimension(300, 40));
-        btProduzirRelato.setPreferredSize(new java.awt.Dimension(300, 40));
+        btListaEsperaEspecifica.setBackground(new java.awt.Color(115, 87, 81));
+        btListaEsperaEspecifica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btListaEsperaEspecifica.setForeground(new java.awt.Color(255, 255, 255));
+        btListaEsperaEspecifica.setText("Lista de Espera Específica");
+        btListaEsperaEspecifica.setMaximumSize(new java.awt.Dimension(300, 40));
+        btListaEsperaEspecifica.setMinimumSize(new java.awt.Dimension(300, 40));
+        btListaEsperaEspecifica.setPreferredSize(new java.awt.Dimension(300, 40));
+        btListaEsperaEspecifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btListaEsperaEspecificaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -122,15 +140,20 @@ public class MenuEstagiario extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(10, 6, 10, 6);
-        pCentro.add(btProduzirRelato, gridBagConstraints);
+        pCentro.add(btListaEsperaEspecifica, gridBagConstraints);
 
-        btAcessarListaEspera.setBackground(new java.awt.Color(51, 44, 35));
-        btAcessarListaEspera.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btAcessarListaEspera.setForeground(new java.awt.Color(255, 255, 255));
-        btAcessarListaEspera.setText("Lista de Espera");
-        btAcessarListaEspera.setMaximumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEspera.setMinimumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEspera.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaGeral.setBackground(new java.awt.Color(51, 44, 35));
+        btAcessarListaEsperaGeral.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btAcessarListaEsperaGeral.setForeground(new java.awt.Color(255, 255, 255));
+        btAcessarListaEsperaGeral.setText("Lista de Espera Geral");
+        btAcessarListaEsperaGeral.setMaximumSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaGeral.setMinimumSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaGeral.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAcessarListaEsperaGeralActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -138,7 +161,7 @@ public class MenuEstagiario extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 6, 10, 6);
-        pCentro.add(btAcessarListaEspera, gridBagConstraints);
+        pCentro.add(btAcessarListaEsperaGeral, gridBagConstraints);
 
         btDesconectar.setBackground(new java.awt.Color(255, 51, 51));
         btDesconectar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -203,57 +226,48 @@ public class MenuEstagiario extends SimpleForm {
         logout.MessageAlertDesconectarOpcoes();
     }//GEN-LAST:event_btDesconectarActionPerformed
 
+    private void btGerenciarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarPacientesActionPerformed
+        TableListaPacientes form = new TableListaPacientes();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btGerenciarPacientesActionPerformed
+
+    private void btAcessarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarProntuarioActionPerformed
+        FormProntuario form = new FormProntuario();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btAcessarProntuarioActionPerformed
+
+    private void btAgendarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgendarConsultaActionPerformed
+        FormAgenda form = new FormAgenda();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btAgendarConsultaActionPerformed
+
+    private void btListaEsperaEspecificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaEsperaEspecificaActionPerformed
+        TableListaEsperaEspecifica form = new TableListaEsperaEspecifica();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btListaEsperaEspecificaActionPerformed
+
+    private void btAcessarListaEsperaGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaGeralActionPerformed
+        TableListaEsperaGeral form = new TableListaEsperaGeral();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btAcessarListaEsperaGeralActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAcessarListaEspera;
+    private javax.swing.JButton btAcessarListaEsperaGeral;
     private javax.swing.JButton btAcessarProntuario;
     private javax.swing.JButton btAgendarConsulta;
     private javax.swing.JButton btDesconectar;
     private javax.swing.JButton btGerenciarPacientes;
-    private javax.swing.JButton btProduzirRelato;
+    private javax.swing.JButton btListaEsperaEspecifica;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables
-    
-    private void redimensionarIcones(){
-        
-        //Gerenciar Pacientes
-        ImageIcon iconeOriginalGerenciarPacientes = new ImageIcon(getClass().getResource("/imagens/cadastrar.png"));
-        Image iconeEmEscalaGerenciarPacientes = iconeOriginalGerenciarPacientes.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btGerenciarPacientes.setIcon(new ImageIcon(iconeEmEscalaGerenciarPacientes));
-        btGerenciarPacientes.setIconTextGap(10);
-        
-        //Acessar Prontuario
-        ImageIcon iconeOriginalAcessarProntuario = new ImageIcon(getClass().getResource("/imagens/prontuario.png"));
-        Image iconeEmEscalaAcessarProntuario = iconeOriginalAcessarProntuario.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btAcessarProntuario.setIcon(new ImageIcon(iconeEmEscalaAcessarProntuario));
-        btAcessarProntuario.setIconTextGap(10);
-        
-        //Agendar Consulta
-        ImageIcon iconeOriginalAgendarConsulta = new ImageIcon(getClass().getResource("/imagens/agendarConsulta.png"));
-        Image iconeEmEscalaAgendarConsulta = iconeOriginalAgendarConsulta.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btAgendarConsulta.setIcon(new ImageIcon(iconeEmEscalaAgendarConsulta));
-        btAgendarConsulta.setIconTextGap(10);
-        
-        //Produzir Relato
-        ImageIcon iconeOriginalProduzirRelato = new ImageIcon(getClass().getResource("/imagens/editar-btn.png"));
-        Image iconeEmEscalaProduzirRelato = iconeOriginalProduzirRelato.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btProduzirRelato.setIcon(new ImageIcon(iconeEmEscalaProduzirRelato));
-        btProduzirRelato.setIconTextGap(10);
-
-        //Acessar Lista de Espera
-        ImageIcon iconeOriginalAcessarListaEspera = new ImageIcon(getClass().getResource("/imagens/listaEspera.png"));
-        Image iconeEmEscalaAcessarListaEspera = iconeOriginalAcessarListaEspera.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btAcessarListaEspera.setIcon(new ImageIcon(iconeEmEscalaAcessarListaEspera));
-        btAcessarListaEspera.setIconTextGap(10);
-        
-        //Desconectar
-        ImageIcon iconeOriginalDesconectar = new ImageIcon(getClass().getResource("/imagens/desconectar.png"));
-        Image iconeEmEscalaDesconectar = iconeOriginalDesconectar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btDesconectar.setIcon(new ImageIcon(iconeEmEscalaDesconectar));
-        btDesconectar.setIconTextGap(10);
-    }
-
+   
 }

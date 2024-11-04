@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
+import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.redimencionarIcones;
 
@@ -20,16 +19,14 @@ public class MenuAdministrador extends SimpleForm {
      */
     public MenuAdministrador() {
         initComponents();
-        //redimensionarIcones();
 
         redimencionarIcones redimencionarIcone = new redimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btUsuario, "/Multimidia/imagens/usuario.png");
         redimencionarIcone.redimensionarIcones(btAcessarListaEspera, "/Multimidia/imagens/listaEspera.png");
-        redimencionarIcone.redimensionarIcones(btCadastrarSecretaria, "/Multimidia/imagens/secretaria.png");
-        redimencionarIcone.redimensionarIcones(btCadastrarUsuarios, "/Multimidia/imagens/cadastrar.png");
+        redimencionarIcone.redimensionarIcones(btRelatorioClinica, "/Multimidia/imagens/secretaria.png");
+        redimencionarIcone.redimensionarIcones(btGerenciarListas, "/Multimidia/imagens/cadastrar.png");
         redimencionarIcone.redimensionarIcones(btGerenciarAgenda, "/Multimidia/imagens/agenda.png");
         redimencionarIcone.redimensionarIcones(btGerenciarUsuarios, "/Multimidia/imagens/cadastrar.png");
-        redimencionarIcone.redimensionarIcones(btGerenciarPermissoes, "/Multimidia/imagens/editar-btn.png");
+        redimencionarIcone.redimensionarIcones(btProntuarioPesquisa, "/Multimidia/imagens/editar-btn.png");
         redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png");
         
     }
@@ -48,18 +45,17 @@ public class MenuAdministrador extends SimpleForm {
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
-        btCadastrarSecretaria = new javax.swing.JButton();
-        btCadastrarUsuarios = new javax.swing.JButton();
-        btGerenciarPermissoes = new javax.swing.JButton();
+        btRelatorioClinica = new javax.swing.JButton();
+        btGerenciarListas = new javax.swing.JButton();
+        btProntuarioPesquisa = new javax.swing.JButton();
         btGerenciarAgenda = new javax.swing.JButton();
         btAcessarListaEspera = new javax.swing.JButton();
-        btUsuario = new javax.swing.JButton();
         btGerenciarUsuarios = new javax.swing.JButton();
         btDesconectar = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(950, 630));
-        setMinimumSize(new java.awt.Dimension(950, 630));
-        setPreferredSize(new java.awt.Dimension(950, 630));
+        setMaximumSize(new java.awt.Dimension(975, 630));
+        setMinimumSize(new java.awt.Dimension(975, 630));
+        setPreferredSize(new java.awt.Dimension(975, 630));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
@@ -82,7 +78,7 @@ public class MenuAdministrador extends SimpleForm {
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addContainerGap(738, Short.MAX_VALUE))
+                .addContainerGap(683, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,13 +96,18 @@ public class MenuAdministrador extends SimpleForm {
         pCentro.setPreferredSize(new java.awt.Dimension(1024, 768));
         pCentro.setLayout(new java.awt.GridBagLayout());
 
-        btCadastrarSecretaria.setBackground(new java.awt.Color(64, 61, 88));
-        btCadastrarSecretaria.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btCadastrarSecretaria.setForeground(new java.awt.Color(255, 255, 255));
-        btCadastrarSecretaria.setText("Cadastrar Secretária");
-        btCadastrarSecretaria.setMaximumSize(new java.awt.Dimension(150, 40));
-        btCadastrarSecretaria.setMinimumSize(new java.awt.Dimension(150, 40));
-        btCadastrarSecretaria.setPreferredSize(new java.awt.Dimension(150, 40));
+        btRelatorioClinica.setBackground(new java.awt.Color(64, 61, 88));
+        btRelatorioClinica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btRelatorioClinica.setForeground(new java.awt.Color(255, 255, 255));
+        btRelatorioClinica.setText("Relatórios da Clínica");
+        btRelatorioClinica.setMaximumSize(new java.awt.Dimension(200, 40));
+        btRelatorioClinica.setMinimumSize(new java.awt.Dimension(200, 40));
+        btRelatorioClinica.setPreferredSize(new java.awt.Dimension(200, 40));
+        btRelatorioClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRelatorioClinicaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -114,15 +115,20 @@ public class MenuAdministrador extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 20, 6);
-        pCentro.add(btCadastrarSecretaria, gridBagConstraints);
+        pCentro.add(btRelatorioClinica, gridBagConstraints);
 
-        btCadastrarUsuarios.setBackground(new java.awt.Color(91, 46, 72));
-        btCadastrarUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btCadastrarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        btCadastrarUsuarios.setText("Cadastrar Usuários");
-        btCadastrarUsuarios.setMaximumSize(new java.awt.Dimension(150, 40));
-        btCadastrarUsuarios.setMinimumSize(new java.awt.Dimension(150, 40));
-        btCadastrarUsuarios.setPreferredSize(new java.awt.Dimension(150, 40));
+        btGerenciarListas.setBackground(new java.awt.Color(91, 46, 72));
+        btGerenciarListas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btGerenciarListas.setForeground(new java.awt.Color(255, 255, 255));
+        btGerenciarListas.setText("Gerenciar Listas");
+        btGerenciarListas.setMaximumSize(new java.awt.Dimension(200, 40));
+        btGerenciarListas.setMinimumSize(new java.awt.Dimension(200, 40));
+        btGerenciarListas.setPreferredSize(new java.awt.Dimension(200, 40));
+        btGerenciarListas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciarListasActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -130,15 +136,20 @@ public class MenuAdministrador extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 20, 6);
-        pCentro.add(btCadastrarUsuarios, gridBagConstraints);
+        pCentro.add(btGerenciarListas, gridBagConstraints);
 
-        btGerenciarPermissoes.setBackground(new java.awt.Color(30, 27, 24));
-        btGerenciarPermissoes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btGerenciarPermissoes.setForeground(new java.awt.Color(255, 255, 255));
-        btGerenciarPermissoes.setText("Permissões");
-        btGerenciarPermissoes.setMaximumSize(new java.awt.Dimension(150, 40));
-        btGerenciarPermissoes.setMinimumSize(new java.awt.Dimension(150, 40));
-        btGerenciarPermissoes.setPreferredSize(new java.awt.Dimension(150, 40));
+        btProntuarioPesquisa.setBackground(new java.awt.Color(30, 27, 24));
+        btProntuarioPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btProntuarioPesquisa.setForeground(new java.awt.Color(255, 255, 255));
+        btProntuarioPesquisa.setText("Prontuários p/ Pesquisa");
+        btProntuarioPesquisa.setMaximumSize(new java.awt.Dimension(200, 40));
+        btProntuarioPesquisa.setMinimumSize(new java.awt.Dimension(200, 40));
+        btProntuarioPesquisa.setPreferredSize(new java.awt.Dimension(200, 40));
+        btProntuarioPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProntuarioPesquisaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -146,15 +157,20 @@ public class MenuAdministrador extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 20, 6);
-        pCentro.add(btGerenciarPermissoes, gridBagConstraints);
+        pCentro.add(btProntuarioPesquisa, gridBagConstraints);
 
         btGerenciarAgenda.setBackground(new java.awt.Color(34, 56, 67));
         btGerenciarAgenda.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btGerenciarAgenda.setForeground(new java.awt.Color(255, 255, 255));
-        btGerenciarAgenda.setText("Gerenciar Agenda");
-        btGerenciarAgenda.setMaximumSize(new java.awt.Dimension(150, 40));
-        btGerenciarAgenda.setMinimumSize(new java.awt.Dimension(150, 40));
-        btGerenciarAgenda.setPreferredSize(new java.awt.Dimension(150, 40));
+        btGerenciarAgenda.setText("Gerenciar Agendas");
+        btGerenciarAgenda.setMaximumSize(new java.awt.Dimension(200, 40));
+        btGerenciarAgenda.setMinimumSize(new java.awt.Dimension(200, 40));
+        btGerenciarAgenda.setPreferredSize(new java.awt.Dimension(200, 40));
+        btGerenciarAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciarAgendaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -167,9 +183,14 @@ public class MenuAdministrador extends SimpleForm {
         btAcessarListaEspera.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btAcessarListaEspera.setForeground(new java.awt.Color(255, 255, 255));
         btAcessarListaEspera.setText("Lista de Espera");
-        btAcessarListaEspera.setMaximumSize(new java.awt.Dimension(150, 40));
-        btAcessarListaEspera.setMinimumSize(new java.awt.Dimension(150, 40));
-        btAcessarListaEspera.setPreferredSize(new java.awt.Dimension(150, 40));
+        btAcessarListaEspera.setMaximumSize(new java.awt.Dimension(200, 40));
+        btAcessarListaEspera.setMinimumSize(new java.awt.Dimension(200, 40));
+        btAcessarListaEspera.setPreferredSize(new java.awt.Dimension(200, 40));
+        btAcessarListaEspera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAcessarListaEsperaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -179,13 +200,18 @@ public class MenuAdministrador extends SimpleForm {
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 20, 6);
         pCentro.add(btAcessarListaEspera, gridBagConstraints);
 
-        btUsuario.setBackground(new java.awt.Color(9, 77, 146));
-        btUsuario.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        btUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        btUsuario.setText("Usuário");
-        btUsuario.setMaximumSize(new java.awt.Dimension(150, 40));
-        btUsuario.setMinimumSize(new java.awt.Dimension(150, 40));
-        btUsuario.setPreferredSize(new java.awt.Dimension(150, 40));
+        btGerenciarUsuarios.setBackground(new java.awt.Color(88, 100, 29));
+        btGerenciarUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btGerenciarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btGerenciarUsuarios.setText("Gerenciar Usuários");
+        btGerenciarUsuarios.setMaximumSize(new java.awt.Dimension(200, 40));
+        btGerenciarUsuarios.setMinimumSize(new java.awt.Dimension(200, 40));
+        btGerenciarUsuarios.setPreferredSize(new java.awt.Dimension(200, 40));
+        btGerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciarUsuariosActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -193,45 +219,28 @@ public class MenuAdministrador extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 20, 6);
-        pCentro.add(btUsuario, gridBagConstraints);
-
-        btGerenciarUsuarios.setBackground(new java.awt.Color(88, 100, 29));
-        btGerenciarUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btGerenciarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        btGerenciarUsuarios.setText("Gerenciar Usuários");
-        btGerenciarUsuarios.setMaximumSize(new java.awt.Dimension(150, 40));
-        btGerenciarUsuarios.setMinimumSize(new java.awt.Dimension(150, 40));
-        btGerenciarUsuarios.setPreferredSize(new java.awt.Dimension(150, 40));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 150;
-        gridBagConstraints.ipady = 60;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 170, 20, 6);
         pCentro.add(btGerenciarUsuarios, gridBagConstraints);
 
         btDesconectar.setBackground(new java.awt.Color(255, 51, 51));
         btDesconectar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btDesconectar.setForeground(new java.awt.Color(255, 255, 255));
         btDesconectar.setText("Desconectar");
-        btDesconectar.setMaximumSize(new java.awt.Dimension(150, 40));
-        btDesconectar.setMinimumSize(new java.awt.Dimension(150, 40));
-        btDesconectar.setPreferredSize(new java.awt.Dimension(150, 40));
+        btDesconectar.setMaximumSize(new java.awt.Dimension(200, 40));
+        btDesconectar.setMinimumSize(new java.awt.Dimension(200, 40));
+        btDesconectar.setPreferredSize(new java.awt.Dimension(200, 40));
         btDesconectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDesconectarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 150;
         gridBagConstraints.ipady = 60;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 6, 20, 150);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.insets = new java.awt.Insets(20, 6, 20, 6);
         pCentro.add(btDesconectar, gridBagConstraints);
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -242,71 +251,43 @@ public class MenuAdministrador extends SimpleForm {
         logout.MessageAlertDesconectarOpcoes();
     }//GEN-LAST:event_btDesconectarActionPerformed
 
+    private void btRelatorioClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioClinicaActionPerformed
+        
+    }//GEN-LAST:event_btRelatorioClinicaActionPerformed
+
+    private void btProntuarioPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProntuarioPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btProntuarioPesquisaActionPerformed
+
+    private void btGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGerenciarUsuariosActionPerformed
+
+    private void btGerenciarListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarListasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGerenciarListasActionPerformed
+
+    private void btGerenciarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarAgendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGerenciarAgendaActionPerformed
+
+    private void btAcessarListaEsperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAcessarListaEsperaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAcessarListaEspera;
-    private javax.swing.JButton btCadastrarSecretaria;
-    private javax.swing.JButton btCadastrarUsuarios;
     private javax.swing.JButton btDesconectar;
     private javax.swing.JButton btGerenciarAgenda;
-    private javax.swing.JButton btGerenciarPermissoes;
+    private javax.swing.JButton btGerenciarListas;
     private javax.swing.JButton btGerenciarUsuarios;
-    private javax.swing.JButton btUsuario;
+    private javax.swing.JButton btProntuarioPesquisa;
+    private javax.swing.JButton btRelatorioClinica;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables
-    
-    private void redimensionarIcones(){
-        
-        //botao Usuario
-        ImageIcon iconeOriginalUsuario = new ImageIcon(getClass().getResource("/imagens/usuario.png"));
-        Image iconeEmEscalaUsuario = iconeOriginalUsuario.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btUsuario.setIcon(new ImageIcon(iconeEmEscalaUsuario));
-        btUsuario.setIconTextGap(10);
-        
-        //botao lista de espera
-        ImageIcon iconeOriginalListaDeEspera = new ImageIcon(getClass().getResource("/imagens/listaEspera.png"));
-        Image iconeEmEscalaListaDeEspera = iconeOriginalListaDeEspera.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btAcessarListaEspera.setIcon(new ImageIcon(iconeEmEscalaListaDeEspera));
-        btAcessarListaEspera.setIconTextGap(10);
-        
-        //CadastrarSecretaria
-        ImageIcon iconeOriginalSecretaria = new ImageIcon(getClass().getResource("/imagens/secretaria.png"));
-        Image iconeEmEscalaSecretaria = iconeOriginalSecretaria.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btCadastrarSecretaria.setIcon(new ImageIcon(iconeEmEscalaSecretaria));
-        btCadastrarSecretaria.setIconTextGap(10);
-        
-        //Cadastrar Usuarios
-        ImageIcon iconeOriginalCadastrarUsuarios = new ImageIcon(getClass().getResource("/imagens/cadastrar.png"));
-        Image iconeEmEscalaCadastrarUsuarios = iconeOriginalCadastrarUsuarios.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btCadastrarUsuarios.setIcon(new ImageIcon(iconeEmEscalaCadastrarUsuarios));
-        btCadastrarUsuarios.setIconTextGap(10);
-        
-        //Gerenciar Agenda
-        ImageIcon iconeOriginalGerenciarAgenda = new ImageIcon(getClass().getResource("/imagens/agenda.png"));
-        Image iconeEmEscalaGerenciarAgenda = iconeOriginalGerenciarAgenda.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btGerenciarAgenda.setIcon(new ImageIcon(iconeEmEscalaGerenciarAgenda));
-        btGerenciarAgenda.setIconTextGap(10);
-
-        //Gerenciar Usuarios
-        ImageIcon iconeOriginalGerenciarUsuarios = new ImageIcon(getClass().getResource("/imagens/cadastrar.png"));
-        Image iconeEmEscalaGerenciarUsuarios = iconeOriginalGerenciarUsuarios.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btGerenciarUsuarios.setIcon(new ImageIcon(iconeEmEscalaGerenciarUsuarios));
-        btGerenciarUsuarios.setIconTextGap(10);
-
-        //Gerenciar Permissoes
-        ImageIcon iconeOriginalGerenciarPermissoes = new ImageIcon(getClass().getResource("/imagens/editar-btn.png"));
-        Image iconeEmEscalaGerenciarPermissoes = iconeOriginalGerenciarPermissoes.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btGerenciarPermissoes.setIcon(new ImageIcon(iconeEmEscalaGerenciarPermissoes));
-        btGerenciarPermissoes.setIconTextGap(10);
-
-        //Desconectar
-        ImageIcon iconeOriginalDesconectar = new ImageIcon(getClass().getResource("/imagens/desconectar.png"));
-        Image iconeEmEscalaDesconectar = iconeOriginalDesconectar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btDesconectar.setIcon(new ImageIcon(iconeEmEscalaDesconectar));
-        btDesconectar.setIconTextGap(10);
-    }
-
+ 
 }

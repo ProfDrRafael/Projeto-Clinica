@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
+import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.redimencionarIcones;
 
@@ -20,7 +19,6 @@ public class MenuSecretaria extends SimpleForm {
      */
     public MenuSecretaria() {
         initComponents();
-        //redimensionarIcones();
         
         redimencionarIcones redimencionarIcone = new redimencionarIcones();
         redimencionarIcone.redimensionarIcones(btCadastrarPaciente, "/Multimidia/imagens/cadastrar.png");
@@ -63,14 +61,19 @@ public class MenuSecretaria extends SimpleForm {
         btCadastrarPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btCadastrarPaciente.setForeground(new java.awt.Color(255, 255, 255));
         btCadastrarPaciente.setText("Cadastrar Paciente");
-        btCadastrarPaciente.setMaximumSize(new java.awt.Dimension(284, 39));
-        btCadastrarPaciente.setMinimumSize(new java.awt.Dimension(284, 39));
-        btCadastrarPaciente.setPreferredSize(new java.awt.Dimension(284, 39));
+        btCadastrarPaciente.setMaximumSize(new java.awt.Dimension(300, 40));
+        btCadastrarPaciente.setMinimumSize(new java.awt.Dimension(300, 40));
+        btCadastrarPaciente.setPreferredSize(new java.awt.Dimension(300, 40));
+        btCadastrarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarPacienteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 152;
-        gridBagConstraints.ipady = 67;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 26, 6);
         pCentro.add(btCadastrarPaciente, gridBagConstraints);
@@ -79,14 +82,19 @@ public class MenuSecretaria extends SimpleForm {
         btCadastrarEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btCadastrarEstagiario.setForeground(new java.awt.Color(255, 255, 255));
         btCadastrarEstagiario.setText("Cadastrar Estagiário");
-        btCadastrarEstagiario.setMaximumSize(new java.awt.Dimension(284, 39));
-        btCadastrarEstagiario.setMinimumSize(new java.awt.Dimension(284, 39));
-        btCadastrarEstagiario.setPreferredSize(new java.awt.Dimension(284, 39));
+        btCadastrarEstagiario.setMaximumSize(new java.awt.Dimension(300, 40));
+        btCadastrarEstagiario.setMinimumSize(new java.awt.Dimension(300, 40));
+        btCadastrarEstagiario.setPreferredSize(new java.awt.Dimension(300, 40));
+        btCadastrarEstagiario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarEstagiarioActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 152;
-        gridBagConstraints.ipady = 67;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(26, 6, 20, 6);
         pCentro.add(btCadastrarEstagiario, gridBagConstraints);
@@ -95,11 +103,19 @@ public class MenuSecretaria extends SimpleForm {
         btCadastrarOrientador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btCadastrarOrientador.setForeground(new java.awt.Color(255, 255, 255));
         btCadastrarOrientador.setText("Cadastrar Orientador");
+        btCadastrarOrientador.setMaximumSize(new java.awt.Dimension(300, 40));
+        btCadastrarOrientador.setMinimumSize(new java.awt.Dimension(300, 40));
+        btCadastrarOrientador.setPreferredSize(new java.awt.Dimension(300, 40));
+        btCadastrarOrientador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarOrientadorActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 152;
-        gridBagConstraints.ipady = 67;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 26, 6);
         pCentro.add(btCadastrarOrientador, gridBagConstraints);
@@ -108,14 +124,19 @@ public class MenuSecretaria extends SimpleForm {
         btVisualizarAgenda.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btVisualizarAgenda.setForeground(new java.awt.Color(255, 255, 255));
         btVisualizarAgenda.setText("Visualizar Agenda");
-        btVisualizarAgenda.setMaximumSize(new java.awt.Dimension(284, 39));
-        btVisualizarAgenda.setMinimumSize(new java.awt.Dimension(284, 39));
-        btVisualizarAgenda.setPreferredSize(new java.awt.Dimension(284, 39));
+        btVisualizarAgenda.setMaximumSize(new java.awt.Dimension(300, 40));
+        btVisualizarAgenda.setMinimumSize(new java.awt.Dimension(300, 40));
+        btVisualizarAgenda.setPreferredSize(new java.awt.Dimension(300, 40));
+        btVisualizarAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVisualizarAgendaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 152;
-        gridBagConstraints.ipady = 67;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(26, 6, 20, 6);
         pCentro.add(btVisualizarAgenda, gridBagConstraints);
@@ -184,6 +205,30 @@ public class MenuSecretaria extends SimpleForm {
         logout.MessageAlertDesconectarOpcoes();
     }//GEN-LAST:event_btDesconectarActionPerformed
 
+    private void btCadastrarEstagiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarEstagiarioActionPerformed
+        FormEstagiario form = new FormEstagiario();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btCadastrarEstagiarioActionPerformed
+
+    private void btVisualizarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarAgendaActionPerformed
+        FormAgenda form = new FormAgenda();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btVisualizarAgendaActionPerformed
+
+    private void btCadastrarOrientadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarOrientadorActionPerformed
+        FormUsuario form = new FormUsuario();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btCadastrarOrientadorActionPerformed
+
+    private void btCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarPacienteActionPerformed
+        FormPaciente form = new FormPaciente();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btCadastrarPacienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCadastrarEstagiario;
@@ -196,37 +241,5 @@ public class MenuSecretaria extends SimpleForm {
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables
-    
-    private void redimensionarIcones() {
-        //Cadastrar Paciente
-        ImageIcon iconeOriginalPaciente = new ImageIcon(getClass().getResource("/imagens/cadastrar.png"));
-        Image iconeEmEscalaPaciente = iconeOriginalPaciente.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btCadastrarPaciente.setIcon(new ImageIcon(iconeEmEscalaPaciente));
-        btCadastrarPaciente.setIconTextGap(10);
-        
-        //Cadastrar Estagiario
-        ImageIcon iconeOriginalEstagiario = new ImageIcon(getClass().getResource("/imagens/estagiario.png"));
-        Image iconeEmEscalaEstagiario = iconeOriginalEstagiario.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btCadastrarEstagiario.setIcon(new ImageIcon(iconeEmEscalaEstagiario));
-        btCadastrarEstagiario.setIconTextGap(10);
-        
-        //Cadastrar Orientador
-        ImageIcon iconeOriginalOrientador = new ImageIcon(getClass().getResource("/imagens/cadastrar.png"));
-        Image iconeEmEscalaOrientador = iconeOriginalOrientador.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btCadastrarOrientador.setIcon(new ImageIcon(iconeEmEscalaOrientador));
-        btCadastrarOrientador.setIconTextGap(10);
-
-        //Visualizar Agenda
-        ImageIcon iconeOriginalAgenda = new ImageIcon(getClass().getResource("/imagens/agenda.png"));
-        Image iconeEmEscalaAgenda = iconeOriginalAgenda.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btVisualizarAgenda.setIcon(new ImageIcon(iconeEmEscalaAgenda));
-        btVisualizarAgenda.setIconTextGap(10);
-        
-        //Desconectar
-        ImageIcon iconeOriginalDesconectar = new ImageIcon(getClass().getResource("/imagens/desconectar.png"));
-        Image iconeEmEscalaDesconectar = iconeOriginalDesconectar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btDesconectar.setIcon(new ImageIcon(iconeEmEscalaDesconectar));
-        btDesconectar.setIconTextGap(10);
-}
 
 }

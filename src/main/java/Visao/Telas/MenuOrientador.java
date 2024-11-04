@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
+import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.redimencionarIcones;
 
@@ -20,13 +19,12 @@ public class MenuOrientador extends SimpleForm {
      */
     public MenuOrientador() {
         initComponents();
-        //redimensionarIcones();
         
         redimencionarIcones redimencionarIcone = new redimencionarIcones();
         redimencionarIcone.redimensionarIcones(btValidarRelato, "/Multimidia/imagens/editar-btn.png");
-        redimencionarIcone.redimensionarIcones(btAtribuirPaciente, "/Multimidia/imagens/cadastrar.png");
+        redimencionarIcone.redimensionarIcones(btVerificarPendencias, "/Multimidia/imagens/cadastrar.png");
         redimencionarIcone.redimensionarIcones(btAcessarListaEsperaGeral, "/Multimidia/imagens/listaEspera.png");
-        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaAtendidos, "/Multimidia/imagens/listaEspera.png");
+        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaEspecifica, "/Multimidia/imagens/listaEspera.png");
         redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png");
     }
 
@@ -42,9 +40,9 @@ public class MenuOrientador extends SimpleForm {
 
         pCenter = new javax.swing.JPanel();
         btValidarRelato = new javax.swing.JButton();
-        btAtribuirPaciente = new javax.swing.JButton();
+        btVerificarPendencias = new javax.swing.JButton();
         btAcessarListaEsperaGeral = new javax.swing.JButton();
-        btAcessarListaEsperaAtendidos = new javax.swing.JButton();
+        btAcessarListaEsperaEspecifica = new javax.swing.JButton();
         btDesconectar = new javax.swing.JButton();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
@@ -64,10 +62,15 @@ public class MenuOrientador extends SimpleForm {
         btValidarRelato.setBackground(new java.awt.Color(52, 35, 166));
         btValidarRelato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btValidarRelato.setForeground(new java.awt.Color(255, 255, 255));
-        btValidarRelato.setText("<html><span style=\"red\">Validar Relato</span></html>");
+        btValidarRelato.setText("Validar Relato e Relatório");
         btValidarRelato.setMaximumSize(new java.awt.Dimension(300, 40));
         btValidarRelato.setMinimumSize(new java.awt.Dimension(300, 40));
         btValidarRelato.setPreferredSize(new java.awt.Dimension(300, 40));
+        btValidarRelato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btValidarRelatoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -77,13 +80,18 @@ public class MenuOrientador extends SimpleForm {
         gridBagConstraints.insets = new java.awt.Insets(26, 6, 20, 6);
         pCenter.add(btValidarRelato, gridBagConstraints);
 
-        btAtribuirPaciente.setBackground(new java.awt.Color(38, 42, 16));
-        btAtribuirPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btAtribuirPaciente.setForeground(new java.awt.Color(255, 255, 255));
-        btAtribuirPaciente.setText("Atribuir Paciente");
-        btAtribuirPaciente.setMaximumSize(new java.awt.Dimension(300, 40));
-        btAtribuirPaciente.setMinimumSize(new java.awt.Dimension(300, 40));
-        btAtribuirPaciente.setPreferredSize(new java.awt.Dimension(300, 40));
+        btVerificarPendencias.setBackground(new java.awt.Color(38, 42, 16));
+        btVerificarPendencias.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btVerificarPendencias.setForeground(new java.awt.Color(255, 255, 255));
+        btVerificarPendencias.setText("Verifica Pendências");
+        btVerificarPendencias.setMaximumSize(new java.awt.Dimension(300, 40));
+        btVerificarPendencias.setMinimumSize(new java.awt.Dimension(300, 40));
+        btVerificarPendencias.setPreferredSize(new java.awt.Dimension(300, 40));
+        btVerificarPendencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVerificarPendenciasActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -91,7 +99,7 @@ public class MenuOrientador extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 26, 6);
-        pCenter.add(btAtribuirPaciente, gridBagConstraints);
+        pCenter.add(btVerificarPendencias, gridBagConstraints);
 
         btAcessarListaEsperaGeral.setBackground(new java.awt.Color(109, 70, 107));
         btAcessarListaEsperaGeral.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -100,6 +108,11 @@ public class MenuOrientador extends SimpleForm {
         btAcessarListaEsperaGeral.setMaximumSize(new java.awt.Dimension(300, 40));
         btAcessarListaEsperaGeral.setMinimumSize(new java.awt.Dimension(300, 40));
         btAcessarListaEsperaGeral.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAcessarListaEsperaGeralActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -109,13 +122,18 @@ public class MenuOrientador extends SimpleForm {
         gridBagConstraints.insets = new java.awt.Insets(20, 6, 26, 6);
         pCenter.add(btAcessarListaEsperaGeral, gridBagConstraints);
 
-        btAcessarListaEsperaAtendidos.setBackground(new java.awt.Color(115, 44, 44));
-        btAcessarListaEsperaAtendidos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btAcessarListaEsperaAtendidos.setForeground(new java.awt.Color(255, 255, 255));
-        btAcessarListaEsperaAtendidos.setText("Lista de Espera Atendidos");
-        btAcessarListaEsperaAtendidos.setMaximumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEsperaAtendidos.setMinimumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEsperaAtendidos.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaEspecifica.setBackground(new java.awt.Color(115, 44, 44));
+        btAcessarListaEsperaEspecifica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btAcessarListaEsperaEspecifica.setForeground(new java.awt.Color(255, 255, 255));
+        btAcessarListaEsperaEspecifica.setText("Lista de Espera Específica");
+        btAcessarListaEsperaEspecifica.setMaximumSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaEspecifica.setMinimumSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaEspecifica.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaEspecifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAcessarListaEsperaEspecificaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -123,7 +141,7 @@ public class MenuOrientador extends SimpleForm {
         gridBagConstraints.ipady = 60;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(26, 6, 20, 6);
-        pCenter.add(btAcessarListaEsperaAtendidos, gridBagConstraints);
+        pCenter.add(btAcessarListaEsperaEspecifica, gridBagConstraints);
 
         btDesconectar.setBackground(new java.awt.Color(255, 51, 51));
         btDesconectar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -189,49 +207,37 @@ public class MenuOrientador extends SimpleForm {
         logout.MessageAlertDesconectarOpcoes();
     }//GEN-LAST:event_btDesconectarActionPerformed
 
+    private void btValidarRelatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidarRelatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btValidarRelatoActionPerformed
+
+    private void btAcessarListaEsperaEspecificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaEspecificaActionPerformed
+        TableListaEsperaEspecifica form = new TableListaEsperaEspecifica();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btAcessarListaEsperaEspecificaActionPerformed
+
+    private void btAcessarListaEsperaGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaGeralActionPerformed
+        TableListaEsperaGeral form = new TableListaEsperaGeral();
+        
+        FormManager.showForm(form);
+    }//GEN-LAST:event_btAcessarListaEsperaGeralActionPerformed
+
+    private void btVerificarPendenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarPendenciasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btVerificarPendenciasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAcessarListaEsperaAtendidos;
+    private javax.swing.JButton btAcessarListaEsperaEspecifica;
     private javax.swing.JButton btAcessarListaEsperaGeral;
-    private javax.swing.JButton btAtribuirPaciente;
     private javax.swing.JButton btDesconectar;
     private javax.swing.JButton btValidarRelato;
+    private javax.swing.JButton btVerificarPendencias;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JPanel pCenter;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables
     
-    private void redimensionarIcones() {
-        //Icone do botão validar
-        ImageIcon iconeOriginal = new ImageIcon(getClass().getResource("/imagens/editar-btn.png"));
-        Image iconeEmEscala = iconeOriginal.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btValidarRelato.setIcon(new ImageIcon(iconeEmEscala));
-        btValidarRelato.setIconTextGap(10);
-        
-        //Icone do botao Atribuir Paciente
-        ImageIcon iconeOriginalAtribuir = new ImageIcon(getClass().getResource("/imagens/cadastrar.png"));
-        Image iconeEmEscalaAtribuir = iconeOriginalAtribuir.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btAtribuirPaciente.setIcon(new ImageIcon(iconeEmEscalaAtribuir));
-        btAtribuirPaciente.setIconTextGap(10);
-        
-        //Icone do botao Lista de espera Geral
-        ImageIcon iconeOriginalListaGeral = new ImageIcon(getClass().getResource("/imagens/listaEspera.png"));
-        Image iconeEmEscalaListaGeral = iconeOriginalListaGeral.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btAcessarListaEsperaGeral.setIcon(new ImageIcon(iconeEmEscalaListaGeral));
-        btAcessarListaEsperaGeral.setIconTextGap(10);
-        
-        //Lista de espera atendidos
-        ImageIcon iconeOriginalListaAtendidos = new ImageIcon(getClass().getResource("/imagens/listaEspera.png"));
-        Image iconeEmEscalaListaAtendidos = iconeOriginalListaAtendidos.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btAcessarListaEsperaAtendidos.setIcon(new ImageIcon(iconeEmEscalaListaAtendidos));
-        btAcessarListaEsperaAtendidos.setIconTextGap(10);
-        
-        //Desconectar
-        ImageIcon iconeOriginalDesconectar = new ImageIcon(getClass().getResource("/imagens/desconectar.png"));
-        Image iconeEmEscalaDesconectar = iconeOriginalDesconectar.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-        btDesconectar.setIcon(new ImageIcon(iconeEmEscalaDesconectar));
-        btDesconectar.setIconTextGap(10);
-    }
-
 }

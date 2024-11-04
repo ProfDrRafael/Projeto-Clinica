@@ -10,13 +10,13 @@
   </NonVisualComponents>
   <Properties>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1024, 1065]"/>
+      <Dimension value="[1024, 1426]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1024, 1065]"/>
+      <Dimension value="[1024, 1426]"/>
     </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1024, 1065]"/>
+      <Dimension value="[1024, 1426]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -29,7 +29,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,4,41,0,0,4,0"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,5,-110,0,0,4,-111"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -56,7 +56,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="171" max="32767" attributes="0"/>
+                  <EmptySpace pref="316" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lbClinica" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="lbProntuario" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -122,16 +122,15 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="pIdentificacao" pref="1008" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="pEndereco" alignment="0" pref="1002" max="32767" attributes="0"/>
-                              <Component id="pInscricao" max="32767" attributes="0"/>
-                              <Component id="pBotoes" alignment="0" pref="1002" max="32767" attributes="0"/>
-                          </Group>
+                      <Component id="pEndereco" alignment="0" pref="1790" max="32767" attributes="0"/>
+                      <Component id="pIdentificacao" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="pBotoes" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="898" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="pInscricao" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -140,14 +139,14 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="pIdentificacao" min="-2" pref="268" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pEndereco" min="-2" pref="237" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pInscricao" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="pIdentificacao" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="pEndereco" min="-2" pref="322" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="pInscricao" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="pBotoes" min="-2" pref="74" max="-2" attributes="0"/>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -182,32 +181,71 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ftfCelular" alignment="0" min="-2" pref="319" max="-2" attributes="0"/>
-                                  <Component id="lbCelular" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbOrientacao" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbOrientacao" min="-2" pref="265" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="tfProfissao" min="-2" pref="243" max="-2" attributes="0"/>
+                                      <Component id="lbProfissao" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbInstrucao" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbInstrucao" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ftfCelularContato" alignment="0" min="-2" pref="252" max="-2" attributes="0"/>
-                                  <Component id="lbContato2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbGenero" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbGenero" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jComboBox3" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="lbEstadoCivil" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbRaca" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbRaca" min="-2" pref="187" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbCor" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbCor" min="-2" pref="173" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="lbEtnia" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="cbEtnia" pref="299" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfPaciente" alignment="0" min="-2" pref="431" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="lbPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfPaciente" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="ftfCelular" alignment="0" pref="319" max="32767" attributes="0"/>
+                                  <Component id="lbCelular" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfData" min="-2" pref="298" max="-2" attributes="0"/>
-                                  <Component id="lbDataNascimento" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="ftfCelularContato" max="32767" attributes="0"/>
+                                      <Component id="tfData" alignment="1" pref="298" max="32767" attributes="0"/>
+                                      <Component id="lbDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="lbContato2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lbGenero" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbGenero" min="-2" pref="271" max="-2" attributes="0"/>
+                                  <Component id="lbContato3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ftfCelularContato1" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -218,55 +256,84 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="lbDataNascimento" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                              <Component id="lbPaciente" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbGenero" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfData" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfData" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="cbGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="tfPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbCelular" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbContato2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbCelular" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbContato2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="ftfCelular" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ftfCelularContato" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lbContato3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ftfCelularContato1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="ftfCelular" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ftfCelularContato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lbProfissao" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfProfissao" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lbInstrucao" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="cbInstrucao" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lbOrientacao" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="cbOrientacao" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lbEstadoCivil" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jComboBox3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbRaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbCor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbEtnia" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cbRaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbCor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbEtnia" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="cbGenero">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Feminino"/>
-                    <StringItem index="1" value="Masculino"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JLabel" name="lbGenero">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -275,8 +342,50 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="G&#xea;nero:"/>
+                <Property name="text" type="java.lang.String" value="*G&#xea;nero:"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbGenero">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="28">
+                    <StringItem index="0" value="Masculino"/>
+                    <StringItem index="1" value="Feminino"/>
+                    <StringItem index="2" value="N&#xe3;o-bin&#xe1;rio"/>
+                    <StringItem index="3" value="Ag&#xea;nero"/>
+                    <StringItem index="4" value="G&#xea;nero fluido"/>
+                    <StringItem index="5" value="G&#xea;nero neutro"/>
+                    <StringItem index="6" value="Big&#xea;nero"/>
+                    <StringItem index="7" value="Pang&#xea;nero"/>
+                    <StringItem index="8" value="Demiboy"/>
+                    <StringItem index="9" value="Demigirl"/>
+                    <StringItem index="10" value="Transg&#xea;nero"/>
+                    <StringItem index="11" value="Cisg&#xea;nero"/>
+                    <StringItem index="12" value="Genderqueer"/>
+                    <StringItem index="13" value="Two-Spirit"/>
+                    <StringItem index="14" value="G&#xea;nero n&#xe3;o conformista"/>
+                    <StringItem index="15" value="G&#xea;nero expansivo"/>
+                    <StringItem index="16" value="Andr&#xf3;gino"/>
+                    <StringItem index="17" value="Interg&#xea;nero"/>
+                    <StringItem index="18" value="Polig&#xea;nero"/>
+                    <StringItem index="19" value="Terceiro g&#xea;nero"/>
+                    <StringItem index="20" value="Maverique"/>
+                    <StringItem index="21" value="Neutrois"/>
+                    <StringItem index="22" value="Boyceta"/>
+                    <StringItem index="23" value="Apolig&#xea;nero"/>
+                    <StringItem index="24" value="Multig&#xea;nero"/>
+                    <StringItem index="25" value="G&#xea;nero diverso"/>
+                    <StringItem index="26" value="Omnig&#xea;nero"/>
+                    <StringItem index="27" value="Intersexo"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="lbContato2">
               <Properties>
@@ -292,7 +401,7 @@
             <Component class="javax.swing.JFormattedTextField" name="ftfCelularContato">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="###-####" subtype="-1" type="5"/>
+                  <Format format="(##) #####-####" subtype="-1" type="5"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -302,7 +411,7 @@
             <Component class="javax.swing.JFormattedTextField" name="ftfCelular">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="###-####" subtype="-1" type="5"/>
+                  <Format format="(##) #####-####" subtype="-1" type="5"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -317,7 +426,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Celular:"/>
+                <Property name="text" type="java.lang.String" value="*Celular:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfPaciente">
@@ -325,7 +434,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Jo&#xe3;o Pedro da Silva"/>
+                <Property name="toolTipText" type="java.lang.String" value="ex. Rafael da Silva"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbPaciente">
@@ -336,7 +445,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Paciente:"/>
+                <Property name="text" type="java.lang.String" value="*Paciente:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbDataNascimento">
@@ -347,13 +456,248 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Data de Nascimento:"/>
+                <Property name="text" type="java.lang.String" value="*Data de Nascimento:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfData">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="tfPaciente" name="font" type="property"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbInstrucao">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Grau de Instru&#xe7;&#xe3;o:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbInstrucao">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="12">
+                    <StringItem index="0" value="Ensino Fundamental incompleto"/>
+                    <StringItem index="1" value="Ensino Fundamental completo"/>
+                    <StringItem index="2" value="Ensino M&#xe9;dio incompleto"/>
+                    <StringItem index="3" value="Ensino M&#xe9;dio completo"/>
+                    <StringItem index="4" value="Ensino T&#xe9;cnico"/>
+                    <StringItem index="5" value="Superior incompleto"/>
+                    <StringItem index="6" value="Superior completo"/>
+                    <StringItem index="7" value="P&#xf3;s-gradua&#xe7;&#xe3;o"/>
+                    <StringItem index="8" value="Mestrado"/>
+                    <StringItem index="9" value="Doutorado"/>
+                    <StringItem index="10" value="P&#xf3;s-doutorado"/>
+                    <StringItem index="11" value="Analfabeto"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbProfissao">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Profiss&#xe3;o:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfProfissao">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="ex. Rafael da Silva"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBox3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Solteiro (a)"/>
+                    <StringItem index="1" value="Casado (a)"/>
+                    <StringItem index="2" value="Divorciado (a)"/>
+                    <StringItem index="3" value="Vi&#xfa;vo (a)"/>
+                    <StringItem index="4" value="Separado judicialmente"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbEstadoCivil">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Estado Civil:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbRaca">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Negra"/>
+                    <StringItem index="1" value="Branca"/>
+                    <StringItem index="2" value="Amarela"/>
+                    <StringItem index="3" value="Parda"/>
+                    <StringItem index="4" value="Ind&#xed;gena"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbRaca">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ra&#xe7;a:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbCor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="7">
+                    <StringItem index="0" value="Preta"/>
+                    <StringItem index="1" value="Branca"/>
+                    <StringItem index="2" value="Amarela"/>
+                    <StringItem index="3" value="Parda"/>
+                    <StringItem index="4" value="Vermelha"/>
+                    <StringItem index="5" value="Azul"/>
+                    <StringItem index="6" value="Verde"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbCor">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cor:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbEtnia">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="8">
+                    <StringItem index="0" value="Ind&#xed;gena"/>
+                    <StringItem index="1" value="Afrodescendente"/>
+                    <StringItem index="2" value="Asi&#xe1;tica"/>
+                    <StringItem index="3" value="Europeia"/>
+                    <StringItem index="4" value="Latino-americana"/>
+                    <StringItem index="5" value="&#xc1;rabe"/>
+                    <StringItem index="6" value="Judaica"/>
+                    <StringItem index="7" value="Romani"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbEtnia">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Etnia:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbOrientacao">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Orienta&#xe7;&#xe3;o Sexual:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbOrientacao">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="8">
+                    <StringItem index="0" value="Heterossexual"/>
+                    <StringItem index="1" value="Homossexual"/>
+                    <StringItem index="2" value="Bissexual"/>
+                    <StringItem index="3" value="Assexual"/>
+                    <StringItem index="4" value="Pansexual"/>
+                    <StringItem index="5" value="Demissexual"/>
+                    <StringItem index="6" value="Queer"/>
+                    <StringItem index="7" value="Omnissexual"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbContato3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Telefone (Respons&#xe1;vel):"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="ftfCelularContato1">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                  <Format format="(##) #####-####" subtype="-1" type="5"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
                 </Property>
               </Properties>
             </Component>
@@ -384,33 +728,44 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbCidade" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfCidade" min="-2" pref="301" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lbRua" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRua" alignment="0" pref="301" max="32767" attributes="0"/>
+                                  <Component id="lbNaturalidade1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbNacionalidade" alignment="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbNaturalidade" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfNaturalidade" min="-2" pref="286" max="-2" attributes="0"/>
+                                  <Component id="tfBairro" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
+                                  <Component id="lbBairro" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbEstado" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
+                                  <Component id="lbEstado" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="tfComplemento" alignment="0" pref="281" max="32767" attributes="0"/>
+                                  <Component id="lbComplemento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbCidade" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBox4" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbRua" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfRua" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                                  <Component id="lbCep" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ftfCep" min="-2" pref="161" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfBairro" min="-2" pref="281" max="-2" attributes="0"/>
-                                  <Component id="lbBairro" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbNumero" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfNumero" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbNumero" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfNumero" min="-2" pref="143" max="-2" attributes="0"/>
+                                  <Component id="jComboBox1" min="-2" pref="388" max="-2" attributes="0"/>
+                                  <Component id="lbNaturalidade" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -418,55 +773,68 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="13" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbRua" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbBairro" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lbCep" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ftfCep" min="-2" pref="41" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lbNaturalidade" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbNumero" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="tfNumero" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfBairro" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="tfNumero" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="tfRua" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbRua" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbBairro" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tfBairro" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="tfRua" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lbEstado" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                      <Component id="cbEstado" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="lbNaturalidade1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cbNacionalidade" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lbComplemento" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfComplemento" min="-2" pref="41" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Component id="lbCidade" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lbNaturalidade" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jComboBox4" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfNaturalidade" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="tfCidade" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="tfNaturalidade">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tfCidade">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="lbCidade">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -475,18 +843,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cidade:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbNaturalidade">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Naturalidade:"/>
+                <Property name="text" type="java.lang.String" value="*Cidade:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbRua">
@@ -497,7 +854,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Rua:"/>
+                <Property name="text" type="java.lang.String" value="*Rua:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfRua">
@@ -505,7 +862,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Am&#xe9;rica"/>
+                <Property name="toolTipText" type="java.lang.String" value="ex. Marechal Rondon"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfBairro">
@@ -513,7 +870,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Centro"/>
+                <Property name="toolTipText" type="java.lang.String" value="ex. Centro"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbBairro">
@@ -524,7 +881,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Bairro:"/>
+                <Property name="text" type="java.lang.String" value="*Bairro:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbNumero">
@@ -535,7 +892,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="N&#xfa;mero:"/>
+                <Property name="text" type="java.lang.String" value="*N&#xfa;mero:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfNumero">
@@ -544,114 +901,11 @@
                   <Font name="Segoe UI" size="24" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfNumeroKeyTyped"/>
+              </Events>
             </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="pInscricao">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="e6" green="e6" id="Control Highlight" palette="2" red="e6" type="palette"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Inscri&#xe7;&#xe3;o">
-                  <Connection PropertyName="font" component="cbEstagiario" name="font" type="property"/>
-                  <Color PropertyName="color" blue="4a" green="4a" id="Control Dk Shadow" palette="2" red="4a" type="palette"/>
-                </TitledBorder>
-              </Border>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lbDisponibilidade" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="306" max="-2" attributes="0"/>
-                                      <Component id="lbEstagiario" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="tfDisponibilidade" min="-2" pref="447" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbOrientador" min="-2" pref="262" max="-2" attributes="0"/>
-                                  <Component id="lbOrientador" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbResponsavel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbResponsavel" alignment="0" min="-2" pref="347" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbAtendido" min="-2" pref="71" max="-2" attributes="0"/>
-                                  <Component id="lbAtendido" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="500" max="-2" attributes="0"/>
-                          <Component id="cbEstagiario" min="-2" pref="347" max="-2" attributes="0"/>
-                          <EmptySpace pref="151" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                              <Component id="lbDisponibilidade" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lbEstagiario" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="tfDisponibilidade" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="33" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="lbResponsavel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbAtendido" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="lbOrientador" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cbResponsavel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbOrientador" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="cbAtendido" min="-2" pref="46" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                          <Component id="cbEstagiario" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="187" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lbDisponibilidade">
+            <Component class="javax.swing.JLabel" name="lbNaturalidade1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -659,34 +913,54 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Disponibilidade:"/>
+                <Property name="text" type="java.lang.String" value="*Nacionalidade:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfDisponibilidade">
+            <Component class="javax.swing.JComboBox" name="cbEstado">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbEstagiario">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Bruna"/>
-                    <StringItem index="1" value="Pedro"/>
-                    <StringItem index="2" value="Maria"/>
+                  <StringArray count="27">
+                    <StringItem index="0" value="Acre (AC)"/>
+                    <StringItem index="1" value="Alagoas (AL)"/>
+                    <StringItem index="2" value="Amap&#xe1; (AP)"/>
+                    <StringItem index="3" value="Amazonas (AM)"/>
+                    <StringItem index="4" value="Bahia (BA)"/>
+                    <StringItem index="5" value="Cear&#xe1; (CE)"/>
+                    <StringItem index="6" value="Distrito Federal (DF)"/>
+                    <StringItem index="7" value="Esp&#xed;rito Santo (ES)"/>
+                    <StringItem index="8" value="Goi&#xe1;s (GO)"/>
+                    <StringItem index="9" value="Maranh&#xe3;o (MA)"/>
+                    <StringItem index="10" value="Mato Grosso (MT)"/>
+                    <StringItem index="11" value="Mato Grosso do Sul (MS)"/>
+                    <StringItem index="12" value="Minas Gerais (MG)"/>
+                    <StringItem index="13" value="Par&#xe1; (PA)"/>
+                    <StringItem index="14" value="Para&#xed;ba (PB)"/>
+                    <StringItem index="15" value="Paran&#xe1; (PR)"/>
+                    <StringItem index="16" value="Pernambuco (PE)"/>
+                    <StringItem index="17" value="Piau&#xed; (PI)"/>
+                    <StringItem index="18" value="Rio de Janeiro (RJ)"/>
+                    <StringItem index="19" value="Rio Grande do Norte (RN)"/>
+                    <StringItem index="20" value="Rio Grande do Sul (RS)"/>
+                    <StringItem index="21" value="Rond&#xf4;nia (RO)"/>
+                    <StringItem index="22" value="Roraima (RR)"/>
+                    <StringItem index="23" value="Santa Catarina (SC)"/>
+                    <StringItem index="24" value="S&#xe3;o Paulo (SP)"/>
+                    <StringItem index="25" value="Sergipe (SE)"/>
+                    <StringItem index="26" value="Tocantins (TO)"/>
                   </StringArray>
+                </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[128, 39]"/>
                 </Property>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbEstagiario">
+            <Component class="javax.swing.JLabel" name="lbCep">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -694,10 +968,28 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Estagi&#xe1;rio:"/>
+                <Property name="text" type="java.lang.String" value="*CEP:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbResponsavel">
+            <Component class="javax.swing.JFormattedTextField" name="ftfCep">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                  <Format format="##.###-###" subtype="-1" type="5"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="ftfCelular" name="font" type="property"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfComplemento">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="ex. Centro"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbComplemento">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -705,44 +997,310 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Respons&#xe1;vel:"/>
+                <Property name="text" type="java.lang.String" value="Complemento:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbResponsavel">
+            <Component class="javax.swing.JLabel" name="lbEstado">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="*Estado:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbNacionalidade">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Bruna"/>
-                    <StringItem index="1" value="Pedro"/>
-                    <StringItem index="2" value="Maria"/>
+                  <StringArray count="259">
+                    <StringItem index="0" value="Brasil"/>
+                    <StringItem index="1" value="Afeganist&#xe3;o"/>
+                    <StringItem index="2" value="&#xc1;frica do Sul"/>
+                    <StringItem index="3" value="Akrotiri"/>
+                    <StringItem index="4" value="Alb&#xe2;nia"/>
+                    <StringItem index="5" value="Alemanha"/>
+                    <StringItem index="6" value="Andorra"/>
+                    <StringItem index="7" value="Angola"/>
+                    <StringItem index="8" value="Anguila"/>
+                    <StringItem index="9" value="Ant&#xe1;rctida"/>
+                    <StringItem index="10" value="Ant&#xed;gua e Barbuda"/>
+                    <StringItem index="11" value="Ar&#xe1;bia Saudita"/>
+                    <StringItem index="12" value="Arctic Ocean"/>
+                    <StringItem index="13" value="Arg&#xe9;lia"/>
+                    <StringItem index="14" value="Argentina"/>
+                    <StringItem index="15" value="Arm&#xe9;nia"/>
+                    <StringItem index="16" value="Aruba"/>
+                    <StringItem index="17" value="Ashmore and Cartier Islands"/>
+                    <StringItem index="18" value="Atlantic Ocean"/>
+                    <StringItem index="19" value="Austr&#xe1;lia"/>
+                    <StringItem index="20" value="&#xc1;ustria"/>
+                    <StringItem index="21" value="Azerbaij&#xe3;o"/>
+                    <StringItem index="22" value="Baamas"/>
+                    <StringItem index="23" value="Bangladeche"/>
+                    <StringItem index="24" value="Barbados"/>
+                    <StringItem index="25" value="Bar&#xe9;m"/>
+                    <StringItem index="26" value="B&#xe9;lgica"/>
+                    <StringItem index="27" value="Belize"/>
+                    <StringItem index="28" value="Benim"/>
+                    <StringItem index="29" value="Bermudas"/>
+                    <StringItem index="30" value="Bielorr&#xfa;ssia"/>
+                    <StringItem index="31" value="Birm&#xe2;nia"/>
+                    <StringItem index="32" value="Bol&#xed;via"/>
+                    <StringItem index="33" value="B&#xf3;snia e Herzegovina"/>
+                    <StringItem index="34" value="Botsuana"/>
+                    <StringItem index="35" value="Brunei"/>
+                    <StringItem index="36" value="Bulg&#xe1;ria"/>
+                    <StringItem index="37" value="Burquina Faso"/>
+                    <StringItem index="38" value="Bur&#xfa;ndi"/>
+                    <StringItem index="39" value="But&#xe3;o"/>
+                    <StringItem index="40" value="Cabo Verde"/>
+                    <StringItem index="41" value="Camar&#xf5;es"/>
+                    <StringItem index="42" value="Camboja"/>
+                    <StringItem index="43" value="Canad&#xe1;"/>
+                    <StringItem index="44" value="Catar"/>
+                    <StringItem index="45" value="Cazaquist&#xe3;o"/>
+                    <StringItem index="46" value="Chade"/>
+                    <StringItem index="47" value="Chile"/>
+                    <StringItem index="48" value="China"/>
+                    <StringItem index="49" value="Chipre"/>
+                    <StringItem index="50" value="Clipperton Island"/>
+                    <StringItem index="51" value="Col&#xf4;mbia"/>
+                    <StringItem index="52" value="Comores"/>
+                    <StringItem index="53" value="Congo-Brazzaville"/>
+                    <StringItem index="54" value="Congo-Kinshasa"/>
+                    <StringItem index="55" value="Coral Sea Islands"/>
+                    <StringItem index="56" value="Coreia do Norte"/>
+                    <StringItem index="57" value="Coreia do Sul"/>
+                    <StringItem index="58" value="Costa do Marfim"/>
+                    <StringItem index="59" value="Costa Rica"/>
+                    <StringItem index="60" value="Cro&#xe1;cia"/>
+                    <StringItem index="61" value="Cuba"/>
+                    <StringItem index="62" value="Curacao"/>
+                    <StringItem index="63" value="Dhekelia"/>
+                    <StringItem index="64" value="Dinamarca"/>
+                    <StringItem index="65" value="Dom&#xed;nica"/>
+                    <StringItem index="66" value="Egipto"/>
+                    <StringItem index="67" value="Emiratos &#xc1;rabes Unidos"/>
+                    <StringItem index="68" value="Equador"/>
+                    <StringItem index="69" value="Eritreia"/>
+                    <StringItem index="70" value="Eslov&#xe1;quia"/>
+                    <StringItem index="71" value="Eslov&#xe9;nia"/>
+                    <StringItem index="72" value="Espanha"/>
+                    <StringItem index="73" value="Estados Unidos"/>
+                    <StringItem index="74" value="Est&#xf3;nia"/>
+                    <StringItem index="75" value="Eti&#xf3;pia"/>
+                    <StringItem index="76" value="Faro&#xe9;"/>
+                    <StringItem index="77" value="Fiji"/>
+                    <StringItem index="78" value="Filipinas"/>
+                    <StringItem index="79" value="Finl&#xe2;ndia"/>
+                    <StringItem index="80" value="Fran&#xe7;a"/>
+                    <StringItem index="81" value="Gab&#xe3;o"/>
+                    <StringItem index="82" value="G&#xe2;mbia"/>
+                    <StringItem index="83" value="Gana"/>
+                    <StringItem index="84" value="Gaza Strip"/>
+                    <StringItem index="85" value="Ge&#xf3;rgia"/>
+                    <StringItem index="86" value="Ge&#xf3;rgia do Sul e Sandwich do Sul"/>
+                    <StringItem index="87" value="Gibraltar"/>
+                    <StringItem index="88" value="Granada"/>
+                    <StringItem index="89" value="Gr&#xe9;cia"/>
+                    <StringItem index="90" value="Gronel&#xe2;ndia"/>
+                    <StringItem index="91" value="Guame"/>
+                    <StringItem index="92" value="Guatemala"/>
+                    <StringItem index="93" value="Guernsey"/>
+                    <StringItem index="94" value="Guiana"/>
+                    <StringItem index="95" value="Guin&#xe9;"/>
+                    <StringItem index="96" value="Guin&#xe9; Equatorial"/>
+                    <StringItem index="97" value="Guin&#xe9;-Bissau"/>
+                    <StringItem index="98" value="Haiti"/>
+                    <StringItem index="99" value="Honduras"/>
+                    <StringItem index="100" value="Hong Kong"/>
+                    <StringItem index="101" value="Hungria"/>
+                    <StringItem index="102" value="I&#xe9;men"/>
+                    <StringItem index="103" value="Ilha Bouvet"/>
+                    <StringItem index="104" value="Ilha do Natal"/>
+                    <StringItem index="105" value="Ilha Norfolk"/>
+                    <StringItem index="106" value="Ilhas Caim&#xe3;o"/>
+                    <StringItem index="107" value="Ilhas Cook"/>
+                    <StringItem index="108" value="Ilhas dos Cocos"/>
+                    <StringItem index="109" value="Ilhas Falkland"/>
+                    <StringItem index="110" value="Ilhas Heard e McDonald"/>
+                    <StringItem index="111" value="Ilhas Marshall"/>
+                    <StringItem index="112" value="Ilhas Salom&#xe3;o"/>
+                    <StringItem index="113" value="Ilhas Turcas e Caicos"/>
+                    <StringItem index="114" value="Ilhas Virgens Americanas"/>
+                    <StringItem index="115" value="Ilhas Virgens Brit&#xe2;nicas"/>
+                    <StringItem index="116" value="&#xcd;ndia"/>
+                    <StringItem index="117" value="Indian Ocean"/>
+                    <StringItem index="118" value="Indon&#xe9;sia"/>
+                    <StringItem index="119" value="Ir&#xe3;o"/>
+                    <StringItem index="120" value="Iraque"/>
+                    <StringItem index="121" value="Irlanda"/>
+                    <StringItem index="122" value="Isl&#xe2;ndia"/>
+                    <StringItem index="123" value="Israel"/>
+                    <StringItem index="124" value="It&#xe1;lia"/>
+                    <StringItem index="125" value="Jamaica"/>
+                    <StringItem index="126" value="Jan Mayen"/>
+                    <StringItem index="127" value="Jap&#xe3;o"/>
+                    <StringItem index="128" value="Jersey"/>
+                    <StringItem index="129" value="Jibuti"/>
+                    <StringItem index="130" value="Jord&#xe2;nia"/>
+                    <StringItem index="131" value="Kosovo"/>
+                    <StringItem index="132" value="Kuwait"/>
+                    <StringItem index="133" value="Laos"/>
+                    <StringItem index="134" value="Lesoto"/>
+                    <StringItem index="135" value="Let&#xf3;nia"/>
+                    <StringItem index="136" value="L&#xed;bano"/>
+                    <StringItem index="137" value="Lib&#xe9;ria"/>
+                    <StringItem index="138" value="L&#xed;bia"/>
+                    <StringItem index="139" value="Listenstaine"/>
+                    <StringItem index="140" value="Litu&#xe2;nia"/>
+                    <StringItem index="141" value="Luxemburgo"/>
+                    <StringItem index="142" value="Macau"/>
+                    <StringItem index="143" value="Maced&#xf3;nia"/>
+                    <StringItem index="144" value="Madag&#xe1;scar"/>
+                    <StringItem index="145" value="Mal&#xe1;sia"/>
+                    <StringItem index="146" value="Mal&#xe1;vi"/>
+                    <StringItem index="147" value="Maldivas"/>
+                    <StringItem index="148" value="Mali"/>
+                    <StringItem index="149" value="Malta"/>
+                    <StringItem index="150" value="Man, Isle of"/>
+                    <StringItem index="151" value="Marianas do Norte"/>
+                    <StringItem index="152" value="Marrocos"/>
+                    <StringItem index="153" value="Maur&#xed;cia"/>
+                    <StringItem index="154" value="Maurit&#xe2;nia"/>
+                    <StringItem index="155" value="M&#xe9;xico"/>
+                    <StringItem index="156" value="Micron&#xe9;sia"/>
+                    <StringItem index="157" value="Mo&#xe7;ambique"/>
+                    <StringItem index="158" value="Mold&#xe1;via"/>
+                    <StringItem index="159" value="M&#xf3;naco"/>
+                    <StringItem index="160" value="Mong&#xf3;lia"/>
+                    <StringItem index="161" value="Monserrate"/>
+                    <StringItem index="162" value="Montenegro"/>
+                    <StringItem index="163" value="Mundo"/>
+                    <StringItem index="164" value="Nam&#xed;bia"/>
+                    <StringItem index="165" value="Nauru"/>
+                    <StringItem index="166" value="Navassa Island"/>
+                    <StringItem index="167" value="Nepal"/>
+                    <StringItem index="168" value="Nicar&#xe1;gua"/>
+                    <StringItem index="169" value="N&#xed;ger"/>
+                    <StringItem index="170" value="Nig&#xe9;ria"/>
+                    <StringItem index="171" value="Niue"/>
+                    <StringItem index="172" value="Noruega"/>
+                    <StringItem index="173" value="Nova Caled&#xf3;nia"/>
+                    <StringItem index="174" value="Nova Zel&#xe2;ndia"/>
+                    <StringItem index="175" value="Om&#xe3;"/>
+                    <StringItem index="176" value="Pacific Ocean"/>
+                    <StringItem index="177" value="Pa&#xed;ses Baixos"/>
+                    <StringItem index="178" value="Palau"/>
+                    <StringItem index="179" value="Panam&#xe1;"/>
+                    <StringItem index="180" value="Papua-Nova Guin&#xe9;"/>
+                    <StringItem index="181" value="Paquist&#xe3;o"/>
+                    <StringItem index="182" value="Paracel Islands"/>
+                    <StringItem index="183" value="Paraguai"/>
+                    <StringItem index="184" value="Peru"/>
+                    <StringItem index="185" value="Pitcairn"/>
+                    <StringItem index="186" value="Polin&#xe9;sia Francesa"/>
+                    <StringItem index="187" value="Pol&#xf3;nia"/>
+                    <StringItem index="188" value="Porto Rico"/>
+                    <StringItem index="189" value="Portugal"/>
+                    <StringItem index="190" value="Qu&#xe9;nia"/>
+                    <StringItem index="191" value="Quirguizist&#xe3;o"/>
+                    <StringItem index="192" value="Quirib&#xe1;ti"/>
+                    <StringItem index="193" value="Reino Unido"/>
+                    <StringItem index="194" value="Rep&#xfa;blica Centro-Africana"/>
+                    <StringItem index="195" value="Rep&#xfa;blica Dominicana"/>
+                    <StringItem index="196" value="Rom&#xe9;nia"/>
+                    <StringItem index="197" value="Ruanda"/>
+                    <StringItem index="198" value="R&#xfa;ssia"/>
+                    <StringItem index="199" value="Salvador"/>
+                    <StringItem index="200" value="Samoa"/>
+                    <StringItem index="201" value="Samoa Americana"/>
+                    <StringItem index="202" value="Santa Helena"/>
+                    <StringItem index="203" value="Santa L&#xfa;cia"/>
+                    <StringItem index="204" value="S&#xe3;o Bartolomeu"/>
+                    <StringItem index="205" value="S&#xe3;o Crist&#xf3;v&#xe3;o e Neves"/>
+                    <StringItem index="206" value="S&#xe3;o Marinho"/>
+                    <StringItem index="207" value="S&#xe3;o Martinho"/>
+                    <StringItem index="208" value="S&#xe3;o Pedro e Miquelon"/>
+                    <StringItem index="209" value="S&#xe3;o Tom&#xe9; e Pr&#xed;ncipe"/>
+                    <StringItem index="210" value="S&#xe3;o Vicente e Granadinas"/>
+                    <StringItem index="211" value="Sara Ocidental"/>
+                    <StringItem index="212" value="Seicheles"/>
+                    <StringItem index="213" value="Senegal"/>
+                    <StringItem index="214" value="Serra Leoa"/>
+                    <StringItem index="215" value="S&#xe9;rvia"/>
+                    <StringItem index="216" value="Singapura"/>
+                    <StringItem index="217" value="Sint Maarten"/>
+                    <StringItem index="218" value="S&#xed;ria"/>
+                    <StringItem index="219" value="Som&#xe1;lia"/>
+                    <StringItem index="220" value="Southern Ocean"/>
+                    <StringItem index="221" value="Spratly Islands"/>
+                    <StringItem index="222" value="Sri Lanca"/>
+                    <StringItem index="223" value="Suazil&#xe2;ndia"/>
+                    <StringItem index="224" value="Sud&#xe3;o"/>
+                    <StringItem index="225" value="Sud&#xe3;o do Sul"/>
+                    <StringItem index="226" value="Su&#xe9;cia"/>
+                    <StringItem index="227" value="Su&#xed;&#xe7;a"/>
+                    <StringItem index="228" value="Suriname"/>
+                    <StringItem index="229" value="Svalbard e Jan Mayen"/>
+                    <StringItem index="230" value="Tail&#xe2;ndia"/>
+                    <StringItem index="231" value="Taiwan"/>
+                    <StringItem index="232" value="Tajiquist&#xe3;o"/>
+                    <StringItem index="233" value="Tanz&#xe2;nia"/>
+                    <StringItem index="234" value="Territ&#xf3;rio Brit&#xe2;nico do Oceano &#xcd;ndico"/>
+                    <StringItem index="235" value="Territ&#xf3;rios Austrais Franceses"/>
+                    <StringItem index="236" value="Timor Leste"/>
+                    <StringItem index="237" value="Togo"/>
+                    <StringItem index="238" value="Tokelau"/>
+                    <StringItem index="239" value="Tonga"/>
+                    <StringItem index="240" value="Trindade e Tobago"/>
+                    <StringItem index="241" value="Tun&#xed;sia"/>
+                    <StringItem index="242" value="Turquemenist&#xe3;o"/>
+                    <StringItem index="243" value="Turquia"/>
+                    <StringItem index="244" value="Tuvalu"/>
+                    <StringItem index="245" value="Ucr&#xe2;nia"/>
+                    <StringItem index="246" value="Uganda"/>
+                    <StringItem index="247" value="Uni&#xe3;o Europeia"/>
+                    <StringItem index="248" value="Uruguai"/>
+                    <StringItem index="249" value="Usbequist&#xe3;o"/>
+                    <StringItem index="250" value="Vanuatu"/>
+                    <StringItem index="251" value="Vaticano"/>
+                    <StringItem index="252" value="Venezuela"/>
+                    <StringItem index="253" value="Vietname"/>
+                    <StringItem index="254" value="Wake Island"/>
+                    <StringItem index="255" value="Wallis e Futuna"/>
+                    <StringItem index="256" value="West Bank"/>
+                    <StringItem index="257" value="Z&#xe2;mbia"/>
+                    <StringItem index="258" value="Zimbabu&#xe9;"/>
                   </StringArray>
+                </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[128, 39]"/>
                 </Property>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbOrientador">
+            <Component class="javax.swing.JComboBox" name="jComboBox4">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="lbAtendido" name="font" type="property"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Bruna"/>
-                    <StringItem index="1" value="Pedro"/>
-                    <StringItem index="2" value="Maria"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbOrientador">
+            <Component class="javax.swing.JLabel" name="lbNaturalidade">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -750,26 +1308,466 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Orientador:"/>
+                <Property name="text" type="java.lang.String" value="*Naturalidade:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="cbAtendido">
+            <Component class="javax.swing.JComboBox" name="jComboBox1">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="cbGenero" name="font" type="property"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="444">
+                    <StringItem index="0" value="Abadia de Goi&#xe1;s (GO)"/>
+                    <StringItem index="1" value="Abadia dos Dourados (MG)"/>
+                    <StringItem index="2" value="Abadi&#xe2;nia (GO)"/>
+                    <StringItem index="3" value="Abaet&#xe9; (MG)"/>
+                    <StringItem index="4" value="Abaetetuba (PA)"/>
+                    <StringItem index="5" value="Abaiara (CE)"/>
+                    <StringItem index="6" value="Aba&#xed;ra (BA)"/>
+                    <StringItem index="7" value="Abar&#xe9; (BA)"/>
+                    <StringItem index="8" value="Abati&#xe1; (PR)"/>
+                    <StringItem index="9" value="Abdon Batista (SC)"/>
+                    <StringItem index="10" value="Abelardo Luz (SC)"/>
+                    <StringItem index="11" value="Abel Figueiredo (PA)"/>
+                    <StringItem index="12" value="Abre Campo (MG)"/>
+                    <StringItem index="13" value="Abreu e Lima (PE)"/>
+                    <StringItem index="14" value="Abreul&#xe2;ndia (TO)"/>
+                    <StringItem index="15" value="Acaiaca (MG)"/>
+                    <StringItem index="16" value="A&#xe7;ail&#xe2;ndia (MA)"/>
+                    <StringItem index="17" value="Acajutiba (BA)"/>
+                    <StringItem index="18" value="Acar&#xe1; (PA)"/>
+                    <StringItem index="19" value="Acarape (CE)"/>
+                    <StringItem index="20" value="Acara&#xfa; (CE)"/>
+                    <StringItem index="21" value="Acari (RN)"/>
+                    <StringItem index="22" value="Acau&#xe3; (PI)"/>
+                    <StringItem index="23" value="Acegu&#xe1; (RS)"/>
+                    <StringItem index="24" value="Acopiara (CE)"/>
+                    <StringItem index="25" value="Acorizal (MT)"/>
+                    <StringItem index="26" value="Acrel&#xe2;ndia (AC)"/>
+                    <StringItem index="27" value="Acre&#xfa;na (GO)"/>
+                    <StringItem index="28" value="A&#xe7;ucena (MG)"/>
+                    <StringItem index="29" value="Adamantina (SP)"/>
+                    <StringItem index="30" value="Adel&#xe2;ndia (GO)"/>
+                    <StringItem index="31" value="Adolfo (SP)"/>
+                    <StringItem index="32" value="Adrian&#xf3;polis (PR)"/>
+                    <StringItem index="33" value="Adustina (BA)"/>
+                    <StringItem index="34" value="Afogados da Ingazeira (PE)"/>
+                    <StringItem index="35" value="Afonso Bezerra (RN)"/>
+                    <StringItem index="36" value="Afonso Cl&#xe1;udio (ES)"/>
+                    <StringItem index="37" value="Afonso Cunha (MA)"/>
+                    <StringItem index="38" value="Afr&#xe2;nio (PE)"/>
+                    <StringItem index="39" value="Afu&#xe1; (PA)"/>
+                    <StringItem index="40" value="Agrestina (PE)"/>
+                    <StringItem index="41" value="Agricol&#xe2;ndia (PI)"/>
+                    <StringItem index="42" value="Agrol&#xe2;ndia (SC)"/>
+                    <StringItem index="43" value="Agron&#xf4;mica (SC)"/>
+                    <StringItem index="44" value="&#xc1;gua Azul do Norte (PA)"/>
+                    <StringItem index="45" value="&#xc1;gua Boa (MG)"/>
+                    <StringItem index="46" value="&#xc1;gua Boa (MT)"/>
+                    <StringItem index="47" value="&#xc1;gua Branca (AL)"/>
+                    <StringItem index="48" value="&#xc1;gua Branca (PB)"/>
+                    <StringItem index="49" value="&#xc1;gua Branca (PI)"/>
+                    <StringItem index="50" value="&#xc1;gua Clara (MS)"/>
+                    <StringItem index="51" value="&#xc1;gua Comprida (MG)"/>
+                    <StringItem index="52" value="&#xc1;gua Doce (SC)"/>
+                    <StringItem index="53" value="&#xc1;gua Doce do Maranh&#xe3;o (MA)"/>
+                    <StringItem index="54" value="&#xc1;gua Doce do Norte (ES)"/>
+                    <StringItem index="55" value="&#xc1;gua Fria (BA)"/>
+                    <StringItem index="56" value="&#xc1;gua Fria de Goi&#xe1;s (GO)"/>
+                    <StringItem index="57" value="Agua&#xed; (SP)"/>
+                    <StringItem index="58" value="&#xc1;gua Limpa (GO)"/>
+                    <StringItem index="59" value="Aguanil (MG)"/>
+                    <StringItem index="60" value="&#xc1;gua Nova (RN)"/>
+                    <StringItem index="61" value="&#xc1;gua Preta (PE)"/>
+                    <StringItem index="62" value="&#xc1;gua Santa (RS)"/>
+                    <StringItem index="63" value="&#xc1;guas Belas (PE)"/>
+                    <StringItem index="64" value="&#xc1;guas da Prata (SP)"/>
+                    <StringItem index="65" value="&#xc1;guas de Chapec&#xf3; (SC)"/>
+                    <StringItem index="66" value="&#xc1;guas de Lind&#xf3;ia (SP)"/>
+                    <StringItem index="67" value="&#xc1;guas de Santa B&#xe1;rbara (SP)"/>
+                    <StringItem index="68" value="&#xc1;guas de S&#xe3;o Pedro (SP)"/>
+                    <StringItem index="69" value="&#xc1;guas Formosas (MG)"/>
+                    <StringItem index="70" value="&#xc1;guas Frias (SC)"/>
+                    <StringItem index="71" value="&#xc1;guas Lindas de Goi&#xe1;s (GO)"/>
+                    <StringItem index="72" value="&#xc1;guas Mornas (SC)"/>
+                    <StringItem index="73" value="&#xc1;guas Vermelhas (MG)"/>
+                    <StringItem index="74" value="Agudo (RS)"/>
+                    <StringItem index="75" value="Agudos (SP)"/>
+                    <StringItem index="76" value="Agudos do Sul (PR)"/>
+                    <StringItem index="77" value="&#xc1;guia Branca (ES)"/>
+                    <StringItem index="78" value="Aguiar (PB)"/>
+                    <StringItem index="79" value="Aguiarn&#xf3;polis (TO)"/>
+                    <StringItem index="80" value="Aimor&#xe9;s (MG)"/>
+                    <StringItem index="81" value="Aiquara (BA)"/>
+                    <StringItem index="82" value="Aiuaba (CE)"/>
+                    <StringItem index="83" value="Aiuruoca (MG)"/>
+                    <StringItem index="84" value="Ajuricaba (RS)"/>
+                    <StringItem index="85" value="Alagoa (MG)"/>
+                    <StringItem index="86" value="Alagoa Grande (PB)"/>
+                    <StringItem index="87" value="Alagoa Nova (PB)"/>
+                    <StringItem index="88" value="Alagoinha (PB)"/>
+                    <StringItem index="89" value="Alagoinha (PE)"/>
+                    <StringItem index="90" value="Alagoinha do Piau&#xed; (PI)"/>
+                    <StringItem index="91" value="Alagoinhas (BA)"/>
+                    <StringItem index="92" value="Alambari (SP)"/>
+                    <StringItem index="93" value="Albertina (MG)"/>
+                    <StringItem index="94" value="Alc&#xe2;ntara (MA)"/>
+                    <StringItem index="95" value="Alc&#xe2;ntaras (CE)"/>
+                    <StringItem index="96" value="Alcantil (PB)"/>
+                    <StringItem index="97" value="Alcin&#xf3;polis (MS)"/>
+                    <StringItem index="98" value="Alcoba&#xe7;a (BA)"/>
+                    <StringItem index="99" value="Aldeias Altas (MA)"/>
+                    <StringItem index="100" value="Alecrim (RS)"/>
+                    <StringItem index="101" value="Alegre (ES)"/>
+                    <StringItem index="102" value="Alegrete (RS)"/>
+                    <StringItem index="103" value="Alegrete do Piau&#xed; (PI)"/>
+                    <StringItem index="104" value="Alegria (RS)"/>
+                    <StringItem index="105" value="Al&#xe9;m Para&#xed;ba (MG)"/>
+                    <StringItem index="106" value="Alenquer (PA)"/>
+                    <StringItem index="107" value="Alexandria (RN)"/>
+                    <StringItem index="108" value="Alex&#xe2;nia (GO)"/>
+                    <StringItem index="109" value="Alfenas (MG)"/>
+                    <StringItem index="110" value="Alfredo Chaves (ES)"/>
+                    <StringItem index="111" value="Alfredo Marcondes (SP)"/>
+                    <StringItem index="112" value="Alfredo Vasconcelos (MG)"/>
+                    <StringItem index="113" value="Alfredo Wagner (SC)"/>
+                    <StringItem index="114" value="Algod&#xe3;o de Janda&#xed;ra (PB)"/>
+                    <StringItem index="115" value="Alhandra (PB)"/>
+                    <StringItem index="116" value="Alian&#xe7;a (PE)"/>
+                    <StringItem index="117" value="Alian&#xe7;a do Tocantins (TO)"/>
+                    <StringItem index="118" value="Almadina (BA)"/>
+                    <StringItem index="119" value="Almas (TO)"/>
+                    <StringItem index="120" value="Almeirim (PA)"/>
+                    <StringItem index="121" value="Almenara (MG)"/>
+                    <StringItem index="122" value="Almino Afonso (RN)"/>
+                    <StringItem index="123" value="Almirante Tamandar&#xe9; (PR)"/>
+                    <StringItem index="124" value="Almirante Tamandar&#xe9; do Sul (RS)"/>
+                    <StringItem index="125" value="Alo&#xe2;ndia (GO)"/>
+                    <StringItem index="126" value="Alpercata (MG)"/>
+                    <StringItem index="127" value="Alpestre (RS)"/>
+                    <StringItem index="128" value="Alpin&#xf3;polis (MG)"/>
+                    <StringItem index="129" value="Alta Floresta (MT)"/>
+                    <StringItem index="130" value="Alta Floresta d&apos;Oeste (RO)"/>
+                    <StringItem index="131" value="Altair (SP)"/>
+                    <StringItem index="132" value="Altamira (PA)"/>
+                    <StringItem index="133" value="Altamira do Maranh&#xe3;o (MA)"/>
+                    <StringItem index="134" value="Altamira do Paran&#xe1; (PR)"/>
+                    <StringItem index="135" value="Altaneira (CE)"/>
+                    <StringItem index="136" value="Alterosa (MG)"/>
+                    <StringItem index="137" value="Altinho (PE)"/>
+                    <StringItem index="138" value="Altin&#xf3;polis (SP)"/>
+                    <StringItem index="139" value="Alto Alegre (RR)"/>
+                    <StringItem index="140" value="Alto Alegre (RS)"/>
+                    <StringItem index="141" value="Alto Alegre (SP)"/>
+                    <StringItem index="142" value="Alto Alegre do Maranh&#xe3;o (MA)"/>
+                    <StringItem index="143" value="Alto Alegre do Pindar&#xe9; (MA)"/>
+                    <StringItem index="144" value="Alto Alegre dos Parecis (RO)"/>
+                    <StringItem index="145" value="Alto Araguaia (MT)"/>
+                    <StringItem index="146" value="Alto Bela Vista (SC)"/>
+                    <StringItem index="147" value="Alto da Boa Vista (MT)"/>
+                    <StringItem index="148" value="Alto Capara&#xf3; (MG)"/>
+                    <StringItem index="149" value="Alto do Rodrigues (RN)"/>
+                    <StringItem index="150" value="Alto Feliz (RS)"/>
+                    <StringItem index="151" value="Alto Gar&#xe7;as (MT)"/>
+                    <StringItem index="152" value="Alto Horizonte (GO)"/>
+                    <StringItem index="153" value="Alto Jequitib&#xe1; (MG)"/>
+                    <StringItem index="154" value="Alto Long&#xe1; (PI)"/>
+                    <StringItem index="155" value="Alt&#xf4;nia (PR)"/>
+                    <StringItem index="156" value="Alto Paraguai (MT)"/>
+                    <StringItem index="157" value="Alto Para&#xed;so (PR)"/>
+                    <StringItem index="158" value="Alto Para&#xed;so (RO)"/>
+                    <StringItem index="159" value="Alto Para&#xed;so de Goi&#xe1;s (GO)"/>
+                    <StringItem index="160" value="Alto Paran&#xe1; (PR)"/>
+                    <StringItem index="161" value="Alto Parna&#xed;ba (MA)"/>
+                    <StringItem index="162" value="Alto Piquiri (PR)"/>
+                    <StringItem index="163" value="Alto Rio Doce (MG)"/>
+                    <StringItem index="164" value="Alto Rio Novo (ES)"/>
+                    <StringItem index="165" value="Altos (PI)"/>
+                    <StringItem index="166" value="Alto Santo (CE)"/>
+                    <StringItem index="167" value="Alto Taquari (MT)"/>
+                    <StringItem index="168" value="Alum&#xed;nio (SP)"/>
+                    <StringItem index="169" value="Alvar&#xe3;es (AM)"/>
+                    <StringItem index="170" value="Alvarenga (MG)"/>
+                    <StringItem index="171" value="&#xc1;lvares Florence (SP)"/>
+                    <StringItem index="172" value="&#xc1;lvares Machado (SP)"/>
+                    <StringItem index="173" value="&#xc1;lvaro de Carvalho (SP)"/>
+                    <StringItem index="174" value="Alvinl&#xe2;ndia (SP)"/>
+                    <StringItem index="175" value="Alvin&#xf3;polis (MG)"/>
+                    <StringItem index="176" value="Alvorada (RS)"/>
+                    <StringItem index="177" value="Alvorada (TO)"/>
+                    <StringItem index="178" value="Alvorada de Minas (MG)"/>
+                    <StringItem index="179" value="Alvorada d&apos;Oeste (RO)"/>
+                    <StringItem index="180" value="Alvorada do Gurgueia (PI)"/>
+                    <StringItem index="181" value="Alvorada do Norte (GO)"/>
+                    <StringItem index="182" value="Alvorada do Sul (PR)"/>
+                    <StringItem index="183" value="Amajari (RR)"/>
+                    <StringItem index="184" value="Amambai (MS)"/>
+                    <StringItem index="185" value="Amap&#xe1; (AP)"/>
+                    <StringItem index="186" value="Amap&#xe1; do Maranh&#xe3;o (MA)"/>
+                    <StringItem index="187" value="Amapor&#xe3; (PR)"/>
+                    <StringItem index="188" value="Amaraji (PE)"/>
+                    <StringItem index="189" value="Amaral Ferrador (RS)"/>
+                    <StringItem index="190" value="Amaralina (GO)"/>
+                    <StringItem index="191" value="Amarante (PI)"/>
+                    <StringItem index="192" value="Amarante do Maranh&#xe3;o (MA)"/>
+                    <StringItem index="193" value="Amargosa (BA)"/>
+                    <StringItem index="194" value="Amatur&#xe1; (AM)"/>
+                    <StringItem index="195" value="Am&#xe9;lia Rodrigues (BA)"/>
+                    <StringItem index="196" value="Am&#xe9;rica Dourada (BA)"/>
+                    <StringItem index="197" value="Americana (SP)"/>
+                    <StringItem index="198" value="Americano do Brasil (GO)"/>
+                    <StringItem index="199" value="Am&#xe9;rico Brasiliense (SP)"/>
+                    <StringItem index="200" value="Am&#xe9;rico de Campos (SP)"/>
+                    <StringItem index="201" value="Ametista do Sul (RS)"/>
+                    <StringItem index="202" value="Amontada (CE)"/>
+                    <StringItem index="203" value="Amorin&#xf3;polis (GO)"/>
+                    <StringItem index="204" value="Amparo (PB)"/>
+                    <StringItem index="205" value="Amparo (SP)"/>
+                    <StringItem index="206" value="Amparo do S&#xe3;o Francisco (SE)"/>
+                    <StringItem index="207" value="Amparo do Serra (MG)"/>
+                    <StringItem index="208" value="Amp&#xe9;re (PR)"/>
+                    <StringItem index="209" value="Anadia (AL)"/>
+                    <StringItem index="210" value="Anag&#xe9; (BA)"/>
+                    <StringItem index="211" value="Anahy (PR)"/>
+                    <StringItem index="212" value="Anaj&#xe1;s (PA)"/>
+                    <StringItem index="213" value="Anajatuba (MA)"/>
+                    <StringItem index="214" value="Anal&#xe2;ndia (SP)"/>
+                    <StringItem index="215" value="Anam&#xe3; (AM)"/>
+                    <StringItem index="216" value="Anan&#xe1;s (TO)"/>
+                    <StringItem index="217" value="Ananindeua (PA)"/>
+                    <StringItem index="218" value="An&#xe1;polis (GO)"/>
+                    <StringItem index="219" value="Anapu (PA)"/>
+                    <StringItem index="220" value="Anapurus (MA)"/>
+                    <StringItem index="221" value="Anast&#xe1;cio (MS)"/>
+                    <StringItem index="222" value="Anauril&#xe2;ndia (MS)"/>
+                    <StringItem index="223" value="Anchieta (ES)"/>
+                    <StringItem index="224" value="Anchieta (SC)"/>
+                    <StringItem index="225" value="Andara&#xed; (BA)"/>
+                    <StringItem index="226" value="Andir&#xe1; (PR)"/>
+                    <StringItem index="227" value="Andorinha (BA)"/>
+                    <StringItem index="228" value="Andradas (MG)"/>
+                    <StringItem index="229" value="Andradina (SP)"/>
+                    <StringItem index="230" value="Andr&#xe9; da Rocha (RS)"/>
+                    <StringItem index="231" value="Andrel&#xe2;ndia (MG)"/>
+                    <StringItem index="232" value="Angatuba (SP)"/>
+                    <StringItem index="233" value="Angel&#xe2;ndia (MG)"/>
+                    <StringItem index="234" value="Ang&#xe9;lica (MS)"/>
+                    <StringItem index="235" value="Angelim (PE)"/>
+                    <StringItem index="236" value="Angelina (SC)"/>
+                    <StringItem index="237" value="Angical (BA)"/>
+                    <StringItem index="238" value="Angical do Piau&#xed; (PI)"/>
+                    <StringItem index="239" value="Angico (TO)"/>
+                    <StringItem index="240" value="Angicos (RN)"/>
+                    <StringItem index="241" value="Angra dos Reis (RJ)"/>
+                    <StringItem index="242" value="Anguera (BA)"/>
+                    <StringItem index="243" value="&#xc2;ngulo (PR)"/>
+                    <StringItem index="244" value="Anhanguera (GO)"/>
+                    <StringItem index="245" value="Anhembi (SP)"/>
+                    <StringItem index="246" value="Anhumas (SP)"/>
+                    <StringItem index="247" value="Anicuns (GO)"/>
+                    <StringItem index="248" value="An&#xed;sio de Abreu (PI)"/>
+                    <StringItem index="249" value="Anita Garibaldi (SC)"/>
+                    <StringItem index="250" value="Anit&#xe1;polis (SC)"/>
+                    <StringItem index="251" value="Anori (AM)"/>
+                    <StringItem index="252" value="Anta Gorda (RS)"/>
+                    <StringItem index="253" value="Antas (BA)"/>
+                    <StringItem index="254" value="Antonina (PR)"/>
+                    <StringItem index="255" value="Antonina do Norte (CE)"/>
+                    <StringItem index="256" value="Ant&#xf4;nio Almeida (PI)"/>
+                    <StringItem index="257" value="Ant&#xf4;nio Cardoso (BA)"/>
+                    <StringItem index="258" value="Ant&#xf4;nio Carlos (MG)"/>
+                    <StringItem index="259" value="Ant&#xf4;nio Carlos (SC)"/>
+                    <StringItem index="260" value="Ant&#xf4;nio Dias (MG)"/>
+                    <StringItem index="261" value="Ant&#xf4;nio Gon&#xe7;alves (BA)"/>
+                    <StringItem index="262" value="Ant&#xf4;nio Jo&#xe3;o (MS)"/>
+                    <StringItem index="263" value="Ant&#xf4;nio Martins (RN)"/>
+                    <StringItem index="264" value="Ant&#xf4;nio Olinto (PR)"/>
+                    <StringItem index="265" value="Ant&#xf4;nio Prado (RS)"/>
+                    <StringItem index="266" value="Ant&#xf4;nio Prado de Minas (MG)"/>
+                    <StringItem index="267" value="Aparecida (PB)"/>
+                    <StringItem index="268" value="Aparecida (SP)"/>
+                    <StringItem index="269" value="Aparecida de Goi&#xe2;nia (GO)"/>
+                    <StringItem index="270" value="Aparecida d&apos;Oeste (SP)"/>
+                    <StringItem index="271" value="Aparecida do Rio Doce (GO)"/>
+                    <StringItem index="272" value="Aparecida do Rio Negro (TO)"/>
+                    <StringItem index="273" value="Aparecida do Taboado (MS)"/>
+                    <StringItem index="274" value="Aperib&#xe9; (RJ)"/>
+                    <StringItem index="275" value="Apiac&#xe1; (ES)"/>
+                    <StringItem index="276" value="Apiac&#xe1;s (MT)"/>
+                    <StringItem index="277" value="Apia&#xed; (SP)"/>
+                    <StringItem index="278" value="Apicum-A&#xe7;u (MA)"/>
+                    <StringItem index="279" value="Api&#xfa;na (SC)"/>
+                    <StringItem index="280" value="Apodi (RN)"/>
+                    <StringItem index="281" value="Apor&#xe1; (BA)"/>
+                    <StringItem index="282" value="Apor&#xe9; (GO)"/>
+                    <StringItem index="283" value="Apuarema (BA)"/>
+                    <StringItem index="284" value="Apucarana (PR)"/>
+                    <StringItem index="285" value="Apu&#xed; (AM)"/>
+                    <StringItem index="286" value="Apuiar&#xe9;s (CE)"/>
+                    <StringItem index="287" value="Aquidab&#xe3; (SE)"/>
+                    <StringItem index="288" value="Aquidauana (MS)"/>
+                    <StringItem index="289" value="Aquiraz (CE)"/>
+                    <StringItem index="290" value="Arabut&#xe3; (SC)"/>
+                    <StringItem index="291" value="Ara&#xe7;agi (PB)"/>
+                    <StringItem index="292" value="Ara&#xe7;a&#xed; (MG)"/>
+                    <StringItem index="293" value="Aracaju (SE)"/>
+                    <StringItem index="294" value="Ara&#xe7;ariguama (SP)"/>
+                    <StringItem index="295" value="Ara&#xe7;&#xe1;s (BA)"/>
+                    <StringItem index="296" value="Aracati (CE)"/>
+                    <StringItem index="297" value="Aracatu (BA)"/>
+                    <StringItem index="298" value="Ara&#xe7;atuba (SP)"/>
+                    <StringItem index="299" value="Araci (BA)"/>
+                    <StringItem index="300" value="Aracitaba (MG)"/>
+                    <StringItem index="301" value="Aracoiaba (CE)"/>
+                    <StringItem index="302" value="Ara&#xe7;oiaba (PE)"/>
+                    <StringItem index="303" value="Ara&#xe7;oiaba da Serra (SP)"/>
+                    <StringItem index="304" value="Aracruz (ES)"/>
+                    <StringItem index="305" value="Ara&#xe7;u (GO)"/>
+                    <StringItem index="306" value="Ara&#xe7;ua&#xed; (MG)"/>
+                    <StringItem index="307" value="Aragar&#xe7;as (GO)"/>
+                    <StringItem index="308" value="Aragoi&#xe2;nia (GO)"/>
+                    <StringItem index="309" value="Aragominas (TO)"/>
+                    <StringItem index="310" value="Araguacema (TO)"/>
+                    <StringItem index="311" value="Aragua&#xe7;u (TO)"/>
+                    <StringItem index="312" value="Araguaiana (MT)"/>
+                    <StringItem index="313" value="Aragua&#xed;na (TO)"/>
+                    <StringItem index="314" value="Araguainha (MT)"/>
+                    <StringItem index="315" value="Araguan&#xe3; (MA)"/>
+                    <StringItem index="316" value="Araguan&#xe3; (TO)"/>
+                    <StringItem index="317" value="Araguapaz (GO)"/>
+                    <StringItem index="318" value="Araguari (MG)"/>
+                    <StringItem index="319" value="Araguatins (TO)"/>
+                    <StringItem index="320" value="Araioses (MA)"/>
+                    <StringItem index="321" value="Aral Moreira (MS)"/>
+                    <StringItem index="322" value="Aramari (BA)"/>
+                    <StringItem index="323" value="Arambar&#xe9; (RS)"/>
+                    <StringItem index="324" value="Arame (MA)"/>
+                    <StringItem index="325" value="Aramina (SP)"/>
+                    <StringItem index="326" value="Arandu (SP)"/>
+                    <StringItem index="327" value="Arantina (MG)"/>
+                    <StringItem index="328" value="Arape&#xed; (SP)"/>
+                    <StringItem index="329" value="Arapiraca (AL)"/>
+                    <StringItem index="330" value="Arapoema (TO)"/>
+                    <StringItem index="331" value="Araponga (MG)"/>
+                    <StringItem index="332" value="Arapongas (PR)"/>
+                    <StringItem index="333" value="Arapor&#xe3; (MG)"/>
+                    <StringItem index="334" value="Arapoti (PR)"/>
+                    <StringItem index="335" value="Arapu&#xe1; (MG)"/>
+                    <StringItem index="336" value="Arapu&#xe3; (PR)"/>
+                    <StringItem index="337" value="Araputanga (MT)"/>
+                    <StringItem index="338" value="Araquari (SC)"/>
+                    <StringItem index="339" value="Arara (PB)"/>
+                    <StringItem index="340" value="Ararangu&#xe1; (SC)"/>
+                    <StringItem index="341" value="Araraquara (SP)"/>
+                    <StringItem index="342" value="Araras (SP)"/>
+                    <StringItem index="343" value="Ararend&#xe1; (CE)"/>
+                    <StringItem index="344" value="Arari (MA)"/>
+                    <StringItem index="345" value="Araric&#xe1; (RS)"/>
+                    <StringItem index="346" value="Araripe (CE)"/>
+                    <StringItem index="347" value="Araripina (PE)"/>
+                    <StringItem index="348" value="Araruama (RJ)"/>
+                    <StringItem index="349" value="Araruna (PB)"/>
+                    <StringItem index="350" value="Araruna (PR)"/>
+                    <StringItem index="351" value="Arataca (BA)"/>
+                    <StringItem index="352" value="Aratiba (RS)"/>
+                    <StringItem index="353" value="Aratuba (CE)"/>
+                    <StringItem index="354" value="Aratu&#xed;pe (BA)"/>
+                    <StringItem index="355" value="Arau&#xe1; (SE)"/>
+                    <StringItem index="356" value="Arauc&#xe1;ria (PR)"/>
+                    <StringItem index="357" value="Ara&#xfa;jos (MG)"/>
+                    <StringItem index="358" value="Arax&#xe1; (MG)"/>
+                    <StringItem index="359" value="Arceburgo (MG)"/>
+                    <StringItem index="360" value="Arco-&#xcd;ris (SP)"/>
+                    <StringItem index="361" value="Arcos (MG)"/>
+                    <StringItem index="362" value="Arcoverde (PE)"/>
+                    <StringItem index="363" value="Areado (MG)"/>
+                    <StringItem index="364" value="Areal (RJ)"/>
+                    <StringItem index="365" value="Arealva (SP)"/>
+                    <StringItem index="366" value="Areia (PB)"/>
+                    <StringItem index="367" value="Areia Branca (RN)"/>
+                    <StringItem index="368" value="Areia Branca (SE)"/>
+                    <StringItem index="369" value="Areia de Bara&#xfa;nas (PB)"/>
+                    <StringItem index="370" value="Areial (PB)"/>
+                    <StringItem index="371" value="Areias (SP)"/>
+                    <StringItem index="372" value="Arei&#xf3;polis (SP)"/>
+                    <StringItem index="373" value="Aren&#xe1;polis (MT)"/>
+                    <StringItem index="374" value="Aren&#xf3;polis (GO)"/>
+                    <StringItem index="375" value="Arez (Rio Grande do Norte) (RN)"/>
+                    <StringItem index="376" value="Argirita (MG)"/>
+                    <StringItem index="377" value="Aricanduva (MG)"/>
+                    <StringItem index="378" value="Arinos (MG)"/>
+                    <StringItem index="379" value="Aripuan&#xe3; (MT)"/>
+                    <StringItem index="380" value="Ariquemes (RO)"/>
+                    <StringItem index="381" value="Ariranha (SP)"/>
+                    <StringItem index="382" value="Ariranha do Iva&#xed; (PR)"/>
+                    <StringItem index="383" value="Arma&#xe7;&#xe3;o dos B&#xfa;zios (RJ)"/>
+                    <StringItem index="384" value="Armaz&#xe9;m (SC)"/>
+                    <StringItem index="385" value="Arneiroz (CE)"/>
+                    <StringItem index="386" value="Aroazes (PI)"/>
+                    <StringItem index="387" value="Aroeiras (PB)"/>
+                    <StringItem index="388" value="Aroeiras do Itaim (PI)"/>
+                    <StringItem index="389" value="Arraial (PI)"/>
+                    <StringItem index="390" value="Arraial do Cabo (RJ)"/>
+                    <StringItem index="391" value="Arraias (TO)"/>
+                    <StringItem index="392" value="Arroio do Meio (RS)"/>
+                    <StringItem index="393" value="Arroio do Padre (RS)"/>
+                    <StringItem index="394" value="Arroio do Sal (RS)"/>
+                    <StringItem index="395" value="Arroio dos Ratos (RS)"/>
+                    <StringItem index="396" value="Arroio do Tigre (RS)"/>
+                    <StringItem index="397" value="Arroio Grande (RS)"/>
+                    <StringItem index="398" value="Arroio Trinta (SC)"/>
+                    <StringItem index="399" value="Artur Nogueira (SP)"/>
+                    <StringItem index="400" value="Aruan&#xe3; (GO)"/>
+                    <StringItem index="401" value="Aruj&#xe1; (SP)"/>
+                    <StringItem index="402" value="Arvoredo (SC)"/>
+                    <StringItem index="403" value="Arvorezinha (RS)"/>
+                    <StringItem index="404" value="Ascurra (SC)"/>
+                    <StringItem index="405" value="Asp&#xe1;sia (SP)"/>
+                    <StringItem index="406" value="Assa&#xed; (PR)"/>
+                    <StringItem index="407" value="Assar&#xe9; (CE)"/>
+                    <StringItem index="408" value="Assis (SP)"/>
+                    <StringItem index="409" value="Assis Brasil (AC)"/>
+                    <StringItem index="410" value="Assis Chateaubriand (PR)"/>
+                    <StringItem index="411" value="Assu (RN)"/>
+                    <StringItem index="412" value="Assun&#xe7;&#xe3;o (PB)"/>
+                    <StringItem index="413" value="Assun&#xe7;&#xe3;o do Piau&#xed; (PI)"/>
+                    <StringItem index="414" value="Astolfo Dutra (MG)"/>
+                    <StringItem index="415" value="Astorga (PR)"/>
+                    <StringItem index="416" value="Atalaia (AL)"/>
+                    <StringItem index="417" value="Atalaia (PR)"/>
+                    <StringItem index="418" value="Atalaia do Norte (AM)"/>
+                    <StringItem index="419" value="Atalanta (SC)"/>
+                    <StringItem index="420" value="Atal&#xe9;ia (MG)"/>
+                    <StringItem index="421" value="Atibaia (SP)"/>
+                    <StringItem index="422" value="At&#xed;lio Viv&#xe1;cqua (ES)"/>
+                    <StringItem index="423" value="Augustin&#xf3;polis (TO)"/>
+                    <StringItem index="424" value="Augusto Corr&#xea;a (PA)"/>
+                    <StringItem index="425" value="Augusto de Lima (MG)"/>
+                    <StringItem index="426" value="Augusto Pestana (RS)"/>
+                    <StringItem index="427" value="&#xc1;urea (RS)"/>
+                    <StringItem index="428" value="Aurelino Leal (BA)"/>
+                    <StringItem index="429" value="Auriflama (SP)"/>
+                    <StringItem index="430" value="Auril&#xe2;ndia (GO)"/>
+                    <StringItem index="431" value="Aurora (CE)"/>
+                    <StringItem index="432" value="Aurora (SC)"/>
+                    <StringItem index="433" value="Aurora do Par&#xe1; (PA)"/>
+                    <StringItem index="434" value="Aurora do Tocantins (TO)"/>
+                    <StringItem index="435" value="Autazes (AM)"/>
+                    <StringItem index="436" value="Ava&#xed; (SP)"/>
+                    <StringItem index="437" value="Avanhandava (SP)"/>
+                    <StringItem index="438" value="Avar&#xe9; (SP)"/>
+                    <StringItem index="439" value="Aveiro (PA)"/>
+                    <StringItem index="440" value="Avelino Lopes (PI)"/>
+                    <StringItem index="441" value="Avelin&#xf3;polis (GO)"/>
+                    <StringItem index="442" value="Axix&#xe1; (MA)"/>
+                    <StringItem index="443" value="Axix&#xe1; do Tocantins (TO)"/>
+                  </StringArray>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbAtendido">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Atendido:"/>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -795,21 +1793,21 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btEditar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btSalvar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <EmptySpace pref="29" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -841,6 +1839,255 @@
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="pInscricao">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="e6" green="e6" id="Control Highlight" palette="2" red="e6" type="palette"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Inscri&#xe7;&#xe3;o">
+                  <Connection PropertyName="font" component="cbEstagiario" name="font" type="property"/>
+                  <Color PropertyName="color" blue="4a" green="4a" id="Control Dk Shadow" palette="2" red="4a" type="palette"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbOrientador" min="-2" pref="262" max="-2" attributes="0"/>
+                                  <Component id="lbOrientador" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lbEstagiario" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
+                                      <Component id="lbResponsavel" min="-2" pref="166" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="cbEstagiario" min="-2" pref="305" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="tfResponsavel" min="-2" pref="287" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbDisponibilidade" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" min="-2" pref="432" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbDisponibilidade1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="586" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cbAtendido" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="lbAtendido" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbDisponibilidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbDisponibilidade1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane2" pref="168" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbAtendido" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbOrientador" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbOrientador" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbAtendido" min="-2" pref="46" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lbEstagiario" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lbResponsavel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cbEstagiario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfResponsavel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lbDisponibilidade">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Disponibilidade:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbEstagiario">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Bruna"/>
+                    <StringItem index="1" value="Pedro"/>
+                    <StringItem index="2" value="Maria"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbEstagiario">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="*Estagi&#xe1;rio:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbResponsavel">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Respons&#xe1;vel:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbOrientador">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Bruna"/>
+                    <StringItem index="1" value="Pedro"/>
+                    <StringItem index="2" value="Maria"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbOrientador">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="*Orientador:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="cbAtendido">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbAtendido">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Atendido:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfResponsavel">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextPane" name="jTextPane1">
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextPane" name="jTextPane2">
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="lbDisponibilidade1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Queixa:"/>
               </Properties>
             </Component>
           </SubComponents>
