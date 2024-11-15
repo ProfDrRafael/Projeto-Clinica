@@ -2,51 +2,56 @@ package Persistencia.Dao;
 
 import Persistencia.Entity.Orientador;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class OrientadorDAO {
-    private EntityManagerFactory entityManagerFactory;
+public class OrientadorDAO extends GenericoDAO<Orientador> {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrientadorDAO.class);
 
     public OrientadorDAO() {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.tutorial.jpa");
-    }
-
-    public void salvarOrientador(Orientador orientador) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(orientador);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-    }
-
-    public void atualizarOrientador(Orientador orientador) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.merge(orientador);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        super(Orientador.class);
     }
 
     public Orientador buscarPorEmail(String email) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        TypedQuery<Orientador> query = entityManager.createQuery(
-                "SELECT o FROM Orientador o WHERE o.email = :email", Orientador.class);
-        query.setParameter("email", email);
-
+        EntityManager em = JPAUtil.getEntityManager();
         Orientador orientador = null;
         try {
+            TypedQuery<Orientador> query = em.createQuery(
+                    "SELECT o FROM Orientador o WHERE o.email = :email", Orientador.class);
+            query.setParameter("email", email);
             orientador = query.getSingleResult();
+        } catch (NoResultException e) {
+            logger.warn("Orientador não encontrado com o email: {}", email);
         } catch (Exception e) {
-            System.out.println("Orientador não encontrado com o email: " + email);
+            logger.error("Erro ao buscar Orientador por email: ", e);
         } finally {
-            entityManager.close();
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
         }
         return orientador;
     }
 
-    public void fechar() {
-        entityManagerFactory.close();
+    public Orientador buscarPorNome(String nome) {
+        EntityManager em = JPAUtil.getEntityManager();
+        Orientador orientador = null;
+        try {
+            TypedQuery<Orientador> query = em.createQuery(
+                    "SELECT o FROM Orientador o WHERE o.nome = :nome", Orientador.class);
+            query.setParameter("nome", nome);
+            orientador = query.getSingleResult();
+        } catch (NoResultException e) {
+            logger.warn("Orientador não encontrado com o nome: {}", nome);
+        } catch (Exception e) {
+            logger.error("Erro ao buscar Orientador por nome: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return orientador;
     }
 }
