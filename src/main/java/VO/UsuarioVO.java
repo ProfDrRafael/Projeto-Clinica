@@ -8,7 +8,18 @@ package VO;
  *
  * @author rafael
  */
-public class UsuarioVO {
+public abstract class UsuarioVO {
+    private int id;
+    private String nomeCompleto;
+    private String email;
+    private String senha;
+
+    public UsuarioVO(int id, String nomeCompleto, String email, String senha) {
+        this.id = id;
+        this.nomeCompleto = nomeCompleto;
+        this.email = email;
+        this.senha = senha;
+    }
 
     /**
      * @return the id
@@ -66,31 +77,5 @@ public class UsuarioVO {
         this.senha = senha;
     }
 
-    /**
-     * @return the funcao
-     */
-    public String getFuncao() {
-        return funcao;
-    }
-
-    /**
-     * @param funcao the funcao to set
-     */
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
-    private int id;
-    private String nomeCompleto;
-    private String email;
-    private String senha;
-    private String funcao;
-    
-    public UsuarioVO(int id, String nomeCompleto, String email, String senha, String funcao) {
-        this.id = id;
-        this.nomeCompleto = nomeCompleto;
-        this.email = email;
-        this.senha = senha;
-        this.funcao = funcao;
-    }
-    
+    public abstract String getTipo();
 }

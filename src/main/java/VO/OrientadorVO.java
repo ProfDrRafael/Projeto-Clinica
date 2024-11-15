@@ -4,93 +4,67 @@
  */
 package VO;
 
+import Persistencia.Entity.Orientador;
+
 /**
  *
  * @author rafael
  */
-public class OrientadorVO {
+public class OrientadorVO extends UsuarioVO {
+    private Boolean ativo;
+    private String linhaTeorica;
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
+    public OrientadorVO(int id, String nomeCompleto, String email, String senha) {
+        super(id, nomeCompleto, email, senha);
+        this.ativo = true;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
+    public OrientadorVO(int id, String nomeCompleto, String email, String senha, Boolean ativo, String linhaTeorica) {
+        super(id, nomeCompleto, email, senha);
+        this.ativo = ativo;
+        this.linhaTeorica = linhaTeorica;
     }
-
-    /**
-     * @return the nomeCompleto
-     */
-    public String getNomeCompleto() {
-        return nomeCompleto;
+    @Override
+    public String getTipo() {
+        return "Orientador";
     }
 
     /**
-     * @param nomeCompleto the nomeCompleto to set
+     * @return the ativo
      */
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
+    public Boolean getAtivo() {
+        return ativo;
     }
 
     /**
-     * @return the email
+     * @param ativo the ativo to set
      */
-    public String getEmail() {
-        return email;
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     /**
-     * @param email the email to set
+     * @return the linhaTeorica
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public String getLinhaTeorica() {
+        return linhaTeorica;
     }
 
     /**
-     * @return the senha
+     * @param linhaTeorica the linhaTeorica to set
      */
-    public String getSenha() {
-        return senha;
+    public void setLinhaTeorica(String linhaTeorica) {
+        this.linhaTeorica = linhaTeorica;
     }
 
-    /**
-     * @param senha the senha to set
-     */
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public static OrientadorVO fromEntity(Orientador orientador) {
+        return new OrientadorVO(
+                orientador.getId(),
+                orientador.getNome(),
+                orientador.getEmail(),
+                null,
+                orientador.getAtivo(),
+                orientador.getLinhaTeorica()
+        );
     }
-
-    /**
-     * @return the funcao
-     */
-    public String getFuncao() {
-        return funcao;
-    }
-
-    /**
-     * @param funcao the funcao to set
-     */
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
-    private int id;
-    private String nomeCompleto;
-    private String email;
-    private String senha;
-    private String funcao;
-    
-    public OrientadorVO(int id, String nomeCompleto, String email, String senha, String funcao){
-        this.id = id;
-        this.nomeCompleto = nomeCompleto;
-        this.email = email;
-        this.senha = senha;
-        this.funcao = funcao;
-    }
-    
 }

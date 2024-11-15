@@ -4,159 +4,120 @@
  */
 package VO;
 
+import Persistencia.Entity.Estagiario;
+
 /**
  *
  * @author rafael
  */
-public class EstagiarioVO {
-    private int id;
-    private String nomeCompleto;
-    private String email;
-    private String senha;
-    private String funcao;
-    private boolean ativo;
-    private int semestre;
-    private int ano;
-    private OrientadorVO orientadorResponsavel;
-    
-    public EstagiarioVO(int id, String nomeCompleto, String email, String senha,String funcao,
-boolean ativo, int semestre, int ano, OrientadorVO orientadorResponsavel){
-        this.id = id;
-        this.nomeCompleto = nomeCompleto;
-        this.email = email;
-        this.senha = senha;
-        this.funcao = funcao;
-        this.ativo = ativo;
-        this.semestre = semestre;
+public class EstagiarioVO extends UsuarioVO {
+    private Boolean ativo;
+    private Integer ano;
+    private String semestreFim;
+    private Integer anoFim;
+    private OrientadorVO orientadorVO;
+
+    public EstagiarioVO(int id, String nomeCompleto, String email, String senha, Integer ano) {
+        super(id, nomeCompleto, email, senha);
         this.ano = ano;
-        this.orientadorResponsavel = orientadorResponsavel;
-        
+        this.ativo = true;
     }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
+    public EstagiarioVO(int id, String nomeCompleto, String email, String senha, Boolean ativo, Integer ano, String semestreFim, Integer anoFim, OrientadorVO orientadorVO) {
+        super(id, nomeCompleto, email, senha);
+        this.ativo = ativo;
+        this.ano = ano;
+        this.semestreFim = semestreFim;
+        this.anoFim = anoFim;
+        this.orientadorVO = orientadorVO;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the nomeCompleto
-     */
-    public String getNomeCompleto() {
-        return nomeCompleto;
-    }
-
-    /**
-     * @param nomeCompleto the nomeCompleto to set
-     */
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the senha
-     */
-    public String getSenha() {
-        return senha;
-    }
-
-    /**
-     * @param senha the senha to set
-     */
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    /**
-     * @return the funcao
-     */
-    public String getFuncao() {
-        return funcao;
-    }
-
-    /**
-     * @param funcao the funcao to set
-     */
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
+    @Override
+    public String getTipo() {
+        return "Estagiario";
     }
 
     /**
      * @return the ativo
      */
-    public boolean isAtivo() {
+    public Boolean getAtivo() {
         return ativo;
     }
 
     /**
      * @param ativo the ativo to set
      */
-    public void setAtivo(boolean ativo) {
+    public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
-    }
-
-    /**
-     * @return the semestre
-     */
-    public int getSemestre() {
-        return semestre;
-    }
-
-    /**
-     * @param semestre the semestre to set
-     */
-    public void setSemestre(int semestre) {
-        this.semestre = semestre;
     }
 
     /**
      * @return the ano
      */
-    public int getAno() {
+    public Integer getAno() {
         return ano;
     }
 
     /**
      * @param ano the ano to set
      */
-    public void setAno(int ano) {
+    public void setAno(Integer ano) {
         this.ano = ano;
     }
 
     /**
-     * @return the orientadorResponsavel
+     * @return the semestreFim
      */
-    public OrientadorVO getOrientadorResponsavel() {
-        return orientadorResponsavel;
+    public String getSemestreFim() {
+        return semestreFim;
     }
 
     /**
-     * @param orientadorResponsavel the orientadorResponsavel to set
+     * @param semestreFim the semestreFim to set
      */
-    public void setOrientadorResponsavel(OrientadorVO orientadorResponsavel) {
-        this.orientadorResponsavel = orientadorResponsavel;
+    public void setSemestreFim(String semestreFim) {
+        this.semestreFim = semestreFim;
     }
-    
+
+    /**
+     * @return the anoFim
+     */
+    public Integer getAnoFim() {
+        return anoFim;
+    }
+
+    /**
+     * @param anoFim the anoFim to set
+     */
+    public void setAnoFim(Integer anoFim) {
+        this.anoFim = anoFim;
+    }
+
+    /**
+     * @return the orientadorVO
+     */
+    public OrientadorVO getOrientadorVO() {
+        return orientadorVO;
+    }
+
+    /**
+     * @param orientadorVO the orientadorVO to set
+     */
+    public void setOrientadorVO(OrientadorVO orientadorVO) {
+        this.orientadorVO = orientadorVO;
+    }
+
+    public static EstagiarioVO fromEntity(Estagiario estagiario) {
+        return new EstagiarioVO(
+                estagiario.getId(),
+                estagiario.getNome(),
+                estagiario.getEmail(),
+                null,
+                estagiario.getAtivo(),
+                estagiario.getAno(),
+                estagiario.getSemestreFim(),
+                estagiario.getAnoFim(),
+                OrientadorVO.fromEntity(estagiario.getOrientador())
+        );
+    }
 }
