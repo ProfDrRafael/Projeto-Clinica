@@ -107,17 +107,50 @@ public class EstagiarioVO extends UsuarioVO {
         this.orientadorVO = orientadorVO;
     }
 
-    public static EstagiarioVO fromEntity(Estagiario estagiario) {
+    public static EstagiarioVO fromEntity(Estagiario entity) {
         return new EstagiarioVO(
-                estagiario.getId(),
-                estagiario.getNome(),
-                estagiario.getEmail(),
-                null,
-                estagiario.getAtivo(),
-                estagiario.getAno(),
-                estagiario.getSemestreFim(),
-                estagiario.getAnoFim(),
-                OrientadorVO.fromEntity(estagiario.getOrientador())
+                entity.getId(),
+                entity.getNome(),
+                entity.getEmail(),
+                null, // Senha não é transferida
+                entity.getAtivo(),
+                entity.getAno(),
+                entity.getSemestreFim(),
+                entity.getAnoFim(),
+                entity.getOrientador() != null ? OrientadorVO.fromEntity(entity.getOrientador()) : null
         );
+    }
+
+    // Método de conversão de VO para Entity
+    public Estagiario toEntity() {
+        var estagiario = new Estagiario();
+        estagiario.setId(this.getId());
+        estagiario.setNome(this.getNomeCompleto());
+        estagiario.setEmail(this.getEmail());
+        estagiario.setSenha(this.getSenha());
+        estagiario.setAtivo(this.getAtivo());
+        estagiario.setAno(this.getAno());
+        estagiario.setSemestreFim(this.getSemestreFim());
+        estagiario.setAnoFim(this.getAnoFim());
+        if (this.getOrientadorVO() != null) {
+            estagiario.setOrientador(this.getOrientadorVO().toEntity());
+        }
+        return estagiario;
+    }
+
+    // Método para atualizar uma entidade existente
+    public void updateEntity(Estagiario entity) {
+        entity.setNome(this.getNomeCompleto());
+        entity.setEmail(this.getEmail());
+        entity.setAtivo(this.getAtivo());
+        entity.setAno(this.getAno());
+        entity.setSemestreFim(this.getSemestreFim());
+        entity.setAnoFim(this.getAnoFim());
+    }
+
+    // Método de validação
+    public boolean isValid() {
+        return this.getNomeCompleto() != null && !this.getNomeCompleto().isEmpty() &&
+                this.getEmail() != null && !this.getEmail().isEmpty();
     }
 }
