@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import Visao.Components.SimpleForm;
+import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.redimencionarIcones;
 
 /**
@@ -20,6 +19,9 @@ public class FormProntuario extends SimpleForm {
     public FormProntuario() {
         initComponents();
         //redimensionarIcones();
+        
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpQueixa);
         
         redimencionarIcones redimencionarIcone = new redimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");

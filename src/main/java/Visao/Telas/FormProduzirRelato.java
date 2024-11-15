@@ -4,6 +4,7 @@
  */
 package Visao.Telas;
 import Visao.Components.SimpleForm;
+import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.redimencionarIcones;
 
 /**
@@ -18,6 +19,8 @@ public class FormProduzirRelato extends SimpleForm {
     public FormProduzirRelato() {
         initComponents();
         //redimensionarIcones();
+        
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
         
         redimencionarIcones redimencionarIcone = new redimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
@@ -38,7 +41,7 @@ public class FormProduzirRelato extends SimpleForm {
         btSalvar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tpDescricao = new javax.swing.JTextPane();
+        tpTextoRelato = new javax.swing.JTextPane();
         btCancelar = new javax.swing.JButton();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
@@ -55,15 +58,15 @@ public class FormProduzirRelato extends SimpleForm {
 
         ldDescricao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         ldDescricao.setForeground(new java.awt.Color(0, 102, 102));
-        ldDescricao.setText("Descrição:");
+        ldDescricao.setText("Texto do Relato:");
 
         btSalvar.setBackground(new java.awt.Color(102, 255, 102));
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(51, 51, 51));
         btSalvar.setText("Submeter");
 
-        tpDescricao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jScrollPane4.setViewportView(tpDescricao);
+        tpTextoRelato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jScrollPane4.setViewportView(tpTextoRelato);
 
         btCancelar.setBackground(new java.awt.Color(255, 102, 102));
         btCancelar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -167,7 +170,7 @@ public class FormProduzirRelato extends SimpleForm {
     private javax.swing.JLabel ldDescricao;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
-    private javax.swing.JTextPane tpDescricao;
+    private javax.swing.JTextPane tpTextoRelato;
     // End of variables declaration//GEN-END:variables
  
 }

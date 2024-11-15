@@ -34,8 +34,6 @@ public class TableListaEsperaEspecifica extends SimpleForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnPagination = new javax.swing.JPanel();
-        pagination1 = new Visao.Components.pagination.Pagination();
         painel_lista_espera = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListaEsperaEspecifica = new javax.swing.JTable();
@@ -43,34 +41,10 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(960, 620));
-        setMinimumSize(new java.awt.Dimension(960, 620));
-        setPreferredSize(new java.awt.Dimension(960, 620));
+        setMaximumSize(new java.awt.Dimension(1000, 768));
+        setMinimumSize(new java.awt.Dimension(1000, 768));
+        setPreferredSize(new java.awt.Dimension(1000, 768));
         setLayout(new java.awt.BorderLayout());
-
-        pnPagination.setBackground(new java.awt.Color(0, 102, 102));
-        pnPagination.setToolTipText("");
-
-        pagination1.setBackground(new java.awt.Color(0, 102, 102));
-
-        javax.swing.GroupLayout pnPaginationLayout = new javax.swing.GroupLayout(pnPagination);
-        pnPagination.setLayout(pnPaginationLayout);
-        pnPaginationLayout.setHorizontalGroup(
-            pnPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPaginationLayout.createSequentialGroup()
-                .addContainerGap(381, Short.MAX_VALUE)
-                .addComponent(pagination1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(381, Short.MAX_VALUE))
-        );
-        pnPaginationLayout.setVerticalGroup(
-            pnPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPaginationLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pagination1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        add(pnPagination, java.awt.BorderLayout.SOUTH);
 
         painel_lista_espera.setBackground(new java.awt.Color(255, 255, 255));
         painel_lista_espera.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,11 +102,11 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(81, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addGap(0, 542, Short.MAX_VALUE))
+                .addGap(0, 562, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,9 +127,7 @@ public class TableListaEsperaEspecifica extends SimpleForm {
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JPanel pNorth;
-    private Visao.Components.pagination.Pagination pagination1;
     private javax.swing.JPanel painel_lista_espera;
-    private javax.swing.JPanel pnPagination;
     private javax.swing.JTable tbListaEsperaEspecifica;
     // End of variables declaration//GEN-END:variables
 

@@ -4,6 +4,7 @@
  */
 package Visao.Telas;
 import Visao.Components.SimpleForm;
+import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.redimencionarIcones;
 
 /**
@@ -18,6 +19,8 @@ public class FormAgenda extends SimpleForm {
     public FormAgenda() {
         initComponents();
         //redimensionarIcones();
+        
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
         
         redimencionarIcones redimencionarIcone = new redimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
@@ -38,11 +41,8 @@ public class FormAgenda extends SimpleForm {
         lbData = new javax.swing.JLabel();
         lbHora = new javax.swing.JLabel();
         lbPaciente = new javax.swing.JLabel();
-        tfPaciente = new javax.swing.JTextField();
         lbCelular = new javax.swing.JLabel();
         lbContato2 = new javax.swing.JLabel();
-        lbEmail = new javax.swing.JLabel();
-        tfEmail = new javax.swing.JTextField();
         lbObservacoes = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
@@ -59,6 +59,7 @@ public class FormAgenda extends SimpleForm {
         tfData = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tpObservacoes = new javax.swing.JTextPane();
+        cbEstagiario1 = new javax.swing.JComboBox<>();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
@@ -86,23 +87,13 @@ public class FormAgenda extends SimpleForm {
         lbPaciente.setForeground(new java.awt.Color(0, 102, 102));
         lbPaciente.setText("*Paciente:");
 
-        tfPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfPaciente.setToolTipText("ex. Maria Aparecida da Silva");
-
         lbCelular.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbCelular.setForeground(new java.awt.Color(0, 102, 102));
         lbCelular.setText("*Celular:");
 
         lbContato2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbContato2.setForeground(new java.awt.Color(0, 102, 102));
-        lbContato2.setText("Celular (Contato):");
-
-        lbEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbEmail.setForeground(new java.awt.Color(0, 102, 102));
-        lbEmail.setText("Email:");
-
-        tfEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfEmail.setToolTipText("email@email.com");
+        lbContato2.setText("Celular (Recado):");
 
         lbObservacoes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbObservacoes.setForeground(new java.awt.Color(0, 102, 102));
@@ -154,17 +145,13 @@ public class FormAgenda extends SimpleForm {
         tpObservacoes.setFont(cbSala.getFont());
         jScrollPane1.setViewportView(tpObservacoes);
 
+        cbEstagiario1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbEstagiario1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
+
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCentroLayout.createSequentialGroup()
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1))
-                    .addComponent(jSeparator3))
-                .addContainerGap())
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addComponent(jSeparator2)
                 .addContainerGap())
@@ -179,22 +166,19 @@ public class FormAgenda extends SimpleForm {
                     .addGroup(pCentroLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbEmail)
                             .addGroup(pCentroLayout.createSequentialGroup()
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pCentroLayout.createSequentialGroup()
-                                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbPaciente))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbCelular)
-                                            .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(35, 35, 35)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ftfCelular2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbContato2)))))
+                                .addComponent(lbPaciente)
+                                .addGap(236, 236, 236))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                                .addComponent(cbEstagiario1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)))
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbCelular)
+                            .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ftfCelular2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbContato2)))
                     .addGroup(pCentroLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +201,13 @@ public class FormAgenda extends SimpleForm {
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbObservacoes)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addComponent(jSeparator3))
+                .addContainerGap())
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,18 +235,14 @@ public class FormAgenda extends SimpleForm {
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ftfCelular2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lbEmail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                        .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbEstagiario1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbObservacoes)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -309,6 +295,7 @@ public class FormAgenda extends SimpleForm {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox<String> cbEstagiario;
+    private javax.swing.JComboBox<String> cbEstagiario1;
     private javax.swing.JComboBox<String> cbHora;
     private javax.swing.JComboBox<String> cbSala;
     private com.raven.datechooser.DateChooser dateChooser1;
@@ -322,7 +309,6 @@ public class FormAgenda extends SimpleForm {
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbContato2;
     private javax.swing.JLabel lbData;
-    private javax.swing.JLabel lbEmail;
     private javax.swing.JLabel lbEstagiario;
     private javax.swing.JLabel lbHora;
     private javax.swing.JLabel lbObservacoes;
@@ -332,8 +318,6 @@ public class FormAgenda extends SimpleForm {
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextField tfData;
-    private javax.swing.JTextField tfEmail;
-    private javax.swing.JTextField tfPaciente;
     private javax.swing.JTextPane tpObservacoes;
     // End of variables declaration//GEN-END:variables
 
