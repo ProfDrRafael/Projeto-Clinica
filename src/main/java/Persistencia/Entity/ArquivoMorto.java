@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "arquivo_morto", schema = "clinicapsicologia")
+@Table(name = "arquivo_morto")
 public class ArquivoMorto {
     @Id
     @Column(name = "id", nullable = false)

@@ -1,18 +1,13 @@
 package Persistencia.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
-@Table(name = "orientador", schema = "clinicapsicologia")
+@Table(name = "orientador")
 public class Orientador {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Adiciona geração automática de ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -32,7 +27,6 @@ public class Orientador {
     @Column(name = "linha_teorica", length = 100)
     private String linhaTeorica;
 
-    // Getters e Setters
     public Integer getId() {
         return id;
     }
@@ -80,4 +74,5 @@ public class Orientador {
     public void setLinhaTeorica(String linhaTeorica) {
         this.linhaTeorica = linhaTeorica;
     }
+
 }

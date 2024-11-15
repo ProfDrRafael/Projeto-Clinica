@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Embeddable
 public class EstagiarioXPacienteId implements java.io.Serializable {
-    private static final long serialVersionUID = 2833444078215048243L;
+    private static final long serialVersionUID = 6831500545963615932L;
     @Column(name = "estagiario_id", nullable = false)
     private Integer estagiarioId;
 

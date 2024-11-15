@@ -3,7 +3,7 @@ package Persistencia.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "lista_de_espera", schema = "clinicapsicologia")
+@Table(name = "lista_de_espera")
 public class ListaDeEspera {
     @Id
     @Column(name = "id", nullable = false)

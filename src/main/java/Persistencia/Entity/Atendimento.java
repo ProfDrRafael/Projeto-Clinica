@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "atendimento", schema = "clinicapsicologia")
+@Table(name = "atendimento")
 public class Atendimento {
     @Id
     @Column(name = "id", nullable = false)
@@ -35,12 +35,16 @@ public class Atendimento {
     private String relatoAtendimento;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "prontuario_eletronico_id", nullable = false)
-    private Persistencia.Entity.Prontuario prontuarioEletronico;
+    @JoinColumn(name = "prontuario_id", nullable = false)
+    private Persistencia.Entity.Prontuario prontuario;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "estagiario_id", nullable = false)
     private Persistencia.Entity.Estagiario estagiario;
+
+    @ColumnDefault("0")
+    @Column(name = "plantao")
+    private Boolean plantao;
 
     public Integer getId() {
         return id;
@@ -98,12 +102,12 @@ public class Atendimento {
         this.relatoAtendimento = relatoAtendimento;
     }
 
-    public Persistencia.Entity.Prontuario getProntuarioEletronico() {
-        return prontuarioEletronico;
+    public Persistencia.Entity.Prontuario getProntuario() {
+        return prontuario;
     }
 
-    public void setProntuarioEletronico(Persistencia.Entity.Prontuario prontuarioEletronico) {
-        this.prontuarioEletronico = prontuarioEletronico;
+    public void setProntuario(Persistencia.Entity.Prontuario prontuario) {
+        this.prontuario = prontuario;
     }
 
     public Persistencia.Entity.Estagiario getEstagiario() {
@@ -112,6 +116,14 @@ public class Atendimento {
 
     public void setEstagiario(Persistencia.Entity.Estagiario estagiario) {
         this.estagiario = estagiario;
+    }
+
+    public Boolean getPlantao() {
+        return plantao;
+    }
+
+    public void setPlantao(Boolean plantao) {
+        this.plantao = plantao;
     }
 
 }

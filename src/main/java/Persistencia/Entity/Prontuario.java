@@ -3,7 +3,7 @@ package Persistencia.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "prontuario", schema = "clinicapsicologia")
+@Table(name = "prontuario")
 public class Prontuario {
     @Id
     @Column(name = "id", nullable = false)
@@ -14,12 +14,6 @@ public class Prontuario {
 
     @Column(name = "queixa_inicial", nullable = false, length = 1500)
     private String queixaInicial;
-
-    @Column(name = "grau_instrucao", length = 50)
-    private String grauInstrucao;
-
-    @Column(name = "profissao", length = 100)
-    private String profissao;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "paciente_id", nullable = false)
@@ -55,22 +49,6 @@ public class Prontuario {
 
     public void setQueixaInicial(String queixaInicial) {
         this.queixaInicial = queixaInicial;
-    }
-
-    public String getGrauInstrucao() {
-        return grauInstrucao;
-    }
-
-    public void setGrauInstrucao(String grauInstrucao) {
-        this.grauInstrucao = grauInstrucao;
-    }
-
-    public String getProfissao() {
-        return profissao;
-    }
-
-    public void setProfissao(String profissao) {
-        this.profissao = profissao;
     }
 
     public Paciente getPaciente() {

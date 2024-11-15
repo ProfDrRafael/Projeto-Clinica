@@ -4,9 +4,10 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
-@Table(name = "estagiario", schema = "clinicapsicologia")
+@Table(name = "estagiario")
 public class Estagiario {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -23,12 +24,8 @@ public class Estagiario {
     @Column(name = "ativo")
     private Boolean ativo;
 
-    @Lob
-    @Column(name = "semestre_inicio", nullable = false)
-    private String semestreInicio;
-
-    @Column(name = "ano_inicio", nullable = false)
-    private Integer anoInicio;
+    @Column(name = "ano", nullable = false)
+    private Integer ano;
 
     @Lob
     @Column(name = "semestre_fim")
@@ -37,7 +34,7 @@ public class Estagiario {
     @Column(name = "ano_fim")
     private Integer anoFim;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orientador_id")
     private Persistencia.Entity.Orientador orientador;
 
@@ -81,20 +78,12 @@ public class Estagiario {
         this.ativo = ativo;
     }
 
-    public String getSemestreInicio() {
-        return semestreInicio;
+    public Integer getAno() {
+        return ano;
     }
 
-    public void setSemestreInicio(String semestreInicio) {
-        this.semestreInicio = semestreInicio;
-    }
-
-    public Integer getAnoInicio() {
-        return anoInicio;
-    }
-
-    public void setAnoInicio(Integer anoInicio) {
-        this.anoInicio = anoInicio;
+    public void setAno(Integer ano) {
+        this.ano = ano;
     }
 
     public String getSemestreFim() {

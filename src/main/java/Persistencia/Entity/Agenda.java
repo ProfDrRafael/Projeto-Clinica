@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "agenda", schema = "clinicapsicologia")
+@Table(name = "agenda")
 public class Agenda {
     @Id
     @Column(name = "id", nullable = false)

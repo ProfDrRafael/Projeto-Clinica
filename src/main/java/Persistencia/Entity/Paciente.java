@@ -1,20 +1,16 @@
 package Persistencia.Entity;
 
-import Persistencia.Entity.Endereco;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "paciente", schema = "clinicapsicologia")
+@Table(name = "paciente")
 public class Paciente {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
-
-    @Column(name = "email", nullable = false, length = 150)
-    private String email;
 
     @Column(name = "nome", nullable = false, length = 150)
     private String nome;
@@ -28,14 +24,38 @@ public class Paciente {
     @Column(name = "naturalidade", length = 50)
     private String naturalidade;
 
-    @Column(name = "nacionalidade", length = 50)
-    private String nacionalidade;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nacionalidade_id")
+    private Pais nacionalidade;
 
-    @Column(name = "genero", length = 20)
-    private String genero;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "genero_id")
+    private Genero genero;
 
-    @Column(name = "estado_civil", length = 20)
-    private String estadoCivil;
+    @Column(name = "raca", length = 50)
+    private String raca;
+
+    @Column(name = "cor", length = 50)
+    private String cor;
+
+    @Column(name = "etnia", length = 50)
+    private String etnia;
+
+    @Column(name = "orientacao_sexual", length = 50)
+    private String orientacaoSexual;
+
+    @Column(name = "encaminhado_por", length = 100)
+    private String encaminhadoPor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_civil_id")
+    private EstadoCivil estadoCivil;
+
+    @Column(name = "grau_instrucao", length = 50)
+    private String grauInstrucao;
+
+    @Column(name = "profissao", length = 100)
+    private String profissao;
 
     @Column(name = "nome_responsavel", length = 100)
     private String nomeResponsavel;
@@ -77,14 +97,6 @@ public class Paciente {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -117,28 +129,84 @@ public class Paciente {
         this.naturalidade = naturalidade;
     }
 
-    public String getNacionalidade() {
+    public Pais getNacionalidade() {
         return nacionalidade;
     }
 
-    public void setNacionalidade(String nacionalidade) {
+    public void setNacionalidade(Pais nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
-    public String getEstadoCivil() {
+    public String getRaca() {
+        return raca;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public String getEtnia() {
+        return etnia;
+    }
+
+    public void setEtnia(String etnia) {
+        this.etnia = etnia;
+    }
+
+    public String getOrientacaoSexual() {
+        return orientacaoSexual;
+    }
+
+    public void setOrientacaoSexual(String orientacaoSexual) {
+        this.orientacaoSexual = orientacaoSexual;
+    }
+
+    public String getEncaminhadoPor() {
+        return encaminhadoPor;
+    }
+
+    public void setEncaminhadoPor(String encaminhadoPor) {
+        this.encaminhadoPor = encaminhadoPor;
+    }
+
+    public EstadoCivil getEstadoCivil() {
         return estadoCivil;
     }
 
-    public void setEstadoCivil(String estadoCivil) {
+    public void setEstadoCivil(EstadoCivil estadoCivil) {
         this.estadoCivil = estadoCivil;
+    }
+
+    public String getGrauInstrucao() {
+        return grauInstrucao;
+    }
+
+    public void setGrauInstrucao(String grauInstrucao) {
+        this.grauInstrucao = grauInstrucao;
+    }
+
+    public String getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
     }
 
     public String getNomeResponsavel() {

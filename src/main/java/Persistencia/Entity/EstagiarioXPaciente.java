@@ -3,10 +3,10 @@ package Persistencia.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "estagiario_x_paciente", schema = "clinicapsicologia")
+@Table(name = "estagiario_x_paciente")
 public class EstagiarioXPaciente {
     @EmbeddedId
-    private Persistencia.Entity.EstagiarioXPacienteId id;
+    private EstagiarioXPacienteId id;
 
     @MapsId("estagiarioId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
