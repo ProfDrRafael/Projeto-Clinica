@@ -1,5 +1,7 @@
 package Persistencia.modelTemp;
 
+import VO.UsuarioVO;
+
 /**
  *
  * @author Raven
@@ -22,8 +24,8 @@ public class ModelUser {
         this.admin = admin;
     }
 
-    public ModelUser(String userName, boolean admin) {
-        this.userName = userName;
+    public ModelUser(UsuarioVO usuario, boolean admin) {
+        this.userName = usuario.getNomeCompleto();
         this.admin = admin;
     }
 

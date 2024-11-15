@@ -26,11 +26,17 @@ public class RelatorioSemestral {
     @Column(name = "ano", nullable = false)
     private Integer ano;
 
-    @Column(name = "estagiario_id", nullable = false)
-    private Integer estagiarioId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "estagiario_id", nullable = false)
+    private Estagiario estagiario;
 
-    @Column(name = "orientador_id", nullable = false)
-    private Integer orientadorId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "orientador_id", nullable = false)
+    private Orientador orientador;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "paciente_id", nullable = false)
+    private Paciente paciente;
 
     @ColumnDefault("current_timestamp()")
     @Column(name = "data_criacao", nullable = false)
@@ -76,20 +82,28 @@ public class RelatorioSemestral {
         this.ano = ano;
     }
 
-    public Integer getEstagiarioId() {
-        return estagiarioId;
+    public Estagiario getEstagiario() {
+        return estagiario;
     }
 
-    public void setEstagiarioId(Integer estagiarioId) {
-        this.estagiarioId = estagiarioId;
+    public void setEstagiario(Estagiario estagiario) {
+        this.estagiario = estagiario;
     }
 
-    public Integer getOrientadorId() {
-        return orientadorId;
+    public Orientador getOrientador() {
+        return orientador;
     }
 
-    public void setOrientadorId(Integer orientadorId) {
-        this.orientadorId = orientadorId;
+    public void setOrientador(Orientador orientador) {
+        this.orientador = orientador;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     public Instant getDataCriacao() {

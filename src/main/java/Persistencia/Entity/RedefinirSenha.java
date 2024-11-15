@@ -1,6 +1,9 @@
 package Persistencia.Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
@@ -9,7 +12,6 @@ import java.time.Instant;
 @Table(name = "redefinir_senha")
 public class RedefinirSenha {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

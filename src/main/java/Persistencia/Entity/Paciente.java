@@ -18,6 +18,9 @@ public class Paciente {
     @Column(name = "telefone", nullable = false, length = 20)
     private String telefone;
 
+    @Column(name = "telefone_contato", length = 20)
+    private String telefoneContato;
+
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
@@ -28,28 +31,20 @@ public class Paciente {
     @JoinColumn(name = "nacionalidade_id")
     private Pais nacionalidade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "genero_id")
-    private Genero genero;
+    @Column(name = "raca_cor_etnia", length = 50)
+    private String racaCorEtnia;
 
-    @Column(name = "raca", length = 50)
-    private String raca;
-
-    @Column(name = "cor", length = 50)
-    private String cor;
-
-    @Column(name = "etnia", length = 50)
-    private String etnia;
-
-    @Column(name = "orientacao_sexual", length = 50)
-    private String orientacaoSexual;
+    @ColumnDefault("'Prefiro não informar'")
+    @Lob
+    @Column(name = "genero")
+    private String genero;
 
     @Column(name = "encaminhado_por", length = 100)
     private String encaminhadoPor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estado_civil_id")
-    private EstadoCivil estadoCivil;
+    @Lob
+    @Column(name = "estado_civil")
+    private String estadoCivil;
 
     @Column(name = "grau_instrucao", length = 50)
     private String grauInstrucao;
@@ -57,14 +52,9 @@ public class Paciente {
     @Column(name = "profissao", length = 100)
     private String profissao;
 
-    @Column(name = "nome_responsavel", length = 100)
-    private String nomeResponsavel;
-
-    @Column(name = "vinculo_responsavel", length = 30)
-    private String vinculoResponsavel;
-
-    @Column(name = "telefone_responsavel", length = 20)
-    private String telefoneResponsavel;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "responsavel_id")
+    private Persistencia.Entity.Responsavel responsavel;
 
     @Column(name = "disponibilidade")
     private String disponibilidade;
@@ -113,6 +103,14 @@ public class Paciente {
         this.telefone = telefone;
     }
 
+    public String getTelefoneContato() {
+        return telefoneContato;
+    }
+
+    public void setTelefoneContato(String telefoneContato) {
+        this.telefoneContato = telefoneContato;
+    }
+
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
@@ -137,44 +135,20 @@ public class Paciente {
         this.nacionalidade = nacionalidade;
     }
 
-    public Genero getGenero() {
+    public String getRacaCorEtnia() {
+        return racaCorEtnia;
+    }
+
+    public void setRacaCorEtnia(String racaCorEtnia) {
+        this.racaCorEtnia = racaCorEtnia;
+    }
+
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(Genero genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public String getRaca() {
-        return raca;
-    }
-
-    public void setRaca(String raca) {
-        this.raca = raca;
-    }
-
-    public String getCor() {
-        return cor;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
-
-    public String getEtnia() {
-        return etnia;
-    }
-
-    public void setEtnia(String etnia) {
-        this.etnia = etnia;
-    }
-
-    public String getOrientacaoSexual() {
-        return orientacaoSexual;
-    }
-
-    public void setOrientacaoSexual(String orientacaoSexual) {
-        this.orientacaoSexual = orientacaoSexual;
     }
 
     public String getEncaminhadoPor() {
@@ -185,11 +159,11 @@ public class Paciente {
         this.encaminhadoPor = encaminhadoPor;
     }
 
-    public EstadoCivil getEstadoCivil() {
+    public String getEstadoCivil() {
         return estadoCivil;
     }
 
-    public void setEstadoCivil(EstadoCivil estadoCivil) {
+    public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
 
@@ -209,28 +183,12 @@ public class Paciente {
         this.profissao = profissao;
     }
 
-    public String getNomeResponsavel() {
-        return nomeResponsavel;
+    public Persistencia.Entity.Responsavel getResponsavel() {
+        return responsavel;
     }
 
-    public void setNomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-    }
-
-    public String getVinculoResponsavel() {
-        return vinculoResponsavel;
-    }
-
-    public void setVinculoResponsavel(String vinculoResponsavel) {
-        this.vinculoResponsavel = vinculoResponsavel;
-    }
-
-    public String getTelefoneResponsavel() {
-        return telefoneResponsavel;
-    }
-
-    public void setTelefoneResponsavel(String telefoneResponsavel) {
-        this.telefoneResponsavel = telefoneResponsavel;
+    public void setResponsavel(Persistencia.Entity.Responsavel responsavel) {
+        this.responsavel = responsavel;
     }
 
     public String getDisponibilidade() {

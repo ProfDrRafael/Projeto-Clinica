@@ -2,8 +2,6 @@ package Regradenegocio;
 
 import Persistencia.Dao.EstagiarioDAO;
 import Persistencia.Dao.OrientadorDAO;
-import Persistencia.Entity.Estagiario;
-import Persistencia.Entity.Orientador;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 
