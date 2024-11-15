@@ -4,8 +4,12 @@
  */
 package Visao.Telas;
 import Persistencia.modelTemp.ModelUser;
+import Services.AutenticacaoService;
+import VO.UsuarioVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+
+import javax.swing.*;
 import java.awt.Color;
 
 
@@ -14,11 +18,13 @@ import java.awt.Color;
  * @author john
  */
 public class FormLogin extends SimpleForm {
+    private AutenticacaoService autenticacaoService;
 
     /**
      * Creates new form formLogin
      */
-    public FormLogin() {
+    public FormLogin(AutenticacaoService autenticacaoService) {
+        this.autenticacaoService = autenticacaoService;
         initComponents();
     }
 
@@ -103,7 +109,7 @@ public class FormLogin extends SimpleForm {
         lbLogin.setText("Login:");
 
         pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        pfSenha.setText("jPasswordField1");
+        pfSenha.setText("");
 
         jlSenha.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jlSenha.setText("Senha:");
@@ -177,11 +183,21 @@ public class FormLogin extends SimpleForm {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        String userName = tfLogin.getText().trim();  // Obtém o texto do campo de usuário e remove espaços em branco
-        // Verificação simples para exemplo: se o nome de usuário for "admin"
-        boolean isAdmin = userName.equals("admin");
+        String email = tfLogin.getText().trim();
+        String senha = new String(pfSenha.getPassword());
+        boolean isAdmin = false;
         // Chama o método de login com o modelo do usuário (nome de usuário e flag se é admin)
-        FormManager.login(new ModelUser(userName, isAdmin));
+
+        try {
+            UsuarioVO usuario = autenticacaoService.autenticar(email, senha);
+            isAdmin = usuario.getTipo().equals("Administrador");
+
+            JOptionPane.showMessageDialog(this, "Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
+
+            FormManager.login(new ModelUser(usuario, isAdmin));
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de autenticação: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btEntrarActionPerformed
 
     private void lbEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEsqueceuSenhaMouseClicked

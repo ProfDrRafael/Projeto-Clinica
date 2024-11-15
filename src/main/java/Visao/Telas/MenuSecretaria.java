@@ -213,7 +213,6 @@ public class MenuSecretaria extends SimpleForm {
 
     private void btVisualizarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarAgendaActionPerformed
         FormAgenda form = new FormAgenda();
-        
         FormManager.showForm(form);
     }//GEN-LAST:event_btVisualizarAgendaActionPerformed
 

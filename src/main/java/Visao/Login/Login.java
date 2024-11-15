@@ -1,12 +1,11 @@
 package Visao.Login;
 
+import Services.AutenticacaoService;
+import VO.UsuarioVO;
 import com.formdev.flatlaf.FlatClientProperties;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+
 import net.miginfocom.swing.MigLayout;
 import Visao.JframeManager.FormManager;
 import Persistencia.modelTemp.ModelUser; // Modelo de usuário
@@ -18,9 +17,11 @@ import Persistencia.modelTemp.ModelUser; // Modelo de usuário
  * @author Raven
  */
 public class Login extends JPanel {
+    private AutenticacaoService autenticacaoService;
 
     // Construtor que inicializa os componentes do formulário de login
-    public Login() {
+    public Login(AutenticacaoService autenticacaoService) {
+        this.autenticacaoService = autenticacaoService;
         init();
     }
 
@@ -78,11 +79,22 @@ public class Login extends JPanel {
 
         // Evento de clique no botão de login
         cmdLogin.addActionListener((e) -> {
-            String userName = txtUsername.getText().trim();  // Obtém o texto do campo de usuário e remove espaços em branco
-            // Verificação simples para exemplo: se o nome de usuário for "admin"
-            boolean isAdmin = userName.equals("admin");
-            // Chama o método de login com o modelo do usuário (nome de usuário e flag se é admin)
-            FormManager.login(new ModelUser(userName, isAdmin));
+            String email = txtUsername.getText().trim();  // Captura o email inserido
+            String senha = new String(txtPassword.getPassword());  // Captura a senha inserida
+            boolean isAdmin = false;
+
+            try {
+                // Autenticação utilizando o serviço
+                UsuarioVO usuario = autenticacaoService.autenticar(email, senha);
+                // Redireciona o usuário com base no tipo de usuário autenticado
+                isAdmin = usuario.getTipo().equals("admin");
+
+                FormManager.login(new ModelUser(usuario, isAdmin));
+//                redirecionarUsuario(usuario);
+            } catch (RuntimeException ex) {
+                // Exibir mensagem de erro para o usuário
+                JOptionPane.showMessageDialog(this, "Erro de autenticação: " + ex.getMessage());
+            }
         });
     }
 

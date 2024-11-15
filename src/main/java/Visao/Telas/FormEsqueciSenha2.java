@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Persistencia.modelTemp.ModelUser;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+import Services.RedefinirSenhaService;
+
+import javax.swing.*;
 
 
 /**
@@ -13,11 +15,18 @@ import Visao.JframeManager.FormManager;
  * @author john
  */
 public class FormEsqueciSenha2 extends SimpleForm {
+    private String email;
+    private String tipoUsuario;
+    private RedefinirSenhaService redefinirSenhaService;
+
 
     /**
      * Creates new form formLogin
      */
-    public FormEsqueciSenha2() {
+    public FormEsqueciSenha2(String email, String tipoUsuario) {
+        this.email = email;
+        this.tipoUsuario = tipoUsuario;
+        this.redefinirSenhaService = new RedefinirSenhaService();
         initComponents();
     }
 
@@ -157,10 +166,10 @@ public class FormEsqueciSenha2 extends SimpleForm {
         add(pLogin, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        FormEsqueciSenha3 esqueciSenha = new FormEsqueciSenha3();
-        
-        FormManager.EsqueciSenha(esqueciSenha);
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {
+        String token = tfLogin.getText().trim();
+        FormEsqueciSenha3 formEsqueciSenha3 = new FormEsqueciSenha3(email, tipoUsuario, token, redefinirSenhaService);
+        FormManager.EsqueciSenha(formEsqueciSenha3);
     }//GEN-LAST:event_btEntrarActionPerformed
 
 

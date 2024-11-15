@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Persistencia.modelTemp.ModelUser;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+import Services.RedefinirSenhaService;
+
+import javax.swing.*;
 
 
 /**
@@ -13,11 +15,19 @@ import Visao.JframeManager.FormManager;
  * @author john
  */
 public class FormEsqueciSenha3 extends SimpleForm {
+    private String email;
+    private String tipoUsuario;
+    private String token;
+    private RedefinirSenhaService redefinirSenhaService;
 
     /**
      * Creates new form formLogin
      */
-    public FormEsqueciSenha3() {
+    public FormEsqueciSenha3(String email, String tipoUsuario, String token, RedefinirSenhaService redefinirSenhaService) {
+        this.email = email;
+        this.tipoUsuario = tipoUsuario;
+        this.token = token;
+        this.redefinirSenhaService = redefinirSenhaService;
         initComponents();
     }
 
@@ -151,8 +161,15 @@ public class FormEsqueciSenha3 extends SimpleForm {
         add(pLogin, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        FormManager.logout();
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {
+        String novaSenha = new String(pfSenha.getPassword());
+        try {
+            redefinirSenhaService.redefinirSenha(token, novaSenha);
+            JOptionPane.showMessageDialog(this, "Senha redefinida com sucesso!");
+            FormManager.logout();
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao redefinir senha: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btEntrarActionPerformed
 
 

@@ -3,8 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+import VO.AdministradorVO;
+import VO.EstagiarioVO;
+import VO.OrientadorVO;
+import VO.SecretariaVO;
+import VO.UsuarioVO;
+import Regradenegocio.UsuarioRN;
 import Visao.Components.SimpleForm;
 import Visao.Utils.redimencionarIcones;
+import java.awt.HeadlessException;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -87,6 +96,11 @@ public class FormUsuario extends SimpleForm {
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(51, 51, 51));
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         pfConfirmarSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         pfConfirmarSenha.setText("jPasswordField1");
@@ -196,6 +210,57 @@ public class FormUsuario extends SimpleForm {
 
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        UsuarioRN usuarioRN = new UsuarioRN();
+
+        try {
+        // Obter a função selecionada no ComboBox
+        String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
+
+        // Inicializar o VO apropriado com base na função selecionada
+        UsuarioVO usuarioVO;
+        String nome = tfNome.getText();
+        String email = tfEmail.getText();
+        String senha = new String(pfSenha.getPassword());
+
+        switch (funcaoSelecionada) {
+            case "Administrador" -> {
+                usuarioVO = new AdministradorVO(0, nome, email, senha);
+            }
+            case "Estagiário" -> {
+                Integer ano = LocalDate.now().getYear();;
+                usuarioVO = new EstagiarioVO(0, nome, email, senha, ano);
+            }
+            case "Orientador" -> {
+                usuarioVO = new OrientadorVO(0, nome, email, senha);
+            }
+            case "Secretária" -> {
+                usuarioVO = new SecretariaVO(0, nome, email, senha);
+            }
+            default -> {
+                JOptionPane.showMessageDialog(this, "Função inválida selecionada.");
+                return;
+            }
+        }
+
+        // Validar se a senha e a confirmação coincidem
+        String confirmacaoSenha = new String(pfConfirmarSenha.getPassword());
+        if (!usuarioVO.getSenha().equals(confirmacaoSenha)) {
+            JOptionPane.showMessageDialog(this, "A senha e a confirmação de senha não coincidem.");
+            return;
+        }
+
+        // salvar o usuário
+        if (usuarioRN.salvarUsuario(usuarioVO)) {
+            JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar o usuário.");
+        }
+    } catch (HeadlessException | NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

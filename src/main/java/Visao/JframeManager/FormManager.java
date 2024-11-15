@@ -1,5 +1,6 @@
 package Visao.JframeManager;
 
+import Services.AutenticacaoService;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange; // Utilitário para mudanças de temas com animações
 import java.awt.Image; // Manipulação de imagens
 import javax.swing.JFrame; // Classe para a janela principal
@@ -163,7 +164,7 @@ public class FormManager {
             instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]"));
 
             // Adiciona o FormLogin centralizado tanto verticalmente quanto horizontalmente
-            FormLogin formLogin = new FormLogin();
+            FormLogin formLogin = new FormLogin(new AutenticacaoService());
             instance.frame.getContentPane().add(formLogin, "align center center, grow");
 
             // Revalida e repinta a tela antes de exibi-la

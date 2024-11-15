@@ -4,8 +4,11 @@
  */
 package Visao.Telas;
 import Persistencia.modelTemp.ModelUser;
+import Services.RedefinirSenhaService;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+
+import javax.swing.*;
 
 
 /**
@@ -168,10 +171,24 @@ public class FormEsqueciSenha extends SimpleForm {
         FormManager.logout();
     }//GEN-LAST:event_btEntrar1ActionPerformed
 
-    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        FormEsqueciSenha2 esqueciSenha = new FormEsqueciSenha2();
-        
-        FormManager.EsqueciSenha(esqueciSenha);
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {
+        String email = tfLogin.getText().trim();
+        try {
+            RedefinirSenhaService redefinirSenhaService = new RedefinirSenhaService();
+
+            // Descobre o tipo de usuário com base no email
+            String tipoUsuario = redefinirSenhaService.descobrirTipoUsuario(email);
+
+            // Gera o token para esse email e tipo de usuário
+            redefinirSenhaService.gerarTokenRedefinicao(email);
+
+            // Vai para a próxima tela sem precisar do token, apenas o email e tipo de usuário
+            FormEsqueciSenha2 formEsqueciSenha2 = new FormEsqueciSenha2(email, tipoUsuario);
+            FormManager.EsqueciSenha(formEsqueciSenha2);
+
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao gerar token: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btEntrarActionPerformed
 
 
