@@ -12,7 +12,7 @@ import Regradenegocio.EstagiarioRN;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import Visao.Components.SimpleForm;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.RedimencionarIcones;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -29,7 +29,7 @@ public class FormEstagiario extends SimpleForm {
         initComponents();
         // redimensionarIcones();
 
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
 

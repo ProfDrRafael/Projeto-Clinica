@@ -10,7 +10,7 @@ import VO.SecretariaVO;
 import VO.UsuarioVO;
 import Regradenegocio.UsuarioRN;
 import Visao.Components.SimpleForm;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.RedimencionarIcones;
 import java.awt.HeadlessException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -28,7 +28,7 @@ public class FormUsuario extends SimpleForm {
         initComponents();
         //redimensionarIcones();
         
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
     }
 

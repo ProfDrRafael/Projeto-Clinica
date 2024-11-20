@@ -4,88 +4,88 @@
  */
 package VO;
 
-import java.util.Date;
+import Persistencia.Dao.OrientadorDAO;
+import Persistencia.Entity.Cidade;
+import Persistencia.Entity.Endereco;
+import Persistencia.Entity.Estado;
+import Persistencia.Entity.Orientador;
+import Persistencia.Entity.Paciente;
+import Persistencia.Entity.Pais;
+import Persistencia.Entity.Responsavel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author rafael
  */
 public class PacienteVO {
-    private int id;
-    private String nomeCompleto;
-    private Date dataNascimento;
+    OrientadorDAO orientadorDAO = new OrientadorDAO();
     private String genero;
-    private String telefone;
-    private EstagiarioVO estagiarioResponsavel; 
-    private String endereco;
-    private String telefoneContato;
-    private String adultoResponsavel;
-    private OrientadorVO orientadorResponsavel;
+    private String celularContato;
+    private String celular;
+    private String paciente;
+    private String dataNascimento;
+    private LocalDate dataInscricao;
+    private String instrucao;
+    private String profissao;
+    private String estadoCivil;
+    private String raca_cor_etnia;
+    private String orientacao;
+    private String nacionalidade;
     private String disponibilidade;
+    private String estagiario;
+    private String orientador;
+    private Endereco endereco;
+    private String responsavel;
     private boolean atendido;
-    
+    private boolean ativo;
 
-
-public PacienteVO(int id, String nomeCompleto, Date dataNascimento, String genero, String telefone, 
-                      EstagiarioVO estagiarioResponsavel, String endereco, String telefoneContato, 
-                      String adultoResponsavel, OrientadorVO orientadorResponsavel, String disponibilidade, 
-                      boolean atendido){
-        this.id = id;
-        this.nomeCompleto = nomeCompleto;
-        this.dataNascimento = dataNascimento;
+    // Construtor com todos os campos como argumentos
+    public PacienteVO(
+        String genero,
+        String celularContato,
+        String celular,
+        String paciente,
+        String dataNascimento,
+        LocalDate dataInscricao,
+        String instrucao,
+        String profissao,
+        String estadoCivil,
+        String raca_cor_etnia,
+        String orientacao,
+        String nacionalidade,
+        String disponibilidade,
+        String estagiario,
+        String orientador,
+        Endereco endereco,
+        String responsavel,
+        boolean atendido,
+        boolean ativo
+    ) {
         this.genero = genero;
-        this.telefone = telefone;
-        this.estagiarioResponsavel = estagiarioResponsavel;
-        this.endereco = endereco;
-        this.telefoneContato = telefoneContato;
-        this.adultoResponsavel = adultoResponsavel;
-        this.orientadorResponsavel = orientadorResponsavel;
-        this.disponibilidade = disponibilidade;
-        this.atendido = atendido;
-    
-        
-}
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the nomeCompleto
-     */
-    public String getNomeCompleto() {
-        return nomeCompleto;
-    }
-
-    /**
-     * @param nomeCompleto the nomeCompleto to set
-     */
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
-    }
-
-    /**
-     * @return the dataNascimento
-     */
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    /**
-     * @param dataNascimento the dataNascimento to set
-     */
-    public void setDataNascimento(Date dataNascimento) {
+        this.celularContato = celularContato;
+        this.celular = celular;
+        this.paciente = paciente;
         this.dataNascimento = dataNascimento;
+        this.dataInscricao = dataInscricao;
+        this.instrucao = instrucao;
+        this.profissao = profissao;
+        this.estadoCivil = estadoCivil;
+        this.raca_cor_etnia = raca_cor_etnia;
+        this.orientacao = orientacao;
+        this.nacionalidade = nacionalidade;
+        this.disponibilidade = disponibilidade;
+        this.estagiario = estagiario;
+        this.orientador = orientador;
+        this.endereco = endereco;
+        this.responsavel = responsavel;
+        this.atendido = atendido;
+        this.ativo = ativo;
+    }
+
+    public PacienteVO() {
+        System.out.println("VO.PacienteVO.<init>()");
     }
 
     /**
@@ -103,87 +103,143 @@ public PacienteVO(int id, String nomeCompleto, Date dataNascimento, String gener
     }
 
     /**
-     * @return the telefone
+     * @return the celularContato
      */
-    public String getTelefone() {
-        return telefone;
+    public String gettelefone_contatoContato() {
+        return celularContato;
     }
 
     /**
-     * @param telefone the telefone to set
+     * @param celularContato the celularContato to set
      */
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void settelefone_contatoContato(String celularContato) {
+        this.celularContato = celularContato;
     }
 
     /**
-     * @return the estagiarioResponsavel
+     * @return the celular
      */
-    public EstagiarioVO getEstagiarioResponsavel() {
-        return estagiarioResponsavel;
+    public String gettelefone_contato() {
+        return celular;
     }
 
     /**
-     * @param estagiarioResponsavel the estagiarioResponsavel to set
+     * @param celular the celular to set
      */
-    public void setEstagiarioResponsavel(EstagiarioVO estagiarioResponsavel) {
-        this.estagiarioResponsavel = estagiarioResponsavel;
+    public void settelefone_contato(String celular) {
+        this.celular = celular;
     }
 
     /**
-     * @return the endereco
+     * @return the paciente
      */
-    public String getEndereco() {
-        return endereco;
+    public String getPaciente() {
+        return paciente;
     }
 
     /**
-     * @param endereco the endereco to set
+     * @param paciente the paciente to set
      */
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setPaciente(String paciente) {
+        this.paciente = paciente;
     }
 
     /**
-     * @return the telefoneContato
+     * @return the dataNascimento
      */
-    public String getTelefoneContato() {
-        return telefoneContato;
+    public String getDataNascimento() {
+        return dataNascimento;
     }
 
     /**
-     * @param telefoneContato the telefoneContato to set
+     * @param dataNascimento the dataNascimento to set
      */
-    public void setTelefoneContato(String telefoneContato) {
-        this.telefoneContato = telefoneContato;
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     /**
-     * @return the adultoResponsavel
+     * @return the instrucao
      */
-    public String getAdultoResponsavel() {
-        return adultoResponsavel;
+    public String getInstrucao() {
+        return instrucao;
     }
 
     /**
-     * @param adultoResponsavel the adultoResponsavel to set
+     * @param instrucao the instrucao to set
      */
-    public void setAdultoResponsavel(String adultoResponsavel) {
-        this.adultoResponsavel = adultoResponsavel;
+    public void setInstrucao(String instrucao) {
+        this.instrucao = instrucao;
     }
 
     /**
-     * @return the orientadorResponsavel
+     * @return the profissao
      */
-    public OrientadorVO getOrientadorResponsavel() {
-        return orientadorResponsavel;
+    public String getProfissao() {
+        return profissao;
     }
 
     /**
-     * @param orientadorResponsavel the orientadorResponsavel to set
+     * @param profissao the profissao to set
      */
-    public void setOrientadorResponsavel(OrientadorVO orientadorResponsavel) {
-        this.orientadorResponsavel = orientadorResponsavel;
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
+    }
+
+    /**
+     * @return the estadoCivil
+     */
+    public String getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    /**
+     * @param estadoCivil the estadoCivil to set
+     */
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    /**
+     * @return the raca_cor_etnia
+     */
+    public String getRaca_cor_etnia() {
+        return raca_cor_etnia;
+    }
+
+    /**
+     * @param raca_cor_etnia the raca_cor_etnia to set
+     */
+    public void setRaca_cor_etnia(String raca_cor_etnia) {
+        this.raca_cor_etnia = raca_cor_etnia;
+    }
+
+    /**
+     * @return the orientacao
+     */
+    public String getOrientacao() {
+        return orientacao;
+    }
+
+    /**
+     * @param orientacao the orientacao to set
+     */
+    public void setOrientacao(String orientacao) {
+        this.orientacao = orientacao;
+    }
+
+    /**
+     * @return the nacionalidade
+     */
+    public String getNacionalidade() {
+        return nacionalidade;
+    }
+
+    /**
+     * @param nacionalidade the nacionalidade to set
+     */
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
     }
 
     /**
@@ -201,6 +257,62 @@ public PacienteVO(int id, String nomeCompleto, Date dataNascimento, String gener
     }
 
     /**
+     * @return the estagiario
+     */
+    public String getEstagiario() {
+        return estagiario;
+    }
+
+    /**
+     * @param estagiario the estagiario to set
+     */
+    public void setEstagiario(String estagiario) {
+        this.estagiario = estagiario;
+    }
+
+    /**
+     * @return the orientador
+     */
+    public String getOrientador() {
+        return orientador;
+    }
+
+    /**
+     * @param orientador the orientador to set
+     */
+    public void setOrientador(String orientador) {
+        this.orientador = orientador;
+    }
+    
+    /**
+     * @return the endereco_id
+     */
+    public Endereco getEnderco() {
+        return endereco;
+    }
+
+    /**
+     * @param responsavel the responsavel to set
+     */
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    /**
+     * @return the responsavel
+     */
+    public String getResponsavel() {
+        return responsavel;
+    }
+
+    /**
+     * @param responsavel the responsavel to set
+     */
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    /**
      * @return the atendido
      */
     public boolean isAtendido() {
@@ -213,6 +325,135 @@ public PacienteVO(int id, String nomeCompleto, Date dataNascimento, String gener
     public void setAtendido(boolean atendido) {
         this.atendido = atendido;
     }
+    
+    // Método de conversão de Entity para VO
+    public static PacienteVO fromEntity(Paciente entity) {
+        return new PacienteVO(
+            entity.getGenero().toString(),
+            entity.getTelefoneContato(),
+            entity.getTelefone(),
+            entity.getNome(),
+            entity.getDataNascimento().toString(),
+            entity.getDataInscricao(),
+            entity.getGrauInstrucao(),
+            entity.getProfissao(),
+            entity.getEstadoCivil().toString(),
+            entity.getRacaCorEtnia(),
+            entity.getOrientacaoSexual(),
+            entity.getNacionalidade().getNome(),
+            entity.getDisponibilidade(),
+            entity.getEstagiario(),
+            entity.getOrientador().getNome(),
+            entity.getEndereco(),
+            entity.getResponsavel().getNome(),
+            entity.getAtendido(),
+            entity.getAtivo()
+        );
+    }
+
+    // Método de conversão de VO para Entity
+    public Paciente toEntity() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dataNascimento = LocalDate.parse(this.dataNascimento, formatter);
+        
+        Pais nacionalidade = new Pais();
+        nacionalidade.setNome("rext");
+                
+        Orientador orientadorResultado = orientadorDAO.buscarPorNome(this.orientador);
+        
+        Responsavel responsavel = new Responsavel();
+        responsavel.setNome(this.responsavel);
+        
+        var paciente = new Paciente();
+        paciente.setTelefoneContato(this.celularContato);
+        paciente.setTelefone(this.celular);
+        paciente.setNome(this.paciente);
+        paciente.setDataNascimento(dataNascimento);
+        paciente.setDataInscricao(dataInscricao);
+        paciente.setGrauInstrucao(this.instrucao);
+        paciente.setProfissao(this.profissao);
+        paciente.setRacaCorEtnia(this.raca_cor_etnia);
+        paciente.setOrientacaoSexual(this.orientacao);
+        paciente.setNacionalidade(nacionalidade);
+        paciente.setDisponibilidade(this.disponibilidade);
+        paciente.setEstagiario(this.estagiario);
+        paciente.setOrientador(orientadorResultado);
+        paciente.setEndereco(endereco);
+        paciente.setResponsavel(responsavel);
+        paciente.setAtendido(this.atendido);
+        paciente.setAtivo(true);
+        
+        // Conversão da string para enum
+        try {
+            paciente.setGenero(Paciente.Genero.fromString(this.genero));
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro: " + e.getMessage());
+            // Você pode lançar a exceção ou definir um valor padrão, se necessário
+            paciente.setGenero(Paciente.Genero.PREFIRONAOINFORMAR); // ou  por exemplo
+        }
+        
+        // Conversão da string para enum
+        try {
+            paciente.setEstadoCivil(Paciente.EstadoCivil.fromString(this.estadoCivil));
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro: " + e.getMessage());
+            // Você pode lançar a exceção ou definir um valor padrão, se necessário
+            paciente.setEstadoCivil(Paciente.EstadoCivil.SOLTEIRO); // ou  por exemplo
+        }
+        
+        return paciente;
+    }
+
+    // Método para atualizar uma entidade existente
+    public void updateEntity(Paciente entity) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dataNascimento = LocalDate.parse(this.dataNascimento, formatter);
+        
+        Pais nacionalidade = new Pais();
+        nacionalidade.setNome(this.nacionalidade);
+        
+        Orientador orientador = new Orientador();
+        orientador.setNome(this.orientador);
+        
+        Responsavel responsavel = new Responsavel();
+        responsavel.setNome(this.responsavel);
+        
+        entity.setTelefoneContato(this.celularContato);
+        entity.setTelefone(this.celular);
+        entity.setNome(this.paciente);
+        entity.setDataNascimento(dataNascimento);
+        entity.setGrauInstrucao(this.instrucao);
+        entity.setProfissao(this.profissao);
+        entity.setRacaCorEtnia(this.raca_cor_etnia);
+        entity.setOrientacaoSexual(this.orientacao);
+        entity.setNacionalidade(nacionalidade);
+        entity.setDisponibilidade(this.disponibilidade);
+        entity.setEstagiario(this.estagiario);
+        entity.setOrientador(orientador);
+        entity.setResponsavel(responsavel);
+        entity.setAtendido(this.atendido);
+        entity.setAtivo(true);
+        
+        
+        // Conversão da string para enum
+        try {
+            entity.setGenero(Paciente.Genero.fromString(this.genero));
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro: " + e.getMessage());
+            // Você pode lançar a exceção ou definir um valor padrão, se necessário
+            entity.setGenero(Paciente.Genero.PREFIRONAOINFORMAR); // ou  por exemplo
+        }
+        
+        // Conversão da string para enum
+        try {
+            entity.setEstadoCivil(Paciente.EstadoCivil.fromString(this.estadoCivil));
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro: " + e.getMessage());
+            // Você pode lançar a exceção ou definir um valor padrão, se necessário
+            entity.setEstadoCivil(Paciente.EstadoCivil.SOLTEIRO); // ou  por exemplo
+        }
+    }
+    
 }
 
 

@@ -2,6 +2,7 @@ package Persistencia.Dao;
 
 import Persistencia.Entity.Estagiario;
 import jakarta.persistence.*;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,5 +69,21 @@ public class EstagiarioDAO extends GenericoDAO<Estagiario> {
             entityManager.close();
         }
         return estagiario;
+    }
+    public List<Estagiario> buscarTodosEstagiarios() {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Estagiario> estagiarios = null;
+        try {
+            TypedQuery<Estagiario> query = em.createQuery(
+                    "SELECT o FROM Estagiario o", Estagiario.class);
+            estagiarios = query.getResultList();  
+        } catch (Exception e) {
+            logger.error("Erro ao buscar orientadores: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return estagiarios;
     }
 }

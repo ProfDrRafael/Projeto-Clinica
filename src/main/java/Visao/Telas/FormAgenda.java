@@ -5,7 +5,7 @@
 package Visao.Telas;
 import Visao.Components.SimpleForm;
 import Visao.Utils.EditorTextPaneEstilization;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.RedimencionarIcones;
 
 /**
  *
@@ -22,7 +22,7 @@ public class FormAgenda extends SimpleForm {
         
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
         
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
         redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/excluir.png");
     }
@@ -124,14 +124,14 @@ public class FormAgenda extends SimpleForm {
         lbEstagiario.setText("*Estagiário:");
 
         try {
-            ftfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+            ftfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         ftfCelular.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         try {
-            ftfCelular2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+            ftfCelular2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

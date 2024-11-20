@@ -182,46 +182,31 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbOrientacao" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbOrientacao" min="-2" pref="265" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tfProfissao" min="-2" pref="243" max="-2" attributes="0"/>
-                                      <Component id="lbProfissao" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbInstrucao" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbInstrucao" pref="0" max="32767" attributes="0"/>
-                                  </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbOrientacao" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbOrientacao" min="-2" pref="265" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jComboBox3" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                      <Component id="lbEstadoCivil" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbRaca" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbRaca" min="-2" pref="187" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbCor" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbCor" min="-2" pref="173" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="lbEtnia" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="cbEtnia" pref="299" max="32767" attributes="0"/>
-                                  </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tfProfissao" min="-2" pref="243" max="-2" attributes="0"/>
+                                  <Component id="lbProfissao" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbInstrucao" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbInstrucao" min="-2" pref="374" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbEstadoCivil" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <Component id="lbEstadoCivil" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbRaca" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbRacaCorEtnia" min="-2" pref="252" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -256,7 +241,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="851" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -319,20 +304,12 @@
                           <Group type="102" attributes="0">
                               <Component id="lbEstadoCivil" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbEstadoCivil" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbRaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbCor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbEtnia" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="lbRaca" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cbRaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbCor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbEtnia" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="cbRacaCorEtnia" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="12" max="32767" attributes="0"/>
@@ -358,35 +335,12 @@
                   <Font name="Segoe UI" size="24" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="28">
+                  <StringArray count="5">
                     <StringItem index="0" value="Masculino"/>
                     <StringItem index="1" value="Feminino"/>
-                    <StringItem index="2" value="N&#xe3;o-bin&#xe1;rio"/>
-                    <StringItem index="3" value="Ag&#xea;nero"/>
-                    <StringItem index="4" value="G&#xea;nero fluido"/>
-                    <StringItem index="5" value="G&#xea;nero neutro"/>
-                    <StringItem index="6" value="Big&#xea;nero"/>
-                    <StringItem index="7" value="Pang&#xea;nero"/>
-                    <StringItem index="8" value="Demiboy"/>
-                    <StringItem index="9" value="Demigirl"/>
-                    <StringItem index="10" value="Transg&#xea;nero"/>
-                    <StringItem index="11" value="Cisg&#xea;nero"/>
-                    <StringItem index="12" value="Genderqueer"/>
-                    <StringItem index="13" value="Two-Spirit"/>
-                    <StringItem index="14" value="G&#xea;nero n&#xe3;o conformista"/>
-                    <StringItem index="15" value="G&#xea;nero expansivo"/>
-                    <StringItem index="16" value="Andr&#xf3;gino"/>
-                    <StringItem index="17" value="Interg&#xea;nero"/>
-                    <StringItem index="18" value="Polig&#xea;nero"/>
-                    <StringItem index="19" value="Terceiro g&#xea;nero"/>
-                    <StringItem index="20" value="Maverique"/>
-                    <StringItem index="21" value="Neutrois"/>
-                    <StringItem index="22" value="Boyceta"/>
-                    <StringItem index="23" value="Apolig&#xea;nero"/>
-                    <StringItem index="24" value="Multig&#xea;nero"/>
-                    <StringItem index="25" value="G&#xea;nero diverso"/>
-                    <StringItem index="26" value="Omnig&#xea;nero"/>
-                    <StringItem index="27" value="Intersexo"/>
+                    <StringItem index="2" value="N&#xe3;o-Bin&#xe1;rio"/>
+                    <StringItem index="3" value="Outro"/>
+                    <StringItem index="4" value="Prefiro n&#xe3;o informar"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -529,18 +483,19 @@
                 <Property name="toolTipText" type="java.lang.String" value="ex. Rafael da Silva"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox3">
+            <Component class="javax.swing.JComboBox" name="cbEstadoCivil">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="cbGenero" name="font" type="property"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="Solteiro (a)"/>
-                    <StringItem index="1" value="Casado (a)"/>
-                    <StringItem index="2" value="Divorciado (a)"/>
-                    <StringItem index="3" value="Vi&#xfa;vo (a)"/>
-                    <StringItem index="4" value="Separado judicialmente"/>
+                  <StringArray count="6">
+                    <StringItem index="0" value="Solteiro(a)"/>
+                    <StringItem index="1" value="Casado(a)"/>
+                    <StringItem index="2" value="Divorciado(a)"/>
+                    <StringItem index="3" value="Vi&#xfa;vo(a)"/>
+                    <StringItem index="4" value="Uni&#xe3;o Est&#xe1;vel"/>
+                    <StringItem index="5" value="Separado(a)"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -559,7 +514,7 @@
                 <Property name="text" type="java.lang.String" value="Estado Civil:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbRaca">
+            <Component class="javax.swing.JComboBox" name="cbRacaCorEtnia">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="cbGenero" name="font" type="property"/>
@@ -586,72 +541,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ra&#xe7;a:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbCor">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="cbGenero" name="font" type="property"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="7">
-                    <StringItem index="0" value="Preta"/>
-                    <StringItem index="1" value="Branca"/>
-                    <StringItem index="2" value="Amarela"/>
-                    <StringItem index="3" value="Parda"/>
-                    <StringItem index="4" value="Vermelha"/>
-                    <StringItem index="5" value="Azul"/>
-                    <StringItem index="6" value="Verde"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbCor">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Cor:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbEtnia">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="cbGenero" name="font" type="property"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="8">
-                    <StringItem index="0" value="Ind&#xed;gena"/>
-                    <StringItem index="1" value="Afrodescendente"/>
-                    <StringItem index="2" value="Asi&#xe1;tica"/>
-                    <StringItem index="3" value="Europeia"/>
-                    <StringItem index="4" value="Latino-americana"/>
-                    <StringItem index="5" value="&#xc1;rabe"/>
-                    <StringItem index="6" value="Judaica"/>
-                    <StringItem index="7" value="Romani"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbEtnia">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Etnia:"/>
+                <Property name="text" type="java.lang.String" value="Ra&#xe7;a/Cor/Etnia:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbOrientacao">
@@ -742,14 +632,14 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbBairro" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfBairro" min="-2" pref="250" max="-2" attributes="0"/>
+                                  <Component id="tfBairro" min="-2" pref="305" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfComplemento" min="-2" pref="262" max="-2" attributes="0"/>
                                   <Component id="lbComplemento" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfComplemento" min="-2" pref="367" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="1105" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -832,13 +722,12 @@
                           <Component id="lbRua" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lbNumero" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="tfNumero" min="-2" pref="39" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbBairro" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbComplemento" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -846,7 +735,10 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="tfBairro" min="-2" pref="41" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="tfBairro" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="tfNumero" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="tfComplemento" alignment="1" min="-2" pref="41" max="-2" attributes="0"/>
@@ -1894,6 +1786,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSalvarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1928,21 +1823,22 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="lbEstagiario" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
                                           <Component id="lbResponsavel" min="-2" pref="166" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="cbEstagiario" min="-2" pref="305" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="tfResponsavel" min="-2" pref="345" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="528" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="cbAtendido" min="-2" pref="71" max="-2" attributes="0"/>
                           <Component id="lbAtendido" min="-2" max="-2" attributes="0"/>
@@ -2051,10 +1947,11 @@
                   <Font name="Segoe UI" size="24" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Bruna"/>
-                    <StringItem index="1" value="Pedro"/>
-                    <StringItem index="2" value="Maria"/>
+                  <StringArray count="4">
+                    <StringItem index="0" value="Fernanda Costa"/>
+                    <StringItem index="1" value="Bruna"/>
+                    <StringItem index="2" value="Pedro"/>
+                    <StringItem index="3" value="Maria"/>
                   </StringArray>
                 </Property>
               </Properties>

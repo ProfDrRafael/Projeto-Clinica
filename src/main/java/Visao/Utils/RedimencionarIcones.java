@@ -12,7 +12,7 @@ import javax.swing.JButton;
  *
  * @author john
  */
-public class redimencionarIcones {
+public class RedimencionarIcones {
     
     public void redimensionarIcones(JButton botao, String caminho) {
         // Chama a versão com tamanho padrão

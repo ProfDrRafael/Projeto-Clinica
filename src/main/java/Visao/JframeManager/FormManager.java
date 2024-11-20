@@ -7,7 +7,6 @@ import javax.swing.JFrame; // Classe para a janela principal
 import javax.swing.SwingUtilities; // Utilitário para manipulações na interface gráfica
 import Visao.Components.MainForm; // Componente principal do formulário
 import Visao.Components.SimpleForm; // Classe base para formulários simples
-import Visao.Login.Login; // Tela de login
 import Persistencia.modelTemp.ModelUser; // Modelo de usuário
 import Visao.Slider.PanelSlider; // Painel que implementa transições deslizantes
 import Visao.Slider.SimpleTransition; // Transições simples para o PanelSlider

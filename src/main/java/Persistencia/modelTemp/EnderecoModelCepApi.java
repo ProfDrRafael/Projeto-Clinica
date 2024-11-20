@@ -8,7 +8,7 @@ package Persistencia.modelTemp;
  *
  * @author john
  */
-public class Endereco {
+public class EnderecoModelCepApi {
 	
 	private String cep;
 	private String logradouro;

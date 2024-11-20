@@ -5,7 +5,7 @@
 package Visao.Telas;
 import Visao.Components.SimpleForm;
 import Visao.Utils.EditorTextPaneEstilization;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.RedimencionarIcones;
 
 /**
  *
@@ -22,7 +22,7 @@ public class FormProduzirRelato extends SimpleForm {
         
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
         
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
         redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/excluir.png");
     }

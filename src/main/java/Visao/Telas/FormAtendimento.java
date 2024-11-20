@@ -6,7 +6,7 @@ package Visao.Telas;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.RedimencionarIcones;
 
 /**
  *
@@ -23,7 +23,7 @@ public class FormAtendimento extends SimpleForm {
         
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDescricao);
 
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
         redimencionarIcone.redimensionarIcones(btAnexar, "/Multimidia/imagens/anexar.png");
     }

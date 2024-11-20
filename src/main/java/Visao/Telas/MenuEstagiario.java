@@ -6,7 +6,7 @@ package Visao.Telas;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.RedimencionarIcones;
 
 /**
  *
@@ -20,7 +20,7 @@ public class MenuEstagiario extends SimpleForm {
     public MenuEstagiario() {
         initComponents();
         
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btGerenciarPacientes, "/Multimidia/imagens/cadastrar.png");
         redimencionarIcone.redimensionarIcones(btAcessarProntuario, "/Multimidia/imagens/prontuario.png");
         redimencionarIcone.redimensionarIcones(btAgendarConsulta, "/Multimidia/imagens/agendarConsulta.png");

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "endereco")
 public class Endereco {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // ou outra estratégia dependendo do seu banco
     @Column(name = "id", nullable = false)
     private Integer id;
 

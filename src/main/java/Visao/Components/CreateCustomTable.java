@@ -8,7 +8,7 @@ import Multimidia.Sample.SampleData; // Importa dados de amostra
 import Persistencia.modelTemp.ModelEmployee; // Importa o modelo de dados de funcionário
 import Persistencia.modelTemp.ModelProfile; // Importa o modelo de dados de perfil
 import Visao.Components.pagination.Pagination; // Importa a classe de paginação
-import Visao.Utils.redimencionarIcones; // Importa utilitário para redimensionar ícones
+import Visao.Utils.RedimencionarIcones; // Importa utilitário para redimensionar ícones
 import Visao.Utils.table.CheckBoxTableHeaderRenderer; // Importa renderizador de cabeçalho de tabela com checkbox
 import Visao.Utils.table.TableHeaderAlignment; // Importa alinhamento de cabeçalho de tabela
 import Visao.Utils.table.TableProfileCellRenderer; // Importa renderizador de células de perfil na tabela
@@ -263,7 +263,7 @@ public class CreateCustomTable {
         JButton cmdEdit = new JButton("Editar");
         JButton cmdDelete = new JButton("Remover");
         
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         
         redimencionarIcone.redimensionarIcones(cmdCreate, "/Multimidia/imagens/view.png", 10);
         redimencionarIcone.redimensionarIcones(cmdEdit, "/Multimidia/imagens/edit.png", 10);

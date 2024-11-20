@@ -4,6 +4,7 @@ import Persistencia.Entity.Orientador;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,5 +54,22 @@ public class OrientadorDAO extends GenericoDAO<Orientador> {
             }
         }
         return orientador;
+    }
+    
+    public List<Orientador> buscarTodosOrientadores() {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Orientador> orientadores = null;
+        try {
+            TypedQuery<Orientador> query = em.createQuery(
+                    "SELECT o FROM Orientador o", Orientador.class);
+            orientadores = query.getResultList(); 
+        } catch (Exception e) {
+            logger.error("Erro ao buscar orientadores: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return orientadores;
     }
 }
