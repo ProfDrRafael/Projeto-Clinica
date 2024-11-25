@@ -7,6 +7,7 @@ import Persistencia.modelTemp.ModelUser;
 import Services.RedefinirSenhaService;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+import Visao.Utils.MessagesAlert;
 
 import javax.swing.*;
 
@@ -187,9 +188,10 @@ public class FormEsqueciSenha extends SimpleForm {
             FormManager.EsqueciSenha(formEsqueciSenha2);
 
         } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao gerar token: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+             MessagesAlert esqueciSenha = new MessagesAlert();
+             esqueciSenha.showErrorMessage("Erro ao gerar token: "+ ex.getMessage());
         }
-    }//GEN-LAST:event_btEntrarActionPerformed
+    }                                        
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

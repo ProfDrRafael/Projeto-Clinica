@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import VO.AdministradorVO;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
@@ -10,10 +11,11 @@ import VO.SecretariaVO;
 import VO.UsuarioVO;
 import Regradenegocio.UsuarioRN;
 import Visao.Components.SimpleForm;
+import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 import java.awt.HeadlessException;
 import java.time.LocalDate;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -27,7 +29,7 @@ public class FormUsuario extends SimpleForm {
     public FormUsuario() {
         initComponents();
         //redimensionarIcones();
-        
+
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
     }
@@ -213,53 +215,54 @@ public class FormUsuario extends SimpleForm {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         UsuarioRN usuarioRN = new UsuarioRN();
+        MessagesAlert messagesAlert = new MessagesAlert();
 
         try {
-        // Obter a função selecionada no ComboBox
-        String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
+            // Obter a função selecionada no ComboBox
+            String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
 
-        // Inicializar o VO apropriado com base na função selecionada
-        UsuarioVO usuarioVO;
-        String nome = tfNome.getText();
-        String email = tfEmail.getText();
-        String senha = new String(pfSenha.getPassword());
+            // Inicializar o VO apropriado com base na função selecionada
+            UsuarioVO usuarioVO;
+            String nome = tfNome.getText();
+            String email = tfEmail.getText();
+            String senha = new String(pfSenha.getPassword());
 
-        switch (funcaoSelecionada) {
-            case "Administrador" -> {
-                usuarioVO = new AdministradorVO(0, nome, email, senha);
+            switch (funcaoSelecionada) {
+                case "Administrador" -> {
+                    usuarioVO = new AdministradorVO(0, nome, email, senha);
+                }
+                case "Estagiário" -> {
+                    Integer ano = LocalDate.now().getYear();;
+                    usuarioVO = new EstagiarioVO(0, nome, email, senha, ano);
+                }
+                case "Orientador" -> {
+                    usuarioVO = new OrientadorVO(0, nome, email, senha);
+                }
+                case "Secretária" -> {
+                    usuarioVO = new SecretariaVO(0, nome, email, senha);
+                }
+                default -> {
+                    messagesAlert.showErrorMessage("Função inválida selecionada.");
+                    return;
+                }
             }
-            case "Estagiário" -> {
-                Integer ano = LocalDate.now().getYear();;
-                usuarioVO = new EstagiarioVO(0, nome, email, senha, ano);
-            }
-            case "Orientador" -> {
-                usuarioVO = new OrientadorVO(0, nome, email, senha);
-            }
-            case "Secretária" -> {
-                usuarioVO = new SecretariaVO(0, nome, email, senha);
-            }
-            default -> {
-                JOptionPane.showMessageDialog(this, "Função inválida selecionada.");
+
+            // Validar se a senha e a confirmação coincidem
+            String confirmacaoSenha = new String(pfConfirmarSenha.getPassword());
+            if (!usuarioVO.getSenha().equals(confirmacaoSenha)) {
+                messagesAlert.showErrorMessage("A senha e a confirmação de senha não coincidem.");
                 return;
             }
-        }
 
-        // Validar se a senha e a confirmação coincidem
-        String confirmacaoSenha = new String(pfConfirmarSenha.getPassword());
-        if (!usuarioVO.getSenha().equals(confirmacaoSenha)) {
-            JOptionPane.showMessageDialog(this, "A senha e a confirmação de senha não coincidem.");
-            return;
+            // salvar o usuário
+            if (usuarioRN.salvarUsuario(usuarioVO)) {
+                messagesAlert.showSuccessMessage("Usuário salvo com sucesso!");
+            } else {
+                messagesAlert.showErrorMessage("Erro ao salvar o usuário.");
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            messagesAlert.showErrorMessage("Erro: " + e.getMessage());
         }
-
-        // salvar o usuário
-        if (usuarioRN.salvarUsuario(usuarioVO)) {
-            JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao salvar o usuário.");
-        }
-    } catch (HeadlessException | NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
-    }
     }//GEN-LAST:event_btSalvarActionPerformed
 
 

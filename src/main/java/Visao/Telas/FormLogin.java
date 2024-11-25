@@ -3,21 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Persistencia.modelTemp.ModelUser;
+import Regradenegocio.SessaoRN;
 import Services.AutenticacaoService;
+import VO.SessaoVO;
 import VO.UsuarioVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+import Visao.Utils.MessagesAlert;
 
 import javax.swing.*;
 import java.awt.Color;
-
 
 /**
  *
  * @author john
  */
 public class FormLogin extends SimpleForm {
+
     private AutenticacaoService autenticacaoService;
 
     /**
@@ -185,26 +189,33 @@ public class FormLogin extends SimpleForm {
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
         String email = tfLogin.getText().trim();
         String senha = new String(pfSenha.getPassword());
-        boolean isAdmin = false;
         // Chama o método de login com o modelo do usuário (nome de usuário e flag se é admin)
 
         try {
             UsuarioVO usuario = autenticacaoService.autenticar(email, senha);
-            isAdmin = usuario.getTipo().equals("Administrador");
 
-            JOptionPane.showMessageDialog(this, "Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
+            //SessaoVO sessaoVO = new SessaoVO();
+            //sessaoVO.setNome(usuario.getNomeCompleto());
+            //sessaoVO.setEmail(usuario.getEmail());
+            //sessaoVO.setTipo(usuario.getTipo());
+            //SessaoRN SessaoRN = new SessaoRN();
+            //SessaoRN.salvarSessao(sessaoVO);
+            MessagesAlert messagesAlert = new MessagesAlert();
+            messagesAlert.showSuccessMessage("Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
 
-            FormManager.login(new ModelUser(usuario, isAdmin));
+            System.out.println(usuario.getTipo());
+            FormManager.login(usuario);
         } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de autenticação: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            MessagesAlert messagesAlert = new MessagesAlert();
+            messagesAlert.showErrorMessage("Erro de autenticação: " + ex.getMessage());
         }
     }//GEN-LAST:event_btEntrarActionPerformed
 
     private void lbEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEsqueceuSenhaMouseClicked
         lbEsqueceuSenha.setBackground(Color.black);
-        
+
         FormEsqueciSenha esqueciSenha = new FormEsqueciSenha();
-        
+
         FormManager.EsqueciSenha(esqueciSenha);
     }//GEN-LAST:event_lbEsqueceuSenhaMouseClicked
 

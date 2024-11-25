@@ -12,9 +12,10 @@ import Regradenegocio.EstagiarioRN;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import Visao.Components.SimpleForm;
+import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 import java.util.List;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -223,15 +224,16 @@ public class FormEstagiario extends SimpleForm {
         add(pCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btSalvarActionPerformed
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {
+        MessagesAlert messagesAlert = new MessagesAlert();
+
         String estagiarioSelecionado = (String) cbEstagiario.getSelectedItem();
         String orientadorSelecionado = (String) cbOrientador.getSelectedItem();
         String anoTextoCompleto = tfData.getText();
         boolean ativo = cbAtivo.isSelected();
 
         if (estagiarioSelecionado == null || orientadorSelecionado == null || anoTextoCompleto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos os campos obrigatórios devem ser preenchidos.", "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+            messagesAlert.showErrorMessage("Todos os campos obrigatórios devem ser preenchidos.");
             return;
         }
 
@@ -240,7 +242,7 @@ public class FormEstagiario extends SimpleForm {
         try {
             ano = Integer.parseInt(anoTexto);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "O ano deve ser um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            messagesAlert.showErrorMessage("O ano deve ser um número válido.");
             return;
         }
 
@@ -250,8 +252,7 @@ public class FormEstagiario extends SimpleForm {
         OrientadorVO orientadorVO = estagiarioRN.buscarOrientadorPorNome(orientadorSelecionado);
 
         if (estagiarioVO == null || orientadorVO == null) {
-            JOptionPane.showMessageDialog(this, "Estagiário ou Orientador não encontrado no banco.", "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+            messagesAlert.showErrorMessage("Estagiário ou Orientador não encontrado no banco.");
             return;
         }
 
@@ -262,12 +263,11 @@ public class FormEstagiario extends SimpleForm {
         boolean sucesso = estagiarioRN.atualizarEstagiario(estagiarioVO);
 
         if (sucesso) {
-            JOptionPane.showMessageDialog(this, "Estagiário atualizado com sucesso!", "Sucesso",
-                    JOptionPane.INFORMATION_MESSAGE);
+            messagesAlert.showSuccessMessage("Estagiário atualizado com sucesso!");
         } else {
-            JOptionPane.showMessageDialog(this, "Erro ao atualizar estagiário.", "Erro", JOptionPane.ERROR_MESSAGE);
+            messagesAlert.showErrorMessage("Erro ao atualizar estagiário.");
         }
-    }// GEN-LAST:event_btSalvarActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgSemestre;

@@ -14,7 +14,8 @@ import raven.popup.component.PopupController;
  * @author john
  */
 public class MessagesAlert {
-    public void MessageAlertDesconectarOpcoes(){
+
+    public void MessageAlertDesconectarOpcoes() {
         MessageAlerts.getInstance().showMessage("Logout", "Tem Certeza que deseja terminar a sessão?", MessageAlerts.MessageType.ERROR, MessageAlerts.YES_NO_OPTION, new PopupCallbackAction() {
             @Override
             public void action(PopupController pc, int i) {
@@ -24,4 +25,25 @@ public class MessagesAlert {
             }
         });
     }
+
+    public void showErrorMessage(String message) {
+        MessageAlerts.getInstance().showMessage("Erro", message, MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
+            @Override
+            public void action(PopupController pc, int i) {
+                // No action needed
+            }
+        });
+    }
+
+    public void showSuccessMessage(String message) {
+        MessageAlerts.getInstance().showMessage("Sucesso", message, MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
+            @Override
+            public void action(PopupController pc, int i) {
+                if (i == MessageAlerts.OK_OPTION) {
+                    System.out.println("Vasco");
+                }
+            }
+        });
+    }
+
 }

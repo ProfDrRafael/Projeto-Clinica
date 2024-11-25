@@ -1,4 +1,5 @@
 package Visao.Telas;
+
 import Persistencia.modelTemp.EnderecoModelCepApi;
 import Persistencia.Entity.Endereco;
 import Regradenegocio.EnderecoRN;
@@ -9,25 +10,24 @@ import VO.PacienteVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.RedimencionarIcones;
 import Visao.Utils.EditorTextPaneEstilization;
+import Visao.Utils.MessagesAlert;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import raven.toast.Notifications;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 /**
  *
  * @author john
  */
 public class FormPaciente extends SimpleForm {
-    
+
     private Endereco enderecoObject;
 
     /**
@@ -36,9 +36,9 @@ public class FormPaciente extends SimpleForm {
     public FormPaciente() {
         initComponents();
         //redimensionarIcones();
-        
+
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDisponibilidade);
-        
+
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
@@ -729,8 +729,8 @@ public class FormPaciente extends SimpleForm {
 
     private void tfNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNumeroKeyTyped
         char c = evt.getKeyChar();
-        
-        if(!Character.isDigit(c)){
+
+        if (!Character.isDigit(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_tfNumeroKeyTyped
@@ -745,19 +745,19 @@ public class FormPaciente extends SimpleForm {
                 String cepSemMascara = ftfCep.getText().replaceAll("[^0-9]", "");
 
                 EnderecoModelCepApi enderecoObject = cep.getEndereco(cepSemMascara);
-                
+
                 if (enderecoObject == null) {
                     throw new IOException("O CEP não retornou um endereço válido.");
                 }
-                
+
                 tfRua.setText(enderecoObject.getLogradouro());
                 tfBairro.setText(enderecoObject.getBairro());
                 tfComplemento.setText(enderecoObject.getComplemento());
                 // Supondo que cbCidade seja um JComboBox<String> e você queira adicionar a cidade retornada
                 cbCidade.addItem(enderecoObject.getLocalidade());
-                
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Cep encontrado com sucesso!");
-                
+
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Cep encontrado com sucesso!");
+
             } catch (IOException ex) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao buscar o CEP: " + ex.getMessage());
                 Logger.getLogger(FormPaciente.class.getName()).log(Level.SEVERE, null, ex);
@@ -769,63 +769,61 @@ public class FormPaciente extends SimpleForm {
         PacienteRN pacienteRN = new PacienteRN();
         EnderecoRN enderecoRN = new EnderecoRN();
         LocalDate dataAgora = LocalDate.now();
+        MessagesAlert messagesAlert = new MessagesAlert();
 
         try {
             EnderecoVO enderecoVO = new EnderecoVO(
-                tfRua.getText(),
-                Integer.parseInt(tfNumero.getText()),
-                tfBairro.getText(), 
-                cbCidade.getSelectedItem().toString(),
-                ftfCep.getText(),
-                tfComplemento.getText()
+                    tfRua.getText(),
+                    Integer.parseInt(tfNumero.getText()),
+                    tfBairro.getText(),
+                    cbCidade.getSelectedItem().toString(),
+                    ftfCep.getText(),
+                    tfComplemento.getText()
             );
-            
-            
+
             // Save the address first and retrieve the saved entity
             Endereco enderecoEntity = enderecoRN.salvarEndereco(enderecoVO);
-            
+
             System.out.println(enderecoEntity);
-            
+
             // salvar o endereço
             if (enderecoEntity != null) {
-                
+
                 // salvar paciente após endereço
                 PacienteVO pacienteVO = new PacienteVO(
-                    cbGenero.getSelectedItem().toString(),
-                    ftfCelularContato.getText(),
-                    ftfCelular.getText(),
-                    tfPaciente.getText(),
-                    tfData.getText(),
-                    dataAgora,
-                    cbInstrucao.getSelectedItem().toString(),
-                    tfProfissao.getText(),
-                    cbEstadoCivil.getSelectedItem().toString(),
-                    cbRacaCorEtnia.getSelectedItem().toString(),
-                    cbOrientacao.getSelectedItem().toString(),
-                    cbNacionalidade.getSelectedItem().toString(),
-                    tpDisponibilidade.getText(),
-                    cbEstagiario.getSelectedItem().toString(),
-                    cbOrientador.getSelectedItem().toString(),
-                    enderecoEntity,
-                    tfResponsavel.getText(),
-                    cbAtendido.isSelected(),
-                    true
+                        cbGenero.getSelectedItem().toString(),
+                        ftfCelularContato.getText(),
+                        ftfCelular.getText(),
+                        tfPaciente.getText(),
+                        tfData.getText(),
+                        dataAgora,
+                        cbInstrucao.getSelectedItem().toString(),
+                        tfProfissao.getText(),
+                        cbEstadoCivil.getSelectedItem().toString(),
+                        cbRacaCorEtnia.getSelectedItem().toString(),
+                        cbOrientacao.getSelectedItem().toString(),
+                        cbNacionalidade.getSelectedItem().toString(),
+                        tpDisponibilidade.getText(),
+                        cbEstagiario.getSelectedItem().toString(),
+                        cbOrientador.getSelectedItem().toString(),
+                        enderecoEntity,
+                        tfResponsavel.getText(),
+                        cbAtendido.isSelected(),
+                        true
                 );
 
                 // salvar o paciente
                 if (pacienteRN.salvarPaciente(pacienteVO)) {
-                    JOptionPane.showMessageDialog(this, "Paciente salvo com sucesso!");
+                    messagesAlert.showSuccessMessage("Paciente salvo com sucesso!");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao salvar o usuário.");
+                    messagesAlert.showErrorMessage("Erro ao salvar o paciente.");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar o endereço.");
+                messagesAlert.showErrorMessage("Erro ao salvar o endereço.");
             }
-            
-            
-            
+
         } catch (HeadlessException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+            messagesAlert.showErrorMessage("Erro: " + e.getMessage());
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 

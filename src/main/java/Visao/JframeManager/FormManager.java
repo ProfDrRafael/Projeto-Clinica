@@ -1,6 +1,9 @@
 package Visao.JframeManager;
 
+import Regradenegocio.SessaoRN;
 import Services.AutenticacaoService;
+import VO.SessaoVO;
+import VO.UsuarioVO;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange; // Utilitário para mudanças de temas com animações
 import java.awt.Image; // Manipulação de imagens
 import javax.swing.JFrame; // Classe para a janela principal
@@ -181,44 +184,79 @@ public class FormManager {
      * 
      * @param user O usuário que está realizando o login
      */
-    public static void login(ModelUser user) {
+//    public static void login(ModelUser user) {
+////        FlatAnimatedLafChange.showSnapshot(); // Captura o estado atual da interface
+////        instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
+////
+////        // Aqui você pode definir o layout padrão que deseja usar, como BorderLayout
+////        instance.frame.getContentPane().setLayout(new BorderLayout());
+////
+////        instance.frame.getContentPane().add(instance.panelSlider); // Adiciona o painel deslizante
+////        ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
+////        instance.frame.repaint(); // Re-renderiza a janela
+////        instance.frame.revalidate(); // Revalida a janela
+////        FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
 //        FlatAnimatedLafChange.showSnapshot(); // Captura o estado atual da interface
-//        instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
-//        
-//        // Aqui você pode definir o layout padrão que deseja usar, como BorderLayout
-//        instance.frame.getContentPane().setLayout(new BorderLayout());
-//        
-//        instance.frame.getContentPane().add(instance.panelSlider); // Adiciona o painel deslizante
-//        ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
-//        instance.frame.repaint(); // Re-renderiza a janela
-//        instance.frame.revalidate(); // Revalida a janela
-//        FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
-        FlatAnimatedLafChange.showSnapshot(); // Captura o estado atual da interface
+//
+//        // Animação de fade-out
+//        instance.frame.getContentPane().setVisible(false);
+//
+//        SwingUtilities.invokeLater(() -> {
+//            instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
+//            instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]")); // Consistência no layout
+//
+//            // Adiciona o painel deslizante (você pode centralizá-lo de maneira semelhante)
+//            instance.frame.getContentPane().add(instance.panelSlider, "align center center, grow");
+//            ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
+//
+//            // Exibe a animação de fade-in após a remoção dos componentes
+//            instance.frame.getContentPane().setVisible(true);
+//            instance.frame.repaint(); // Re-renderiza a janela
+//            instance.frame.revalidate(); // Revalida a janela
+//            FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
+//
+//            // Mostra o formulário de dashboard (painel principal)
+//            FormManager.showForm(new PageWelcome());
+//
+//            //  Show notifications
+//            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Login realizado com sucesso");
+//        });
+//    }
+    public static void login(UsuarioVO user) {
+        FlatAnimatedLafChange.showSnapshot();
 
-        // Animação de fade-out
-        instance.frame.getContentPane().setVisible(false); 
-        
         SwingUtilities.invokeLater(() -> {
-            instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
-            instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]")); // Consistência no layout
+            instance.frame.getContentPane().removeAll();
+            instance.frame.getContentPane().setLayout(new BorderLayout());
+            instance.frame.getContentPane().add(instance.panelSlider);
 
-            // Adiciona o painel deslizante (você pode centralizá-lo de maneira semelhante)
-            instance.frame.getContentPane().add(instance.panelSlider, "align center center, grow"); 
-            ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
+            SessaoVO sessao = new SessaoVO();
+            sessao.setId(null);
+            sessao.setNome(user.getNomeCompleto());
+            sessao.setEmail(user.getEmail());
+            sessao.setTipo(user.getTipo());
 
-            // Exibe a animação de fade-in após a remoção dos componentes
-            instance.frame.getContentPane().setVisible(true); 
-            instance.frame.repaint(); // Re-renderiza a janela
-            instance.frame.revalidate(); // Revalida a janela
-            FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
+            new SessaoRN().salvarSessao(sessao);
 
-            // Mostra o formulário de dashboard (painel principal)
+            // Configura o menu dinamicamente com base no tipo do usuário
+            MyDrawerBuilder drawerBuilder = (MyDrawerBuilder) instance.menu.getDrawerBuilder();
+            System.out.println(user);
+            drawerBuilder.setUser(user); // Define o usuário no menu
+
+
+            // Exibe a interface principal
+            instance.frame.repaint();
+            instance.frame.revalidate();
+            FlatAnimatedLafChange.hideSnapshotWithAnimation();
+
             FormManager.showForm(new PageWelcome());
 
-            //  Show notifications
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Login realizado com sucesso");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
+                    "Bem-vindo(a), " + user.getNomeCompleto() + "!");
         });
     }
+
+
 
     /**
      * Oculta o menu lateral com uma transição animada.
