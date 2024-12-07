@@ -223,7 +223,7 @@ public class MenuSecretaria extends SimpleForm {
     }//GEN-LAST:event_btCadastrarOrientadorActionPerformed
 
     private void btCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarPacienteActionPerformed
-        FormPaciente form = new FormPaciente();
+        FormTriagem form = new FormTriagem();
         
         FormManager.showForm(form);
     }//GEN-LAST:event_btCadastrarPacienteActionPerformed

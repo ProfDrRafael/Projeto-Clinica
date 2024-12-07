@@ -45,13 +45,25 @@ public class FormProduzirRelatorio extends SimpleForm {
         jScrollPane4 = new javax.swing.JScrollPane();
         tpTextoRelatorio = new javax.swing.JTextPane();
         btCancelar = new javax.swing.JButton();
+        tfIdade = new javax.swing.JTextField();
+        lbIdade = new javax.swing.JLabel();
+        tfQueixa = new javax.swing.JTextField();
+        lbQueixa = new javax.swing.JLabel();
+        tfEvolucaoAtendimento = new javax.swing.JTextField();
+        lbEvolucaoAtendimento = new javax.swing.JLabel();
+        tfHipoteseDiagnostica = new javax.swing.JTextField();
+        lbHipoteseDiagnostica = new javax.swing.JLabel();
+        lbNumero3 = new javax.swing.JLabel();
+        tfHistorico = new javax.swing.JTextField();
+        tfEncaminhamentos = new javax.swing.JTextField();
+        lbEncaminhamentos = new javax.swing.JLabel();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1000, 680));
-        setMinimumSize(new java.awt.Dimension(1000, 680));
-        setPreferredSize(new java.awt.Dimension(1000, 680));
+        setMaximumSize(new java.awt.Dimension(1000, 832));
+        setMinimumSize(new java.awt.Dimension(1000, 832));
+        setPreferredSize(new java.awt.Dimension(1000, 832));
         setLayout(new java.awt.BorderLayout());
 
         pCentro.setBackground(java.awt.SystemColor.controlHighlight);
@@ -83,16 +95,56 @@ public class FormProduzirRelatorio extends SimpleForm {
             }
         });
 
+        tfIdade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfIdade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfIdadeKeyTyped(evt);
+            }
+        });
+
+        lbIdade.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbIdade.setForeground(new java.awt.Color(0, 102, 102));
+        lbIdade.setText("Idade:");
+
+        tfQueixa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfQueixa.setToolTipText("ex. Centro");
+
+        lbQueixa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbQueixa.setForeground(new java.awt.Color(0, 102, 102));
+        lbQueixa.setText("Queixa:");
+
+        tfEvolucaoAtendimento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfEvolucaoAtendimento.setToolTipText("ex. Centro");
+
+        lbEvolucaoAtendimento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEvolucaoAtendimento.setForeground(new java.awt.Color(0, 102, 102));
+        lbEvolucaoAtendimento.setText("Evolução do Atendimento:");
+
+        tfHipoteseDiagnostica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfHipoteseDiagnostica.setToolTipText("ex. Centro");
+
+        lbHipoteseDiagnostica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbHipoteseDiagnostica.setForeground(new java.awt.Color(0, 102, 102));
+        lbHipoteseDiagnostica.setText("Hipótese Diagnóstica:");
+
+        lbNumero3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbNumero3.setForeground(new java.awt.Color(0, 102, 102));
+        lbNumero3.setText("Histórico:");
+
+        tfHistorico.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfHistorico.setToolTipText("ex. Centro");
+
+        tfEncaminhamentos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfEncaminhamentos.setToolTipText("ex. Centro");
+
+        lbEncaminhamentos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEncaminhamentos.setForeground(new java.awt.Color(0, 102, 102));
+        lbEncaminhamentos.setText("Encaminhamentos:");
+
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCentroLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ldDescricao)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -103,6 +155,33 @@ public class FormProduzirRelatorio extends SimpleForm {
                 .addGap(18, 18, 18)
                 .addComponent(btSalvar)
                 .addGap(44, 44, 44))
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbEncaminhamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbHipoteseDiagnostica, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfHipoteseDiagnostica, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                            .addComponent(tfEncaminhamentos))
+                        .addGap(44, 44, 44)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfEvolucaoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbNumero3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbEvolucaoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(ldDescricao)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pCentroLayout.createSequentialGroup()
+                            .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfIdade)
+                                .addComponent(lbIdade, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbQueixa)
+                                .addComponent(tfQueixa)))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,14 +189,44 @@ public class FormProduzirRelatorio extends SimpleForm {
                 .addGap(18, 18, 18)
                 .addComponent(ldDescricao)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(lbIdade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfQueixa, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lbQueixa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(lbNumero3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbEvolucaoAtendimento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfEvolucaoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbHipoteseDiagnostica)
+                            .addGroup(pCentroLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(tfHipoteseDiagnostica, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbEncaminhamentos)
+                            .addGroup(pCentroLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(tfEncaminhamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(38, 38, 38)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
-                    .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -161,6 +270,14 @@ public class FormProduzirRelatorio extends SimpleForm {
         // TODO add your handling code here:
     }//GEN-LAST:event_btCancelarActionPerformed
 
+    private void tfIdadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdadeKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfIdadeKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
@@ -168,10 +285,22 @@ public class FormProduzirRelatorio extends SimpleForm {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbEncaminhamentos;
+    private javax.swing.JLabel lbEvolucaoAtendimento;
+    private javax.swing.JLabel lbHipoteseDiagnostica;
+    private javax.swing.JLabel lbIdade;
+    private javax.swing.JLabel lbNumero3;
     private javax.swing.JLabel lbProntuario;
+    private javax.swing.JLabel lbQueixa;
     private javax.swing.JLabel ldDescricao;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
+    private javax.swing.JTextField tfEncaminhamentos;
+    private javax.swing.JTextField tfEvolucaoAtendimento;
+    private javax.swing.JTextField tfHipoteseDiagnostica;
+    private javax.swing.JTextField tfHistorico;
+    private javax.swing.JTextField tfIdade;
+    private javax.swing.JTextField tfQueixa;
     private javax.swing.JTextPane tpTextoRelatorio;
     // End of variables declaration//GEN-END:variables
  

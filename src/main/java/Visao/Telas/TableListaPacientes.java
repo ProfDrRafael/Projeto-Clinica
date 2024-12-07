@@ -19,10 +19,17 @@ public class TableListaPacientes extends SimpleForm {
     public TableListaPacientes() {
         initComponents();
         
-        // Add custom table component
-        CreateCustomTable customTable = new CreateCustomTable();
-        painel_lista_espera.setLayout(new BorderLayout()); // Set the layout to BorderLayout
-        painel_lista_espera.add(customTable.createCustomTable(), BorderLayout.CENTER); // Add custom table to the center
+        String[] tableColumns = new String[]{"Selecionar", "#", "ID", "Nome", "Telefone", "Data de Nascimento", "Estado Civil"};
+        String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil FROM paciente";
+        
+        // Initialize the CreateCustomTable instance with the table name
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns);
+
+        // Set up the painel_lista_espera layout
+        painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
+
+        // Add the custom table to the center of the panel
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns), BorderLayout.CENTER);
     }
 
     /**

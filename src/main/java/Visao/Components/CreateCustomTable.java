@@ -5,6 +5,7 @@
 package Visao.Components;
 
 import Multimidia.Sample.SampleData; // Importa dados de amostra
+import Persistencia.Dao.JPAUtil;
 import Persistencia.modelTemp.ModelEmployee; // Importa o modelo de dados de funcionário
 import Persistencia.modelTemp.ModelProfile; // Importa o modelo de dados de perfil
 import Visao.Components.pagination.Pagination; // Importa a classe de paginação
@@ -15,6 +16,7 @@ import Visao.Utils.table.TableProfileCellRenderer; // Importa renderizador de c�
 import com.formdev.flatlaf.FlatClientProperties; // Importa propriedades do cliente FlatLaf
 import com.formdev.flatlaf.extras.FlatSVGIcon; // Importa ícones SVG do FlatLaf
 import java.awt.Component; // Importa a classe Component
+import java.util.Arrays;
 import java.util.List; // Importa a lista
 import javax.swing.BorderFactory; // Importa fábrica de bordas
 import javax.swing.JButton; // Importa o botão
@@ -24,15 +26,10 @@ import javax.swing.JScrollPane; // Importa o painel de rolagem
 import javax.swing.JSeparator; // Importa o separador
 import javax.swing.JTable; // Importa a tabela
 import javax.swing.JTextField; // Importa o campo de texto
-import javax.swing.RowSorter;
-import javax.swing.RowSorter.SortKey;
-import javax.swing.SortOrder;
 import javax.swing.SwingConstants; // Importa constantes de alinhamento
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel; // Importa modelo padrão de tabela
-import javax.swing.table.TableModel;
-import javax.swing.event.RowSorterEvent;
 import net.miginfocom.swing.MigLayout; // Importa layout Mig
 
 /**
@@ -48,18 +45,25 @@ public class CreateCustomTable {
     private DefaultTableModel model; // Modelo da tabela
     private Pagination pagination = new Pagination(); // Instância de paginação
     private List<ModelEmployee> sortedData; // Holds the globally sorted data
+    private String nomeTabela;
+    private String[] tabelaColunas;
+
+    public CreateCustomTable(String nomeTabela, String[] tabelaColunas) {
+        this.nomeTabela = nomeTabela;
+        this.tabelaColunas = tabelaColunas;
+    }
 
     /**
      * Método para criar a tabela personalizada.
      * 
      * @return Componente da tabela personalizada
      */
-    public Component createCustomTable() {
+    public Component createCustomTable(String nomeTabela, String[] colunasTabela) {
         // Criação do painel com layout Mig
         JPanel panel = new JPanel(new MigLayout("fillx,wrap,insets 10 0 10 0", "[fill]", "[][][]0[fill,grow]"));
 
         // Criação do modelo da tabela
-        Object columns[] = new Object[]{"Selecionar", "#", "Nome", "Data", "Salário", "Posição", "Descrição"};
+        Object[][] columns = new Object[0][colunasTabela.length];
         model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -81,7 +85,7 @@ public class CreateCustomTable {
         };
 
         // Criação da tabela
-        JTable table = new JTable(model);
+        JTable table = new JTable(loadTableModelData(nomeTabela));
 
         // Painel de rolagem da tabela
         JScrollPane scrollPane = new JScrollPane(table);
@@ -155,57 +159,6 @@ public class CreateCustomTable {
         panel.add(separator, "height 2"); // Adiciona o separador ao painel
         panel.add(scrollPane); // Adiciona o painel de rolagem da tabela ao painel
 
-        // Dados de amostra
-//        for (ModelEmployee d : SampleData.getSampleEmployeeData(false)) {
-//            model.addRow(d.toTableRowCustom(table.getRowCount() + 1)); // Adiciona dados de amostra ao modelo
-//        }
-//        table.getRowSorter().addRowSorterListener(e -> {
-//            if (e.getType() == RowSorterEvent.Type.SORT_ORDER_CHANGED) {
-//                RowSorter<? extends TableModel> sorter = (RowSorter<? extends TableModel>) e.getSource();
-//                List<? extends RowSorter.SortKey> sortKeys = sorter.getSortKeys();
-//                if (!sortKeys.isEmpty()) {
-//                    SortKey sortKey = sortKeys.get(0); // Get primary sort key
-//                    int columnIndex = sortKey.getColumn();
-//                    SortOrder order = sortKey.getSortOrder();
-//
-//                    // Sort sortedData based on columnIndex and order
-//                    sortedData.sort((emp1, emp2) -> {
-//                        int comparison = 0;
-//
-//                        switch (columnIndex) {
-//                            case 1: // Profile Name (assuming this column displays profile name)
-//                                comparison = emp1.getProfile().getName().compareTo(emp2.getProfile().getName());
-//                                break;
-//                            case 2: // Location
-//                                comparison = emp1.getProfile().getLocation().compareTo(emp2.getProfile().getLocation());
-//                                break;
-//                            case 3: // Date
-//                                comparison = emp1.getDate().compareTo(emp2.getDate());
-//                                break;
-//                            case 4: // Salary
-//                                comparison = Double.compare(emp1.getSalary(), emp2.getSalary());
-//                                break;
-//                            case 5: // Position
-//                                comparison = emp1.getPosition().compareTo(emp2.getPosition());
-//                                break;
-//                            case 6: // Description
-//                                comparison = emp1.getDescription().compareTo(emp2.getDescription());
-//                                break;
-//                            default:
-//                                // Handle other columns if needed
-//                                comparison = 0;
-//                                break;
-//                        }
-//
-//                        return order == SortOrder.ASCENDING ? comparison : -comparison;
-//                    });
-//
-//                    loadPageData(sortedData, currentPage); // Refresh table with sorted data
-//                }
-//            }
-//        });
-
-
         // Adiciona dados de exemplo
         List<ModelEmployee> allData = SampleData.getSampleEmployeeData(false); // Obtém todos os dados de funcionários
         totalPages = (int) Math.ceil((double) allData.size() / ROWS_PER_PAGE); // Calcula o total de páginas
@@ -222,6 +175,55 @@ public class CreateCustomTable {
         panel.add(pagination, "align center, wrap"); // Adiciona a paginação ao painel
 
         return panel; // Retorna o painel personalizado
+    }
+    
+    private DefaultTableModel loadTableModelData(String nomeTabela) {
+        // Retrieve data from the database for the table
+        List<Object[]> data = JPAUtil.buscarTabelaAnonima(nomeTabela); // Fetch data from DB
+
+        // Debugging: print the retrieved data
+        System.out.println("Data:");
+        for (Object[] row : data) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        // Column names
+        String[] columns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Estado Civil"};
+
+        // Create the table model with column names and no rows initially
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Allow editing only on the first column (checkbox)
+                return column == 0;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                // Set column classes based on index (e.g., boolean for checkbox)
+                if (columnIndex == 0) return Boolean.class;
+                return super.getColumnClass(columnIndex);
+            }
+        };
+
+        // Populate the table model with data from the database
+        for (Object[] row : data) {
+            // Ensure that the row data has the same number of columns as defined in the model
+            Object[] rowData = new Object[columns.length];
+
+            // Fill the row data with the corresponding values, ensuring we don't exceed the column length
+            for (int i = 0; i < columns.length; i++) {
+                if (i < row.length) {
+                    rowData[i] = row[i]; // Set the value for the respective column
+                } else {
+                    rowData[i] = null; // Handle missing values (if any)
+                }
+            }
+
+            model.addRow(rowData); // Add the row to the model
+        }
+
+        return model; // Return the populated table model
     }
 
     /**

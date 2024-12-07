@@ -70,6 +70,25 @@ public class EstagiarioDAO extends GenericoDAO<Estagiario> {
         }
         return estagiario;
     }
+    
+    public Estagiario buscarPorId(Integer id) {
+        EntityManager entityManager = JPAUtil.getEntityManager();
+        Estagiario estagiario = null;
+        try {
+            TypedQuery<Estagiario> query = entityManager.createQuery(
+                    "SELECT e FROM Estagiario e WHERE e.id = :id", Estagiario.class);
+            query.setParameter("nome", id);
+            estagiario = query.getSingleResult();
+        } catch (NoResultException e) {
+            logger.warn("Estagiario não encontrado com o nome: {}", id);
+        } catch (Exception e) {
+            logger.error("Erro ao buscar Estagiario por nome: ", e);
+        } finally {
+            entityManager.close();
+        }
+        return estagiario;
+    }
+    
     public List<Estagiario> buscarTodosEstagiarios() {
         EntityManager em = JPAUtil.getEntityManager();
         List<Estagiario> estagiarios = null;

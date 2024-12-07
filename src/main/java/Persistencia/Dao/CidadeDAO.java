@@ -8,6 +8,7 @@ import Persistencia.Entity.Cidade;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,22 +24,63 @@ public class CidadeDAO extends GenericoDAO<Cidade> {
         super(Cidade.class);
     }
     
-    // Método para buscar Estagiario por nome
-    public static Cidade buscarPorNome(String nome) {
+    public static Cidade buscarPorNome(Integer id) {
         EntityManager entityManager = JPAUtil.getEntityManager();
         Cidade cidade = null;
         try {
             TypedQuery<Cidade> query = entityManager.createQuery(
-                    "SELECT e FROM Cidade e WHERE e.nome = :nome", Cidade.class);
-            query.setParameter("nome", nome);
+                    "SELECT e FROM Cidade e WHERE e.id = :id", Cidade.class);
+            query.setParameter("id", id);
             cidade = query.getSingleResult();
         } catch (NoResultException e) {
-            logger.warn("Cidade não encontrado com o nome: {}", nome);
+            logger.warn("Cidade não encontrado com o nome: {}", id);
         } catch (Exception e) {
             logger.error("Erro ao buscar Cidade por nome: ", e);
         } finally {
             entityManager.close();
         }
         return cidade;
+    }
+   
+    public List<Cidade> buscarPorEstado(int estadoId) {
+        EntityManager em = null;
+        List<Cidade> resultados = null;
+        try {
+            em = JPAUtil.getEntityManager();
+
+            TypedQuery<Cidade> query = em.createQuery("SELECT e FROM Cidade e WHERE e.estado.id = :estado_id", Cidade.class);
+            query.setParameter("estado_id", estadoId);
+            resultados = query.getResultList();
+
+        } catch (Exception e) {
+            logger.error("Erro ao buscar todas as Cidades para o Estado: ", e);
+
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return resultados;
+    }
+    
+    
+    public List<Cidade> buscarTodos() {
+        EntityManager em = null;
+        List<Cidade> resultados = null;
+        try {
+            em = JPAUtil.getEntityManager();
+
+            TypedQuery<Cidade> query = em.createQuery("SELECT e FROM Cidade e", Cidade.class);
+            resultados = query.getResultList();
+            
+        } catch (Exception e) {
+            logger.error("Erro ao buscar todas as entidades: ", e);
+            
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return resultados;
     }
 }

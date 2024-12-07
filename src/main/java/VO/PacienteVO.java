@@ -4,14 +4,14 @@
  */
 package VO;
 
+import Persistencia.Dao.EstagiarioDAO;
 import Persistencia.Dao.OrientadorDAO;
-import Persistencia.Entity.Cidade;
+import Persistencia.Dao.PaisDAO;
 import Persistencia.Entity.Endereco;
-import Persistencia.Entity.Estado;
+import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Orientador;
 import Persistencia.Entity.Paciente;
 import Persistencia.Entity.Pais;
-import Persistencia.Entity.Responsavel;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +21,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class PacienteVO {
     OrientadorDAO orientadorDAO = new OrientadorDAO();
+    EstagiarioDAO estagiarioDAO = new EstagiarioDAO();
+    
     private String genero;
     private String celularContato;
     private String celular;
@@ -32,10 +34,10 @@ public class PacienteVO {
     private String estadoCivil;
     private String raca_cor_etnia;
     private String orientacao;
-    private String nacionalidade;
+    private Integer nacionalidade;
     private String disponibilidade;
-    private String estagiario;
-    private String orientador;
+    private Integer estagiario;
+    private Integer orientador;
     private Endereco endereco;
     private String responsavel;
     private boolean atendido;
@@ -54,10 +56,10 @@ public class PacienteVO {
         String estadoCivil,
         String raca_cor_etnia,
         String orientacao,
-        String nacionalidade,
+        Integer nacionalidade,
         String disponibilidade,
-        String estagiario,
-        String orientador,
+        Integer estagiario,
+        Integer orientador,
         Endereco endereco,
         String responsavel,
         boolean atendido,
@@ -231,14 +233,14 @@ public class PacienteVO {
     /**
      * @return the nacionalidade
      */
-    public String getNacionalidade() {
+    public Integer getNacionalidade() {
         return nacionalidade;
     }
 
     /**
      * @param nacionalidade the nacionalidade to set
      */
-    public void setNacionalidade(String nacionalidade) {
+    public void setNacionalidade(Integer nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
 
@@ -259,28 +261,28 @@ public class PacienteVO {
     /**
      * @return the estagiario
      */
-    public String getEstagiario() {
+    public Integer getEstagiario() {
         return estagiario;
     }
 
     /**
      * @param estagiario the estagiario to set
      */
-    public void setEstagiario(String estagiario) {
+    public void setEstagiario(Integer estagiario) {
         this.estagiario = estagiario;
     }
 
     /**
      * @return the orientador
      */
-    public String getOrientador() {
+    public Integer getOrientador() {
         return orientador;
     }
 
     /**
      * @param orientador the orientador to set
      */
-    public void setOrientador(String orientador) {
+    public void setOrientador(Integer orientador) {
         this.orientador = orientador;
     }
     
@@ -340,12 +342,12 @@ public class PacienteVO {
             entity.getEstadoCivil().toString(),
             entity.getRacaCorEtnia(),
             entity.getOrientacaoSexual(),
-            entity.getNacionalidade().getNome(),
+            entity.getNacionalidade().getId(),
             entity.getDisponibilidade(),
-            entity.getEstagiario(),
-            entity.getOrientador().getNome(),
+            entity.getEstagiario().getId(),
+            entity.getOrientador().getId(),
             entity.getEndereco(),
-            entity.getResponsavel().getNome(),
+            entity.getResponsavel(),
             entity.getAtendido(),
             entity.getAtivo()
         );
@@ -356,13 +358,12 @@ public class PacienteVO {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate dataNascimento = LocalDate.parse(this.dataNascimento, formatter);
         
-        Pais nacionalidade = new Pais();
-        nacionalidade.setNome("rext");
+        Pais paisResultado = PaisDAO.buscarPorId(this.nacionalidade);
                 
-        Orientador orientadorResultado = orientadorDAO.buscarPorNome(this.orientador);
+        Orientador orientadorResultado = orientadorDAO.buscarPorId(this.orientador);
         
-        Responsavel responsavel = new Responsavel();
-        responsavel.setNome(this.responsavel);
+        Estagiario estagiarioResultado = estagiarioDAO.buscarPorId(this.estagiario);
+        
         
         var paciente = new Paciente();
         paciente.setTelefoneContato(this.celularContato);
@@ -374,12 +375,12 @@ public class PacienteVO {
         paciente.setProfissao(this.profissao);
         paciente.setRacaCorEtnia(this.raca_cor_etnia);
         paciente.setOrientacaoSexual(this.orientacao);
-        paciente.setNacionalidade(nacionalidade);
+        paciente.setNacionalidade(paisResultado);
         paciente.setDisponibilidade(this.disponibilidade);
-        paciente.setEstagiario(this.estagiario);
+        paciente.setEstagiario(estagiarioResultado);
         paciente.setOrientador(orientadorResultado);
         paciente.setEndereco(endereco);
-        paciente.setResponsavel(responsavel);
+        paciente.setResponsavel(this.responsavel);
         paciente.setAtendido(this.atendido);
         paciente.setAtivo(true);
         
@@ -409,14 +410,13 @@ public class PacienteVO {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate dataNascimento = LocalDate.parse(this.dataNascimento, formatter);
         
-        Pais nacionalidade = new Pais();
-        nacionalidade.setNome(this.nacionalidade);
+        Pais paisResultado = PaisDAO.buscarPorId(this.nacionalidade);
         
         Orientador orientador = new Orientador();
-        orientador.setNome(this.orientador);
+        orientador.setId(this.orientador);
         
-        Responsavel responsavel = new Responsavel();
-        responsavel.setNome(this.responsavel);
+        Estagiario estagiario = new Estagiario();
+        estagiario.setId(this.estagiario);
         
         entity.setTelefoneContato(this.celularContato);
         entity.setTelefone(this.celular);
@@ -426,11 +426,11 @@ public class PacienteVO {
         entity.setProfissao(this.profissao);
         entity.setRacaCorEtnia(this.raca_cor_etnia);
         entity.setOrientacaoSexual(this.orientacao);
-        entity.setNacionalidade(nacionalidade);
+        entity.setNacionalidade(paisResultado);
         entity.setDisponibilidade(this.disponibilidade);
-        entity.setEstagiario(this.estagiario);
+        entity.setEstagiario(estagiario);
         entity.setOrientador(orientador);
-        entity.setResponsavel(responsavel);
+        entity.setResponsavel(this.responsavel);
         entity.setAtendido(this.atendido);
         entity.setAtivo(true);
         

@@ -112,9 +112,12 @@ public class Paciente {
     @Column(name = "profissao", length = 100)
     private String profissao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "responsavel_id")
-    private Responsavel responsavel;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "responsavel_id")
+//    private Responsavel responsavel;
+    
+    @Column(name = "responsavel_id", length = 255)
+    private String responsavel;
 
     @Column(name = "disponibilidade", length = 255)
     private String disponibilidade;
@@ -142,8 +145,9 @@ public class Paciente {
     @Column(name = "orientacao_sexual", length = 50)
     private String orientacaoSexual;
 
-    @Column(name = "estagiario", length = 50)
-    private String estagiario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estagiario_id")
+    private Estagiario estagiario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orientador_id")
@@ -343,14 +347,14 @@ public class Paciente {
     /**
      * @return the responsavel
      */
-    public Responsavel getResponsavel() {
+    public String getResponsavel() {
         return responsavel;
     }
 
     /**
      * @param responsavel the responsavel to set
      */
-    public void setResponsavel(Responsavel responsavel) {
+    public void setResponsavel(String responsavel) {
         this.responsavel = responsavel;
     }
 
@@ -455,14 +459,14 @@ public class Paciente {
     /**
      * @return the estagiario
      */
-    public String getEstagiario() {
+    public Estagiario getEstagiario() {
         return estagiario;
     }
 
     /**
      * @param estagiario the estagiario to set
      */
-    public void setEstagiario(String estagiario) {
+    public void setEstagiario(Estagiario estagiario) {
         this.estagiario = estagiario;
     }
 

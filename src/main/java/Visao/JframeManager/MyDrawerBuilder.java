@@ -238,7 +238,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         FormManager.showForm(new FormUsuario());
                         break;
                     case "Paciente":
-                        FormManager.showForm(new FormPaciente());
+                        FormManager.showForm(new FormTriagem());
                         break;
                     case "Prontuario":
                         FormManager.showForm(new FormProntuario());

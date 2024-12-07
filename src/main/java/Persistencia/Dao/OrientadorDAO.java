@@ -56,6 +56,24 @@ public class OrientadorDAO extends GenericoDAO<Orientador> {
         return orientador;
     }
     
+    public Orientador buscarPorId(Integer id) {
+        EntityManager entityManager = JPAUtil.getEntityManager();
+        Orientador orientador = null;
+        try {
+            TypedQuery<Orientador> query = entityManager.createQuery(
+                    "SELECT e FROM Estagiario e WHERE e.id = :id", Orientador.class);
+            query.setParameter("nome", id);
+            orientador = query.getSingleResult();
+        } catch (NoResultException e) {
+            logger.warn("Estagiario não encontrado com o nome: {}", id);
+        } catch (Exception e) {
+            logger.error("Erro ao buscar Estagiario por nome: ", e);
+        } finally {
+            entityManager.close();
+        }
+        return orientador;
+    }
+    
     public List<Orientador> buscarTodosOrientadores() {
         EntityManager em = JPAUtil.getEntityManager();
         List<Orientador> orientadores = null;

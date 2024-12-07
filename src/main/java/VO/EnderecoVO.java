@@ -17,7 +17,7 @@ public class EnderecoVO {
     private String rua;
     private Integer numero;
     private String bairro;
-    private String cidadeNome; // Apenas o nome da cidade para simplificar
+    private Integer cidadeId; 
     private String cep;
     private String complemento;
 
@@ -26,22 +26,22 @@ public class EnderecoVO {
     }
     
      // Construtor sem id
-    public EnderecoVO(String rua, Integer numero, String bairro, String cidadeNome, String cep, String complemento) {
+    public EnderecoVO(String rua, Integer numero, String bairro, Integer cidadeId, String cep, String complemento) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
-        this.cidadeNome = cidadeNome;
+        this.cidadeId = cidadeId;
         this.cep = cep;
         this.complemento = complemento;
     }
 
     // Construtor completo
-    public EnderecoVO(Integer id, String rua, Integer numero, String bairro, String cidadeNome, String cep, String complemento) {
+    public EnderecoVO(Integer id, String rua, Integer numero, String bairro, Integer cidadeId, String cep, String complemento) {
         this.id = id;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
-        this.cidadeNome = cidadeNome;
+        this.cidadeId = cidadeId;
         this.cep = cep;
         this.complemento = complemento;
     }
@@ -103,17 +103,17 @@ public class EnderecoVO {
     }
 
     /**
-     * @return the cidadeNome
+     * @return the cidadeId
      */
-    public String getCidadeNome() {
-        return cidadeNome;
+    public Integer getCidadeNome() {
+        return cidadeId;
     }
 
     /**
-     * @param cidadeNome the cidadeNome to set
+     * @param cidadeId the cidadeId to set
      */
-    public void setCidadeNome(String cidadeNome) {
-        this.cidadeNome = cidadeNome;
+    public void setCidadeNome(Integer cidadeId) {
+        this.cidadeId = cidadeId;
     }
 
     /**
@@ -151,7 +151,7 @@ public class EnderecoVO {
             entity.getRua(),
             entity.getNumero(),
             entity.getBairro(),
-            entity.getCidade().toString(),
+            entity.getCidade().getId(),
             entity.getCep(),
             entity.getComplemento()
         );
@@ -159,7 +159,7 @@ public class EnderecoVO {
 
     // Método de conversão de VO para Entity
     public Endereco toEntity() {
-        Cidade cidadeBusca = CidadeDAO.buscarPorNome(cidadeNome);
+        Cidade cidadeBusca = CidadeDAO.buscarPorNome(cidadeId);
         
         var endereco = new Endereco();
         endereco.setId(id);
@@ -174,7 +174,7 @@ public class EnderecoVO {
 
     // Método para atualizar uma entidade existente
     public void updateEntity(Endereco entity) {
-        Cidade cidadeBusca = CidadeDAO.buscarPorNome(cidadeNome);
+        Cidade cidadeBusca = CidadeDAO.buscarPorNome(cidadeId);
         
         entity.setId(id);
         entity.setRua(rua);

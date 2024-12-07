@@ -655,11 +655,26 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbCep" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="ftfCep" min="-2" pref="198" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btBuscarCep" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbEstado" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
+                                  <Component id="lbEstado" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbCidade" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbCidade" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="1200" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="cbNacionalidade" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbCep" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="ftfCep" min="-2" pref="198" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btBuscarCep" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -671,33 +686,6 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lbNaturalidade1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cbNacionalidade" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jComboBox1" min="-2" pref="388" max="-2" attributes="0"/>
-                                          <Component id="lbNaturalidade" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="cbEstado" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
-                                          <Component id="lbEstado" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lbCidade" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cbCidade" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -705,20 +693,9 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lbNaturalidade1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbNacionalidade" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="lbNaturalidade" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="cbNacionalidade" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="lbCep" min="-2" max="-2" attributes="0"/>
@@ -733,7 +710,7 @@
                           </Group>
                           <Component id="lbRua" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="8" max="32767" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lbNumero" min="-2" max="-2" attributes="0"/>
@@ -846,17 +823,6 @@
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfNumeroKeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbNaturalidade1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="*Nacionalidade:"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JComboBox" name="cbEstado">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -950,475 +916,6 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbNaturalidade">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="*Naturalidade:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="cbGenero" name="font" type="property"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="444">
-                    <StringItem index="0" value="Abadia de Goi&#xe1;s (GO)"/>
-                    <StringItem index="1" value="Abadia dos Dourados (MG)"/>
-                    <StringItem index="2" value="Abadi&#xe2;nia (GO)"/>
-                    <StringItem index="3" value="Abaet&#xe9; (MG)"/>
-                    <StringItem index="4" value="Abaetetuba (PA)"/>
-                    <StringItem index="5" value="Abaiara (CE)"/>
-                    <StringItem index="6" value="Aba&#xed;ra (BA)"/>
-                    <StringItem index="7" value="Abar&#xe9; (BA)"/>
-                    <StringItem index="8" value="Abati&#xe1; (PR)"/>
-                    <StringItem index="9" value="Abdon Batista (SC)"/>
-                    <StringItem index="10" value="Abelardo Luz (SC)"/>
-                    <StringItem index="11" value="Abel Figueiredo (PA)"/>
-                    <StringItem index="12" value="Abre Campo (MG)"/>
-                    <StringItem index="13" value="Abreu e Lima (PE)"/>
-                    <StringItem index="14" value="Abreul&#xe2;ndia (TO)"/>
-                    <StringItem index="15" value="Acaiaca (MG)"/>
-                    <StringItem index="16" value="A&#xe7;ail&#xe2;ndia (MA)"/>
-                    <StringItem index="17" value="Acajutiba (BA)"/>
-                    <StringItem index="18" value="Acar&#xe1; (PA)"/>
-                    <StringItem index="19" value="Acarape (CE)"/>
-                    <StringItem index="20" value="Acara&#xfa; (CE)"/>
-                    <StringItem index="21" value="Acari (RN)"/>
-                    <StringItem index="22" value="Acau&#xe3; (PI)"/>
-                    <StringItem index="23" value="Acegu&#xe1; (RS)"/>
-                    <StringItem index="24" value="Acopiara (CE)"/>
-                    <StringItem index="25" value="Acorizal (MT)"/>
-                    <StringItem index="26" value="Acrel&#xe2;ndia (AC)"/>
-                    <StringItem index="27" value="Acre&#xfa;na (GO)"/>
-                    <StringItem index="28" value="A&#xe7;ucena (MG)"/>
-                    <StringItem index="29" value="Adamantina (SP)"/>
-                    <StringItem index="30" value="Adel&#xe2;ndia (GO)"/>
-                    <StringItem index="31" value="Adolfo (SP)"/>
-                    <StringItem index="32" value="Adrian&#xf3;polis (PR)"/>
-                    <StringItem index="33" value="Adustina (BA)"/>
-                    <StringItem index="34" value="Afogados da Ingazeira (PE)"/>
-                    <StringItem index="35" value="Afonso Bezerra (RN)"/>
-                    <StringItem index="36" value="Afonso Cl&#xe1;udio (ES)"/>
-                    <StringItem index="37" value="Afonso Cunha (MA)"/>
-                    <StringItem index="38" value="Afr&#xe2;nio (PE)"/>
-                    <StringItem index="39" value="Afu&#xe1; (PA)"/>
-                    <StringItem index="40" value="Agrestina (PE)"/>
-                    <StringItem index="41" value="Agricol&#xe2;ndia (PI)"/>
-                    <StringItem index="42" value="Agrol&#xe2;ndia (SC)"/>
-                    <StringItem index="43" value="Agron&#xf4;mica (SC)"/>
-                    <StringItem index="44" value="&#xc1;gua Azul do Norte (PA)"/>
-                    <StringItem index="45" value="&#xc1;gua Boa (MG)"/>
-                    <StringItem index="46" value="&#xc1;gua Boa (MT)"/>
-                    <StringItem index="47" value="&#xc1;gua Branca (AL)"/>
-                    <StringItem index="48" value="&#xc1;gua Branca (PB)"/>
-                    <StringItem index="49" value="&#xc1;gua Branca (PI)"/>
-                    <StringItem index="50" value="&#xc1;gua Clara (MS)"/>
-                    <StringItem index="51" value="&#xc1;gua Comprida (MG)"/>
-                    <StringItem index="52" value="&#xc1;gua Doce (SC)"/>
-                    <StringItem index="53" value="&#xc1;gua Doce do Maranh&#xe3;o (MA)"/>
-                    <StringItem index="54" value="&#xc1;gua Doce do Norte (ES)"/>
-                    <StringItem index="55" value="&#xc1;gua Fria (BA)"/>
-                    <StringItem index="56" value="&#xc1;gua Fria de Goi&#xe1;s (GO)"/>
-                    <StringItem index="57" value="Agua&#xed; (SP)"/>
-                    <StringItem index="58" value="&#xc1;gua Limpa (GO)"/>
-                    <StringItem index="59" value="Aguanil (MG)"/>
-                    <StringItem index="60" value="&#xc1;gua Nova (RN)"/>
-                    <StringItem index="61" value="&#xc1;gua Preta (PE)"/>
-                    <StringItem index="62" value="&#xc1;gua Santa (RS)"/>
-                    <StringItem index="63" value="&#xc1;guas Belas (PE)"/>
-                    <StringItem index="64" value="&#xc1;guas da Prata (SP)"/>
-                    <StringItem index="65" value="&#xc1;guas de Chapec&#xf3; (SC)"/>
-                    <StringItem index="66" value="&#xc1;guas de Lind&#xf3;ia (SP)"/>
-                    <StringItem index="67" value="&#xc1;guas de Santa B&#xe1;rbara (SP)"/>
-                    <StringItem index="68" value="&#xc1;guas de S&#xe3;o Pedro (SP)"/>
-                    <StringItem index="69" value="&#xc1;guas Formosas (MG)"/>
-                    <StringItem index="70" value="&#xc1;guas Frias (SC)"/>
-                    <StringItem index="71" value="&#xc1;guas Lindas de Goi&#xe1;s (GO)"/>
-                    <StringItem index="72" value="&#xc1;guas Mornas (SC)"/>
-                    <StringItem index="73" value="&#xc1;guas Vermelhas (MG)"/>
-                    <StringItem index="74" value="Agudo (RS)"/>
-                    <StringItem index="75" value="Agudos (SP)"/>
-                    <StringItem index="76" value="Agudos do Sul (PR)"/>
-                    <StringItem index="77" value="&#xc1;guia Branca (ES)"/>
-                    <StringItem index="78" value="Aguiar (PB)"/>
-                    <StringItem index="79" value="Aguiarn&#xf3;polis (TO)"/>
-                    <StringItem index="80" value="Aimor&#xe9;s (MG)"/>
-                    <StringItem index="81" value="Aiquara (BA)"/>
-                    <StringItem index="82" value="Aiuaba (CE)"/>
-                    <StringItem index="83" value="Aiuruoca (MG)"/>
-                    <StringItem index="84" value="Ajuricaba (RS)"/>
-                    <StringItem index="85" value="Alagoa (MG)"/>
-                    <StringItem index="86" value="Alagoa Grande (PB)"/>
-                    <StringItem index="87" value="Alagoa Nova (PB)"/>
-                    <StringItem index="88" value="Alagoinha (PB)"/>
-                    <StringItem index="89" value="Alagoinha (PE)"/>
-                    <StringItem index="90" value="Alagoinha do Piau&#xed; (PI)"/>
-                    <StringItem index="91" value="Alagoinhas (BA)"/>
-                    <StringItem index="92" value="Alambari (SP)"/>
-                    <StringItem index="93" value="Albertina (MG)"/>
-                    <StringItem index="94" value="Alc&#xe2;ntara (MA)"/>
-                    <StringItem index="95" value="Alc&#xe2;ntaras (CE)"/>
-                    <StringItem index="96" value="Alcantil (PB)"/>
-                    <StringItem index="97" value="Alcin&#xf3;polis (MS)"/>
-                    <StringItem index="98" value="Alcoba&#xe7;a (BA)"/>
-                    <StringItem index="99" value="Aldeias Altas (MA)"/>
-                    <StringItem index="100" value="Alecrim (RS)"/>
-                    <StringItem index="101" value="Alegre (ES)"/>
-                    <StringItem index="102" value="Alegrete (RS)"/>
-                    <StringItem index="103" value="Alegrete do Piau&#xed; (PI)"/>
-                    <StringItem index="104" value="Alegria (RS)"/>
-                    <StringItem index="105" value="Al&#xe9;m Para&#xed;ba (MG)"/>
-                    <StringItem index="106" value="Alenquer (PA)"/>
-                    <StringItem index="107" value="Alexandria (RN)"/>
-                    <StringItem index="108" value="Alex&#xe2;nia (GO)"/>
-                    <StringItem index="109" value="Alfenas (MG)"/>
-                    <StringItem index="110" value="Alfredo Chaves (ES)"/>
-                    <StringItem index="111" value="Alfredo Marcondes (SP)"/>
-                    <StringItem index="112" value="Alfredo Vasconcelos (MG)"/>
-                    <StringItem index="113" value="Alfredo Wagner (SC)"/>
-                    <StringItem index="114" value="Algod&#xe3;o de Janda&#xed;ra (PB)"/>
-                    <StringItem index="115" value="Alhandra (PB)"/>
-                    <StringItem index="116" value="Alian&#xe7;a (PE)"/>
-                    <StringItem index="117" value="Alian&#xe7;a do Tocantins (TO)"/>
-                    <StringItem index="118" value="Almadina (BA)"/>
-                    <StringItem index="119" value="Almas (TO)"/>
-                    <StringItem index="120" value="Almeirim (PA)"/>
-                    <StringItem index="121" value="Almenara (MG)"/>
-                    <StringItem index="122" value="Almino Afonso (RN)"/>
-                    <StringItem index="123" value="Almirante Tamandar&#xe9; (PR)"/>
-                    <StringItem index="124" value="Almirante Tamandar&#xe9; do Sul (RS)"/>
-                    <StringItem index="125" value="Alo&#xe2;ndia (GO)"/>
-                    <StringItem index="126" value="Alpercata (MG)"/>
-                    <StringItem index="127" value="Alpestre (RS)"/>
-                    <StringItem index="128" value="Alpin&#xf3;polis (MG)"/>
-                    <StringItem index="129" value="Alta Floresta (MT)"/>
-                    <StringItem index="130" value="Alta Floresta d&apos;Oeste (RO)"/>
-                    <StringItem index="131" value="Altair (SP)"/>
-                    <StringItem index="132" value="Altamira (PA)"/>
-                    <StringItem index="133" value="Altamira do Maranh&#xe3;o (MA)"/>
-                    <StringItem index="134" value="Altamira do Paran&#xe1; (PR)"/>
-                    <StringItem index="135" value="Altaneira (CE)"/>
-                    <StringItem index="136" value="Alterosa (MG)"/>
-                    <StringItem index="137" value="Altinho (PE)"/>
-                    <StringItem index="138" value="Altin&#xf3;polis (SP)"/>
-                    <StringItem index="139" value="Alto Alegre (RR)"/>
-                    <StringItem index="140" value="Alto Alegre (RS)"/>
-                    <StringItem index="141" value="Alto Alegre (SP)"/>
-                    <StringItem index="142" value="Alto Alegre do Maranh&#xe3;o (MA)"/>
-                    <StringItem index="143" value="Alto Alegre do Pindar&#xe9; (MA)"/>
-                    <StringItem index="144" value="Alto Alegre dos Parecis (RO)"/>
-                    <StringItem index="145" value="Alto Araguaia (MT)"/>
-                    <StringItem index="146" value="Alto Bela Vista (SC)"/>
-                    <StringItem index="147" value="Alto da Boa Vista (MT)"/>
-                    <StringItem index="148" value="Alto Capara&#xf3; (MG)"/>
-                    <StringItem index="149" value="Alto do Rodrigues (RN)"/>
-                    <StringItem index="150" value="Alto Feliz (RS)"/>
-                    <StringItem index="151" value="Alto Gar&#xe7;as (MT)"/>
-                    <StringItem index="152" value="Alto Horizonte (GO)"/>
-                    <StringItem index="153" value="Alto Jequitib&#xe1; (MG)"/>
-                    <StringItem index="154" value="Alto Long&#xe1; (PI)"/>
-                    <StringItem index="155" value="Alt&#xf4;nia (PR)"/>
-                    <StringItem index="156" value="Alto Paraguai (MT)"/>
-                    <StringItem index="157" value="Alto Para&#xed;so (PR)"/>
-                    <StringItem index="158" value="Alto Para&#xed;so (RO)"/>
-                    <StringItem index="159" value="Alto Para&#xed;so de Goi&#xe1;s (GO)"/>
-                    <StringItem index="160" value="Alto Paran&#xe1; (PR)"/>
-                    <StringItem index="161" value="Alto Parna&#xed;ba (MA)"/>
-                    <StringItem index="162" value="Alto Piquiri (PR)"/>
-                    <StringItem index="163" value="Alto Rio Doce (MG)"/>
-                    <StringItem index="164" value="Alto Rio Novo (ES)"/>
-                    <StringItem index="165" value="Altos (PI)"/>
-                    <StringItem index="166" value="Alto Santo (CE)"/>
-                    <StringItem index="167" value="Alto Taquari (MT)"/>
-                    <StringItem index="168" value="Alum&#xed;nio (SP)"/>
-                    <StringItem index="169" value="Alvar&#xe3;es (AM)"/>
-                    <StringItem index="170" value="Alvarenga (MG)"/>
-                    <StringItem index="171" value="&#xc1;lvares Florence (SP)"/>
-                    <StringItem index="172" value="&#xc1;lvares Machado (SP)"/>
-                    <StringItem index="173" value="&#xc1;lvaro de Carvalho (SP)"/>
-                    <StringItem index="174" value="Alvinl&#xe2;ndia (SP)"/>
-                    <StringItem index="175" value="Alvin&#xf3;polis (MG)"/>
-                    <StringItem index="176" value="Alvorada (RS)"/>
-                    <StringItem index="177" value="Alvorada (TO)"/>
-                    <StringItem index="178" value="Alvorada de Minas (MG)"/>
-                    <StringItem index="179" value="Alvorada d&apos;Oeste (RO)"/>
-                    <StringItem index="180" value="Alvorada do Gurgueia (PI)"/>
-                    <StringItem index="181" value="Alvorada do Norte (GO)"/>
-                    <StringItem index="182" value="Alvorada do Sul (PR)"/>
-                    <StringItem index="183" value="Amajari (RR)"/>
-                    <StringItem index="184" value="Amambai (MS)"/>
-                    <StringItem index="185" value="Amap&#xe1; (AP)"/>
-                    <StringItem index="186" value="Amap&#xe1; do Maranh&#xe3;o (MA)"/>
-                    <StringItem index="187" value="Amapor&#xe3; (PR)"/>
-                    <StringItem index="188" value="Amaraji (PE)"/>
-                    <StringItem index="189" value="Amaral Ferrador (RS)"/>
-                    <StringItem index="190" value="Amaralina (GO)"/>
-                    <StringItem index="191" value="Amarante (PI)"/>
-                    <StringItem index="192" value="Amarante do Maranh&#xe3;o (MA)"/>
-                    <StringItem index="193" value="Amargosa (BA)"/>
-                    <StringItem index="194" value="Amatur&#xe1; (AM)"/>
-                    <StringItem index="195" value="Am&#xe9;lia Rodrigues (BA)"/>
-                    <StringItem index="196" value="Am&#xe9;rica Dourada (BA)"/>
-                    <StringItem index="197" value="Americana (SP)"/>
-                    <StringItem index="198" value="Americano do Brasil (GO)"/>
-                    <StringItem index="199" value="Am&#xe9;rico Brasiliense (SP)"/>
-                    <StringItem index="200" value="Am&#xe9;rico de Campos (SP)"/>
-                    <StringItem index="201" value="Ametista do Sul (RS)"/>
-                    <StringItem index="202" value="Amontada (CE)"/>
-                    <StringItem index="203" value="Amorin&#xf3;polis (GO)"/>
-                    <StringItem index="204" value="Amparo (PB)"/>
-                    <StringItem index="205" value="Amparo (SP)"/>
-                    <StringItem index="206" value="Amparo do S&#xe3;o Francisco (SE)"/>
-                    <StringItem index="207" value="Amparo do Serra (MG)"/>
-                    <StringItem index="208" value="Amp&#xe9;re (PR)"/>
-                    <StringItem index="209" value="Anadia (AL)"/>
-                    <StringItem index="210" value="Anag&#xe9; (BA)"/>
-                    <StringItem index="211" value="Anahy (PR)"/>
-                    <StringItem index="212" value="Anaj&#xe1;s (PA)"/>
-                    <StringItem index="213" value="Anajatuba (MA)"/>
-                    <StringItem index="214" value="Anal&#xe2;ndia (SP)"/>
-                    <StringItem index="215" value="Anam&#xe3; (AM)"/>
-                    <StringItem index="216" value="Anan&#xe1;s (TO)"/>
-                    <StringItem index="217" value="Ananindeua (PA)"/>
-                    <StringItem index="218" value="An&#xe1;polis (GO)"/>
-                    <StringItem index="219" value="Anapu (PA)"/>
-                    <StringItem index="220" value="Anapurus (MA)"/>
-                    <StringItem index="221" value="Anast&#xe1;cio (MS)"/>
-                    <StringItem index="222" value="Anauril&#xe2;ndia (MS)"/>
-                    <StringItem index="223" value="Anchieta (ES)"/>
-                    <StringItem index="224" value="Anchieta (SC)"/>
-                    <StringItem index="225" value="Andara&#xed; (BA)"/>
-                    <StringItem index="226" value="Andir&#xe1; (PR)"/>
-                    <StringItem index="227" value="Andorinha (BA)"/>
-                    <StringItem index="228" value="Andradas (MG)"/>
-                    <StringItem index="229" value="Andradina (SP)"/>
-                    <StringItem index="230" value="Andr&#xe9; da Rocha (RS)"/>
-                    <StringItem index="231" value="Andrel&#xe2;ndia (MG)"/>
-                    <StringItem index="232" value="Angatuba (SP)"/>
-                    <StringItem index="233" value="Angel&#xe2;ndia (MG)"/>
-                    <StringItem index="234" value="Ang&#xe9;lica (MS)"/>
-                    <StringItem index="235" value="Angelim (PE)"/>
-                    <StringItem index="236" value="Angelina (SC)"/>
-                    <StringItem index="237" value="Angical (BA)"/>
-                    <StringItem index="238" value="Angical do Piau&#xed; (PI)"/>
-                    <StringItem index="239" value="Angico (TO)"/>
-                    <StringItem index="240" value="Angicos (RN)"/>
-                    <StringItem index="241" value="Angra dos Reis (RJ)"/>
-                    <StringItem index="242" value="Anguera (BA)"/>
-                    <StringItem index="243" value="&#xc2;ngulo (PR)"/>
-                    <StringItem index="244" value="Anhanguera (GO)"/>
-                    <StringItem index="245" value="Anhembi (SP)"/>
-                    <StringItem index="246" value="Anhumas (SP)"/>
-                    <StringItem index="247" value="Anicuns (GO)"/>
-                    <StringItem index="248" value="An&#xed;sio de Abreu (PI)"/>
-                    <StringItem index="249" value="Anita Garibaldi (SC)"/>
-                    <StringItem index="250" value="Anit&#xe1;polis (SC)"/>
-                    <StringItem index="251" value="Anori (AM)"/>
-                    <StringItem index="252" value="Anta Gorda (RS)"/>
-                    <StringItem index="253" value="Antas (BA)"/>
-                    <StringItem index="254" value="Antonina (PR)"/>
-                    <StringItem index="255" value="Antonina do Norte (CE)"/>
-                    <StringItem index="256" value="Ant&#xf4;nio Almeida (PI)"/>
-                    <StringItem index="257" value="Ant&#xf4;nio Cardoso (BA)"/>
-                    <StringItem index="258" value="Ant&#xf4;nio Carlos (MG)"/>
-                    <StringItem index="259" value="Ant&#xf4;nio Carlos (SC)"/>
-                    <StringItem index="260" value="Ant&#xf4;nio Dias (MG)"/>
-                    <StringItem index="261" value="Ant&#xf4;nio Gon&#xe7;alves (BA)"/>
-                    <StringItem index="262" value="Ant&#xf4;nio Jo&#xe3;o (MS)"/>
-                    <StringItem index="263" value="Ant&#xf4;nio Martins (RN)"/>
-                    <StringItem index="264" value="Ant&#xf4;nio Olinto (PR)"/>
-                    <StringItem index="265" value="Ant&#xf4;nio Prado (RS)"/>
-                    <StringItem index="266" value="Ant&#xf4;nio Prado de Minas (MG)"/>
-                    <StringItem index="267" value="Aparecida (PB)"/>
-                    <StringItem index="268" value="Aparecida (SP)"/>
-                    <StringItem index="269" value="Aparecida de Goi&#xe2;nia (GO)"/>
-                    <StringItem index="270" value="Aparecida d&apos;Oeste (SP)"/>
-                    <StringItem index="271" value="Aparecida do Rio Doce (GO)"/>
-                    <StringItem index="272" value="Aparecida do Rio Negro (TO)"/>
-                    <StringItem index="273" value="Aparecida do Taboado (MS)"/>
-                    <StringItem index="274" value="Aperib&#xe9; (RJ)"/>
-                    <StringItem index="275" value="Apiac&#xe1; (ES)"/>
-                    <StringItem index="276" value="Apiac&#xe1;s (MT)"/>
-                    <StringItem index="277" value="Apia&#xed; (SP)"/>
-                    <StringItem index="278" value="Apicum-A&#xe7;u (MA)"/>
-                    <StringItem index="279" value="Api&#xfa;na (SC)"/>
-                    <StringItem index="280" value="Apodi (RN)"/>
-                    <StringItem index="281" value="Apor&#xe1; (BA)"/>
-                    <StringItem index="282" value="Apor&#xe9; (GO)"/>
-                    <StringItem index="283" value="Apuarema (BA)"/>
-                    <StringItem index="284" value="Apucarana (PR)"/>
-                    <StringItem index="285" value="Apu&#xed; (AM)"/>
-                    <StringItem index="286" value="Apuiar&#xe9;s (CE)"/>
-                    <StringItem index="287" value="Aquidab&#xe3; (SE)"/>
-                    <StringItem index="288" value="Aquidauana (MS)"/>
-                    <StringItem index="289" value="Aquiraz (CE)"/>
-                    <StringItem index="290" value="Arabut&#xe3; (SC)"/>
-                    <StringItem index="291" value="Ara&#xe7;agi (PB)"/>
-                    <StringItem index="292" value="Ara&#xe7;a&#xed; (MG)"/>
-                    <StringItem index="293" value="Aracaju (SE)"/>
-                    <StringItem index="294" value="Ara&#xe7;ariguama (SP)"/>
-                    <StringItem index="295" value="Ara&#xe7;&#xe1;s (BA)"/>
-                    <StringItem index="296" value="Aracati (CE)"/>
-                    <StringItem index="297" value="Aracatu (BA)"/>
-                    <StringItem index="298" value="Ara&#xe7;atuba (SP)"/>
-                    <StringItem index="299" value="Araci (BA)"/>
-                    <StringItem index="300" value="Aracitaba (MG)"/>
-                    <StringItem index="301" value="Aracoiaba (CE)"/>
-                    <StringItem index="302" value="Ara&#xe7;oiaba (PE)"/>
-                    <StringItem index="303" value="Ara&#xe7;oiaba da Serra (SP)"/>
-                    <StringItem index="304" value="Aracruz (ES)"/>
-                    <StringItem index="305" value="Ara&#xe7;u (GO)"/>
-                    <StringItem index="306" value="Ara&#xe7;ua&#xed; (MG)"/>
-                    <StringItem index="307" value="Aragar&#xe7;as (GO)"/>
-                    <StringItem index="308" value="Aragoi&#xe2;nia (GO)"/>
-                    <StringItem index="309" value="Aragominas (TO)"/>
-                    <StringItem index="310" value="Araguacema (TO)"/>
-                    <StringItem index="311" value="Aragua&#xe7;u (TO)"/>
-                    <StringItem index="312" value="Araguaiana (MT)"/>
-                    <StringItem index="313" value="Aragua&#xed;na (TO)"/>
-                    <StringItem index="314" value="Araguainha (MT)"/>
-                    <StringItem index="315" value="Araguan&#xe3; (MA)"/>
-                    <StringItem index="316" value="Araguan&#xe3; (TO)"/>
-                    <StringItem index="317" value="Araguapaz (GO)"/>
-                    <StringItem index="318" value="Araguari (MG)"/>
-                    <StringItem index="319" value="Araguatins (TO)"/>
-                    <StringItem index="320" value="Araioses (MA)"/>
-                    <StringItem index="321" value="Aral Moreira (MS)"/>
-                    <StringItem index="322" value="Aramari (BA)"/>
-                    <StringItem index="323" value="Arambar&#xe9; (RS)"/>
-                    <StringItem index="324" value="Arame (MA)"/>
-                    <StringItem index="325" value="Aramina (SP)"/>
-                    <StringItem index="326" value="Arandu (SP)"/>
-                    <StringItem index="327" value="Arantina (MG)"/>
-                    <StringItem index="328" value="Arape&#xed; (SP)"/>
-                    <StringItem index="329" value="Arapiraca (AL)"/>
-                    <StringItem index="330" value="Arapoema (TO)"/>
-                    <StringItem index="331" value="Araponga (MG)"/>
-                    <StringItem index="332" value="Arapongas (PR)"/>
-                    <StringItem index="333" value="Arapor&#xe3; (MG)"/>
-                    <StringItem index="334" value="Arapoti (PR)"/>
-                    <StringItem index="335" value="Arapu&#xe1; (MG)"/>
-                    <StringItem index="336" value="Arapu&#xe3; (PR)"/>
-                    <StringItem index="337" value="Araputanga (MT)"/>
-                    <StringItem index="338" value="Araquari (SC)"/>
-                    <StringItem index="339" value="Arara (PB)"/>
-                    <StringItem index="340" value="Ararangu&#xe1; (SC)"/>
-                    <StringItem index="341" value="Araraquara (SP)"/>
-                    <StringItem index="342" value="Araras (SP)"/>
-                    <StringItem index="343" value="Ararend&#xe1; (CE)"/>
-                    <StringItem index="344" value="Arari (MA)"/>
-                    <StringItem index="345" value="Araric&#xe1; (RS)"/>
-                    <StringItem index="346" value="Araripe (CE)"/>
-                    <StringItem index="347" value="Araripina (PE)"/>
-                    <StringItem index="348" value="Araruama (RJ)"/>
-                    <StringItem index="349" value="Araruna (PB)"/>
-                    <StringItem index="350" value="Araruna (PR)"/>
-                    <StringItem index="351" value="Arataca (BA)"/>
-                    <StringItem index="352" value="Aratiba (RS)"/>
-                    <StringItem index="353" value="Aratuba (CE)"/>
-                    <StringItem index="354" value="Aratu&#xed;pe (BA)"/>
-                    <StringItem index="355" value="Arau&#xe1; (SE)"/>
-                    <StringItem index="356" value="Arauc&#xe1;ria (PR)"/>
-                    <StringItem index="357" value="Ara&#xfa;jos (MG)"/>
-                    <StringItem index="358" value="Arax&#xe1; (MG)"/>
-                    <StringItem index="359" value="Arceburgo (MG)"/>
-                    <StringItem index="360" value="Arco-&#xcd;ris (SP)"/>
-                    <StringItem index="361" value="Arcos (MG)"/>
-                    <StringItem index="362" value="Arcoverde (PE)"/>
-                    <StringItem index="363" value="Areado (MG)"/>
-                    <StringItem index="364" value="Areal (RJ)"/>
-                    <StringItem index="365" value="Arealva (SP)"/>
-                    <StringItem index="366" value="Areia (PB)"/>
-                    <StringItem index="367" value="Areia Branca (RN)"/>
-                    <StringItem index="368" value="Areia Branca (SE)"/>
-                    <StringItem index="369" value="Areia de Bara&#xfa;nas (PB)"/>
-                    <StringItem index="370" value="Areial (PB)"/>
-                    <StringItem index="371" value="Areias (SP)"/>
-                    <StringItem index="372" value="Arei&#xf3;polis (SP)"/>
-                    <StringItem index="373" value="Aren&#xe1;polis (MT)"/>
-                    <StringItem index="374" value="Aren&#xf3;polis (GO)"/>
-                    <StringItem index="375" value="Arez (Rio Grande do Norte) (RN)"/>
-                    <StringItem index="376" value="Argirita (MG)"/>
-                    <StringItem index="377" value="Aricanduva (MG)"/>
-                    <StringItem index="378" value="Arinos (MG)"/>
-                    <StringItem index="379" value="Aripuan&#xe3; (MT)"/>
-                    <StringItem index="380" value="Ariquemes (RO)"/>
-                    <StringItem index="381" value="Ariranha (SP)"/>
-                    <StringItem index="382" value="Ariranha do Iva&#xed; (PR)"/>
-                    <StringItem index="383" value="Arma&#xe7;&#xe3;o dos B&#xfa;zios (RJ)"/>
-                    <StringItem index="384" value="Armaz&#xe9;m (SC)"/>
-                    <StringItem index="385" value="Arneiroz (CE)"/>
-                    <StringItem index="386" value="Aroazes (PI)"/>
-                    <StringItem index="387" value="Aroeiras (PB)"/>
-                    <StringItem index="388" value="Aroeiras do Itaim (PI)"/>
-                    <StringItem index="389" value="Arraial (PI)"/>
-                    <StringItem index="390" value="Arraial do Cabo (RJ)"/>
-                    <StringItem index="391" value="Arraias (TO)"/>
-                    <StringItem index="392" value="Arroio do Meio (RS)"/>
-                    <StringItem index="393" value="Arroio do Padre (RS)"/>
-                    <StringItem index="394" value="Arroio do Sal (RS)"/>
-                    <StringItem index="395" value="Arroio dos Ratos (RS)"/>
-                    <StringItem index="396" value="Arroio do Tigre (RS)"/>
-                    <StringItem index="397" value="Arroio Grande (RS)"/>
-                    <StringItem index="398" value="Arroio Trinta (SC)"/>
-                    <StringItem index="399" value="Artur Nogueira (SP)"/>
-                    <StringItem index="400" value="Aruan&#xe3; (GO)"/>
-                    <StringItem index="401" value="Aruj&#xe1; (SP)"/>
-                    <StringItem index="402" value="Arvoredo (SC)"/>
-                    <StringItem index="403" value="Arvorezinha (RS)"/>
-                    <StringItem index="404" value="Ascurra (SC)"/>
-                    <StringItem index="405" value="Asp&#xe1;sia (SP)"/>
-                    <StringItem index="406" value="Assa&#xed; (PR)"/>
-                    <StringItem index="407" value="Assar&#xe9; (CE)"/>
-                    <StringItem index="408" value="Assis (SP)"/>
-                    <StringItem index="409" value="Assis Brasil (AC)"/>
-                    <StringItem index="410" value="Assis Chateaubriand (PR)"/>
-                    <StringItem index="411" value="Assu (RN)"/>
-                    <StringItem index="412" value="Assun&#xe7;&#xe3;o (PB)"/>
-                    <StringItem index="413" value="Assun&#xe7;&#xe3;o do Piau&#xed; (PI)"/>
-                    <StringItem index="414" value="Astolfo Dutra (MG)"/>
-                    <StringItem index="415" value="Astorga (PR)"/>
-                    <StringItem index="416" value="Atalaia (AL)"/>
-                    <StringItem index="417" value="Atalaia (PR)"/>
-                    <StringItem index="418" value="Atalaia do Norte (AM)"/>
-                    <StringItem index="419" value="Atalanta (SC)"/>
-                    <StringItem index="420" value="Atal&#xe9;ia (MG)"/>
-                    <StringItem index="421" value="Atibaia (SP)"/>
-                    <StringItem index="422" value="At&#xed;lio Viv&#xe1;cqua (ES)"/>
-                    <StringItem index="423" value="Augustin&#xf3;polis (TO)"/>
-                    <StringItem index="424" value="Augusto Corr&#xea;a (PA)"/>
-                    <StringItem index="425" value="Augusto de Lima (MG)"/>
-                    <StringItem index="426" value="Augusto Pestana (RS)"/>
-                    <StringItem index="427" value="&#xc1;urea (RS)"/>
-                    <StringItem index="428" value="Aurelino Leal (BA)"/>
-                    <StringItem index="429" value="Auriflama (SP)"/>
-                    <StringItem index="430" value="Auril&#xe2;ndia (GO)"/>
-                    <StringItem index="431" value="Aurora (CE)"/>
-                    <StringItem index="432" value="Aurora (SC)"/>
-                    <StringItem index="433" value="Aurora do Par&#xe1; (PA)"/>
-                    <StringItem index="434" value="Aurora do Tocantins (TO)"/>
-                    <StringItem index="435" value="Autazes (AM)"/>
-                    <StringItem index="436" value="Ava&#xed; (SP)"/>
-                    <StringItem index="437" value="Avanhandava (SP)"/>
-                    <StringItem index="438" value="Avar&#xe9; (SP)"/>
-                    <StringItem index="439" value="Aveiro (PA)"/>
-                    <StringItem index="440" value="Avelino Lopes (PI)"/>
-                    <StringItem index="441" value="Avelin&#xf3;polis (GO)"/>
-                    <StringItem index="442" value="Axix&#xe1; (MA)"/>
-                    <StringItem index="443" value="Axix&#xe1; do Tocantins (TO)"/>
-                  </StringArray>
                 </Property>
               </Properties>
               <AuxValues>

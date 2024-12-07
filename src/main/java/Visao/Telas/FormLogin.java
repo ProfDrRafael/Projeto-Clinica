@@ -113,7 +113,7 @@ public class FormLogin extends SimpleForm {
         lbLogin.setText("Login:");
 
         pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        pfSenha.setText("");
+        pfSenha.setText("jPasswordField1");
 
         jlSenha.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jlSenha.setText("Senha:");
@@ -154,12 +154,12 @@ public class FormLogin extends SimpleForm {
                 .addGroup(pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btEntrar)
                     .addGroup(pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tfLogin)
                         .addComponent(lbLogin)
                         .addComponent(jlSenha)
                         .addComponent(lbEsqueceuSenha)
-                        .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                        .addComponent(tfLogin)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         pDireitaLayout.setVerticalGroup(
             pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
