@@ -30,6 +30,9 @@ public class FormLogin extends SimpleForm {
     public FormLogin(AutenticacaoService autenticacaoService) {
         this.autenticacaoService = autenticacaoService;
         initComponents();
+        
+        tfLogin.setText("admin@admin.com");
+        pfSenha.setText("senha123");
     }
 
     /**
@@ -108,6 +111,11 @@ public class FormLogin extends SimpleForm {
         pDireita.setPreferredSize(new java.awt.Dimension(400, 400));
 
         tfLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfLoginFocusLost(evt);
+            }
+        });
 
         lbLogin.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lbLogin.setText("Login:");
@@ -218,6 +226,10 @@ public class FormLogin extends SimpleForm {
 
         FormManager.EsqueciSenha(esqueciSenha);
     }//GEN-LAST:event_lbEsqueceuSenhaMouseClicked
+
+    private void tfLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfLoginFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

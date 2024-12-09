@@ -11,25 +11,25 @@ import java.awt.BorderLayout;
  *
  * @author john
  */
-public class TableListaEstagiarios extends SimpleForm {
+public class TableListaAgenda extends SimpleForm {
     
     /**
      * Creates new form listaEsperaTable
      */
-    public TableListaEstagiarios() {
+    public TableListaAgenda() {
         initComponents();
-        
-        String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Ativo", "Ano", "Orientador"};
-        String queryTable = "SELECT id, nome, email, ativo, ano, orientador_id FROM estagiario";
+     
+        String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Sala", "Atendimento","Paciente", "Estagiário"};
+        String queryTable = "SELECT id, data, hora, sala, atendimento_id, paciente_id, estagiario_id FROM agenda";
         
         // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "estagiario");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Agendamentos", "agenda");
 
         // Set up the painel_lista_espera layout
         painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
         // Add the custom table to the center of the panel
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Estagiários", "estagiario"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Agendamentos", "agenda"), BorderLayout.CENTER);
     }
 
     /**
@@ -43,7 +43,7 @@ public class TableListaEstagiarios extends SimpleForm {
 
         painel_lista_espera = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbListaEsperaNaoAtendidos = new javax.swing.JTable();
+        tbListaEsperaEspecifica = new javax.swing.JTable();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
@@ -55,12 +55,12 @@ public class TableListaEstagiarios extends SimpleForm {
 
         painel_lista_espera.setBackground(new java.awt.Color(255, 255, 255));
         painel_lista_espera.setForeground(new java.awt.Color(255, 255, 255));
-        painel_lista_espera.setMaximumSize(new java.awt.Dimension(1024, 768));
-        painel_lista_espera.setMinimumSize(new java.awt.Dimension(1024, 768));
-        painel_lista_espera.setPreferredSize(new java.awt.Dimension(1024, 768));
+        painel_lista_espera.setMaximumSize(new java.awt.Dimension(99999, 99999999));
+        painel_lista_espera.setMinimumSize(new java.awt.Dimension(0, 0));
+        painel_lista_espera.setPreferredSize(new java.awt.Dimension(1200, 768));
 
-        tbListaEsperaNaoAtendidos.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
-        tbListaEsperaNaoAtendidos.setModel(new javax.swing.table.DefaultTableModel(
+        tbListaEsperaEspecifica.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        tbListaEsperaEspecifica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "Fulano de Tal", "19", "14/05/2023", "Masculino", "Adulto"},
                 {null, null, null, null, null, null},
@@ -72,23 +72,23 @@ public class TableListaEstagiarios extends SimpleForm {
                 "Posição", "Nome", "Idade", "Data Cadastro", "Sexo", "Faixa Etária"
             }
         ));
-        jScrollPane1.setViewportView(tbListaEsperaNaoAtendidos);
+        jScrollPane1.setViewportView(tbListaEsperaEspecifica);
 
         javax.swing.GroupLayout painel_lista_esperaLayout = new javax.swing.GroupLayout(painel_lista_espera);
         painel_lista_espera.setLayout(painel_lista_esperaLayout);
         painel_lista_esperaLayout.setHorizontalGroup(
             painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_lista_esperaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1005, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 944, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         painel_lista_esperaLayout.setVerticalGroup(
             painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_lista_esperaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125))
         );
 
         add(painel_lista_espera, java.awt.BorderLayout.CENTER);
@@ -102,18 +102,18 @@ public class TableListaEstagiarios extends SimpleForm {
 
         lbOrientador.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        lbOrientador.setText("Lista de Estagiários");
+        lbOrientador.setText("Lista de Agendamentos");
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addGap(0, 618, Short.MAX_VALUE))
+                .addGap(0, 578, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,8 +135,7 @@ public class TableListaEstagiarios extends SimpleForm {
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_espera;
-    private javax.swing.JTable tbListaEsperaNaoAtendidos;
+    private javax.swing.JTable tbListaEsperaEspecifica;
     // End of variables declaration//GEN-END:variables
-
 
 }

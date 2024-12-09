@@ -13,23 +13,24 @@ import java.awt.BorderLayout;
  */
 public class TableListaPacientes extends SimpleForm {
 
+    
     /**
      * Creates new form listaEsperaTable
      */
     public TableListaPacientes() {
         initComponents();
         
-        String[] tableColumns = new String[]{"Selecionar", "#", "ID", "Nome", "Telefone", "Data de Nascimento", "Estado Civil"};
+        String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil"};
         String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil FROM paciente";
         
         // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns);
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Pacientes", "paciente");
 
         // Set up the painel_lista_espera layout
         painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
         // Add the custom table to the center of the panel
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Pacientes", "paciente"), BorderLayout.CENTER);
     }
 
     /**

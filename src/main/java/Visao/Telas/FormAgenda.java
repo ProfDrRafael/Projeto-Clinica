@@ -23,8 +23,8 @@ public class FormAgenda extends SimpleForm {
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/excluir.png");
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
     }
 
     /**

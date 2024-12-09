@@ -24,9 +24,9 @@ public class FormProntuario extends SimpleForm {
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpQueixa);
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/excluir.png");
         redimencionarIcone.redimensionarIcones(btHistoricoAtendimentos, "/Multimidia/imagens/historicoAtendimentos.png");
     }
 
@@ -50,8 +50,8 @@ public class FormProntuario extends SimpleForm {
         cbEstagiario = new javax.swing.JComboBox<>();
         jlEstagiario = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        btEditar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btHistoricoAtendimentos = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -125,15 +125,15 @@ public class FormProntuario extends SimpleForm {
         jlEstagiario.setForeground(new java.awt.Color(0, 102, 102));
         jlEstagiario.setText("*Estagiário:");
 
-        btEditar.setBackground(new java.awt.Color(255, 102, 102));
-        btEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btEditar.setForeground(new java.awt.Color(51, 51, 51));
-        btEditar.setText("Cancelar");
-
-        btCancelar.setBackground(new java.awt.Color(255, 255, 51));
+        btCancelar.setBackground(new java.awt.Color(255, 102, 102));
         btCancelar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btCancelar.setForeground(new java.awt.Color(51, 51, 51));
-        btCancelar.setText("Editar");
+        btCancelar.setText("Cancelar");
+
+        btEditar.setBackground(new java.awt.Color(255, 255, 51));
+        btEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btEditar.setForeground(new java.awt.Color(51, 51, 51));
+        btEditar.setText("Editar");
 
         btSalvar.setBackground(new java.awt.Color(102, 255, 102));
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -164,9 +164,9 @@ public class FormProntuario extends SimpleForm {
             pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createSequentialGroup()
                 .addGap(199, 199, 199)
-                .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btCancelar)
+                .addComponent(btEditar)
                 .addGap(18, 18, 18)
                 .addComponent(btSalvar)
                 .addGap(18, 18, 18)
@@ -238,9 +238,9 @@ public class FormProntuario extends SimpleForm {
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btSalvar)
                     .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btEditar)
+                        .addComponent(btCancelar)
                         .addComponent(btHistoricoAtendimentos)
-                        .addComponent(btCancelar)))
+                        .addComponent(btEditar)))
                 .addGap(54, 54, 54))
         );
 

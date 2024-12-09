@@ -134,23 +134,6 @@ public class FormManager {
      * Realiza o logout, removendo os componentes atuais e exibindo a tela de login.
      */
     public static void logout() {
-//        // Captura o estado atual da interface para a animação
-//        FlatAnimatedLafChange.showSnapshot(); 
-//        
-//        // Remove todos os componentes da janela
-//        instance.frame.getContentPane().removeAll(); 
-//
-//        // Configura MigLayout no container principal
-//        instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]"));
-//
-//        // Adiciona o FormLogin centralizado tanto verticalmente quanto horizontalmente
-//        FormLogin formLogin = new FormLogin();
-//        instance.frame.getContentPane().add(formLogin, "align center center, grow"); 
-//    
-//        instance.frame.repaint(); // Re-renderiza a janela
-//        instance.frame.revalidate(); // Revalida a janela
-//        FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
-// Captura o estado atual da interface para a animação
         // Captura o estado atual da interface para a animação
         FlatAnimatedLafChange.showSnapshot();
 
@@ -184,44 +167,6 @@ public class FormManager {
      * 
      * @param user O usuário que está realizando o login
      */
-//    public static void login(ModelUser user) {
-////        FlatAnimatedLafChange.showSnapshot(); // Captura o estado atual da interface
-////        instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
-////
-////        // Aqui você pode definir o layout padrão que deseja usar, como BorderLayout
-////        instance.frame.getContentPane().setLayout(new BorderLayout());
-////
-////        instance.frame.getContentPane().add(instance.panelSlider); // Adiciona o painel deslizante
-////        ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
-////        instance.frame.repaint(); // Re-renderiza a janela
-////        instance.frame.revalidate(); // Revalida a janela
-////        FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
-//        FlatAnimatedLafChange.showSnapshot(); // Captura o estado atual da interface
-//
-//        // Animação de fade-out
-//        instance.frame.getContentPane().setVisible(false);
-//
-//        SwingUtilities.invokeLater(() -> {
-//            instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
-//            instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]")); // Consistência no layout
-//
-//            // Adiciona o painel deslizante (você pode centralizá-lo de maneira semelhante)
-//            instance.frame.getContentPane().add(instance.panelSlider, "align center center, grow");
-//            ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
-//
-//            // Exibe a animação de fade-in após a remoção dos componentes
-//            instance.frame.getContentPane().setVisible(true);
-//            instance.frame.repaint(); // Re-renderiza a janela
-//            instance.frame.revalidate(); // Revalida a janela
-//            FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
-//
-//            // Mostra o formulário de dashboard (painel principal)
-//            FormManager.showForm(new PageWelcome());
-//
-//            //  Show notifications
-//            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Login realizado com sucesso");
-//        });
-//    }
     public static void login(UsuarioVO user) {
         FlatAnimatedLafChange.showSnapshot();
 

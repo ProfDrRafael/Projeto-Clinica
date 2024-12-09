@@ -21,12 +21,16 @@ public class FormProduzirRelato extends SimpleForm {
         //redimensionarIcones();
         
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
+        EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelato, btNegrito, btItalico);
+        EditorTextPaneEstilization.JTextComponentUndoRedo(tpTextoRelato);
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/excluir.png");
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
+        
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +47,8 @@ public class FormProduzirRelato extends SimpleForm {
         jScrollPane4 = new javax.swing.JScrollPane();
         tpTextoRelato = new javax.swing.JTextPane();
         btCancelar = new javax.swing.JButton();
+        btNegrito = new javax.swing.JButton();
+        btItalico = new javax.swing.JButton();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
@@ -81,6 +87,10 @@ public class FormProduzirRelato extends SimpleForm {
             }
         });
 
+        btNegrito.setText("Negrito");
+
+        btItalico.setText("Itálico");
+
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
         pCentroLayout.setHorizontalGroup(
@@ -88,9 +98,16 @@ public class FormProduzirRelato extends SimpleForm {
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ldDescricao)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(ldDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btNegrito)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btItalico)
+                        .addGap(111, 111, 111))))
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -106,7 +123,10 @@ public class FormProduzirRelato extends SimpleForm {
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(ldDescricao)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ldDescricao)
+                    .addComponent(btNegrito)
+                    .addComponent(btItalico))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
@@ -115,7 +135,7 @@ public class FormProduzirRelato extends SimpleForm {
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -162,6 +182,8 @@ public class FormProduzirRelato extends SimpleForm {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btItalico;
+    private javax.swing.JButton btNegrito;
     private javax.swing.JButton btSalvar;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;

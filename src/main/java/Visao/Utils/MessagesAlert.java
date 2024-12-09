@@ -5,6 +5,8 @@
 package Visao.Utils;
 
 import Visao.JframeManager.FormManager;
+import java.util.function.Consumer;
+import javax.swing.SwingUtilities;
 import raven.alerts.MessageAlerts;
 import raven.popup.component.PopupCallbackAction;
 import raven.popup.component.PopupController;
@@ -14,6 +16,7 @@ import raven.popup.component.PopupController;
  * @author john
  */
 public class MessagesAlert {
+    private boolean response;
 
     public void MessageAlertDesconectarOpcoes() {
         MessageAlerts.getInstance().showMessage("Logout", "Tem Certeza que deseja terminar a sessão?", MessageAlerts.MessageType.ERROR, MessageAlerts.YES_NO_OPTION, new PopupCallbackAction() {
@@ -44,6 +47,23 @@ public class MessagesAlert {
                 }
             }
         });
+    }
+    
+    public static void showWarningMessage(String message, Consumer<Boolean> callback) {
+        
+        MessageAlerts.getInstance().showMessage(
+            "Aviso", 
+            message, 
+            MessageAlerts.MessageType.WARNING, 
+            MessageAlerts.YES_NO_OPTION, 
+            new PopupCallbackAction() {
+                @Override
+                public void action(PopupController pc, int i) {
+                    boolean response = (i == MessageAlerts.YES_OPTION);
+                    SwingUtilities.invokeLater(() -> callback.accept(response));
+                }
+            }
+        );
     }
 
 }

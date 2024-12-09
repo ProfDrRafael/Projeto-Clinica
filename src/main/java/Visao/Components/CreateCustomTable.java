@@ -5,10 +5,18 @@
 package Visao.Components;
 
 import Multimidia.Sample.SampleData; // Importa dados de amostra
+import Persistencia.Dao.ConsultasDinamicas;
 import Persistencia.Dao.JPAUtil;
 import Persistencia.modelTemp.ModelEmployee; // Importa o modelo de dados de funcionário
 import Persistencia.modelTemp.ModelProfile; // Importa o modelo de dados de perfil
 import Visao.Components.pagination.Pagination; // Importa a classe de paginação
+import Visao.JframeManager.FormManager;
+import Visao.Telas.FormAgenda;
+import Visao.Telas.FormAtendimento;
+import Visao.Telas.FormPaciente;
+import Visao.Telas.FormUsuario;
+import Visao.Telas.PageWelcome;
+import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones; // Importa utilitário para redimensionar ícones
 import Visao.Utils.table.CheckBoxTableHeaderRenderer; // Importa renderizador de cabeçalho de tabela com checkbox
 import Visao.Utils.table.TableHeaderAlignment; // Importa alinhamento de cabeçalho de tabela
@@ -16,6 +24,9 @@ import Visao.Utils.table.TableProfileCellRenderer; // Importa renderizador de c�
 import com.formdev.flatlaf.FlatClientProperties; // Importa propriedades do cliente FlatLaf
 import com.formdev.flatlaf.extras.FlatSVGIcon; // Importa ícones SVG do FlatLaf
 import java.awt.Component; // Importa a classe Component
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List; // Importa a lista
 import javax.swing.BorderFactory; // Importa fábrica de bordas
@@ -26,11 +37,16 @@ import javax.swing.JScrollPane; // Importa o painel de rolagem
 import javax.swing.JSeparator; // Importa o separador
 import javax.swing.JTable; // Importa a tabela
 import javax.swing.JTextField; // Importa o campo de texto
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants; // Importa constantes de alinhamento
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel; // Importa modelo padrão de tabela
+import javax.swing.table.TableColumn;
 import net.miginfocom.swing.MigLayout; // Importa layout Mig
+import raven.toast.Notifications;
 
 /**
  * Classe para criar uma tabela personalizada com paginação e recursos adicionais.
@@ -44,13 +60,19 @@ public class CreateCustomTable {
     private int currentPage = 1; // Página atual
     private DefaultTableModel model; // Modelo da tabela
     private Pagination pagination = new Pagination(); // Instância de paginação
-    private List<ModelEmployee> sortedData; // Holds the globally sorted data
     private String nomeTabela;
     private String[] tabelaColunas;
+    private List<Object[]> allDataTable = new ArrayList<>();
+    private JTable table;
+    private String tipoFormTela;
+    private String tableNameDB;
+    private ArrayList<Integer> selectedRows = new ArrayList<>();
 
-    public CreateCustomTable(String nomeTabela, String[] tabelaColunas) {
+    public CreateCustomTable(String nomeTabela, String[] tabelaColunas, String tipoFormTela, String tableNameDB) {
         this.nomeTabela = nomeTabela;
         this.tabelaColunas = tabelaColunas;
+        this.tipoFormTela = tipoFormTela;
+        this.tableNameDB = tableNameDB;
     }
 
     /**
@@ -58,46 +80,61 @@ public class CreateCustomTable {
      * 
      * @return Componente da tabela personalizada
      */
-    public Component createCustomTable(String nomeTabela, String[] colunasTabela) {
+    public Component createCustomTable(String nomeTabela, String[] colunasTabela, String tipoFormTela, String tableNameDB) {
         // Criação do painel com layout Mig
         JPanel panel = new JPanel(new MigLayout("fillx,wrap,insets 10 0 10 0", "[fill]", "[][][]0[fill,grow]"));
 
-        // Criação do modelo da tabela
-        Object[][] columns = new Object[0][colunasTabela.length];
-        model = new DefaultTableModel(columns, 0) {
+        // Buscar dados do banco
+        List<Object[]> data = ConsultasDinamicas.buscarTabelaConsultaAnonima(nomeTabela);
+        
+        // Atualiza a lista global de dados
+        allDataTable = data;
+
+        // Column names
+        String[] columns = colunasTabela;
+        
+        // Create the table model with column names and no rows initially
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Permite que a célula na coluna 0 seja editável para o checkbox
+                // Allow editing only on the first column (checkbox)
                 return column == 0;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                // Usa tipo booleano na coluna 0 para o checkbox
-                if (columnIndex == 0)
-                    return Boolean.class;
-                // Usa a classe de perfil na coluna 2
-                if (columnIndex == 2) {
-                    return ModelProfile.class;
-                }
-                return super.getColumnClass(columnIndex); // Retorna a classe padrão
+                // Set column classes based on index (e.g., boolean for checkbox)
+                if (columnIndex == 0) return Boolean.class;
+                return super.getColumnClass(columnIndex);
             }
         };
+        
+        this.model = model;
 
         // Criação da tabela
-        JTable table = new JTable(loadTableModelData(nomeTabela));
-
+        JTable table = new JTable(model);
+        
         // Painel de rolagem da tabela
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Define borda vazia
 
-        // Configurações das colunas da tabela
-        table.getColumnModel().getColumn(0).setMaxWidth(50); // Largura máxima para a coluna de seleção
-        table.getColumnModel().getColumn(1).setMaxWidth(50); // Largura máxima para a coluna de número
-        table.getColumnModel().getColumn(2).setPreferredWidth(150); // Largura preferencial para a coluna de nome
-        table.getColumnModel().getColumn(5).setPreferredWidth(100); // Largura preferencial para a coluna de posição
-        table.getColumnModel().getColumn(6).setPreferredWidth(250); // Largura preferencial para a coluna de descrição
+        //Configurações dinâmicas das colunas da tabela
+        for (int i = 0; i < colunasTabela.length; i++) {
+            TableColumn column = table.getColumnModel().getColumn(i);
 
+            // Configurações baseadas no índice da coluna
+            if (i == 0) {
+                column.setMaxWidth(50); // Exemplo: coluna de seleção (checkbox)
+            } else if (i == 1) {
+                column.setMaxWidth(50); // Exemplo: coluna de índice
+            } else {
+                column.setPreferredWidth(150); // Configuração padrão para demais colunas
+            }
+        }
+        
+        table.setRowSelectionAllowed(true);
+        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
         // Desabilita a reordenação das colunas da tabela
         //table.getTableHeader().setReorderingAllowed(false);
         
@@ -144,6 +181,30 @@ public class CreateCustomTable {
                 "thumbInsets:3,3,3,3;" + // Margens do polegar da barra de rolagem
                 "background:$Table.background;"); // Cor de fundo do painel de rolagem
 
+        this.table = table;
+        
+        model.addTableModelListener(e -> {
+            int row = e.getFirstRow();
+            int column = e.getColumn();
+
+            // Check if the changed column is the checkbox column (column 0)
+            if (column == 0) {
+                Boolean isChecked = (Boolean) model.getValueAt(row, column);
+
+                if (isChecked) {
+                    // Add row to selectedRows if not already present
+                    if (!selectedRows.contains(row)) {
+                        selectedRows.add(row);
+                    }
+                } else {
+                    // Remove row from selectedRows if it is deselected
+                    selectedRows.remove(Integer.valueOf(row));
+                }
+
+                System.out.println("Updated selectedRows: " + selectedRows);
+            }
+        });
+        
         // Criação do título
         JLabel title = new JLabel("Tabela de Listagem");
         title.putClientProperty(FlatClientProperties.STYLE, "" +
@@ -158,11 +219,11 @@ public class CreateCustomTable {
                 "foreground:$Table.gridColor;"); // Cor do separador
         panel.add(separator, "height 2"); // Adiciona o separador ao painel
         panel.add(scrollPane); // Adiciona o painel de rolagem da tabela ao painel
+        
+        totalPages = (int) Math.ceil((double) allDataTable.size() / ROWS_PER_PAGE); // Calcula o total de páginas
+        
+        loadPageData(allDataTable, currentPage); // Carrega dados da página atual
 
-        // Adiciona dados de exemplo
-        List<ModelEmployee> allData = SampleData.getSampleEmployeeData(false); // Obtém todos os dados de funcionários
-        totalPages = (int) Math.ceil((double) allData.size() / ROWS_PER_PAGE); // Calcula o total de páginas
-        loadPageData(allData, currentPage); // Carrega dados da página atual
         
         // Inicializa e configura a paginação
         pagination = new Pagination();
@@ -170,62 +231,15 @@ public class CreateCustomTable {
         pagination.setPagegination(currentPage, totalPages); // Define a página atual e total
         pagination.addEventPagination(page -> {
             currentPage = page; // Atualiza a página atual
-            loadPageData(allData, page); // Carrega dados da nova página
+            loadPageData(this.allDataTable, page); // Carrega dados da nova página
         });
+        
+
         panel.add(pagination, "align center, wrap"); // Adiciona a paginação ao painel
 
         return panel; // Retorna o painel personalizado
     }
     
-    private DefaultTableModel loadTableModelData(String nomeTabela) {
-        // Retrieve data from the database for the table
-        List<Object[]> data = JPAUtil.buscarTabelaAnonima(nomeTabela); // Fetch data from DB
-
-        // Debugging: print the retrieved data
-        System.out.println("Data:");
-        for (Object[] row : data) {
-            System.out.println(Arrays.toString(row));
-        }
-
-        // Column names
-        String[] columns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Estado Civil"};
-
-        // Create the table model with column names and no rows initially
-        DefaultTableModel model = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                // Allow editing only on the first column (checkbox)
-                return column == 0;
-            }
-
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                // Set column classes based on index (e.g., boolean for checkbox)
-                if (columnIndex == 0) return Boolean.class;
-                return super.getColumnClass(columnIndex);
-            }
-        };
-
-        // Populate the table model with data from the database
-        for (Object[] row : data) {
-            // Ensure that the row data has the same number of columns as defined in the model
-            Object[] rowData = new Object[columns.length];
-
-            // Fill the row data with the corresponding values, ensuring we don't exceed the column length
-            for (int i = 0; i < columns.length; i++) {
-                if (i < row.length) {
-                    rowData[i] = row[i]; // Set the value for the respective column
-                } else {
-                    rowData[i] = null; // Handle missing values (if any)
-                }
-            }
-
-            model.addRow(rowData); // Add the row to the model
-        }
-
-        return model; // Return the populated table model
-    }
-
     /**
     * Método para carregar os dados da página atual na tabela.
     * 
@@ -233,8 +247,10 @@ public class CreateCustomTable {
     * @param page Número da página atual
     * @param table Tabela onde os dados serão carregados
     */
-    private void loadPageData(List<ModelEmployee> data, int page) {
+    private void loadPageData(List<Object[]> data, int page) {
+        System.out.println("\nModel: " + model);
         model.setRowCount(0); // Limpa o modelo da tabela
+        
         int start = (page - 1) * ROWS_PER_PAGE;
         int end = Math.min(start + ROWS_PER_PAGE, data.size());
 
@@ -242,13 +258,23 @@ public class CreateCustomTable {
         if (data.isEmpty() || start >= data.size()) {
             return; // Não há dados para carregar na página atual
         }
-
-        // Adiciona as linhas da página atual ao modelo da tabela
-        for (int i = start; i < end; i++) {
-            model.addRow(data.get(i).toTableRowCustom(i + 1)); // Adiciona a linha de dados
+        
+        for (int i = start; i < end; i++) { 
+            Object[] row = data.get(i);  
+            // Certifique-se de que os dados carregados tenham o mesmo número de colunas da tabela
+            Object[] rowData = new Object[this.tabelaColunas.length];
+            for (int j = 0; j < this.tabelaColunas.length; j++) {
+                if (j == 0) {
+                    rowData[j] = false; // Inicializa a coluna de checkbox com 'false'
+                } else if (j - 1 < row.length) {
+                    rowData[j] = row[j - 1]; // Ajusta o índice para ignorar a primeira coluna (checkbox)
+                } else {
+                    rowData[j] = "..."; // Preenche com null caso os dados estejam faltando
+                }
+            }
+            model.addRow(rowData); // Adiciona os dados à tabela
         }
     }
-
 
     /**
      * Método para criar ações no cabeçalho da tabela.
@@ -264,6 +290,75 @@ public class CreateCustomTable {
         JButton cmdCreate = new JButton("Cadastrar");
         JButton cmdEdit = new JButton("Editar");
         JButton cmdDelete = new JButton("Remover");
+        
+        
+        cmdCreate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                switch (tipoFormTela) {
+                    case "Lista de Espera Geral":
+                        FormManager.showForm(new FormPaciente());
+                        break;
+                    case "Lista de Espera Especifica":
+                        FormManager.showForm(new FormPaciente());
+                        break;
+                    case "Agendamentos":
+                        FormManager.showForm(new FormAgenda());
+                        break;
+                    case "Atendimentos":
+                        FormManager.showForm(new FormAtendimento());
+                        break;
+                    case "Todos os Estagiários":
+                        FormManager.showForm(new FormUsuario());
+                        break;
+                    case "Todos os Pacientes":
+                        FormManager.showForm(new FormPaciente());
+                        break;
+                    case "Todos os Usuários":
+                        FormManager.showForm(new FormUsuario());
+                        break;
+                    default:
+                        FormManager.showForm(new PageWelcome());
+                        break;
+                }
+            }
+        });
+        
+        cmdEdit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        
+        
+        cmdDelete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+                if (selectedRows.size() > 0) {
+                    MessagesAlert.showWarningMessage("Deseja continuar?", response -> {
+                        if (response) {
+                            List<Object> selectedIds = new ArrayList<>();
+
+                            List<Integer> rowsToRemove = new ArrayList<>(selectedRows);
+
+                            for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
+                                int row = rowsToRemove.get(i);
+                                Object id = model.getValueAt(row, 1);  
+                                selectedIds.add(id);
+
+                                ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tableNameDB);
+                                model.removeRow(row);
+                            }
+                            selectedRows.clear();
+                            
+                            System.out.println("IDs to be deleted: " + selectedIds);
+                        }
+                    });
+
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Selecione um registro para remover");
+                }
+            }
+        });
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         
@@ -304,22 +399,23 @@ public class CreateCustomTable {
     /**
     * Método para filtrar os dados com base na pesquisa.
     */
-   private void filterData(JTextField txtSearch) {
-       String query = txtSearch.getText().toLowerCase(); // Obtém o texto da pesquisa em minúsculas
-       List<ModelEmployee> allData = SampleData.getSampleEmployeeData(false); // Obtém todos os dados
+    private void filterData(JTextField txtSearch) {
+        String query = txtSearch.getText().toLowerCase();
+        List<Object[]> filteredData = allDataTable.stream()
+            .filter(row -> Arrays.stream(row)
+                                 .map(cell -> cell == null ? "" : cell.toString().toLowerCase()) 
+                                 .anyMatch(cell -> cell.contains(query))
+            )
+            .toList();
 
-       // Filtra os dados com base na consulta
-       List<ModelEmployee> filteredData = allData.stream()
-               .filter(employee -> employee.getDate().toLowerCase().contains(query) || // Exemplo: busca pela data
-                                  String.valueOf(employee.getSalary()).contains(query) || // Exemplo: busca pelo salário
-                                  employee.getPosition().toLowerCase().contains(query) || // Exemplo: busca pela posição
-                                  employee.getDescription().toLowerCase().contains(query) || // Exemplo: busca pela descrição
-                                  employee.getProfile().getName().toLowerCase().contains(query) // Exemplo: busca pelo nome do perfil
-               )
-               .toList(); // Coleta os resultados filtrados
-
-       // Atualiza o número total de páginas
-       totalPages = (int) Math.ceil((double) filteredData.size() / ROWS_PER_PAGE);
-       loadPageData(filteredData, 1); // Carrega os dados filtrados na primeira página
-   }
+        System.out.println("Dados filtrados: ");
+        filteredData.forEach(row -> System.out.println(Arrays.toString(row)));
+        System.out.println("\nConsulta: " + query);
+        System.out.println("\nDados filtrados: ");
+        filteredData.forEach(row -> System.out.println(Arrays.toString(row)));
+        
+        // Atualiza o número total de páginas
+        this.totalPages = (int) Math.ceil((double) filteredData.size() / ROWS_PER_PAGE);
+        loadPageData(filteredData, 1); // Carrega os dados filtrados na primeira página
+    }
 }

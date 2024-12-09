@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.*;
-
 import raven.drawer.component.DrawerPanel;
 import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.footer.SimpleFooterData;
@@ -135,12 +134,14 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item.Label("Listagem"), // Label
             new Item("Lista de Espera Geral", "listing.svg"), // index 11
             new Item("Lista de Espera Especifica", "listing.svg"), // index 12
-            new Item("Todos os Estagiários", "listing.svg"), // index 13
-            new Item("Todos os Pacientes", "listing.svg"), // index 14
-            new Item("Todos os Usuários", "listing.svg"), // index 15
+            new Item("Agendamentos", "listing.svg"), // index 13
+            new Item("Atendimentos", "listing.svg"), // index 14
+            new Item("Todos os Estagiários", "listing.svg"), // index 15
+            new Item("Todos os Pacientes", "listing.svg"), // index 16
+            new Item("Todos os Usuários", "listing.svg"), // index 17
             new Item.Label("Outros"), // Label
-            new Item("Configurações", "settings.svg"), // index 16
-            new Item("Deslogar", "logout.svg") // index 17
+            new Item("Configurações", "settings.svg"), // index 18
+            new Item("Deslogar", "logout.svg") // index 19
         };
 
         // Construir a lista de nomes de menu sem labels
@@ -238,7 +239,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         FormManager.showForm(new FormUsuario());
                         break;
                     case "Paciente":
-                        FormManager.showForm(new FormTriagem());
+                        FormManager.showForm(new FormPaciente());
                         break;
                     case "Prontuario":
                         FormManager.showForm(new FormProntuario());
@@ -254,6 +255,12 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         break;
                     case "Lista de Espera Especifica":
                         FormManager.showForm(new TableListaEsperaEspecifica());
+                        break;
+                    case "Agendamentos":
+                        FormManager.showForm(new TableListaAgenda());
+                        break;
+                    case "Atendimentos":
+                        FormManager.showForm(new TableListaAtendimento());
                         break;
                     case "Todos os Estagiários":
                         FormManager.showForm(new TableListaEstagiarios());
