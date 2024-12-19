@@ -2,6 +2,9 @@ package Regradenegocio;
 
 import Persistencia.Dao.EstagiarioDAO;
 import Persistencia.Dao.OrientadorDAO;
+import Persistencia.Dao.ProntuarioDAO;
+import Persistencia.Entity.Estagiario;
+import Persistencia.Entity.Paciente;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import Services.SenhaService;
@@ -73,12 +76,40 @@ public class EstagiarioRN {
         }
     }
 
+    public void desativarEstagiario(EstagiarioVO estagiarioVO) {
+        if (estagiarioVO == null || estagiarioVO.getId() == null) {
+            throw new IllegalArgumentException("Estagiário inválido.");
+        }
+
+        EstagiarioDAO estagiarioDAO = new EstagiarioDAO();
+        try {
+            Estagiario estagiarioEntity = estagiarioDAO.buscarPorId(estagiarioVO.getId());
+            if (estagiarioEntity != null) {
+                estagiarioEntity.setAtivo(false);
+                estagiarioDAO.atualizar(estagiarioEntity);
+            } else {
+                throw new IllegalArgumentException("Estagiário não encontrado.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao desativar estagiário: " + e.getMessage(), e);
+        }
+    }
+
     // Método para listar todos os estagiários
     public List<EstagiarioVO> listarEstagiarios() {
         var estagiarios = estagiarioDAO.buscarTodos();
         return estagiarios.stream()
                 .map(EstagiarioVO::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public List<Paciente> buscarPacientesPorEstagiarioId(Integer estagiarioId) {
+        if (estagiarioId == null || estagiarioId <= 0) {
+            throw new IllegalArgumentException("ID do estagiário inválido.");
+        }
+
+        ProntuarioDAO prontuarioDAO = new ProntuarioDAO();
+        return prontuarioDAO.buscarPacientesPorEstagiarioId(estagiarioId);
     }
 
     // Método para buscar um estagiário por ID
