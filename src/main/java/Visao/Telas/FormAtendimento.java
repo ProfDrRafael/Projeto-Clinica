@@ -3,30 +3,70 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+import Persistencia.Dao.AtendimentoDAO;
+import Persistencia.Dao.PacienteDAO;
+import Persistencia.Dao.ProntuarioDAO;
+import Persistencia.Entity.Atendimento;
+import Persistencia.Entity.Estagiario;
+import Regradenegocio.AtendimentoRN;
+import Regradenegocio.PacienteRN;
+import VO.AtendimentoVO;
+import VO.PacienteVO;
+import VO.ProntuarioEletronicoVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
+import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+
+import javax.swing.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  *
  * @author john
  */
 public class FormAtendimento extends SimpleForm {
+    private String relatoAtendimento;
+    private final MessagesAlert messagesAlert;
 
     /**
      * Creates new form atendimentoForm
      */
     public FormAtendimento() {
         initComponents();
+        messagesAlert = new MessagesAlert();
         //redimensionarIcones();
-        
+
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDescricao);
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
         redimencionarIcone.redimensionarIcones(btAnexar, "/Multimidia/imagens/anexar.png");
+
+        inicializarComboBoxPacientes();
     }
+
+//    public FormAtendimento(String relato) {
+//        this();
+//        initComponents();
+//        //redimensionarIcones();
+//
+//        if (relato != null && !relato.trim().isEmpty()) {
+//            tpDescricao.setText(relato);
+//        }
+//
+////        EditorTextPaneEstilization.EstilizeEditorTextPane(tpDescricao);
+//
+//        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
+//        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
+//        redimencionarIcone.redimensionarIcones(btAnexar, "/Multimidia/imagens/anexar.png");
+//
+//        inicializarComboBoxPacientes();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,7 +79,6 @@ public class FormAtendimento extends SimpleForm {
 
         dateChooser1 = new com.raven.datechooser.DateChooser();
         pCentro = new javax.swing.JPanel();
-        tfData = new javax.swing.JTextField();
         lbPaciente = new javax.swing.JLabel();
         ldDescricao = new javax.swing.JLabel();
         lbResponsavel = new javax.swing.JLabel();
@@ -49,17 +88,18 @@ public class FormAtendimento extends SimpleForm {
         btSalvar = new javax.swing.JButton();
         lbHora = new javax.swing.JLabel();
         ftfHora = new javax.swing.JFormattedTextField();
-        cbbPaciente = new javax.swing.JComboBox<>();
+        cbbPaciente = new JComboBox<PacienteVO>();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
         tpDescricao = new javax.swing.JTextPane();
         lbEmergencial = new javax.swing.JLabel();
         cbEmergencial = new javax.swing.JCheckBox();
+        cbData = new javax.swing.JComboBox<>();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
 
-        dateChooser1.setTextField(tfData);
+        // dateChooser1.setTextField(cbData);
 
         setMaximumSize(new java.awt.Dimension(1000, 680));
         setMinimumSize(new java.awt.Dimension(1000, 680));
@@ -69,8 +109,6 @@ public class FormAtendimento extends SimpleForm {
         pCentro.setBackground(java.awt.SystemColor.controlHighlight);
         pCentro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pCentro.setPreferredSize(new java.awt.Dimension(1024, 768));
-
-        tfData.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         lbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbPaciente.setForeground(new java.awt.Color(0, 102, 102));
@@ -105,6 +143,11 @@ public class FormAtendimento extends SimpleForm {
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(51, 51, 51));
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         lbHora.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbHora.setForeground(new java.awt.Color(0, 102, 102));
@@ -119,8 +162,6 @@ public class FormAtendimento extends SimpleForm {
         ftfHora.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         cbbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbbPaciente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abraão", "José", "Davi", "Saul" }));
-        cbbPaciente.setSelectedIndex(-1);
 
         tpDescricao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jScrollPane4.setViewportView(tpDescricao);
@@ -130,6 +171,8 @@ public class FormAtendimento extends SimpleForm {
         lbEmergencial.setText("Emergencial:");
 
         cbEmergencial.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        cbData.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
@@ -152,9 +195,11 @@ public class FormAtendimento extends SimpleForm {
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pCentroLayout.createSequentialGroup()
                                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbData)
-                                    .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                    .addGroup(pCentroLayout.createSequentialGroup()
+                                        .addComponent(lbData)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(cbData, 0, 263, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ftfHora, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbHora))
@@ -164,7 +209,7 @@ public class FormAtendimento extends SimpleForm {
                                     .addComponent(cbEmergencial, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbEmergencial))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -191,10 +236,8 @@ public class FormAtendimento extends SimpleForm {
                 .addGap(18, 18, 18)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cbbPaciente)
-                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfData)
-                        .addComponent(ftfHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(ftfHora)
+                    .addComponent(cbData))
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbNomeResponsavel)
                     .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -214,8 +257,10 @@ public class FormAtendimento extends SimpleForm {
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btAnexar))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
+
+        lbNomeResponsavel.getAccessibleContext().setAccessibleName("");
 
         add(pCentro, java.awt.BorderLayout.CENTER);
 
@@ -254,18 +299,80 @@ public class FormAtendimento extends SimpleForm {
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btAnexarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnexarActionPerformed
-        FormProduzirRelato form = new FormProduzirRelato();
-        
-        FormManager.showForm(form);
-    }//GEN-LAST:event_btAnexarActionPerformed
+    private void btAnexarActionPerformed(java.awt.event.ActionEvent evt) {
+        FormProduzirRelato formRelato = new FormProduzirRelato(relato -> {
+            if (relato != null && !relato.trim().isEmpty()) {
+                this.relatoAtendimento = relato;
+                messagesAlert.showSuccessMessage("Texto do relato adicionado com sucesso.");
+            } else {
+                messagesAlert.showErrorMessage("O texto do relato não pode estar vazio.");
+            }
+        });
 
+        FormManager.showForm(formRelato);
+    }
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            MessagesAlert messagesAlert = new MessagesAlert();
+
+            if (!validarCampos()) {
+                return;
+            }
+
+            // Validação dos campos obrigatórios
+            if (cbbPaciente.getSelectedIndex() == -1 || cbData.getSelectedItem() == null || ((String) cbData.getSelectedItem()).isEmpty() || ftfHora.getText().trim().isEmpty()) {
+                messagesAlert.showErrorMessage("Todos os campos obrigatórios devem ser preenchidos.");
+                return;
+            }
+
+            // Configuração do formato de data e hora
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate data = LocalDate.parse((String) cbData.getSelectedItem(), formatter);
+            LocalTime hora = LocalTime.parse(ftfHora.getText());
+
+            // Recuperação do paciente selecionado
+            PacienteVO pacienteSelecionado = (PacienteVO) cbbPaciente.getSelectedItem();
+            if (pacienteSelecionado == null) {
+                messagesAlert.showErrorMessage("Erro ao recuperar o paciente selecionado.");
+                return;
+            }
+
+            // Recuperação do prontuário a partir do paciente selecionado
+            PacienteRN pacienteRN = new PacienteRN();
+            ProntuarioEletronicoVO prontuario = pacienteRN.buscarProntuarioPorPacienteId(pacienteSelecionado.getId());
+            if (prontuario == null) {
+                messagesAlert.showErrorMessage("Erro ao recuperar o prontuário do paciente.");
+                return;
+            }
+
+            // Simulação de estagiário logado
+            Estagiario estagiario = new Estagiario();
+            estagiario.setId(1);
+
+            // Criação do objeto Atendimento
+            AtendimentoRN atendimentoRN = new AtendimentoRN();
+            Atendimento atendimento = atendimentoRN.preencherAtendimento(
+                    data, hora, prontuario.toEntity(), estagiario, relatoAtendimento, true, null, cbEmergencial.isSelected());
+
+            // Persistência no banco de dados
+            atendimentoRN.salvarAtendimento(AtendimentoVO.fromEntity(atendimento));
+            messagesAlert.showSuccessMessage("Atendimento salvo com sucesso!");
+
+            // Limpar o formulário
+            limparFormulario();
+        } catch (Exception e) {
+            MessagesAlert messagesAlert = new MessagesAlert();
+            messagesAlert.showErrorMessage("Erro ao salvar atendimento: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAnexar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox<String> cbData;
     private javax.swing.JCheckBox cbEmergencial;
-    private javax.swing.JComboBox<String> cbbPaciente;
+    private JComboBox<PacienteVO> cbbPaciente;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JFormattedTextField ftfHora;
     private javax.swing.JScrollPane jScrollPane4;
@@ -281,8 +388,143 @@ public class FormAtendimento extends SimpleForm {
     private javax.swing.JLabel ldDescricao;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
-    private javax.swing.JTextField tfData;
     private javax.swing.JTextPane tpDescricao;
     // End of variables declaration//GEN-END:variables
+
+    private void inicializarComboBoxPacientes() {
+        try {
+            PacienteRN pacienteRN = new PacienteRN();
+            List<PacienteVO> pacientes = pacienteRN.listarPacientes();
+
+            DefaultComboBoxModel<PacienteVO> modelo = new DefaultComboBoxModel<>();
+            for (PacienteVO paciente : pacientes) {
+                modelo.addElement(paciente);
+            }
+            cbbPaciente.setModel(modelo);
+            cbbPaciente.setSelectedIndex(-1);
+
+            // Adiciona o listener para reagir à mudança de seleção
+            cbbPaciente.addActionListener(e -> atualizarNomeResponsavel());
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage());
+        }
+    }
+
+//    private void atualizarNomeResponsavel() {
+//        PacienteVO pacienteSelecionado = (PacienteVO) cbbPaciente.getSelectedItem();
+//        if (pacienteSelecionado != null) {
+//            if (pacienteSelecionado.getResponsavel() != null) {
+//                lbNomeResponsavel.setText(pacienteSelecionado.getResponsavel().getNome());
+//            } else {
+//                lbNomeResponsavel.setText("");
+//            }
+//        } else {
+//            lbNomeResponsavel.setText("");
+//        }
+//    }
+    private void atualizarNomeResponsavel() {
+        PacienteVO pacienteSelecionado = (PacienteVO) cbbPaciente.getSelectedItem();
+        if (pacienteSelecionado != null) {
+            if (pacienteSelecionado.getResponsavel() != null) {
+                lbNomeResponsavel.setText(pacienteSelecionado.getResponsavel().getNome());
+            } else {
+                lbNomeResponsavel.setText("");
+            }
+
+            carregarDatasAtendimentos(pacienteSelecionado.getId());
+        } else {
+            lbNomeResponsavel.setText("");
+            cbData.setModel(new DefaultComboBoxModel<>());
+            ftfHora.setText("");
+        }
+    }
+
+    private void limparFormulario() {
+        cbbPaciente.setSelectedIndex(-1);
+        cbData.setSelectedItem(null);
+        ftfHora.setText("");
+        tpDescricao.setText("");
+        cbEmergencial.setSelected(false);
+    }
+
+    private void carregarDatasAtendimentos(Integer pacienteId) {
+        try {
+            AtendimentoRN atendimentoRN = new AtendimentoRN();
+            List<Atendimento> atendimentos = atendimentoRN.buscarAtendimentosPorPacienteId(pacienteId);
+
+            if (atendimentos == null || atendimentos.isEmpty()) {
+                messagesAlert.showErrorMessage("Não há registros de atendimento para este usuário até o momento.");
+                return;
+            }
+
+            // Preenche o comboBox com as datas dos atendimentos
+            DefaultComboBoxModel<String> modeloData = new DefaultComboBoxModel<>();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            for (Atendimento atendimento : atendimentos) {
+                modeloData.addElement(atendimento.getData().format(dateFormatter));
+            }
+            cbData.setModel(modeloData);
+            cbData.setSelectedIndex(-1);
+
+            // Adiciona listener para carregar a hora ao selecionar a data
+            cbData.addActionListener(e -> carregarHoraAtendimento(atendimentos));
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao carregar datas de atendimentos: " + e.getMessage());
+        }
+    }
+
+    private void carregarHoraAtendimento(List<Atendimento> atendimentos) {
+        try {
+            String dataSelecionada = (String) cbData.getSelectedItem();
+            if (dataSelecionada == null || dataSelecionada.isEmpty()) {
+                ftfHora.setText("");
+                return;
+            }
+
+            // Encontra o atendimento correspondente
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate data = LocalDate.parse(dataSelecionada, dateFormatter);
+            Atendimento atendimentoCorrespondente = atendimentos.stream()
+                    .filter(a -> a.getData().equals(data))
+                    .findFirst()
+                    .orElse(null);
+
+            if (atendimentoCorrespondente != null) {
+                ftfHora.setText(atendimentoCorrespondente.getHora().toString());
+                ftfHora.setEditable(false); // Bloqueia edição
+            } else {
+                ftfHora.setText("");
+            }
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao carregar hora do atendimento: " + e.getMessage());
+        }
+    }
+
+    private boolean validarCampos() {
+        if (cbbPaciente.getSelectedIndex() == -1) {
+            messagesAlert.showErrorMessage("O campo Paciente é obrigatório.");
+            cbbPaciente.requestFocus();
+            return false;
+        }
+
+        if (cbData.getSelectedItem() == null || ((String) cbData.getSelectedItem()).trim().isEmpty()) {
+            messagesAlert.showErrorMessage("O campo Data é obrigatório.");
+            cbData.requestFocus();
+            return false;
+        }
+
+        if (ftfHora.getText().trim().isEmpty()) {
+            messagesAlert.showErrorMessage("O campo Hora é obrigatório.");
+            ftfHora.requestFocus();
+            return false;
+        }
+
+        if (relatoAtendimento == null || relatoAtendimento.trim().isEmpty()) {
+            messagesAlert.showErrorMessage("É obrigatório adicionar o texto do relato.");
+            return false;
+        }
+
+        return true;
+    }
 
 }

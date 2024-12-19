@@ -4,31 +4,37 @@
  */
 package Visao.Telas;
 import Visao.Components.SimpleForm;
+import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
+import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+
+import java.util.function.Consumer;
 
 /**
  *
  * @author john
  */
 public class FormProduzirRelato extends SimpleForm {
+    private Consumer<String> onRelatoSubmetido;
+    private final MessagesAlert messagesAlert;
 
     /**
      * Creates new form atendimentoForm
      */
-    public FormProduzirRelato() {
+    public FormProduzirRelato(Consumer<String> onRelatoSubmetido) {
+        this.onRelatoSubmetido = onRelatoSubmetido;
+        messagesAlert = new MessagesAlert();
         initComponents();
         //redimensionarIcones();
         
-        EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
+//        EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
         EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelato, btNegrito, btItalico);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpTextoRelato);
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
         redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
-        
-        
     }
     
     /**
@@ -70,6 +76,11 @@ public class FormProduzirRelato extends SimpleForm {
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(51, 51, 51));
         btSalvar.setText("Submeter");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         tpTextoRelato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jScrollPane4.setViewportView(tpTextoRelato);
@@ -176,8 +187,20 @@ public class FormProduzirRelato extends SimpleForm {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        // TODO add your handling code here:
+        FormManager.showForm(new FormAtendimento());
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        String textoRelato = tpTextoRelato.getText();
+        if (textoRelato == null || textoRelato.trim().isEmpty()) {
+            messagesAlert.showErrorMessage("O texto do relato não pode estar vazio.");
+            return;
+        }
+
+        if (onRelatoSubmetido != null) {
+            onRelatoSubmetido.accept(textoRelato);
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,6 +9,7 @@ import Persistencia.Dao.OrientadorDAO;
 import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Orientador;
 import Regradenegocio.EstagiarioRN;
+import Regradenegocio.OrientadorRN;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import Visao.Components.SimpleForm;
@@ -22,12 +23,19 @@ import java.util.List;
  * @author john
  */
 public class FormEstagiario extends SimpleForm {
+    private final MessagesAlert messagesAlert;
 
     /**
      * Creates new form estagiarioCadastro
      */
     public FormEstagiario() {
         initComponents();
+        messagesAlert = new MessagesAlert();
+
+        cbAtivo.setSelected(true);
+        bloquearCampos(true);
+        btSalvar.setEnabled(false);
+
         // redimensionarIcones();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
@@ -45,7 +53,7 @@ public class FormEstagiario extends SimpleForm {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         dateChooser1 = new com.raven.datechooser.DateChooser();
@@ -87,21 +95,23 @@ public class FormEstagiario extends SimpleForm {
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
-                pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pNorthLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbClinica)
-                                        .addComponent(lbProntuario))
-                                .addContainerGap(682, Short.MAX_VALUE)));
+            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbClinica)
+                    .addComponent(lbProntuario))
+                .addContainerGap(682, Short.MAX_VALUE))
+        );
         pNorthLayout.setVerticalGroup(
-                pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pNorthLayout.createSequentialGroup()
-                                .addGap(0, 60, Short.MAX_VALUE)
-                                .addComponent(lbProntuario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbClinica)
-                                .addGap(0, 69, Short.MAX_VALUE)));
+            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(0, 60, Short.MAX_VALUE)
+                .addComponent(lbProntuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbClinica)
+                .addGap(0, 69, Short.MAX_VALUE))
+        );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
 
@@ -127,6 +137,11 @@ public class FormEstagiario extends SimpleForm {
         btEditar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btEditar.setForeground(new java.awt.Color(51, 51, 51));
         btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
 
         btSalvar.setBackground(new java.awt.Color(102, 255, 102));
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -151,82 +166,75 @@ public class FormEstagiario extends SimpleForm {
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
         pCentroLayout.setHorizontalGroup(
-                pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btEditar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btSalvar)
-                                .addGap(29, 29, 29))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1014, Short.MAX_VALUE)
-                        .addGroup(pCentroLayout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pCentroLayout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(cbEstagiario, 0, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        Short.MAX_VALUE)
-                                                .addComponent(lbOrientador, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(cbOrientador, 0, 420, Short.MAX_VALUE))
-                                        .addComponent(lbUsuarioEstagiario))
-                                .addGap(75, 75, 75)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pCentroLayout.createSequentialGroup()
-                                                .addGroup(pCentroLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lbAno)
-                                                        .addComponent(tfData))
-                                                .addGap(47, 47, 47))
-                                        .addGroup(pCentroLayout.createSequentialGroup()
-                                                .addGroup(pCentroLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lbAtivo)
-                                                        .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        Short.MAX_VALUE)))));
+            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btEditar)
+                .addGap(18, 18, 18)
+                .addComponent(btSalvar)
+                .addGap(29, 29, 29))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1014, Short.MAX_VALUE)
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cbEstagiario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbOrientador, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbOrientador, 0, 420, Short.MAX_VALUE))
+                    .addComponent(lbUsuarioEstagiario))
+                .addGap(75, 75, 75)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbAno)
+                            .addComponent(tfData))
+                        .addGap(47, 47, 47))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbAtivo)
+                            .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
         pCentroLayout.setVerticalGroup(
-                pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pCentroLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lbAno)
-                                        .addComponent(lbUsuarioEstagiario))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 37,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pCentroLayout.createSequentialGroup()
-                                                .addComponent(lbAtivo)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(pCentroLayout.createSequentialGroup()
-                                                .addComponent(lbOrientador)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(38, 38, 38)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btEditar)
-                                        .addComponent(btSalvar))
-                                .addContainerGap(65, Short.MAX_VALUE)));
+            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbAno)
+                    .addComponent(lbUsuarioEstagiario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(lbAtivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(lbOrientador)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btEditar)
+                    .addComponent(btSalvar))
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {
-        MessagesAlert messagesAlert = new MessagesAlert();
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        bloquearCampos(false);
+        btSalvar.setEnabled(true);
+    }//GEN-LAST:event_btEditarActionPerformed
 
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btSalvarActionPerformed
+        MessagesAlert messagesAlert = new MessagesAlert();
         String estagiarioSelecionado = (String) cbEstagiario.getSelectedItem();
         String orientadorSelecionado = (String) cbOrientador.getSelectedItem();
         String anoTextoCompleto = tfData.getText();
@@ -247,7 +255,6 @@ public class FormEstagiario extends SimpleForm {
         }
 
         EstagiarioRN estagiarioRN = new EstagiarioRN();
-
         EstagiarioVO estagiarioVO = estagiarioRN.buscarEstagiarioPorNome(estagiarioSelecionado);
         OrientadorVO orientadorVO = estagiarioRN.buscarOrientadorPorNome(orientadorSelecionado);
 
@@ -263,11 +270,28 @@ public class FormEstagiario extends SimpleForm {
         boolean sucesso = estagiarioRN.atualizarEstagiario(estagiarioVO);
 
         if (sucesso) {
+            if (!ativo) {
+                desativarUsuarioCorrespondente(estagiarioVO);
+            }
             messagesAlert.showSuccessMessage("Estagiário atualizado com sucesso!");
+            bloquearCampos(true); // Bloqueia os campos após salvar
         } else {
             messagesAlert.showErrorMessage("Erro ao atualizar estagiário.");
         }
+    }// GEN-LAST:event_btSalvarActionPerformed
+
+    private void desativarUsuarioCorrespondente(EstagiarioVO estagiarioVO) {
+        EstagiarioRN estagiarioRN = new EstagiarioRN();
+        try {
+            estagiarioRN.desativarEstagiario(estagiarioVO);
+            messagesAlert.showSuccessMessage("Estagiário desativado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            messagesAlert.showErrorMessage("Erro: " + e.getMessage());
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao desativar estagiário: " + e.getMessage());
+        }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgSemestre;
@@ -301,12 +325,24 @@ public class FormEstagiario extends SimpleForm {
 
     // Método para carregar orientadores do banco
     private void carregarOrientadores() {
-        OrientadorDAO orientadorDAO = new OrientadorDAO();
-        List<Orientador> orientadores = orientadorDAO.buscarTodos();
+        try {
+            OrientadorRN orientadorRN = new OrientadorRN();
+            List<OrientadorVO> orientadores = orientadorRN.listar();
 
-        cbOrientador.removeAllItems();
-        for (Orientador orientador : orientadores) {
-            cbOrientador.addItem(orientador.getNome());
+            cbOrientador.removeAllItems();
+            for (OrientadorVO orientador : orientadores) {
+                cbOrientador.addItem(orientador.getNomeCompleto());
+            }
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao carregar orientadores: " + e.getMessage());
         }
+    }
+
+    private void bloquearCampos(boolean bloquear) {
+        cbEstagiario.setEnabled(!bloquear);
+        cbOrientador.setEnabled(!bloquear);
+        tfData.setEnabled(!bloquear);
+        cbAtivo.setEnabled(!bloquear);
+        btSalvar.setEnabled(!bloquear);
     }
 }
