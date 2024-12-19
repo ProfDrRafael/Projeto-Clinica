@@ -77,7 +77,7 @@ public class EstagiarioDAO extends GenericoDAO<Estagiario> {
         try {
             TypedQuery<Estagiario> query = entityManager.createQuery(
                     "SELECT e FROM Estagiario e WHERE e.id = :id", Estagiario.class);
-            query.setParameter("nome", id);
+            query.setParameter("id", id);
             estagiario = query.getSingleResult();
         } catch (NoResultException e) {
             logger.warn("Estagiario não encontrado com o nome: {}", id);
