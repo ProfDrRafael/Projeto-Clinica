@@ -110,4 +110,9 @@ public class Estagiario {
         this.orientador = orientador;
     }
 
+    @Override
+    public String toString() {
+        return this.nome; // Retorna apenas o nome do estagiário
+    }
+
 }
