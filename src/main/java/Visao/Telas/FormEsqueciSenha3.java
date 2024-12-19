@@ -166,6 +166,7 @@ public class FormEsqueciSenha3 extends SimpleForm {
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {
         String novaSenha = new String(pfSenha.getPassword());
         MessagesAlert messagesAlert = new MessagesAlert();
+
         try {
             redefinirSenhaService.redefinirSenha(token, novaSenha);
             messagesAlert.showSuccessMessage("Senha redefinida com sucesso!");

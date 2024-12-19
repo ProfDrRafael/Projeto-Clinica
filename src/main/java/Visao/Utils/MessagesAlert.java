@@ -19,34 +19,37 @@ public class MessagesAlert {
     private boolean response;
 
     public void MessageAlertDesconectarOpcoes() {
-        MessageAlerts.getInstance().showMessage("Logout", "Tem Certeza que deseja terminar a sessão?", MessageAlerts.MessageType.ERROR, MessageAlerts.YES_NO_OPTION, new PopupCallbackAction() {
-            @Override
-            public void action(PopupController pc, int i) {
-                if (i == MessageAlerts.YES_OPTION) {
-                    FormManager.logout();
-                }
-            }
-        });
+        MessageAlerts.getInstance().showMessage("Logout", "Tem Certeza que deseja terminar a sessão?",
+                MessageAlerts.MessageType.ERROR, MessageAlerts.YES_NO_OPTION, new PopupCallbackAction() {
+                    @Override
+                    public void action(PopupController pc, int i) {
+                        if (i == MessageAlerts.YES_OPTION) {
+                            FormManager.logout();
+                        }
+                    }
+                });
     }
 
     public void showErrorMessage(String message) {
-        MessageAlerts.getInstance().showMessage("Erro", message, MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
-            @Override
-            public void action(PopupController pc, int i) {
-                // No action needed
-            }
-        });
+        MessageAlerts.getInstance().showMessage("Erro", message, MessageAlerts.MessageType.ERROR,
+                MessageAlerts.OK_OPTION, new PopupCallbackAction() {
+                    @Override
+                    public void action(PopupController pc, int i) {
+                        // No action needed
+                    }
+                });
     }
 
     public void showSuccessMessage(String message) {
-        MessageAlerts.getInstance().showMessage("Sucesso", message, MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
-            @Override
-            public void action(PopupController pc, int i) {
-                if (i == MessageAlerts.OK_OPTION) {
-                    System.out.println("Vasco");
-                }
-            }
-        });
+        MessageAlerts.getInstance().showMessage("Sucesso", message, MessageAlerts.MessageType.SUCCESS,
+                MessageAlerts.OK_OPTION, new PopupCallbackAction() {
+                    @Override
+                    public void action(PopupController pc, int i) {
+                        if (i == MessageAlerts.OK_OPTION) {
+                            System.out.println("Vasco");
+                        }
+                    }
+                });
     }
     
     public static void showWarningMessage(String message, Consumer<Boolean> callback) {

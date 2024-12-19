@@ -5,19 +5,19 @@ import Services.AutenticacaoService;
 import VO.SessaoVO;
 import VO.UsuarioVO;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange; // Utilitário para mudanças de temas com animações
-import java.awt.Image; // Manipulação de imagens
-import javax.swing.JFrame; // Classe para a janela principal
-import javax.swing.SwingUtilities; // Utilitário para manipulações na interface gráfica
+
+import java.awt.*;
+import javax.swing.*;
+
 import Visao.Components.MainForm; // Componente principal do formulário
 import Visao.Components.SimpleForm; // Classe base para formulários simples
 import Persistencia.modelTemp.ModelUser; // Modelo de usuário
 import Visao.Slider.PanelSlider; // Painel que implementa transições deslizantes
 import Visao.Slider.SimpleTransition; // Transições simples para o PanelSlider
 import Visao.Telas.FormEsqueciSenha;
-import Visao.Utils.UndoRedo; // Utilitário para funcionalidades de desfazer/refazer
+import Visao.Utils.UndoRedo;
 import Visao.Telas.FormLogin;
 import Visao.Telas.PageWelcome;
-import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import raven.toast.Notifications;
 

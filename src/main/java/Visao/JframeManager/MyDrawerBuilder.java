@@ -9,6 +9,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.swing.*;
+
 import raven.drawer.component.DrawerPanel;
 import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.footer.SimpleFooterData;
@@ -35,6 +42,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     /**
      * Define o usuário atual e atualiza o cabeçalho do menu com o nome do usuário.
+     *
      *
      * @param user O usuário a ser definido.
      */
@@ -64,6 +72,9 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     }
 
     /**
+     * Cria e retorna os dados do cabeçalho do menu, incluindo o ícone do usuário e
+     * informações.
+     *
      * Cria e retorna os dados do cabeçalho do menu, incluindo o ícone do usuário e informações.
      *
      * @return Dados do cabeçalho simples.
@@ -97,6 +108,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     /**
      * Retorna os dados do rodapé do menu.
      *
+     *
      * @return Dados do rodapé simples.
      */
     @Override
@@ -106,6 +118,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     /**
      * Cria e retorna as opções de menu, incluindo ícones e validação.
+     *
      *
      * @return Opções de menu simples.
      */
@@ -175,17 +188,6 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             }
         };
 
-        simpleMenuOption.setMenuValidation(new MenuValidation() {
-            @Override
-            public boolean menuValidation(int[] index) {
-                if (user == null) {
-                    return false; // Se o usuário não estiver definido, não mostra nenhum item
-                }
-                String menuName = menuNames.get(index[0]);
-                return allowedMenuNames.contains(menuName);
-            }
-        });
-
         simpleMenuOption.setMenuStyle(new SimpleMenuStyle() {
             @Override
             public void styleMenuItem(JButton menu, int[] index) {
@@ -210,6 +212,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         + "[dark]foreground:darken($Label.foreground,30%)");
             }
         });
+
 
         // Define o comportamento dos eventos de menu
         simpleMenuOption.addMenuEvent(new MenuEvent() {
@@ -294,6 +297,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     /**
      * Configura o painel do menu lateral (drawer).
      *
+     *
      * @param drawerPanel O painel do drawer a ser configurado.
      */
     @Override
@@ -304,6 +308,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     /**
      * Retorna a largura do painel do menu lateral.
+     *
      *
      * @return A largura do drawer.
      */

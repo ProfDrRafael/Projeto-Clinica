@@ -3,21 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+import Persistencia.Dao.ProntuarioDAO;
+import Persistencia.Entity.Estagiario;
+import Persistencia.Entity.Paciente;
+import Regradenegocio.EstagiarioRN;
+import Regradenegocio.SessaoRN;
+import VO.EstagiarioVO;
+import VO.SessaoVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.RedimencionarIcones;
 
+import Persistencia.Dao.EstagiarioDAO;
+import Visao.Utils.MessagesAlert;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.util.List;
 /**
  *
  * @author john
  */
 public class FormProntuario extends SimpleForm {
+    private final MessagesAlert messagesAlert;
 
     /**
      * Creates new form prontuarioForm
      */
     public FormProntuario() {
         initComponents();
+        messagesAlert = new MessagesAlert();
         //redimensionarIcones();
         
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
@@ -28,6 +43,9 @@ public class FormProntuario extends SimpleForm {
         redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
         redimencionarIcone.redimensionarIcones(btHistoricoAtendimentos, "/Multimidia/imagens/historicoAtendimentos.png");
+
+        configurarCampoEncaminhadoPor();
+        inicializarComboBoxEstagiarios();
     }
 
     /**
@@ -45,9 +63,8 @@ public class FormProntuario extends SimpleForm {
         pnForm = new javax.swing.JPanel();
         jlQueixaInicial = new javax.swing.JLabel();
         jlObservacoes = new javax.swing.JLabel();
-        tfPaciente = new javax.swing.JTextField();
         jlPaciente = new javax.swing.JLabel();
-        cbEstagiario = new javax.swing.JComboBox<>();
+        cbEstagiario = new javax.swing.JComboBox();
         jlEstagiario = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btCancelar = new javax.swing.JButton();
@@ -59,8 +76,9 @@ public class FormProntuario extends SimpleForm {
         jScrollPane4 = new javax.swing.JScrollPane();
         tpObservacoes = new javax.swing.JTextPane();
         jSeparator2 = new javax.swing.JSeparator();
-        cbEncaminhado = new javax.swing.JComboBox<>();
         lbEncaminhado = new javax.swing.JLabel();
+        cbPaciente = new JComboBox<Paciente>();
+        tfEncaminhadoPor = new javax.swing.JTextField();
 
         setMaximumSize(new java.awt.Dimension(950, 764));
         setMinimumSize(new java.awt.Dimension(950, 764));
@@ -112,14 +130,11 @@ public class FormProntuario extends SimpleForm {
         jlObservacoes.setForeground(new java.awt.Color(0, 102, 102));
         jlObservacoes.setText("Observações:");
 
-        tfPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
         jlPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlPaciente.setForeground(new java.awt.Color(0, 102, 102));
         jlPaciente.setText("*Paciente:");
 
         cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbEstagiario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Isabella", "Pedro", "Bruno" }));
 
         jlEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlEstagiario.setForeground(new java.awt.Color(0, 102, 102));
@@ -139,6 +154,11 @@ public class FormProntuario extends SimpleForm {
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(51, 51, 51));
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btHistoricoAtendimentos.setBackground(new java.awt.Color(204, 204, 204));
         btHistoricoAtendimentos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -151,12 +171,13 @@ public class FormProntuario extends SimpleForm {
         tpObservacoes.setFont(cbEstagiario.getFont());
         jScrollPane4.setViewportView(tpObservacoes);
 
-        cbEncaminhado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbEncaminhado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Isabella", "Pedro", "Bruno" }));
-
         lbEncaminhado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbEncaminhado.setForeground(new java.awt.Color(0, 102, 102));
         lbEncaminhado.setText("*Encaminhado por:");
+
+        cbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        tfEncaminhadoPor.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout pnFormLayout = new javax.swing.GroupLayout(pnForm);
         pnForm.setLayout(pnFormLayout);
@@ -181,17 +202,17 @@ public class FormProntuario extends SimpleForm {
                         .addGap(20, 20, 20)
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnFormLayout.createSequentialGroup()
-                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfEncaminhadoPor)
                                     .addComponent(jlEstagiario)
-                                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbEncaminhado)
-                                    .addComponent(cbEncaminhado, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbEstagiario, 0, 449, Short.MAX_VALUE)
+                                    .addComponent(lbEncaminhado))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnFormLayout.createSequentialGroup()
                                         .addComponent(jlPaciente)
-                                        .addGap(312, 312, 312))
-                                    .addComponent(tfPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE))
+                                    .addComponent(cbPaciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(pnFormLayout.createSequentialGroup()
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,13 +236,13 @@ public class FormProntuario extends SimpleForm {
                     .addComponent(jlEstagiario)
                     .addComponent(jlPaciente))
                 .addGap(6, 6, 6)
-                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbPaciente)
+                    .addComponent(cbEstagiario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbEncaminhado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbEncaminhado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfEncaminhadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -247,14 +268,26 @@ public class FormProntuario extends SimpleForm {
         add(pnForm, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        try {
+            if (!validarCampos()) {
+                return;
+            }
+
+            messagesAlert.showSuccessMessage("Prontuário salvo com sucesso!");
+//            limparFormulario();
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao salvar o prontuário: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btHistoricoAtendimentos;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox<String> cbEncaminhado;
-    private javax.swing.JComboBox<String> cbEstagiario;
+    private javax.swing.JComboBox cbEstagiario;
+    private JComboBox<Paciente> cbPaciente;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
@@ -268,9 +301,142 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel pnForm;
-    private javax.swing.JTextField tfPaciente;
+    private javax.swing.JTextField tfEncaminhadoPor;
     private javax.swing.JTextPane tpObservacoes;
     private javax.swing.JTextPane tpQueixa;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Inicializa o comboBox de estagiários.
+     */
+    private void inicializarComboBoxEstagiarios() {
+        try {
+            SessaoRN sessaoRN = new SessaoRN();
+            SessaoVO sessaoAtual = sessaoRN.buscarUltimaSessao(); // Obtém a sessão atual
+
+            EstagiarioRN estagiarioRN = new EstagiarioRN();
+            List<EstagiarioVO> estagiariosVO = estagiarioRN.listarEstagiarios();
+            List<Estagiario> estagiarios = estagiariosVO.stream()
+                    .map(EstagiarioVO::toEntity)
+                    .toList();
+
+            DefaultComboBoxModel<Estagiario> modelo = new DefaultComboBoxModel<>();
+            for (Estagiario estagiario : estagiarios) {
+                modelo.addElement(estagiario);
+            }
+            cbEstagiario.setModel(modelo);
+
+            // Verifica se o tipo da sessão atual é "Estagiario"
+            if ("Estagiario".equalsIgnoreCase(sessaoAtual.getTipo())) {
+                // Filtra o estagiário correspondente ao e-mail da sessão
+                Estagiario estagiarioSessao = estagiarios.stream()
+                        .filter(estagiario -> estagiario.getEmail().equals(sessaoAtual.getEmail()))
+                        .findFirst()
+                        .orElse(null);
+
+                if (estagiarioSessao != null) {
+                    cbEstagiario.setSelectedItem(estagiarioSessao); // Seleciona o estagiário
+                    cbEstagiario.setEnabled(false); // Desabilita o combo box
+                    carregarPacientesPorEstagiario(); // Atualiza a lista de pacientes
+                }
+            } else {
+                cbEstagiario.setSelectedIndex(-1); // Caso não seja um estagiário, deixa o combo box livre
+            }
+
+            // Adiciona o listener para carregar pacientes ao selecionar um estagiário
+            cbEstagiario.addActionListener(e -> carregarPacientesPorEstagiario());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar estagiários: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Carrega os pacientes do estagiário selecionado no comboBox de pacientes.
+     */
+    private void carregarPacientesPorEstagiario() {
+        try {
+            Estagiario estagiarioSelecionado = (Estagiario) cbEstagiario.getSelectedItem();
+            if (estagiarioSelecionado != null) {
+                try {
+                    EstagiarioRN estagiarioRN = new EstagiarioRN();
+                    List<Paciente> pacientes = estagiarioRN.buscarPacientesPorEstagiarioId(estagiarioSelecionado.getId());
+
+                    DefaultComboBoxModel<Paciente> modelo = new DefaultComboBoxModel<>();
+                    for (Paciente paciente : pacientes) {
+                        modelo.addElement(paciente);
+                    }
+
+                    cbPaciente.setModel(modelo);
+                    cbPaciente.setSelectedIndex(-1);
+
+                    // Remove listeners antigos e adiciona o novo
+                    for (ActionListener al : cbPaciente.getActionListeners()) {
+                        cbPaciente.removeActionListener(al);
+                    }
+                    cbPaciente.addActionListener(e -> atualizarEncaminhadoPor());
+                } catch (Exception e) {
+                    messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
+                }
+            } else {
+                cbPaciente.setModel(new DefaultComboBoxModel<Paciente>()); // Limpa o combo se nenhum estagiário for selecionado
+            }
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
+        }
+    }
+
+
+    /**
+     * Atualiza o campo "EncaminhadoPor" com base no paciente selecionado.
+     */
+    private void atualizarEncaminhadoPor() {
+        Paciente pacienteSelecionado = (Paciente) cbPaciente.getSelectedItem();
+        if (pacienteSelecionado != null) {
+            tfEncaminhadoPor.setText(pacienteSelecionado.getEncaminhadoPor() != null ? pacienteSelecionado.getEncaminhadoPor() : "Não informado");
+        } else {
+            tfEncaminhadoPor.setText("");
+        }
+    }
+
+    private void configurarCampoEncaminhadoPor() {
+        tfEncaminhadoPor.setEditable(false); // Torna o campo somente leitura
+    }
+
+    private boolean validarCampos() {
+        if (cbEstagiario.getSelectedIndex() == -1) {
+            messagesAlert.showErrorMessage("O campo Estagiário é obrigatório.");
+            cbEstagiario.requestFocus();
+            return false;
+        }
+
+        if (cbPaciente.getSelectedIndex() == -1) {
+            messagesAlert.showErrorMessage("O campo Paciente é obrigatório.");
+            cbPaciente.requestFocus();
+            return false;
+        }
+
+        if (tpObservacoes.getText().trim().isEmpty()) {
+            messagesAlert.showErrorMessage("O campo Observações é obrigatório.");
+            tpObservacoes.requestFocus();
+            return false;
+        } else if (tpObservacoes.getText().length() > 150) {
+            messagesAlert.showErrorMessage("O campo Observações deve ter no máximo 150 caracteres.");
+            tpObservacoes.requestFocus();
+            return false;
+        }
+
+        if (tpQueixa.getText().trim().isEmpty()) {
+            messagesAlert.showErrorMessage("O campo Queixa Inicial é obrigatório.");
+            tpQueixa.requestFocus();
+            return false;
+        } else if (tpQueixa.getText().length() > 1500) {
+            messagesAlert.showErrorMessage("O campo Queixa Inicial deve ter no máximo 1500 caracteres.");
+            tpQueixa.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

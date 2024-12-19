@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Persistencia.modelTemp.ModelUser;
 import Services.RedefinirSenhaService;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+import Visao.Utils.MessagesAlert;
 import Visao.Utils.MessagesAlert;
 
 import javax.swing.*;
@@ -174,6 +174,7 @@ public class FormEsqueciSenha extends SimpleForm {
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {
         String email = tfLogin.getText().trim();
+
         try {
             RedefinirSenhaService redefinirSenhaService = new RedefinirSenhaService();
 
@@ -188,8 +189,8 @@ public class FormEsqueciSenha extends SimpleForm {
             FormManager.EsqueciSenha(formEsqueciSenha2);
 
         } catch (RuntimeException ex) {
-             MessagesAlert esqueciSenha = new MessagesAlert();
-             esqueciSenha.showErrorMessage("Erro ao gerar token: "+ ex.getMessage());
+             MessagesAlert messagesAlert = new MessagesAlert();
+            messagesAlert.showErrorMessage("Erro ao gerar token: "+ ex.getMessage());
         }
     }                                        
 
