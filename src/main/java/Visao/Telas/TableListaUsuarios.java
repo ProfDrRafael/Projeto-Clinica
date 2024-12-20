@@ -20,16 +20,16 @@ public class TableListaUsuarios extends SimpleForm {
         initComponents();
         
         String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Tipo"};
-        String queryTable = "SELECT id, nome, email, 'administrador' AS origem FROM administrador UNION ALL SELECT id, nome, email, 'estágiario' AS origem FROM estagiario UNION ALL SELECT id, nome, email, 'orientador' AS origem FROM orientador UNION ALL SELECT id, nome, email, 'secretária' AS origem FROM secretaria;";
+        String queryTable = "SELECT id, nome, email, 'Administrador' AS origem FROM administrador UNION ALL SELECT id, nome, email, 'Estagiario' AS origem FROM estagiario UNION ALL SELECT id, nome, email, 'Orientador' AS origem FROM orientador UNION ALL SELECT id, nome, email, 'Secretaria' AS origem FROM secretaria;";
         
         // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "usuarios");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios");
 
         // Set up the painel_lista_espera layout
         painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
         // Add the custom table to the center of the panel
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Usuários", "usuarios"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios"), BorderLayout.CENTER);
     }
 
     /**

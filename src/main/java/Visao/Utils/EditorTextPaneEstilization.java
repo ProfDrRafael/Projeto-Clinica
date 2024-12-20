@@ -8,7 +8,6 @@ import javax.swing.JTextPane;
 import javax.swing.text.rtf.RTFEditorKit;
 import javax.swing.*;
 import javax.swing.text.*;
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.undo.*;
 
@@ -49,7 +48,7 @@ public class EditorTextPaneEstilization {
         });
     }
     
-    public static void JTextComponentStylization(JTextPane textPane, JButton btNegrito, JButton btItalico){
+    public static void JTextComponentStylization(JTextPane textPane, JButton btNegrito, JButton btItalico, JButton btSublinhado){
         // Configurar StyledDocument
         StyledDocument doc = textPane.getStyledDocument();
         SimpleAttributeSet bold = new SimpleAttributeSet();
@@ -57,6 +56,9 @@ public class EditorTextPaneEstilization {
 
         SimpleAttributeSet italic = new SimpleAttributeSet();
         StyleConstants.setItalic(italic, true);
+
+        SimpleAttributeSet underline = new SimpleAttributeSet();
+        StyleConstants.setUnderline(underline, true);
 
         // Adicionar ações aos botões
         btNegrito.addActionListener(e -> {
@@ -69,6 +71,12 @@ public class EditorTextPaneEstilization {
             int start = textPane.getSelectionStart();
             int end = textPane.getSelectionEnd();
             doc.setCharacterAttributes(start, end - start, italic, false);
+        });
+
+        btSublinhado.addActionListener(e -> {
+            int start = textPane.getSelectionStart();
+            int end = textPane.getSelectionEnd();
+            doc.setCharacterAttributes(start, end - start, underline, false);
         });
 
     }

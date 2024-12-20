@@ -44,7 +44,6 @@ public class FormAgenda extends SimpleForm {
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/excluir.png");
 
         carregarPacientes();
         carregarEstagiarios();

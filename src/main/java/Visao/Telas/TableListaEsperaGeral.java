@@ -19,17 +19,17 @@ public class TableListaEsperaGeral extends SimpleForm {
     public TableListaEsperaGeral() {
         initComponents();
         
-        String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil"};
-        String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil FROM paciente";
+        String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil", "Data Inscrição", "Disponiblidade"};
+        String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil, data_inscricao, disponibilidade FROM paciente";
         
         // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Geral", "paciente");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Geral", "Paciente");
 
         // Set up the painel_lista_espera layout
         painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
         // Add the custom table to the center of the panel
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Lista de Espera Geral", "paciente"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Lista de Espera Geral", "Paciente"), BorderLayout.CENTER);
     }
 
     /**

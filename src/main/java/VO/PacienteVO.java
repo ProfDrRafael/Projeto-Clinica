@@ -65,9 +65,7 @@ public class PacienteVO {
             Endereco endereco,
             ResponsavelVO responsavel,
             boolean atendido,
-            boolean ativo,
-            Byte grupo,
-            String encaminhadoPor
+            boolean ativo
     ) {
         this.genero = genero;
         this.celularContato = celularContato;
@@ -88,8 +86,6 @@ public class PacienteVO {
         this.responsavel = responsavel;
         this.atendido = atendido;
         this.ativo = ativo;
-        this.grupo = grupo;
-        this.encaminhadoPor = encaminhadoPor;
     }
 
     public PacienteVO(

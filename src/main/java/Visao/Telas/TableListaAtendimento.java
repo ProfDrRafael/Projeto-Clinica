@@ -23,13 +23,13 @@ public class TableListaAtendimento extends SimpleForm {
         String queryTable = "SELECT id, data, hora, preenchido, comparecimento, plantao, prontuario_id, estagiario_id FROM atendimento";
         
         // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "atendimento");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento");
 
         // Set up the painel_lista_espera layout
         painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
         // Add the custom table to the center of the panel
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Atendimentos", "atendimento"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento"), BorderLayout.CENTER);
     }
 
     /**

@@ -351,8 +351,6 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 allowedMenus.add("Usuário");
                 allowedMenus.add("Paciente");
                 allowedMenus.add("Agenda");
-                allowedMenus.add("Lista de Espera Geral");
-                allowedMenus.add("Lista de Espera Especifica");
                 allowedMenus.add("Todos os Estagiários");
                 allowedMenus.add("Todos os Pacientes");
                 allowedMenus.add("Todos os Usuários");

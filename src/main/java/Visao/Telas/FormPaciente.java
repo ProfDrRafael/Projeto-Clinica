@@ -17,6 +17,7 @@ import VO.EnderecoVO;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import VO.PacienteVO;
+import VO.ResponsavelVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.RedimencionarIcones;
@@ -151,7 +152,6 @@ public class FormPaciente extends SimpleForm {
         tfBairro = new javax.swing.JTextField();
         lbBairro = new javax.swing.JLabel();
         lbNumero = new javax.swing.JLabel();
-        tfNumero = new javax.swing.JTextField();
         lbNaturalidade1 = new javax.swing.JLabel();
         cbEstado = new javax.swing.JComboBox<>();
         lbCep = new javax.swing.JLabel();
@@ -164,6 +164,7 @@ public class FormPaciente extends SimpleForm {
         lbNaturalidade = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         btBuscarCep = new javax.swing.JButton();
+        tfNumero = new javax.swing.JTextField();
         pBotoes = new javax.swing.JPanel();
         pInscricao = new javax.swing.JPanel();
         lbDisponibilidade = new javax.swing.JLabel();
@@ -403,16 +404,15 @@ public class FormPaciente extends SimpleForm {
                             .addComponent(ftfCelularContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addComponent(lbProfissao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pIdentificacaoLayout.createSequentialGroup()
                         .addComponent(lbInstrucao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbInstrucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addComponent(lbOrientacao)
+                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbOrientacao)
+                            .addComponent(lbProfissao))
                         .addGap(12, 12, 12)
                         .addComponent(cbOrientacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
@@ -455,13 +455,6 @@ public class FormPaciente extends SimpleForm {
         lbNumero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbNumero.setForeground(new java.awt.Color(0, 102, 102));
         lbNumero.setText("*Número:");
-
-        tfNumero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfNumero.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfNumeroKeyTyped(evt);
-            }
-        });
 
         lbNaturalidade1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbNaturalidade1.setForeground(new java.awt.Color(0, 102, 102));
@@ -519,6 +512,9 @@ public class FormPaciente extends SimpleForm {
             }
         });
 
+        tfNumero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfNumero.setToolTipText("ex. Marechal Rondon");
+
         javax.swing.GroupLayout pEnderecoLayout = new javax.swing.GroupLayout(pEndereco);
         pEndereco.setLayout(pEnderecoLayout);
         pEnderecoLayout.setHorizontalGroup(
@@ -549,8 +545,10 @@ public class FormPaciente extends SimpleForm {
                                     .addGroup(pEnderecoLayout.createSequentialGroup()
                                         .addGap(54, 54, 54)
                                         .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbRua)
-                                            .addComponent(tfRua)))
+                                            .addComponent(tfRua)
+                                            .addGroup(pEnderecoLayout.createSequentialGroup()
+                                                .addComponent(lbRua)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
                                     .addGroup(pEnderecoLayout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,8 +570,8 @@ public class FormPaciente extends SimpleForm {
                                             .addComponent(lbCidade)
                                             .addComponent(cbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(lbNaturalidade1))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(845, 845, 845))))
+                                .addGap(267, 267, 267)))
+                        .addGap(578, 578, 578))))
         );
         pEnderecoLayout.setVerticalGroup(
             pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -604,8 +602,8 @@ public class FormPaciente extends SimpleForm {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbEstado)
@@ -757,7 +755,7 @@ public class FormPaciente extends SimpleForm {
                 .addContainerGap()
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                        .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, Short.MAX_VALUE)
                         .addGap(904, 904, 904))
                     .addGroup(pCentroLayout.createSequentialGroup()
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -790,14 +788,6 @@ public class FormPaciente extends SimpleForm {
 
         add(pCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tfNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNumeroKeyTyped
-        char c = evt.getKeyChar();
-
-        if (!Character.isDigit(c)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_tfNumeroKeyTyped
 
     private void btBuscarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarCepActionPerformed
         if (ftfCep.getText().equals("")) {
@@ -846,7 +836,7 @@ public class FormPaciente extends SimpleForm {
             );
 
             Endereco enderecoEntity = enderecoRN.salvarEndereco(enderecoVO);
-
+            
             // salvar o endereço
             if (enderecoEntity != null) {
                // Extract ID values from ComboBoxes
@@ -864,7 +854,10 @@ public class FormPaciente extends SimpleForm {
                 String disponibilidade = tpDisponibilidade.getText();
                 String estagiario = cbEstagiario.getSelectedItem().toString().split(" - ")[0];  
                 String orientador = cbOrientador.getSelectedItem().toString().split(" - ")[0];  
-                String responsavel = tfResponsavel.getText();
+                
+                ResponsavelVO responsavelVO = new ResponsavelVO();
+                responsavelVO.setNome(tfResponsavel.getText());                
+                
                 boolean atendido = cbAtendido.isSelected();
 
                 PacienteVO pacienteVO = new PacienteVO(
@@ -884,7 +877,7 @@ public class FormPaciente extends SimpleForm {
                         Integer.parseInt(estagiario),
                         Integer.parseInt(orientador),
                         enderecoEntity,
-                        responsavel,
+                        responsavelVO,
                         atendido,
                         true
                 );

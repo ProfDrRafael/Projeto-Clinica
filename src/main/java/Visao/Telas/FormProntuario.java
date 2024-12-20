@@ -40,7 +40,6 @@ public class FormProntuario extends SimpleForm {
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
         redimencionarIcone.redimensionarIcones(btHistoricoAtendimentos, "/Multimidia/imagens/historicoAtendimentos.png");
 
@@ -67,7 +66,6 @@ public class FormProntuario extends SimpleForm {
         cbEstagiario = new javax.swing.JComboBox();
         jlEstagiario = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        btCancelar = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btHistoricoAtendimentos = new javax.swing.JButton();
@@ -140,11 +138,6 @@ public class FormProntuario extends SimpleForm {
         jlEstagiario.setForeground(new java.awt.Color(0, 102, 102));
         jlEstagiario.setText("*Estagiário:");
 
-        btCancelar.setBackground(new java.awt.Color(255, 102, 102));
-        btCancelar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btCancelar.setForeground(new java.awt.Color(51, 51, 51));
-        btCancelar.setText("Cancelar");
-
         btEditar.setBackground(new java.awt.Color(255, 255, 51));
         btEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btEditar.setForeground(new java.awt.Color(51, 51, 51));
@@ -183,18 +176,15 @@ public class FormProntuario extends SimpleForm {
         pnForm.setLayout(pnFormLayout);
         pnFormLayout.setHorizontalGroup(
             pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createSequentialGroup()
-                .addGap(199, 199, 199)
-                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btEditar)
-                .addGap(18, 18, 18)
-                .addComponent(btSalvar)
-                .addGap(18, 18, 18)
-                .addComponent(btHistoricoAtendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnFormLayout.createSequentialGroup()
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btHistoricoAtendimentos))
                     .addGroup(pnFormLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator2))
@@ -256,12 +246,10 @@ public class FormProntuario extends SimpleForm {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
-                    .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btCancelar)
-                        .addComponent(btHistoricoAtendimentos)
-                        .addComponent(btEditar)))
+                    .addComponent(btHistoricoAtendimentos)
+                    .addComponent(btEditar))
                 .addGap(54, 54, 54))
         );
 
@@ -282,7 +270,6 @@ public class FormProntuario extends SimpleForm {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCancelar;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btHistoricoAtendimentos;
     private javax.swing.JButton btSalvar;

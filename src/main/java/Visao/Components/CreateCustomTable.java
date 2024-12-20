@@ -4,6 +4,7 @@
  */
 package Visao.Components;
 
+import Visao.Utils.HashMapNomesTabelas;
 import Multimidia.Sample.SampleData; // Importa dados de amostra
 import Persistencia.Dao.ConsultasDinamicas;
 import Persistencia.Dao.JPAUtil;
@@ -26,6 +27,8 @@ import com.formdev.flatlaf.extras.FlatSVGIcon; // Importa ícones SVG do FlatLaf
 import java.awt.Component; // Importa a classe Component
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List; // Importa a lista
@@ -44,6 +47,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel; // Importa modelo padrão de tabela
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import net.miginfocom.swing.MigLayout; // Importa layout Mig
 import raven.toast.Notifications;
@@ -183,6 +187,7 @@ public class CreateCustomTable {
 
         this.table = table;
         
+        // Evento para lidar com as remoções, listerner que observa os cliques e descliques de cada row
         model.addTableModelListener(e -> {
             int row = e.getFirstRow();
             int column = e.getColumn();
@@ -202,6 +207,62 @@ public class CreateCustomTable {
                 }
 
                 System.out.println("Updated selectedRows: " + selectedRows);
+            }
+        });
+        
+        // Listener para ordenação de colunas
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.addMouseListener(new MouseAdapter() {
+            private boolean ascendingOrder = true; 
+            private String lastSortedColumn = null; 
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int columnIndex = table.columnAtPoint(e.getPoint()); // Obtém o índice da coluna clicada
+                String columnName = table.getColumnName(columnIndex); // Obtém o nome da coluna
+                table.repaint();
+
+                // Verificar se a coluna clicada é a mesma da última vez
+                if (lastSortedColumn != null && lastSortedColumn.equals(columnName)) {
+                    ascendingOrder = !ascendingOrder; // Inverter a ordem se for a mesma coluna
+                } else {
+                    ascendingOrder = true; // Caso contrário, ordenar de forma ascendente
+                }
+
+                lastSortedColumn = columnName; // Atualizar a coluna ordenada
+
+                // Obter nome da coluna correspondente no banco
+                String columnNameTableResult = HashMapNomesTabelas.getPacienteName(columnName);
+
+                if (columnNameTableResult == null) {
+                    System.out.println("Nenhuma correspondência encontrada para a coluna: " + columnName);
+                    return;
+                }
+
+                // Definir a direção da ordenação (ASC ou DESC)
+                String orderDirection = ascendingOrder ? "ASC" : "DESC";
+
+                // Append ORDER BY na consulta
+                String queryWithOrder = nomeTabela + " ORDER BY " + columnNameTableResult + " " + orderDirection;
+
+                // Buscar dados do banco
+                List<Object[]> dataResultOrdered = ConsultasDinamicas.buscarTabelaConsultaAnonima(queryWithOrder);
+
+                if (dataResultOrdered == null || dataResultOrdered.isEmpty()) {
+                    System.out.println("Nenhum resultado retornado: " + queryWithOrder);
+                } else {
+                    System.out.println("Dados retornados:");
+                    for (Object[] row : dataResultOrdered) {
+                        for (Object col : row) {
+                            System.out.print(col + " ");
+                        }
+                        System.out.println(); // New line for each row
+                    }
+                }
+
+                // Update o global data e recarrega a tabela
+                allDataTable = dataResultOrdered;
+                loadPageData(allDataTable, currentPage);
             }
         });
         
@@ -344,13 +405,28 @@ public class CreateCustomTable {
                                 int row = rowsToRemove.get(i);
                                 Object id = model.getValueAt(row, 1);  
                                 selectedIds.add(id);
-
-                                ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tableNameDB);
-                                model.removeRow(row);
+                                
+                                boolean result;
+                                
+                                // Considerando que há várias tabelas para usuário (administrador, secretária, etc)
+                                if(tableNameDB == "Usuarios"){
+                                    String tipoUsuario = (String) model.getValueAt(row, 4);
+                                    
+                                    result = ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tipoUsuario);
+                                }else{
+                                    result = ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tableNameDB);
+                                    
+                                }
+                                
+                                if(result){
+                                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Registros removidos com sucesso");
+                                    model.removeRow(row);
+                                    
+                                }else{
+                                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao remover registros");
+                                }    
                             }
                             selectedRows.clear();
-                            
-                            System.out.println("IDs to be deleted: " + selectedIds);
                         }
                     });
 
