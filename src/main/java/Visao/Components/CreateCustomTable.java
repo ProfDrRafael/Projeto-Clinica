@@ -1,14 +1,6 @@
-/*
- * Clique nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt para alterar esta licença
- * Clique nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java para editar este modelo
- */
 package Visao.Components;
 
-import Visao.Utils.HashMapNomesTabelas;
-import Multimidia.Sample.SampleData; // Importa dados de amostra
 import Persistencia.Dao.ConsultasDinamicas;
-import Persistencia.Dao.JPAUtil;
-import Persistencia.modelTemp.ModelEmployee; // Importa o modelo de dados de funcionário
 import Persistencia.modelTemp.ModelProfile; // Importa o modelo de dados de perfil
 import Visao.Components.pagination.Pagination; // Importa a classe de paginação
 import Visao.JframeManager.FormManager;
@@ -27,9 +19,6 @@ import com.formdev.flatlaf.extras.FlatSVGIcon; // Importa ícones SVG do FlatLaf
 import java.awt.Component; // Importa a classe Component
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List; // Importa a lista
 import javax.swing.BorderFactory; // Importa fábrica de bordas
@@ -44,13 +33,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants; // Importa constantes de alinhamento
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel; // Importa modelo padrão de tabela
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 import net.miginfocom.swing.MigLayout; // Importa layout Mig
 import raven.toast.Notifications;
+import javax.swing.RowFilter;
+import java.util.ArrayList;
 
 /**
  * Classe para criar uma tabela personalizada com paginação e recursos adicionais.
@@ -71,6 +60,9 @@ public class CreateCustomTable {
     private String tipoFormTela;
     private String tableNameDB;
     private ArrayList<Integer> selectedRows = new ArrayList<>();
+    
+    // Variável para armazenar o texto de pesquisa (em minúsculo)
+    private String searchQuery = "";
 
     public CreateCustomTable(String nomeTabela, String[] tabelaColunas, String tipoFormTela, String tableNameDB) {
         this.nomeTabela = nomeTabela;
@@ -97,54 +89,53 @@ public class CreateCustomTable {
         // Column names
         String[] columns = colunasTabela;
         
-        // Create the table model with column names and no rows initially
+        // Cria o modelo da tabela com os nomes das colunas
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Allow editing only on the first column (checkbox)
+                // Permite edição apenas na primeira coluna (checkbox)
                 return column == 0;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                // Set column classes based on index (e.g., boolean for checkbox)
+                // Define as classes das colunas (boolean para checkbox)
                 if (columnIndex == 0) return Boolean.class;
-                return super.getColumnClass(columnIndex);
+                    return super.getColumnClass(columnIndex);
             }
         };
-        
         this.model = model;
+
+        // Carrega TODOS os dados no modelo (não apenas da página atual)
+        loadAllData(allDataTable);
 
         // Criação da tabela
         JTable table = new JTable(model);
         
+        // Cria um TableRowSorter para manipular os filtros de exibição
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        table.setRowSorter(sorter);
+        
         // Painel de rolagem da tabela
+        // Permitir sorting de colunas
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Define borda vazia
 
-        //Configurações dinâmicas das colunas da tabela
+        // Configurações dinâmicas das colunas da tabela
         for (int i = 0; i < colunasTabela.length; i++) {
             TableColumn column = table.getColumnModel().getColumn(i);
-
-            // Configurações baseadas no índice da coluna
             if (i == 0) {
-                column.setMaxWidth(50); // Exemplo: coluna de seleção (checkbox)
+                column.setMaxWidth(50); // Coluna de seleção (checkbox)
             } else if (i == 1) {
                 column.setMaxWidth(50); // Exemplo: coluna de índice
             } else {
-                column.setPreferredWidth(150); // Configuração padrão para demais colunas
+                column.setPreferredWidth(150); // Configuração padrão
             }
         }
         
         table.setRowSelectionAllowed(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
-        // Desabilita a reordenação das colunas da tabela
-        //table.getTableHeader().setReorderingAllowed(false);
-        
-        // Permitir sorting de colunas
-        //table.setAutoCreateRowSorter(true);
-
+                
         // Aplica o renderizador de célula de perfil na tabela
         table.setDefaultRenderer(ModelProfile.class, new TableProfileCellRenderer(table));
 
@@ -156,191 +147,140 @@ public class CreateCustomTable {
             @Override
             protected int getAlignment(int column) {
                 if (column == 1) {
-                    return SwingConstants.CENTER; // Centraliza o cabeçalho da coluna 1
+                    return SwingConstants.CENTER;
                 }
-                return SwingConstants.LEADING; // Alinhamento à esquerda para as demais colunas
+                return SwingConstants.LEADING;
             }
         });
 
         // Estilização do painel
-        panel.putClientProperty(FlatClientProperties.STYLE, "" +
-                "arc:20;" + // Arredondamento do painel
-                "background:$Table.background;"); // Cor de fundo da tabela
-        table.getTableHeader().putClientProperty(FlatClientProperties.STYLE, "" +
-                "height:30;" + // Altura do cabeçalho da tabela
-                "hoverBackground:null;" + // Cor de fundo ao passar o mouse
-                "pressedBackground:null;" + // Cor de fundo ao pressionar
-                "separatorColor:$TableHeader.background;"); // Cor do separador do cabeçalho
-        table.putClientProperty(FlatClientProperties.STYLE, "" +
-                "rowHeight:70;" + // Altura das linhas
-                "showHorizontalLines:true;" + // Exibe linhas horizontais
-                "intercellSpacing:0,1;" + // Espaçamento entre células
-                "cellFocusColor:$TableHeader.hoverBackground;" + // Cor do foco da célula
-                "selectionBackground:$TableHeader.hoverBackground;" + // Cor de fundo da seleção
-                "selectionInactiveBackground:$TableHeader.hoverBackground;" + // Cor de fundo da seleção inativa
-                "selectionForeground:$Table.foreground;"); // Cor do texto da seleção
-        scrollPane.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, "" +
-                "trackArc:$ScrollBar.thumbArc;" + // Arredondamento do polegar da barra de rolagem
-                "trackInsets:3,3,3,3;" + // Margens do trilho da barra de rolagem
-                "thumbInsets:3,3,3,3;" + // Margens do polegar da barra de rolagem
-                "background:$Table.background;"); // Cor de fundo do painel de rolagem
+        panel.putClientProperty(FlatClientProperties.STYLE, "arc:20;background:$Table.background;");
+        table.getTableHeader().putClientProperty(FlatClientProperties.STYLE, "height:30;hoverBackground:null;pressedBackground:null;separatorColor:$TableHeader.background;");
+        table.putClientProperty(FlatClientProperties.STYLE, "rowHeight:70;showHorizontalLines:true;intercellSpacing:0,1;cellFocusColor:$TableHeader.hoverBackground;selectionBackground:$TableHeader.hoverBackground;selectionInactiveBackground:$TableHeader.hoverBackground;selectionForeground:$Table.foreground;");
+        scrollPane.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, "trackArc:$ScrollBar.thumbArc;trackInsets:3,3,3,3;thumbInsets:3,3,3,3;background:$Table.background;");
 
         this.table = table;
         
-        // Evento para lidar com as remoções, listerner que observa os cliques e descliques de cada row
+        // Evento para lidar com remoções (listener para alterações na seleção de checkbox)
         model.addTableModelListener(e -> {
             int row = e.getFirstRow();
             int column = e.getColumn();
-
-            // Check if the changed column is the checkbox column (column 0)
             if (column == 0) {
                 Boolean isChecked = (Boolean) model.getValueAt(row, column);
-
                 if (isChecked) {
-                    // Add row to selectedRows if not already present
                     if (!selectedRows.contains(row)) {
                         selectedRows.add(row);
                     }
                 } else {
-                    // Remove row from selectedRows if it is deselected
                     selectedRows.remove(Integer.valueOf(row));
                 }
-
-                System.out.println("Updated selectedRows: " + selectedRows);
-            }
-        });
-        
-        // Listener para ordenação de colunas
-        JTableHeader tableHeader = table.getTableHeader();
-        tableHeader.addMouseListener(new MouseAdapter() {
-            private boolean ascendingOrder = true; 
-            private String lastSortedColumn = null; 
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int columnIndex = table.columnAtPoint(e.getPoint()); // Obtém o índice da coluna clicada
-                String columnName = table.getColumnName(columnIndex); // Obtém o nome da coluna
-                table.repaint();
-
-                // Verificar se a coluna clicada é a mesma da última vez
-                if (lastSortedColumn != null && lastSortedColumn.equals(columnName)) {
-                    ascendingOrder = !ascendingOrder; // Inverter a ordem se for a mesma coluna
-                } else {
-                    ascendingOrder = true; // Caso contrário, ordenar de forma ascendente
-                }
-
-                lastSortedColumn = columnName; // Atualizar a coluna ordenada
-
-                // Obter nome da coluna correspondente no banco
-                String columnNameTableResult = HashMapNomesTabelas.getPacienteName(columnName);
-
-                if (columnNameTableResult == null) {
-                    System.out.println("Nenhuma correspondência encontrada para a coluna: " + columnName);
-                    return;
-                }
-
-                // Definir a direção da ordenação (ASC ou DESC)
-                String orderDirection = ascendingOrder ? "ASC" : "DESC";
-
-                // Append ORDER BY na consulta
-                String queryWithOrder = nomeTabela + " ORDER BY " + columnNameTableResult + " " + orderDirection;
-
-                // Buscar dados do banco
-                List<Object[]> dataResultOrdered = ConsultasDinamicas.buscarTabelaConsultaAnonima(queryWithOrder);
-
-                if (dataResultOrdered == null || dataResultOrdered.isEmpty()) {
-                    System.out.println("Nenhum resultado retornado: " + queryWithOrder);
-                } else {
-                    System.out.println("Dados retornados:");
-                    for (Object[] row : dataResultOrdered) {
-                        for (Object col : row) {
-                            System.out.print(col + " ");
-                        }
-                        System.out.println(); // New line for each row
-                    }
-                }
-
-                // Update o global data e recarrega a tabela
-                allDataTable = dataResultOrdered;
-                loadPageData(allDataTable, currentPage);
             }
         });
         
         // Criação do título
         JLabel title = new JLabel("Tabela de Listagem");
-        title.putClientProperty(FlatClientProperties.STYLE, "" +
-                "font:bold +2"); // Estilo do título
-        panel.add(title, "gapx 20"); // Adiciona o título ao painel
+        title.putClientProperty(FlatClientProperties.STYLE, "font:bold +2");
+        panel.add(title, "gapx 20");
 
-        // Criação do cabeçalho
-        panel.add(createHeaderAction()); // Adiciona ações do cabeçalho
-
-        JSeparator separator = new JSeparator(); // Criação do separador
-        separator.putClientProperty(FlatClientProperties.STYLE, "" +
-                "foreground:$Table.gridColor;"); // Cor do separador
-        panel.add(separator, "height 2"); // Adiciona o separador ao painel
-        panel.add(scrollPane); // Adiciona o painel de rolagem da tabela ao painel
+        // Criação do cabeçalho com ações
+        panel.add(createHeaderAction());
         
-        totalPages = (int) Math.ceil((double) allDataTable.size() / ROWS_PER_PAGE); // Calcula o total de páginas
+        JSeparator separator = new JSeparator();
+        separator.putClientProperty(FlatClientProperties.STYLE, "foreground:$Table.gridColor;");
+        panel.add(separator, "height 2");
+        panel.add(scrollPane);
         
-        loadPageData(allDataTable, currentPage); // Carrega dados da página atual
-
-        
+        // Calcula o total de páginas com base em todos os dados carregados (ou filtrados, se houver pesquisa)
+        totalPages = (int) Math.ceil((double) table.getRowSorter().getViewRowCount() / ROWS_PER_PAGE);
+        // Atualiza o filtro para exibir somente a página atual
+        updateRowFilter(currentPage);
+       
         // Inicializa e configura a paginação
         pagination = new Pagination();
-        pagination.setBackground(new java.awt.Color(0, 102, 102)); // Define a cor de fundo da paginação
-        pagination.setPagegination(currentPage, totalPages); // Define a página atual e total
+        pagination.setBackground(new java.awt.Color(0, 102, 102));
+        pagination.setPagegination(currentPage, totalPages);
         pagination.addEventPagination(page -> {
-            currentPage = page; // Atualiza a página atual
-            loadPageData(this.allDataTable, page); // Carrega dados da nova página
+            currentPage = page;
+            updateRowFilter(page);
         });
         
-
-        panel.add(pagination, "align center, wrap"); // Adiciona a paginação ao painel
-
-        return panel; // Retorna o painel personalizado
+        panel.add(pagination, "align center, wrap");
+        return panel;
     }
     
     /**
-    * Método para carregar os dados da página atual na tabela.
-    * 
-    * @param data Lista de dados a serem carregados
-    * @param page Número da página atual
-    * @param table Tabela onde os dados serão carregados
-    */
-    private void loadPageData(List<Object[]> data, int page) {
-        System.out.println("\nModel: " + model);
-        model.setRowCount(0); // Limpa o modelo da tabela
-        
-        int start = (page - 1) * ROWS_PER_PAGE;
-        int end = Math.min(start + ROWS_PER_PAGE, data.size());
-
-        // Verifica se há dados para carregar
-        if (data.isEmpty() || start >= data.size()) {
-            return; // Não há dados para carregar na página atual
-        }
-        
-        for (int i = start; i < end; i++) { 
-            Object[] row = data.get(i);  
-            // Certifique-se de que os dados carregados tenham o mesmo número de colunas da tabela
+     * Carrega TODOS os dados no modelo, sem filtragem por página.
+     */
+    private void loadAllData(List<Object[]> data) {
+        model.setRowCount(0); // Limpa o modelo
+        for (Object[] row : data) {  
             Object[] rowData = new Object[this.tabelaColunas.length];
             for (int j = 0; j < this.tabelaColunas.length; j++) {
                 if (j == 0) {
-                    rowData[j] = false; // Inicializa a coluna de checkbox com 'false'
+                    rowData[j] = false; // Checkbox inicializado como false
                 } else if (j - 1 < row.length) {
-                    rowData[j] = row[j - 1]; // Ajusta o índice para ignorar a primeira coluna (checkbox)
+                    rowData[j] = row[j - 1];
                 } else {
-                    rowData[j] = "..."; // Preenche com null caso os dados estejam faltando
+                    rowData[j] = "...";
                 }
             }
-            model.addRow(rowData); // Adiciona os dados à tabela
+            model.addRow(rowData);
+        }
+    }
+    
+    /**
+     * Atualiza o RowFilter do TableRowSorter para combinar (opcionalmente) a pesquisa
+     * e a exibição apenas dos dados da página atual.
+     * 
+     * @param page Página atual a ser exibida
+     */
+    private void updateRowFilter(int page) {
+        TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
+        // Define o filtro de pesquisa, se houver
+        RowFilter<DefaultTableModel, Integer> searchFilter = null;
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            searchFilter = new RowFilter<DefaultTableModel, Integer>() {
+                @Override
+                public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                    for (int i = 0; i < entry.getValueCount(); i++) {
+                        Object value = entry.getValue(i);
+                        if (value != null && value.toString().toLowerCase().contains(searchQuery)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+        }
+        // Primeiro, aplique apenas o filtro de pesquisa (se houver) para obter a contagem filtrada
+        sorter.setRowFilter(searchFilter);
+        int totalFiltered = sorter.getViewRowCount();
+        // Calcula os limites da página atual
+        int start = (page - 1) * ROWS_PER_PAGE;
+        int end = start + ROWS_PER_PAGE;
+        // Cria uma lista com os índices do modelo que devem ser exibidos na página atual
+        List<Integer> indices = new ArrayList<>();
+        for (int i = start; i < end && i < totalFiltered; i++) {
+            int modelIndex = sorter.convertRowIndexToModel(i);
+            indices.add(modelIndex);
+        }
+        // Filtro de paginação que só inclui as linhas cujos índices estão na lista
+        RowFilter<DefaultTableModel, Integer> paginationFilter = new RowFilter<DefaultTableModel, Integer>() {
+            @Override
+            public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                return indices.contains(entry.getIdentifier());
+            }
+        };
+        // Combina (se houver filtro de pesquisa) ou aplica apenas o de paginação
+        if (searchFilter != null) {
+            sorter.setRowFilter(RowFilter.andFilter(Arrays.asList(searchFilter, paginationFilter)));
+        } else {
+            sorter.setRowFilter(paginationFilter);
         }
     }
 
     /**
-     * Método para criar ações no cabeçalho da tabela.
-     * 
-     * @return Componente com as ações do cabeçalho
+     * Cria a barra de ações (pesquisa, cadastrar, editar, remover) para o cabeçalho da tabela.
      */
     private Component createHeaderAction() {
         JPanel panel = new JPanel(new MigLayout("insets 5 20 5 20", "[fill,230]push[][]"));
@@ -351,7 +291,6 @@ public class CreateCustomTable {
         JButton cmdCreate = new JButton("Cadastrar");
         JButton cmdEdit = new JButton("Editar");
         JButton cmdDelete = new JButton("Remover");
-        
         
         cmdCreate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -386,50 +325,40 @@ public class CreateCustomTable {
         
         cmdEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                // Lógica para editar registros
             }
         });
         
-        
         cmdDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
                 if (selectedRows.size() > 0) {
                     MessagesAlert.showWarningMessage("Deseja continuar?", response -> {
                         if (response) {
                             List<Object> selectedIds = new ArrayList<>();
-
                             List<Integer> rowsToRemove = new ArrayList<>(selectedRows);
-
                             for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
                                 int row = rowsToRemove.get(i);
                                 Object id = model.getValueAt(row, 1);  
                                 selectedIds.add(id);
                                 
                                 boolean result;
-                                
-                                // Considerando que há várias tabelas para usuário (administrador, secretária, etc)
                                 if(tableNameDB == "Usuarios"){
                                     String tipoUsuario = (String) model.getValueAt(row, 4);
-                                    
                                     result = ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tipoUsuario);
-                                }else{
+                                } else {
                                     result = ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tableNameDB);
-                                    
                                 }
                                 
                                 if(result){
                                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Registros removidos com sucesso");
                                     model.removeRow(row);
-                                    
-                                }else{
+                                } else {
                                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao remover registros");
                                 }    
                             }
                             selectedRows.clear();
                         }
                     });
-
                 } else {
                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Selecione um registro para remover");
                 }
@@ -437,61 +366,63 @@ public class CreateCustomTable {
         });
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        
         redimencionarIcone.redimensionarIcones(cmdCreate, "/Multimidia/imagens/view.png", 10);
         redimencionarIcone.redimensionarIcones(cmdEdit, "/Multimidia/imagens/edit.png", 10);
         redimencionarIcone.redimensionarIcones(cmdDelete, "/Multimidia/imagens/delete.png", 10);
 
-        //cmdCreate.addActionListener(e -> showModal());
         panel.add(txtSearch);
         panel.add(cmdCreate);
         panel.add(cmdEdit);
         panel.add(cmdDelete);
         
-        
-        // Adiciona um ouvinte de documento para o campo de pesquisa
+        // Ouvinte para atualização da pesquisa: a cada alteração, atualiza a variável de pesquisa,
+        // recalcula o total de páginas e redefine o filtro (resetando para a página 1)
         txtSearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filterData(txtSearch);
+                updateSearch();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filterData(txtSearch);
+                updateSearch();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filterData(txtSearch);
+                updateSearch();
+            }
+            
+            private void updateSearch() {
+                searchQuery = txtSearch.getText().toLowerCase();
+                TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
+                // Aplica o filtro de pesquisa temporariamente para obter a contagem filtrada
+                if (searchQuery != null && !searchQuery.isEmpty()) {
+                    sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
+                        @Override
+                        public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                            for (int i = 0; i < entry.getValueCount(); i++) {
+                                Object value = entry.getValue(i);
+                                if (value != null && value.toString().toLowerCase().contains(searchQuery)) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                    });
+                } else {
+                    sorter.setRowFilter(null);
+                }
+                int totalFiltered = sorter.getViewRowCount();
+                totalPages = (int) Math.ceil((double) totalFiltered / ROWS_PER_PAGE);
+                // Atualiza o filtro para exibir a página 1 dos resultados filtrados
+                currentPage = 1;
+                updateRowFilter(currentPage);
+                pagination.setPagegination(currentPage, totalPages);
             }
         });
 
-        panel.putClientProperty(FlatClientProperties.STYLE, "" +
-                "background:null;");
+        panel.putClientProperty(FlatClientProperties.STYLE, "background:null;");
         return panel;
-    }
-    
-    /**
-    * Método para filtrar os dados com base na pesquisa.
-    */
-    private void filterData(JTextField txtSearch) {
-        String query = txtSearch.getText().toLowerCase();
-        List<Object[]> filteredData = allDataTable.stream()
-            .filter(row -> Arrays.stream(row)
-                                 .map(cell -> cell == null ? "" : cell.toString().toLowerCase()) 
-                                 .anyMatch(cell -> cell.contains(query))
-            )
-            .toList();
-
-        System.out.println("Dados filtrados: ");
-        filteredData.forEach(row -> System.out.println(Arrays.toString(row)));
-        System.out.println("\nConsulta: " + query);
-        System.out.println("\nDados filtrados: ");
-        filteredData.forEach(row -> System.out.println(Arrays.toString(row)));
-        
-        // Atualiza o número total de páginas
-        this.totalPages = (int) Math.ceil((double) filteredData.size() / ROWS_PER_PAGE);
-        loadPageData(filteredData, 1); // Carrega os dados filtrados na primeira página
     }
 }
