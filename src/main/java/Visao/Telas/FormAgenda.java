@@ -407,20 +407,25 @@ public class FormAgenda extends SimpleForm {
     private void carregarPacientes() {
         PacienteRN pacienteRN = new PacienteRN();
         List<PacienteVO> pacientes = pacienteRN.listarPacientes();
-    
-        cbEstagiario1.removeAllItems();
-        for (PacienteVO paciente : pacientes) {
-            cbEstagiario1.addItem(paciente.getPaciente());
+
+        if(pacientes != null){
+            cbEstagiario1.removeAllItems();
+            for (PacienteVO paciente : pacientes) {
+                cbEstagiario1.addItem(paciente.getPaciente());
+            }
         }
     }
 
     private void carregarEstagiarios() {
         EstagiarioRN estagiarioRN = new EstagiarioRN();
         List<EstagiarioVO> estagiarios = estagiarioRN.listarEstagiarios();
-
-        cbEstagiario.removeAllItems();
-        for (EstagiarioVO estagiario : estagiarios) {
-            cbEstagiario.addItem(estagiario.getNomeCompleto());
+        
+        if(estagiarios != null){
+            cbEstagiario.removeAllItems();
+            for (EstagiarioVO estagiario : estagiarios) {
+                cbEstagiario.addItem(estagiario.getNomeCompleto());
+            }
+            
         }
     }
 

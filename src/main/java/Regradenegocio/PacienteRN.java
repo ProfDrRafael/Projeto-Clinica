@@ -43,9 +43,13 @@ public class PacienteRN {
     // Método para listar todos os estagiários
     public List<PacienteVO> listarPacientes() {
         var estagiarios = pacienteDAO.buscarTodos();
-        return estagiarios.stream()
-                .map(PacienteVO::fromEntity)
-                .collect(Collectors.toList());
+        
+        if(estagiarios != null){
+            return estagiarios.stream()
+                    .map(PacienteVO::fromEntity)
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
     // Método para buscar um estagiário por ID

@@ -98,9 +98,15 @@ public class EstagiarioRN {
     // Método para listar todos os estagiários
     public List<EstagiarioVO> listarEstagiarios() {
         var estagiarios = estagiarioDAO.buscarTodos();
-        return estagiarios.stream()
-                .map(EstagiarioVO::fromEntity)
-                .collect(Collectors.toList());
+                
+        if(estagiarios != null){
+            return estagiarios.stream()
+                    .map(EstagiarioVO::fromEntity)
+                    .collect(Collectors.toList());
+            
+        }
+        
+        return null;
     }
 
     public List<Paciente> buscarPacientesPorEstagiarioId(Integer estagiarioId) {

@@ -427,7 +427,7 @@ public class FormAtendimento extends SimpleForm {
             for (PacienteVO paciente : pacientes) {
                 modelo.addElement(paciente);
             }
-            cbbPaciente.setModel(modelo);
+            cbbPaciente.setModel((DefaultComboBoxModel) modelo);
             cbbPaciente.setSelectedIndex(-1);
 
             // Adiciona o listener para reagir à mudança de seleção
