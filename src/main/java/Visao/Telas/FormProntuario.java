@@ -34,14 +34,19 @@ public class FormProntuario extends SimpleForm {
         initComponents();
         messagesAlert = new MessagesAlert();
         //redimensionarIcones();
-        
-        EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
-        EditorTextPaneEstilization.EstilizeEditorTextPane(tpQueixa);
-        
+
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
         redimencionarIcone.redimensionarIcones(btHistoricoAtendimentos, "/Multimidia/imagens/historicoAtendimentos.png");
+        
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpQueixa);
+        EditorTextPaneEstilization.JTextComponentStylization(tpQueixa, btNegritoObs, btItalicoObs, btSublinhadoObs);
+        EditorTextPaneEstilization.JTextComponentUndoRedo(tpQueixa);
+        
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
+        EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegritoQueixa, btItalicoQueixa, btSublinhadoQueixa);
+        EditorTextPaneEstilization.JTextComponentUndoRedo(tpObservacoes);
 
         configurarCampoEncaminhadoPor();
         inicializarComboBoxEstagiarios();
@@ -75,8 +80,14 @@ public class FormProntuario extends SimpleForm {
         tpObservacoes = new javax.swing.JTextPane();
         jSeparator2 = new javax.swing.JSeparator();
         lbEncaminhado = new javax.swing.JLabel();
-        cbPaciente = new JComboBox<Paciente>();
+        cbPaciente = new javax.swing.JComboBox<>();
         tfEncaminhadoPor = new javax.swing.JTextField();
+        btNegritoObs = new javax.swing.JButton();
+        btItalicoObs = new javax.swing.JButton();
+        btSublinhadoObs = new javax.swing.JButton();
+        btSublinhadoQueixa = new javax.swing.JButton();
+        btItalicoQueixa = new javax.swing.JButton();
+        btNegritoQueixa = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(950, 764));
         setMinimumSize(new java.awt.Dimension(950, 764));
@@ -201,17 +212,29 @@ public class FormProntuario extends SimpleForm {
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnFormLayout.createSequentialGroup()
                                         .addComponent(jlPaciente)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE))
                                     .addComponent(cbPaciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(pnFormLayout.createSequentialGroup()
-                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlObservacoes))
+                                    .addGroup(pnFormLayout.createSequentialGroup()
+                                        .addComponent(jlObservacoes)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btNegritoObs)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btItalicoObs)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btSublinhadoObs)))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnFormLayout.createSequentialGroup()
                                         .addComponent(jlQueixaInicial)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btNegritoQueixa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btItalicoQueixa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btSublinhadoQueixa))
                                     .addComponent(jScrollPane3)))))
                     .addGroup(pnFormLayout.createSequentialGroup()
                         .addContainerGap()
@@ -225,20 +248,34 @@ public class FormProntuario extends SimpleForm {
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlEstagiario)
                     .addComponent(jlPaciente))
-                .addGap(6, 6, 6)
-                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbPaciente)
-                    .addComponent(cbEstagiario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbEncaminhado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEncaminhadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlObservacoes)
-                    .addComponent(jlQueixaInicial))
+                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnFormLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbPaciente)
+                            .addComponent(cbEstagiario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createSequentialGroup()
+                                .addComponent(lbEncaminhado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfEncaminhadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jlObservacoes)
+                                    .addComponent(jlQueixaInicial)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btNegritoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btItalicoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btSublinhadoQueixa))))
+                    .addGroup(pnFormLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btNegritoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btItalicoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btSublinhadoObs))))
                 .addGap(18, 18, 18)
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
@@ -272,9 +309,15 @@ public class FormProntuario extends SimpleForm {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btHistoricoAtendimentos;
+    private javax.swing.JButton btItalicoObs;
+    private javax.swing.JButton btItalicoQueixa;
+    private javax.swing.JButton btNegritoObs;
+    private javax.swing.JButton btNegritoQueixa;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSublinhadoObs;
+    private javax.swing.JButton btSublinhadoQueixa;
     private javax.swing.JComboBox cbEstagiario;
-    private JComboBox<Paciente> cbPaciente;
+    private javax.swing.JComboBox<String> cbPaciente;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
@@ -353,7 +396,7 @@ public class FormProntuario extends SimpleForm {
                         modelo.addElement(paciente);
                     }
 
-                    cbPaciente.setModel(modelo);
+                    cbPaciente.setModel((DefaultComboBoxModel) modelo);
                     cbPaciente.setSelectedIndex(-1);
 
                     // Remove listeners antigos e adiciona o novo
@@ -365,7 +408,7 @@ public class FormProntuario extends SimpleForm {
                     messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
                 }
             } else {
-                cbPaciente.setModel(new DefaultComboBoxModel<Paciente>()); // Limpa o combo se nenhum estagiário for selecionado
+                cbPaciente.setModel((DefaultComboBoxModel) new DefaultComboBoxModel<Paciente>()); // Limpa o combo se nenhum estagiário for selecionado
             }
         } catch (Exception e) {
             messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");

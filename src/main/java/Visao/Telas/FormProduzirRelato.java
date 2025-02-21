@@ -32,9 +32,6 @@ public class FormProduzirRelato extends SimpleForm {
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
         redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
-        redimencionarIcone.redimensionarIcones(btNegrito, "/Multimidia/icon/bold_icon.png");
-        redimencionarIcone.redimensionarIcones(btItalico, "/Multimidia/icon/italico_icon.png");
-        redimencionarIcone.redimensionarIcones(btSublinhado, "/Multimidia/icon/sublinhado_icon.png");
         
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
         EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelato, btNegrito, btItalico, btSublinhado);

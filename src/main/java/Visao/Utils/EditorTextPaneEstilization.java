@@ -49,6 +49,12 @@ public class EditorTextPaneEstilization {
     }
     
     public static void JTextComponentStylization(JTextPane textPane, JButton btNegrito, JButton btItalico, JButton btSublinhado){
+        // Adicionar ícones aos botões
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
+        redimencionarIcone.redimensionarIcones(btNegrito, "/Multimidia/icon/bold_icon.png");
+        redimencionarIcone.redimensionarIcones(btItalico, "/Multimidia/icon/italico_icon.png");
+        redimencionarIcone.redimensionarIcones(btSublinhado, "/Multimidia/icon/sublinhado_icon.png");
+        
         // Configurar StyledDocument
         StyledDocument doc = textPane.getStyledDocument();
         SimpleAttributeSet bold = new SimpleAttributeSet();
