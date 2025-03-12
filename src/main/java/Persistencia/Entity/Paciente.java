@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Table(name = "paciente")
 public class Paciente {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -38,6 +39,11 @@ public class Paciente {
     @Lob
     @Column(name = "genero")
     private String genero;
+    
+    @ColumnDefault("'Heterossexual'")
+    @Lob
+    @Column(name = "orientacao_sexual")
+    private String orientacao_sexual;
 
     @Column(name = "encaminhado_por", length = 100)
     private String encaminhadoPor;
@@ -52,7 +58,7 @@ public class Paciente {
     @Column(name = "profissao", length = 100)
     private String profissao;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "responsavel_id", nullable = true)
     private Persistencia.Entity.Responsavel responsavel;
 
@@ -237,6 +243,22 @@ public class Paciente {
 
     public void setGrupo(Byte grupo) {
         this.grupo = grupo;
+    }
+
+    
+
+    /**
+     * @return the orientacao_sexual
+     */
+    public String getOrientacao_sexual() {
+        return orientacao_sexual;
+    }
+
+    /**
+     * @param orientacao_sexual the orientacao_sexual to set
+     */
+    public void setOrientacao_sexual(String orientacao_sexual) {
+        this.orientacao_sexual = orientacao_sexual;
     }
 
     @Override

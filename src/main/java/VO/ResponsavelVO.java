@@ -18,9 +18,8 @@ public class ResponsavelVO {
     }
 
     // Construtor completo
-    public ResponsavelVO(Integer id, String nome, String vinculo, String telefone, String telefoneContato,
+    public ResponsavelVO(String nome, String vinculo, String telefone, String telefoneContato,
                          String grauInstrucao, String profissao, String genero, String racaCorEtnia) {
-        this.id = id;
         this.nome = nome;
         this.vinculo = vinculo;
         this.telefone = telefone;

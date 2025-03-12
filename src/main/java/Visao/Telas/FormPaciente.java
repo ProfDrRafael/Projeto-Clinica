@@ -4,14 +4,18 @@ import OrientadorRN.OrientadorRN;
 import Persistencia.Dao.CidadeDAO;
 import Persistencia.Dao.EstadoDAO;
 import Persistencia.Dao.PaisDAO;
+import Persistencia.Dao.ResponsavelDAO;
 import Persistencia.Entity.Cidade;
 import Persistencia.modelTemp.EnderecoModelCepApi;
 import Persistencia.Entity.Endereco;
 import Persistencia.Entity.Estado;
+import Persistencia.Entity.Paciente;
 import Persistencia.Entity.Pais;
+import Persistencia.Entity.Responsavel;
 import Regradenegocio.EnderecoRN;
 import Regradenegocio.EstagiarioRN;
 import Regradenegocio.PacienteRN;
+import Regradenegocio.ResponsavelRN;
 import Services.ViaCepService;
 import VO.EnderecoVO;
 import VO.EstagiarioVO;
@@ -29,6 +33,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import raven.toast.Notifications;
 
 /*
@@ -42,6 +48,25 @@ import raven.toast.Notifications;
 public class FormPaciente extends SimpleForm {
 
     private Endereco enderecoObject;
+    private int pacienteId;
+
+    public static void main(String[] args) {
+        // Create and display the form in the Event Dispatch Thread
+        SwingUtilities.invokeLater(() -> {
+            FormPaciente form = new FormPaciente();
+
+            // Create a frame to hold the form
+            JFrame frame = new JFrame("Cadastro de Paciente");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(800, 600); // Set appropriate size
+            frame.add(form);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
+            // Initialize form after adding to frame
+            form.formInitAndOpen();
+        });
+    }
 
     /**
      * Creates new form telaCadastroPacientePanel
@@ -49,65 +74,125 @@ public class FormPaciente extends SimpleForm {
     public FormPaciente() {
         initComponents();
         //redimensionarIcones();
-        
+
         inserirDadosFormulario();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
-        
+
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDisponibilidade);
         EditorTextPaneEstilization.JTextComponentStylization(tpDisponibilidade, btNegrito, btItalico, btSublinhado);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpDisponibilidade);
     }
-    
-    public void inserirDadosFormulario(){
+
+    public void preencherDadosFormulario(int pacienteId) {
+        this.pacienteId = pacienteId;
+
+        try {
+            PacienteRN pacienteRN = new PacienteRN();
+            PacienteVO paciente = pacienteRN.buscarPacientePorId(pacienteId);
+
+            if (paciente == null) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Paciente não encontrado!");
+                return;
+            }
+
+            tfPaciente.setText(paciente.getNome());
+            cbGenero.setSelectedItem(paciente.getGenero());
+            ftfCelular.setText(paciente.getCelular());
+            ftfCelularContato.setText(paciente.getCelularContato());
+            tfData.setText(paciente.getDataNascimento());
+            cbInstrucao.setSelectedItem(paciente.getInstrucao());
+            tfProfissao.setText(paciente.getProfissao());
+            cbEstadoCivil.setSelectedItem(paciente.getEstadoCivil());
+            cbRacaCorEtnia.setSelectedItem(paciente.getRaca_cor_etnia());
+            cbOrientacao.setSelectedItem(paciente.getOrientacao());
+            cbNacionalidade.setSelectedItem(paciente.getNacionalidade());
+            tpDisponibilidade.setText(paciente.getDisponibilidade());
+
+            if (paciente.getResponsavel() != null) {
+                tfResponsavel.setText(paciente.getResponsavel().getNome());
+                ftfCelularContatoResponsavel.setText(paciente.getResponsavel().getTelefone());
+            }
+
+            cbAtendido.setSelected(paciente.isAtendido());
+
+            if (paciente.getEndereco() != null) {
+                Endereco endereco = paciente.getEndereco();
+
+                tfRua.setText(endereco.getRua());
+                tfNumero.setText(String.valueOf(endereco.getNumero()));
+                tfBairro.setText(endereco.getBairro());
+                tfComplemento.setText(endereco.getComplemento());
+                ftfCep.setText(endereco.getCep());
+
+                Cidade cidade = endereco.getCidade();
+                if (cidade != null) {
+                    cbCidade.setSelectedItem(cidade.getId() + " - " + cidade.getNome());
+                }
+            }
+
+            btEditar.setEnabled(true);
+            btEditar.setVisible(true);
+            btSalvar.setEnabled(false);
+            btSalvar.setVisible(false);
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao editar paciente: " + ex);
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao carregar dados do paciente!");
+        }
+    }
+
+    public void inserirDadosFormulario() {
         PaisDAO paisDaoInstancia = new PaisDAO();
         CidadeDAO cidadeDaoInstancia = new CidadeDAO();
         EstadoDAO estadoDaoInstancia = new EstadoDAO();
         OrientadorRN orientadorRn = new OrientadorRN();
         EstagiarioRN estagiarioRn = new EstagiarioRN();
-        
-        
+
         List<Pais> todosPaises = paisDaoInstancia.buscarTodos();
         List<Cidade> todasCidades = cidadeDaoInstancia.buscarTodos();
         List<Estado> todosEstados = estadoDaoInstancia.buscarTodos();
-        
+
         List<OrientadorVO> todosOrientadores = orientadorRn.listarOrientadores();
         List<EstagiarioVO> todosEstagiarios = estagiarioRn.listarEstagiarios();
-        
+
         cbNacionalidade.removeAllItems();
         cbEstado.removeAllItems();
         cbCidade.removeAllItems();
-        
+
         cbEstagiario.removeAllItems();
         cbOrientador.removeAllItems();
 
         // Add Paises to Nacionalidade ComboBox
         for (Pais pais : todosPaises) {
-            cbNacionalidade.addItem(String.valueOf(pais.getId()) + " - " + pais.getNome());  
+            cbNacionalidade.addItem(String.valueOf(pais.getId()) + " - " + pais.getNome());
         }
 
         // Add Estados to Estado ComboBox
         for (Estado estado : todosEstados) {
-            cbEstado.addItem(String.valueOf(estado.getId()) + " - " +estado.getNome()); 
+            cbEstado.addItem(String.valueOf(estado.getId()) + " - " + estado.getNome());
         }
 
         // Add Cidades to Cidade ComboBox
         for (Cidade cidade : todasCidades) {
-            cbCidade.addItem(String.valueOf(cidade.getId()) + " - " + cidade.getNome());  
+            cbCidade.addItem(String.valueOf(cidade.getId()) + " - " + cidade.getNome());
         }
 
         // Add Orientadores to Orientador ComboBox
         for (OrientadorVO orientador : todosOrientadores) {
-            cbOrientador.addItem(String.valueOf(orientador.getId()) + " - " +orientador.getNomeCompleto());  
+            cbOrientador.addItem(String.valueOf(orientador.getId()) + " - " + orientador.getNomeCompleto());
         }
 
         // Add Estagiarios to Estagiario ComboBox
         for (EstagiarioVO estagiario : todosEstagiarios) {
-            cbEstagiario.addItem(String.valueOf(estagiario.getId()) + " - " + estagiario.getNomeCompleto());  
+            cbEstagiario.addItem(String.valueOf(estagiario.getId()) + " - " + estagiario.getNomeCompleto());
         }
-        
+
+        btEditar.setEnabled(false);
+        btEditar.setVisible(false);
+
     }
 
     /**
@@ -146,7 +231,7 @@ public class FormPaciente extends SimpleForm {
         lbOrientacao = new javax.swing.JLabel();
         cbOrientacao = new javax.swing.JComboBox<>();
         lbContato3 = new javax.swing.JLabel();
-        ftfCelularContato1 = new javax.swing.JFormattedTextField();
+        ftfCelularContatoResponsavel = new javax.swing.JFormattedTextField();
         pEndereco = new javax.swing.JPanel();
         lbCidade = new javax.swing.JLabel();
         lbRua = new javax.swing.JLabel();
@@ -321,11 +406,11 @@ public class FormPaciente extends SimpleForm {
         lbContato3.setText("Telefone (Responsável):");
 
         try {
-            ftfCelularContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            ftfCelularContatoResponsavel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        ftfCelularContato1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        ftfCelularContatoResponsavel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout pIdentificacaoLayout = new javax.swing.GroupLayout(pIdentificacao);
         pIdentificacao.setLayout(pIdentificacaoLayout);
@@ -334,49 +419,48 @@ public class FormPaciente extends SimpleForm {
             .addGroup(pIdentificacaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pIdentificacaoLayout.createSequentialGroup()
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lbPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbCelular, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ftfCelular, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(12, 12, 12)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbContato2)
+                                .addComponent(ftfCelularContato, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(14, 14, 14)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lbContato3)
+                                .addComponent(ftfCelularContatoResponsavel)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pIdentificacaoLayout.createSequentialGroup()
+                            .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbDataNascimento, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lbGenero)
+                                .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbEstadoCivil))
-                        .addGap(18, 18, 18)
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbRaca)
-                            .addComponent(cbRacaCorEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbPaciente, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ftfCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbCelular, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(10, 10, 10)
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbContato2)
-                            .addComponent(ftfCelularContato, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
                         .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbContato3)
-                            .addComponent(ftfCelularContato1)))
-                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbOrientacao)
-                            .addComponent(cbOrientacao, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbOrientacao, 0, 265, Short.MAX_VALUE)
+                            .addComponent(lbEstadoCivil)
+                            .addComponent(cbEstadoCivil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbProfissao))
-                        .addGap(18, 18, 18)
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbInstrucao)
-                            .addComponent(cbInstrucao, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbDataNascimento, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbGenero)
-                            .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbRaca)
+                            .addComponent(cbRacaCorEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbProfissao))
+                                .addGap(18, 18, 18)
+                                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbInstrucao)
+                                    .addComponent(cbInstrucao, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         pIdentificacaoLayout.setVerticalGroup(
@@ -405,7 +489,7 @@ public class FormPaciente extends SimpleForm {
                             .addComponent(lbContato2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ftfCelularContato1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftfCelularContatoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ftfCelularContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -758,6 +842,11 @@ public class FormPaciente extends SimpleForm {
         btEditar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btEditar.setForeground(new java.awt.Color(51, 51, 51));
         btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
@@ -834,6 +923,7 @@ public class FormPaciente extends SimpleForm {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         PacienteRN pacienteRN = new PacienteRN();
         EnderecoRN enderecoRN = new EnderecoRN();
+        ResponsavelRN responsalRN = new ResponsavelRN();
         LocalDate dataAgora = LocalDate.now();
         MessagesAlert messagesAlert = new MessagesAlert();
 
@@ -848,10 +938,10 @@ public class FormPaciente extends SimpleForm {
             );
 
             Endereco enderecoEntity = enderecoRN.salvarEndereco(enderecoVO);
-            
+
             // salvar o endereço
             if (enderecoEntity != null) {
-               // Extract ID values from ComboBoxes
+                // Extract ID values from ComboBoxes
                 String genero = cbGenero.getSelectedItem().toString();
                 String celularContato = ftfCelularContato.getText();
                 String celular = ftfCelular.getText();
@@ -862,14 +952,31 @@ public class FormPaciente extends SimpleForm {
                 String estadoCivil = cbEstadoCivil.getSelectedItem().toString();
                 String racaCorEtnia = cbRacaCorEtnia.getSelectedItem().toString();
                 String orientacao = cbOrientacao.getSelectedItem().toString();
-                String nacionalidade = cbNacionalidade.getSelectedItem().toString().split(" - ")[0]; 
+                String nacionalidade = cbNacionalidade.getSelectedItem().toString().split(" - ")[0];
                 String disponibilidade = tpDisponibilidade.getText();
-                String estagiario = cbEstagiario.getSelectedItem().toString().split(" - ")[0];  
-                String orientador = cbOrientador.getSelectedItem().toString().split(" - ")[0];  
-                
-                ResponsavelVO responsavelVO = new ResponsavelVO();
-                responsavelVO.setNome(tfResponsavel.getText());                
-                
+                String estagiario = cbEstagiario.getSelectedItem().toString().split(" - ")[0];
+                String orientador = cbOrientador.getSelectedItem().toString().split(" - ")[0];
+
+                String responsavel = tfResponsavel.getText();
+                String contatoResponsavel = ftfCelularContatoResponsavel.getText();
+
+                ResponsavelVO responsavelVO = new ResponsavelVO(
+                        responsavel,
+                        "PARENTE",
+                        contatoResponsavel,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+
+                Responsavel responsavelEntity = responsalRN.salvar(responsavelVO);
+
+                ResponsavelDAO responsavelDAO = new ResponsavelDAO();
+
+                responsavelEntity = responsavelDAO.buscarPorId(responsavelEntity.getId());
+
                 boolean atendido = cbAtendido.isSelected();
 
                 PacienteVO pacienteVO = new PacienteVO(
@@ -889,7 +996,7 @@ public class FormPaciente extends SimpleForm {
                         Integer.parseInt(estagiario),
                         Integer.parseInt(orientador),
                         enderecoEntity,
-                        responsavelVO,
+                        responsavelEntity,
                         atendido,
                         true
                 );
@@ -897,15 +1004,15 @@ public class FormPaciente extends SimpleForm {
                 // salvar o paciente
                 if (pacienteRN.salvarPaciente(pacienteVO)) {
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
-                    "Paciente salvo com sucesso!");
+                            "Paciente salvo com sucesso!");
                     FormManager.showForm(new PageWelcome());
                 } else {
-                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
-                    "Erro ao salvar o paciente.");
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER,
+                            "Erro ao salvar o paciente.");
                 }
             } else {
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
-                    "Erro ao salvar o endereço.");
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER,
+                        "Erro ao salvar o endereço.");
             }
 
         } catch (HeadlessException | NumberFormatException e) {
@@ -916,17 +1023,103 @@ public class FormPaciente extends SimpleForm {
     private void cbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEstadoItemStateChanged
         CidadeDAO cidadeDaoInstancia = new CidadeDAO();
         String selectedStateId = cbEstado.getSelectedItem().toString().split(" - ")[0];;
-        
+
         if (selectedStateId != null) {
             // Filter cities based on the selected state
             List<Cidade> filteredCidades = cidadeDaoInstancia.buscarPorEstado(Integer.parseInt(selectedStateId));
             cbCidade.removeAllItems();
-            
+
             for (Cidade cidade : filteredCidades) {
                 cbCidade.addItem(cidade.getId() + " - " + cidade.getNome());
             }
         }
     }//GEN-LAST:event_cbEstadoItemStateChanged
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        PacienteRN pacienteRN = new PacienteRN();
+        EnderecoRN enderecoRN = new EnderecoRN();
+        ResponsavelRN responsalRN = new ResponsavelRN();
+        MessagesAlert messagesAlert = new MessagesAlert();
+
+        try {
+            Endereco enderecoEntity = null;
+            if (pacienteId != 0) {
+                enderecoEntity = pacienteRN.buscarPacientePorId(pacienteId).getEndereco();
+            }
+
+            EnderecoVO enderecoVO = new EnderecoVO(
+                    tfRua.getText(),
+                    Integer.valueOf(tfNumero.getText()),
+                    tfBairro.getText(),
+                    Integer.valueOf(cbCidade.getSelectedItem().toString().split(" - ")[0]),
+                    ftfCep.getText(),
+                    tfComplemento.getText()
+            );
+
+            if (enderecoEntity != null) {
+                enderecoVO.setId(enderecoEntity.getId());
+                enderecoEntity = enderecoRN.atualizar(enderecoVO);
+            } else {
+                enderecoEntity = enderecoRN.salvarEndereco(enderecoVO);
+            }
+
+            Responsavel responsavelEntity = null;
+            if (pacienteId != 0) {
+                responsavelEntity = pacienteRN.buscarPacientePorId(pacienteId).getResponsavel();
+            }
+
+            String responsavel = tfResponsavel.getText();
+            String contatoResponsavel = ftfCelularContatoResponsavel.getText();
+
+            ResponsavelVO responsavelVO = new ResponsavelVO(
+                    responsavel,
+                    "PARENTE",
+                    contatoResponsavel,
+                    null, null, null, null, null
+            );
+
+            if (responsavelEntity != null) {
+                responsavelVO.setId(responsavelEntity.getId());
+                responsavelEntity = responsalRN.atualizar(responsavelVO);
+            } else {
+                responsavelEntity = responsalRN.salvar(responsavelVO);
+            }
+
+            PacienteVO pacienteVO = new PacienteVO(
+                    cbGenero.getSelectedItem().toString(),
+                    ftfCelularContato.getText(),
+                    ftfCelular.getText(),
+                    tfPaciente.getText(),
+                    tfData.getText(),
+                    LocalDate.now(),
+                    cbInstrucao.getSelectedItem().toString(),
+                    tfProfissao.getText(),
+                    cbEstadoCivil.getSelectedItem().toString(),
+                    cbRacaCorEtnia.getSelectedItem().toString(),
+                    cbOrientacao.getSelectedItem().toString(),
+                    Integer.valueOf(cbNacionalidade.getSelectedItem().toString().split(" - ")[0]),
+                    tpDisponibilidade.getText(),
+                    Integer.valueOf(cbEstagiario.getSelectedItem().toString().split(" - ")[0]),
+                    Integer.valueOf(cbOrientador.getSelectedItem().toString().split(" - ")[0]),
+                    enderecoEntity,
+                    responsavelEntity,
+                    cbAtendido.isSelected(),
+                    true
+            );
+
+            pacienteVO.setId(pacienteId);
+
+            if (pacienteRN.editarPaciente(pacienteVO)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Paciente editado com sucesso!");
+                FormManager.showForm(new PageWelcome());
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao editar o paciente.");
+            }
+
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -950,7 +1143,7 @@ public class FormPaciente extends SimpleForm {
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JFormattedTextField ftfCelular;
     private javax.swing.JFormattedTextField ftfCelularContato;
-    private javax.swing.JFormattedTextField ftfCelularContato1;
+    private javax.swing.JFormattedTextField ftfCelularContatoResponsavel;
     private javax.swing.JFormattedTextField ftfCep;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;

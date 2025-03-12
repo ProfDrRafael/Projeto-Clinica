@@ -23,7 +23,7 @@ public class GenericoDAO<T> {
             em = JPAUtil.getEntityManager();
             tx = em.getTransaction();
             tx.begin();
-            em.persist(entity);
+            em.merge(entity);
             tx.commit();
         } catch (Exception e) {
             if (tx != null && tx.isActive()) {

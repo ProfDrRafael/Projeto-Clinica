@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  * @author john
  */
 public class EnderecoRN {
+
     private EnderecoDAO enderecoDAO;
     private EnderecoVO enderecoVO;
 
@@ -35,6 +36,20 @@ public class EnderecoRN {
             e.printStackTrace();
             throw new java.lang.Error("Erro ao cadastrar endereço");
         }
+    }
+
+    public Endereco atualizar(EnderecoVO enderecoVO) {
+        Endereco enderecoEntity = enderecoDAO.buscarPorId(enderecoVO.getId());
+        if (enderecoEntity == null) {
+            throw new IllegalArgumentException("Endereço não encontrado para atualização.");
+        }
+
+        enderecoEntity = enderecoVO.toEntity(); 
+        enderecoEntity.setId(enderecoVO.getId()); 
+
+        enderecoDAO.atualizarEndereco(enderecoEntity);
+
+        return enderecoEntity;
     }
 
     // Método para listar todos os estagiários

@@ -201,61 +201,60 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbEstadoCivil" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                  <Component id="lbEstadoCivil" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lbPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbCelular" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ftfCelular" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbContato2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ftfCelularContato" min="-2" pref="298" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lbContato3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ftfCelularContatoResponsavel" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbRaca" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbRacaCorEtnia" min="-2" pref="252" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="tfPaciente" min="-2" pref="303" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="tfData" alignment="1" min="-2" pref="298" max="-2" attributes="0"/>
+                                      <Component id="lbDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lbGenero" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbGenero" min="-2" pref="271" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lbPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ftfCelular" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbCelular" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbContato2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ftfCelularContato" min="-2" pref="298" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lbContato3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ftfCelularContato1" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbOrientacao" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbOrientacao" min="-2" pref="265" max="-2" attributes="0"/>
+                                  <Component id="cbOrientacao" pref="265" max="32767" attributes="0"/>
+                                  <Component id="lbEstadoCivil" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbEstadoCivil" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfProfissao" min="-2" pref="243" max="-2" attributes="0"/>
-                                  <Component id="lbProfissao" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbInstrucao" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbInstrucao" min="-2" pref="360" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="tfPaciente" min="-2" pref="303" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="tfData" alignment="1" min="-2" pref="298" max="-2" attributes="0"/>
-                                  <Component id="lbDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lbGenero" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbGenero" min="-2" pref="271" max="-2" attributes="0"/>
+                                  <Component id="lbRaca" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbRacaCorEtnia" min="-2" pref="252" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="tfProfissao" min="-2" pref="243" max="-2" attributes="0"/>
+                                          <Component id="lbProfissao" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lbInstrucao" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cbInstrucao" min="-2" pref="360" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -294,7 +293,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="ftfCelularContato1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ftfCelularContatoResponsavel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="ftfCelularContato" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -605,7 +604,7 @@
                 <Property name="text" type="java.lang.String" value="Telefone (Respons&#xe1;vel):"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="ftfCelularContato1">
+            <Component class="javax.swing.JFormattedTextField" name="ftfCelularContatoResponsavel">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="(##) #####-####" subtype="-1" type="5"/>
@@ -1743,6 +1742,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Editar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEditarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

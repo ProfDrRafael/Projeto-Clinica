@@ -8,29 +8,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ResponsavelRN {
+
     private final ResponsavelDAO responsavelDAO;
 
     public ResponsavelRN() {
         this.responsavelDAO = new ResponsavelDAO();
     }
 
-    public void salvar(ResponsavelVO responsavelVO) {
+    public Responsavel salvar(ResponsavelVO responsavelVO) {
         if (responsavelVO.getNome() == null || responsavelVO.getNome().isEmpty()) {
             throw new IllegalArgumentException("O nome do responsável é obrigatório.");
         }
 
-        Responsavel responsavel = responsavelVO.toEntity();
-        responsavelDAO.salvar(responsavel);
+        Responsavel responsavelEntity = responsavelVO.toEntity();
+        responsavelDAO.salvar(responsavelEntity);
+
+        return responsavelEntity;
     }
 
-    public void atualizar(ResponsavelVO responsavelVO) {
-        Responsavel responsavel = responsavelDAO.buscarPorId(responsavelVO.getId());
-        if (responsavel == null) {
+    public Responsavel atualizar(ResponsavelVO responsavelVO) {
+        Responsavel responsavelEntity = responsavelDAO.buscarPorId(responsavelVO.getId());
+        if (responsavelEntity == null) {
             throw new IllegalArgumentException("Responsável não encontrado para atualização.");
         }
 
-        responsavelVO.toEntity().setId(responsavel.getId());
-        responsavelDAO.salvar(responsavelVO.toEntity());
+        responsavelEntity = responsavelVO.toEntity(); 
+        responsavelEntity.setId(responsavelVO.getId()); 
+
+        responsavelDAO.atualizar(responsavelEntity);
+
+        return responsavelEntity;
     }
 
     public void deletar(int id) {

@@ -29,10 +29,20 @@ public class PacienteRN {
         pacienteDAO = new PacienteDAO();
     }
 
-    // Método para salvar o estagiário
+
     public boolean salvarPaciente(PacienteVO pacienteVO) {
         try {
             pacienteDAO.salvarPaciente(pacienteVO.toEntity());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean editarPaciente(PacienteVO pacienteVO) {
+        try {
+            pacienteDAO.atualizarPaciente(pacienteVO.toEntity());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

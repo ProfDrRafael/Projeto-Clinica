@@ -12,12 +12,15 @@ import Persistencia.Entity.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
  * @author rafael
  */
 public class PacienteVO {
+
     OrientadorDAO orientadorDAO = new OrientadorDAO();
     EstagiarioDAO estagiarioDAO = new EstagiarioDAO();
 
@@ -39,7 +42,7 @@ public class PacienteVO {
     private Integer estagiario;
     private Integer orientador;
     private Endereco endereco;
-    private ResponsavelVO responsavel;
+    private Responsavel responsavel;
     private boolean atendido;
     private boolean ativo;
     private Byte grupo; // Campo adicional para grupo
@@ -63,7 +66,7 @@ public class PacienteVO {
             Integer estagiario,
             Integer orientador,
             Endereco endereco,
-            ResponsavelVO responsavel,
+            Responsavel responsavel,
             boolean atendido,
             boolean ativo
     ) {
@@ -107,7 +110,7 @@ public class PacienteVO {
             Integer estagiario,
             Integer orientador,
             Endereco endereco,
-            ResponsavelVO responsavel,
+            Responsavel responsavel,
             boolean atendido,
             boolean ativo,
             Byte grupo,
@@ -138,9 +141,7 @@ public class PacienteVO {
         this.encaminhadoPor = encaminhadoPor;
     }
 
-    public PacienteVO(Integer id, String genero, String telefoneContato, String telefone, String nome, String string, LocalDate dataInscricao, String grauInstrucao, String profissao, String estadoCivil, String racaCorEtnia, String orientacao, Integer nacionalidade, String disponibilidade, Integer estagiario, Integer orientador, Endereco endereco, Responsavel responsavel, Boolean atendido, Boolean ativo, Byte grupo) {
-        System.out.println("VO.PacienteVO.<init>()");
-    }
+
 
     public Integer getId() {
         return id;
@@ -284,11 +285,11 @@ public class PacienteVO {
         this.endereco = endereco;
     }
 
-    public ResponsavelVO getResponsavel() {
+    public Responsavel getResponsavel() {
         return responsavel;
     }
 
-    public void setResponsavel(ResponsavelVO responsavel) {
+    public void setResponsavel(Responsavel responsavel) {
         this.responsavel = responsavel;
     }
 
@@ -345,7 +346,7 @@ public class PacienteVO {
                 null, // Estagiário não definido no Entity original
                 null, // Orientador não definido no Entity original
                 entity.getEndereco(),
-                entity.getResponsavel() != null ? ResponsavelVO.fromEntity(entity.getResponsavel()) : null,
+                entity.getResponsavel(),
                 entity.getAtendido(),
                 entity.getAtivo(),
                 entity.getGrupo(),
@@ -355,14 +356,7 @@ public class PacienteVO {
 
     // Método de conversão de VO para Entity
     public Paciente toEntity() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Padrão ISO 8601
-        LocalDate dataNascimento = null;
-
-        try {
-            dataNascimento = LocalDate.parse(this.dataNascimento, formatter);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Data de nascimento inválida: " + this.dataNascimento + ". Use o formato yyyy-MM-dd.", e);
-        }
+        LocalDate dataNascimento = parseDate(this.dataNascimento);
 
         Pais paisResultado = PaisDAO.buscarPorId(this.nacionalidade);
 
@@ -373,25 +367,41 @@ public class PacienteVO {
         paciente.setTelefone(this.celular);
         paciente.setNome(this.paciente);
         paciente.setDataNascimento(dataNascimento);
+        paciente.setDataInscricao(LocalDate.now());
         paciente.setGrauInstrucao(this.instrucao);
+        paciente.setGenero(genero);
         paciente.setProfissao(this.profissao);
         paciente.setEstadoCivil(this.estadoCivil);
         paciente.setRacaCorEtnia(this.raca_cor_etnia);
         paciente.setNacionalidade(paisResultado);
-        paciente.setDisponibilidade(this.disponibilidade);
+        paciente.setDisponibilidade(disponibilidade);
         paciente.setEndereco(endereco);
-        // Verificação para evitar NullPointerException
-        if (this.responsavel != null) {
-            paciente.setResponsavel(this.responsavel.toEntity());
-        } else {
-            paciente.setResponsavel(null);
-        }
+        paciente.setResponsavel(responsavel);
+        paciente.setOrientacao_sexual(orientacao);
         paciente.setAtendido(this.atendido);
         paciente.setAtivo(this.ativo);
         paciente.setGrupo(this.grupo);
         paciente.setEncaminhadoPor(this.encaminhadoPor);
 
         return paciente;
+    }
+
+    public LocalDate parseDate(String dateStr) {
+        List<DateTimeFormatter> formatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        );
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDate.parse(dateStr, formatter);
+            } catch (DateTimeParseException e) {
+                // Tenta o próximo formato
+            }
+        }
+
+        throw new IllegalArgumentException("Data inválida: " + dateStr + ". Formatos aceitos: dd-MM-yyyy, yyyy-MM-dd, dd/MM/yyyy");
     }
 
     @Override

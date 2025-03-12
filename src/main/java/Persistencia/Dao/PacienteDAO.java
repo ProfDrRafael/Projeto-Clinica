@@ -5,10 +5,13 @@
 package Persistencia.Dao;
 
 import Persistencia.Entity.Paciente;
+import Persistencia.Entity.Responsavel;
 import VO.PacienteVO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
+import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +23,7 @@ import java.util.List;
  * @author john
  */
 public class PacienteDAO extends GenericoDAO<Paciente> {
+
     private static final Logger logger = LoggerFactory.getLogger(GenericoDAO.class);
     private Paciente pacienteDAO;
 
@@ -74,7 +78,14 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         Paciente entity = null;
         try {
             em = JPAUtil.getEntityManager();
-            entity = em.find(entityClass, id);
+
+            entity = em.createQuery(
+                    "SELECT p FROM Paciente p LEFT JOIN FETCH p.endereco e LEFT JOIN FETCH e.cidade WHERE p.id = :id",
+                    Paciente.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            logger.error("Paciente não encontrado para o ID: " + id);
         } catch (Exception e) {
             logger.error("Erro ao buscar o Paciente por ID: ", e);
         } finally {
@@ -116,11 +127,67 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         return pacientesVO;
     }
 
+    public void editarPaciente(PacienteVO pacienteVO) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
+
+        try {
+            em = JPAUtil.getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
+            Paciente pacienteEntity = em.find(Paciente.class, pacienteVO.getId());
+            if (pacienteEntity == null) {
+                throw new IllegalArgumentException("Paciente não encontrado para o ID: " + pacienteVO.getId());
+            }
+
+            // Atualizar os dados do paciente
+            pacienteEntity.setNome(pacienteVO.getNome());
+            pacienteEntity.setGenero(pacienteVO.getGenero());
+            pacienteEntity.setTelefoneContato(pacienteVO.getCelularContato());
+            pacienteEntity.setTelefone(pacienteVO.getCelular());
+            pacienteEntity.setDataNascimento(LocalDate.parse(pacienteVO.getDataNascimento()));
+            pacienteEntity.setGrauInstrucao(pacienteVO.getInstrucao());
+            pacienteEntity.setProfissao(pacienteVO.getProfissao());
+            pacienteEntity.setEstadoCivil(pacienteVO.getEstadoCivil());
+            pacienteEntity.setRacaCorEtnia(pacienteVO.getRaca_cor_etnia());
+            pacienteEntity.setDisponibilidade(pacienteVO.getDisponibilidade());
+            pacienteEntity.setEndereco(pacienteVO.getEndereco());
+            pacienteEntity.setAtendido(pacienteVO.isAtendido());
+            pacienteEntity.setAtivo(pacienteVO.isAtivo());
+            pacienteEntity.setGrupo(pacienteVO.getGrupo());
+            pacienteEntity.setEncaminhadoPor(pacienteVO.getEncaminhadoPor());
+
+            // Atualizar o responsável, se necessário
+            if (pacienteVO.getResponsavel() != null) {
+                Responsavel responsavelEntity = em.find(Responsavel.class, pacienteVO.getResponsavel().getId());
+                if (responsavelEntity == null) {
+                    responsavelEntity = pacienteVO.getResponsavel(); // Assumindo que já seja uma entidade gerenciada
+                    em.persist(responsavelEntity);
+                }
+                pacienteEntity.setResponsavel(responsavelEntity);
+            }
+
+            em.merge(pacienteEntity);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            logger.error("Erro ao editar o paciente: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
     /**
      * Busca pacientes pelo nome exato.
      *
      * @param nome Nome exato do paciente a ser buscado.
-     * @return PacienteVO correspondente ao nome exato, ou null se não encontrado.
+     * @return PacienteVO correspondente ao nome exato, ou null se não
+     * encontrado.
      */
     public PacienteVO buscarPorNomePreciso(String nome) {
         EntityManager em = null;
