@@ -46,7 +46,6 @@ public class PacienteVO {
     private boolean atendido;
     private boolean ativo;
     private Byte grupo; // Campo adicional para grupo
-    private String encaminhadoPor;
 
     // Construtor com todos os campos como argumentos
     public PacienteVO(
@@ -113,8 +112,7 @@ public class PacienteVO {
             Responsavel responsavel,
             boolean atendido,
             boolean ativo,
-            Byte grupo,
-            String encaminhadoPor
+            Byte grupo
     ) {
         this.id = id;
         this.nome = nome;
@@ -138,10 +136,7 @@ public class PacienteVO {
         this.atendido = atendido;
         this.ativo = ativo;
         this.grupo = grupo;
-        this.encaminhadoPor = encaminhadoPor;
     }
-
-
 
     public Integer getId() {
         return id;
@@ -317,14 +312,6 @@ public class PacienteVO {
         this.grupo = grupo;
     }
 
-    public String getEncaminhadoPor() {
-        return encaminhadoPor;
-    }
-
-    public void setEncaminhadoPor(String encaminhadoPor) {
-        this.encaminhadoPor = encaminhadoPor;
-    }
-
     // Método de conversão de Entity para VO
     public static PacienteVO fromEntity(Paciente entity) {
         return new PacienteVO(
@@ -349,8 +336,7 @@ public class PacienteVO {
                 entity.getResponsavel(),
                 entity.getAtendido(),
                 entity.getAtivo(),
-                entity.getGrupo(),
-                entity.getEncaminhadoPor()
+                entity.getGrupo()
         );
     }
 
@@ -381,7 +367,6 @@ public class PacienteVO {
         paciente.setAtendido(this.atendido);
         paciente.setAtivo(this.ativo);
         paciente.setGrupo(this.grupo);
-        paciente.setEncaminhadoPor(this.encaminhadoPor);
 
         return paciente;
     }

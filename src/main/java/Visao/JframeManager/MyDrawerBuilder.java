@@ -4,17 +4,12 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.swing.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.*;
 
 import raven.drawer.component.DrawerPanel;
 import raven.drawer.component.SimpleDrawerBuilder;
@@ -132,18 +127,19 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         MenuItem items[] = new MenuItem[]{
             new Item.Label("Principal"), // Label
             new Item("Estatísticas", "dashboard.svg"), // index 0
+            new Item("Calendário", "calendar.svg"), // index 1
             new Item.Label("Menus"), // Label
-            new Item("Administrador", "menu.svg"), // index 1
-            new Item("Orientador", "menu.svg"), // index 2
-            new Item("Secretária", "menu.svg"), // index 3
-            new Item("Estagiário", "menu.svg"), // index 4
+            new Item("Administrador", "menu.svg"), // index 2
+            new Item("Orientador", "menu.svg"), // index 3
+            new Item("Secretária", "menu.svg"), // index 4
+            new Item("Estagiário", "menu.svg"), // index 5
             new Item.Label("Cadastrar"), // Label
-            new Item("Estagiário Cadastro", "user.svg"), // index 5
-            new Item("Usuário", "user.svg"), // index 6
-            new Item("Paciente", "user.svg"), // index 7
-            new Item("Prontuario", "forms.svg"), // index 8
-            new Item("Agenda", "calendar.svg"), // index 9
-            new Item("Formulário de Atendimento", "forms.svg"), // index 10
+            new Item("Estagiário Cadastro", "user.svg"), // index 6
+            new Item("Usuário", "user.svg"), // index 7
+            new Item("Paciente", "user.svg"), // index 8
+            new Item("Prontuario", "forms.svg"), // index 9
+            new Item("Agenda", "calendar.svg"), // index 10
+            new Item("Formulário de Atendimento", "forms.svg"), // index 11
             new Item.Label("Listagem"), // Label
             new Item("Lista de Espera Geral", "listing.svg"), // index 11
             new Item("Lista de Espera Especifica", "listing.svg"), // index 12
@@ -190,6 +186,17 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 return icon; // Retorna o ícone com o filtro aplicado
             }
         };
+        
+        simpleMenuOption.setMenuValidation(new MenuValidation() {
+            @Override
+            public boolean menuValidation(int[] index) {
+                if (user == null) {
+                    return false; // Se o usuário não estiver definido, não mostra nenhum item
+                }
+                String menuName = menuNames.get(index[0]);
+                return allowedMenuNames.contains(menuName);
+            }
+        });
 
         simpleMenuOption.setMenuStyle(new SimpleMenuStyle() {
             @Override
@@ -253,6 +260,9 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                     case "Agenda":
                         FormManager.showForm(new FormAgenda());
                         break;
+                    case "Calendário":
+                        FormManager.showForm(new PageCalendario());
+                        break;
                     case "Formulário de Atendimento":
                         FormManager.showForm(new FormAtendimento());
                         break;
@@ -303,6 +313,9 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         simpleMenuOption.setMenus(items)
                 .setBaseIconPath("Multimidia/menu") // Define o caminho base dos ícones
                 .setIconScale(0.45f); // Define a escala dos ícones
+        
+        
+        
         return simpleMenuOption; // Retorna as opções de menu
     }
 
@@ -352,45 +365,43 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     private Set<String> getAllowedMenuNames(String userType) {
         Set<String> allowedMenus = new HashSet<>();
         switch (userType) {
-            case "Administrador":
-                allowedMenus.addAll(menuNames);
-                break;
-            case "Secretaria":
-            case "Secretária":
+            case "Administrador" -> allowedMenus.addAll(menuNames);
+            case "Secretaria" -> {
                 allowedMenus.add("Estatísticas");
                 allowedMenus.add("Secretária");
                 allowedMenus.add("Estagiário Cadastro");
                 allowedMenus.add("Usuário");
                 allowedMenus.add("Paciente");
                 allowedMenus.add("Agenda");
+                allowedMenus.add("Calendário");
                 allowedMenus.add("Todos os Estagiários");
                 allowedMenus.add("Todos os Pacientes");
                 allowedMenus.add("Todos os Usuários");
                 allowedMenus.add("Deslogar");
-                break;
-            case "Orientador":
+            }
+            case "Orientador" -> {
                 allowedMenus.add("Estatísticas");
                 allowedMenus.add("Orientador");
                 allowedMenus.add("Agenda");
+                allowedMenus.add("Calendário");
                 allowedMenus.add("Formulário de Atendimento");
                 allowedMenus.add("Lista de Espera Geral");
                 allowedMenus.add("Lista de Espera Especifica");
                 allowedMenus.add("Deslogar");
-                break;
-            case "Estagiario":
-            case "Estagiário":
+            }
+            case "Estagiario" -> {
                 allowedMenus.add("Estatísticas");
                 allowedMenus.add("Estagiário");
                 allowedMenus.add("Paciente");
                 allowedMenus.add("Prontuario");
                 allowedMenus.add("Agenda");
+                allowedMenus.add("Calendário");
                 allowedMenus.add("Formulário de Atendimento");
                 allowedMenus.add("Lista de Espera Geral");
                 allowedMenus.add("Lista de Espera Especifica");
                 allowedMenus.add("Deslogar");
-                break;
-            default:
-                allowedMenus.add("Deslogar");
+            }
+            default -> allowedMenus.add("Deslogar");
         }
         return allowedMenus;
     }
