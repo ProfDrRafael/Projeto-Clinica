@@ -1,6 +1,6 @@
 package Visao.Components;
 
-import Persistencia.Dao.ConsultasDinamicas;
+import Persistencia.Dao.TabelaDAO;
 import Persistencia.modelTemp.ModelProfile; // Importa o modelo de dados de perfil
 import Visao.Components.pagination.Pagination; // Importa a classe de paginação
 import Visao.JframeManager.FormManager;
@@ -40,40 +40,55 @@ import net.miginfocom.swing.MigLayout; // Importa layout Mig
 import raven.toast.Notifications;
 import javax.swing.RowFilter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.SwingUtilities;
 
 /**
- * Classe para criar uma tabela personalizada com paginação e recursos adicionais.
- * 
+ * Classe para criar uma tabela personalizada com paginação e recursos
+ * adicionais.
+ *
  * @author john
  */
 public class CreateCustomTable {
-    
-    private static final int ROWS_PER_PAGE = 10; // Número de linhas por página
-    private int totalPages; // Total de páginas
-    private int currentPage = 1; // Página atual
+
+    private static final int ROWS_PER_PAGE = 10;
+    private static final int COLUMN_WIDTH_SMALL = 50;
+    private static final int COLUMN_WIDTH_DEFAULT = 150;
+    private int totalPages;
+    private int currentPage = 1;
     private DefaultTableModel model; // Modelo da tabela
-    private Pagination pagination = new Pagination(); // Instância de paginação
+    private Pagination pagination = new Pagination();
     private String nomeTabela;
     private String[] tabelaColunas;
     private List<Object[]> allDataTable = new ArrayList<>();
     private JTable table;
     private String tipoFormTela;
     private String tableNameDB;
+    private String statusButtonLabel;
+    private boolean acao_ativar_ou_inativar;
     private ArrayList<Integer> selectedRows = new ArrayList<>();
-    
+
     // Variável para armazenar o texto de pesquisa (em minúsculo)
     private String searchQuery = "";
 
-    public CreateCustomTable(String nomeTabela, String[] tabelaColunas, String tipoFormTela, String tableNameDB) {
+    public CreateCustomTable(String nomeTabela, String[] tabelaColunas, String tipoFormTela, String tableNameDB, boolean acao_ativar_ou_inativar, String statusButtonLabel) {
         this.nomeTabela = nomeTabela;
         this.tabelaColunas = tabelaColunas;
         this.tipoFormTela = tipoFormTela;
         this.tableNameDB = tableNameDB;
+        this.acao_ativar_ou_inativar = acao_ativar_ou_inativar;
+        this.statusButtonLabel = statusButtonLabel;
     }
 
     /**
      * Método para criar a tabela personalizada.
-     * 
+     *
+     * @param nomeTabela
+     * @param colunasTabela
+     * @param tipoFormTela
+     * @param tableNameDB
      * @return Componente da tabela personalizada
      */
     public Component createCustomTable(String nomeTabela, String[] colunasTabela, String tipoFormTela, String tableNameDB) {
@@ -81,16 +96,16 @@ public class CreateCustomTable {
         JPanel panel = new JPanel(new MigLayout("fillx,wrap,insets 10 0 10 0", "[fill]", "[][][]0[fill,grow]"));
 
         // Buscar dados do banco
-        List<Object[]> data = ConsultasDinamicas.buscarTabelaConsultaAnonima(nomeTabela);
-        
+        List<Object[]> data = TabelaDAO.buscarTabelaConsultaAnonima(nomeTabela);
+
         // Atualiza a lista global de dados
         allDataTable = data;
 
         // Column names
-        String[] columns = colunasTabela;
-        
+        tabelaColunas = colunasTabela;
+
         // Cria o modelo da tabela com os nomes das colunas
-        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+        DefaultTableModel model = new DefaultTableModel(tabelaColunas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // Permite edição apenas na primeira coluna (checkbox)
@@ -100,8 +115,10 @@ public class CreateCustomTable {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 // Define as classes das colunas (boolean para checkbox)
-                if (columnIndex == 0) return Boolean.class;
-                    return super.getColumnClass(columnIndex);
+                if (columnIndex == 0) {
+                    return Boolean.class;
+                }
+                return super.getColumnClass(columnIndex);
             }
         };
         this.model = model;
@@ -111,11 +128,11 @@ public class CreateCustomTable {
 
         // Criação da tabela
         JTable table = new JTable(model);
-        
+
         // Cria um TableRowSorter para manipular os filtros de exibição
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         table.setRowSorter(sorter);
-        
+
         // Painel de rolagem da tabela
         // Permitir sorting de colunas
         JScrollPane scrollPane = new JScrollPane(table);
@@ -124,18 +141,20 @@ public class CreateCustomTable {
         // Configurações dinâmicas das colunas da tabela
         for (int i = 0; i < colunasTabela.length; i++) {
             TableColumn column = table.getColumnModel().getColumn(i);
-            if (i == 0) {
-                column.setMaxWidth(50); // Coluna de seleção (checkbox)
-            } else if (i == 1) {
-                column.setMaxWidth(50); // Exemplo: coluna de índice
-            } else {
-                column.setPreferredWidth(150); // Configuração padrão
+
+            switch (i) {
+                case 0 ->
+                    column.setMaxWidth(COLUMN_WIDTH_SMALL); // Coluna de seleção (checkbox)
+                case 1 ->
+                    column.setMaxWidth(COLUMN_WIDTH_SMALL); // coluna de índice (IDs)
+                default ->
+                    column.setPreferredWidth(COLUMN_WIDTH_DEFAULT); // Configuração padrão
             }
         }
-        
+
         table.setRowSelectionAllowed(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-                
+
         // Aplica o renderizador de célula de perfil na tabela
         table.setDefaultRenderer(ModelProfile.class, new TableProfileCellRenderer(table));
 
@@ -160,23 +179,27 @@ public class CreateCustomTable {
         scrollPane.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, "trackArc:$ScrollBar.thumbArc;trackInsets:3,3,3,3;thumbInsets:3,3,3,3;background:$Table.background;");
 
         this.table = table;
-        
+
         // Evento para lidar com remoções (listener para alterações na seleção de checkbox)
         model.addTableModelListener(e -> {
             int row = e.getFirstRow();
             int column = e.getColumn();
-            if (column == 0) {
-                Boolean isChecked = (Boolean) model.getValueAt(row, column);
-                if (isChecked) {
-                    if (!selectedRows.contains(row)) {
-                        selectedRows.add(row);
+
+            if (column == 0 && row >= 0 && row < model.getRowCount()) {
+                Object value = model.getValueAt(row, column);
+                if (value instanceof Boolean) {
+                    Boolean isChecked = (Boolean) value;
+                    if (isChecked) {
+                        if (!selectedRows.contains(row)) {
+                            selectedRows.add(row);
+                        }
+                    } else {
+                        selectedRows.remove(Integer.valueOf(row));
                     }
-                } else {
-                    selectedRows.remove(Integer.valueOf(row));
                 }
             }
         });
-        
+
         // Criação do título
         JLabel title = new JLabel("Tabela de Listagem");
         title.putClientProperty(FlatClientProperties.STYLE, "font:bold +2");
@@ -184,17 +207,17 @@ public class CreateCustomTable {
 
         // Criação do cabeçalho com ações
         panel.add(createHeaderAction());
-        
+
         JSeparator separator = new JSeparator();
         separator.putClientProperty(FlatClientProperties.STYLE, "foreground:$Table.gridColor;");
         panel.add(separator, "height 2");
         panel.add(scrollPane);
-        
+
         // Calcula o total de páginas com base em todos os dados carregados (ou filtrados, se houver pesquisa)
         totalPages = (int) Math.ceil((double) table.getRowSorter().getViewRowCount() / ROWS_PER_PAGE);
         // Atualiza o filtro para exibir somente a página atual
         updateRowFilter(currentPage);
-       
+
         // Inicializa e configura a paginação
         pagination = new Pagination();
         pagination.setBackground(new java.awt.Color(0, 102, 102));
@@ -203,23 +226,28 @@ public class CreateCustomTable {
             currentPage = page;
             updateRowFilter(page);
         });
-        
+
         panel.add(pagination, "align center, wrap");
         return panel;
     }
-    
+
     /**
      * Carrega TODOS os dados no modelo, sem filtragem por página.
      */
     private void loadAllData(List<Object[]> data) {
         model.setRowCount(0); // Limpa o modelo
-        for (Object[] row : data) {  
+
+        for (Object[] row : data) {
             Object[] rowData = new Object[this.tabelaColunas.length];
+
             for (int j = 0; j < this.tabelaColunas.length; j++) {
+
                 if (j == 0) {
                     rowData[j] = false; // Checkbox inicializado como false
+
                 } else if (j - 1 < row.length) {
                     rowData[j] = row[j - 1];
+
                 } else {
                     rowData[j] = "...";
                 }
@@ -227,14 +255,18 @@ public class CreateCustomTable {
             model.addRow(rowData);
         }
     }
-    
+
     /**
-     * Atualiza o RowFilter do TableRowSorter para combinar (opcionalmente) a pesquisa
-     * e a exibição apenas dos dados da página atual.
-     * 
+     * Atualiza o RowFilter do TableRowSorter para combinar (opcionalmente) a
+     * pesquisa e a exibição apenas dos dados da página atual.
+     *
      * @param page Página atual a ser exibida
      */
     private void updateRowFilter(int page) {
+        if (table.getRowSorter() == null) {
+            return;
+        }
+
         TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
         // Define o filtro de pesquisa, se houver
         RowFilter<DefaultTableModel, Integer> searchFilter = null;
@@ -279,8 +311,20 @@ public class CreateCustomTable {
         }
     }
 
+    private Object[] getRowData(DefaultTableModel model, int row) {
+        int columnCount = model.getColumnCount();
+        Object[] rowData = new Object[columnCount];
+
+        for (int col = 0; col < columnCount; col++) {
+            rowData[col] = model.getValueAt(row, col);
+        }
+
+        return rowData;
+    }
+
     /**
-     * Cria a barra de ações (pesquisa, cadastrar, editar, remover) para o cabeçalho da tabela.
+     * Cria a barra de ações (pesquisa, cadastrar, editar, remover) para o
+     * cabeçalho da tabela.
      */
     private Component createHeaderAction() {
         JPanel panel = new JPanel(new MigLayout("insets 5 20 5 20", "[fill,230]push[][]"));
@@ -290,73 +334,191 @@ public class CreateCustomTable {
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("Multimidia/icon/search.svg", 0.4f));
         JButton cmdCreate = new JButton("Cadastrar");
         JButton cmdEdit = new JButton("Editar");
-        JButton cmdDelete = new JButton("Remover");
-        
+        JButton cmdInativar = new JButton(statusButtonLabel);
+
         cmdCreate.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 switch (tipoFormTela) {
-                    case "Lista de Espera Geral":
+                    case "Lista de Espera Geral" ->
                         FormManager.showForm(new FormPaciente());
-                        break;
-                    case "Lista de Espera Especifica":
+                    case "Lista de Espera Especifica" ->
                         FormManager.showForm(new FormPaciente());
-                        break;
-                    case "Agendamentos":
+                    case "Agendamentos" ->
                         FormManager.showForm(new FormAgenda());
-                        break;
-                    case "Atendimentos":
+                    case "Atendimentos" ->
                         FormManager.showForm(new FormAtendimento());
-                        break;
-                    case "Todos os Estagiários":
+                    case "Todos os Estagiários" ->
                         FormManager.showForm(new FormUsuario());
-                        break;
-                    case "Todos os Pacientes":
+                    case "Todos os Pacientes" ->
                         FormManager.showForm(new FormPaciente());
-                        break;
-                    case "Todos os Usuários":
+                    case "Todos os Usuários" ->
                         FormManager.showForm(new FormUsuario());
-                        break;
-                    default:
+                    default ->
                         FormManager.showForm(new PageWelcome());
-                        break;
                 }
             }
         });
-        
+
         cmdEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Lógica para editar registros
+                int[] selectedRows = table.getSelectedRows();
+
+                if (selectedRows.length != 1) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, 
+                        selectedRows.length == 0 ? "Selecione um paciente para editar." : "Selecione apenas um paciente para editar.");
+                    return;
+                }
+
+                int selectedRow = selectedRows[0];  
+                Object idObj = model.getValueAt(selectedRow, 1);
+                Integer id = null;
+
+                try {
+                    id = Integer.valueOf(idObj.toString());
+                } catch (NumberFormatException ex) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao obter o ID do paciente.");
+                    return;
+                }
+
+                if (id == null) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao obter o ID do paciente.");
+                    return;
+                }
+
+                FormPaciente pacienteForm = new FormPaciente();
+
+                try {
+                    switch (tipoFormTela) {
+                        case "Lista de Espera Geral":
+                            pacienteForm.preencherDadosFormulario(id);
+                            FormManager.showForm(pacienteForm);
+                            break;
+
+                        case "Lista de Espera Especifica":
+                            pacienteForm.preencherDadosFormulario(id);
+                            FormManager.showForm(pacienteForm);
+                            break;
+
+                        case "Agendamentos":
+                            FormManager.showForm(new FormAgenda());
+                            break;
+
+                        case "Atendimentos":
+                            FormManager.showForm(new FormAtendimento());
+                            break;
+
+                        case "Todos os Estagiários":
+                            FormManager.showForm(new FormUsuario());
+                            break;
+
+                        case "Todos os Pacientes":
+                            pacienteForm.preencherDadosFormulario(id);
+                            FormManager.showForm(pacienteForm);
+                            break;
+
+                        case "Todos os Usuários":
+                            FormManager.showForm(new FormUsuario());
+                            break;
+
+                        default:
+                            FormManager.showForm(new PageWelcome());
+                            break;
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Erro ao editar paciente: " + ex);
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao carregar os dados do paciente.");
+                }
             }
         });
-        
-        cmdDelete.addActionListener(new ActionListener() {
+
+        cmdInativar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (selectedRows.size() > 0) {
-                    MessagesAlert.showWarningMessage("Deseja continuar?", response -> {
+                    MessagesAlert.showWarningMessage("Deseja inativar esse registro?", response -> {
                         if (response) {
-                            List<Object> selectedIds = new ArrayList<>();
+                            Map<String, List<Object>> userTypeMap = new HashMap<>();
                             List<Integer> rowsToRemove = new ArrayList<>(selectedRows);
+                            List<Object> selectedIds = new ArrayList<>();
+
                             for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
                                 int row = rowsToRemove.get(i);
-                                Object id = model.getValueAt(row, 1);  
-                                selectedIds.add(id);
-                                
-                                boolean result;
-                                if(tableNameDB == "Usuarios"){
-                                    String tipoUsuario = (String) model.getValueAt(row, 4);
-                                    result = ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tipoUsuario);
-                                } else {
-                                    result = ConsultasDinamicas.deletarRegistroConsultaAnonima(selectedIds, tableNameDB);
+
+                                if (row >= 0 && row < model.getRowCount()) {
+                                    Object id = model.getValueAt(row, 1);
+
+                                    if ("Usuarios".equals(tableNameDB)) {
+                                        String tipoUsuario = (String) model.getValueAt(row, 4);
+
+                                        userTypeMap.computeIfAbsent(tipoUsuario, k -> new ArrayList<>()).add(id);
+
+                                    } else {
+                                        selectedIds.add(id);
+                                    }
                                 }
-                                
-                                if(result){
-                                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Registros removidos com sucesso");
-                                    model.removeRow(row);
-                                } else {
-                                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao remover registros");
-                                }    
                             }
-                            selectedRows.clear();
+
+                            boolean allSuccess = true;
+
+                            if ("Usuarios".equals(tableNameDB)) {
+                                for (Map.Entry<String, List<Object>> entry : userTypeMap.entrySet()) {
+                                    if (entry.getKey().equals("Administrador")) {
+                                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Não é possível remover o administrador!");
+                                        return;
+                                    }
+
+                                    boolean result = TabelaDAO.inativarRegistroConsultaAnonima(entry.getValue(), tableNameDB, acao_ativar_ou_inativar, entry.getKey());
+
+                                    if (!result) {
+                                        allSuccess = false;
+                                    }
+                                }
+                            } else {
+                                if ("Paciente".equals(tableNameDB)) {
+                                    allSuccess = TabelaDAO.inativarPacienteArquivoMorto(selectedIds);
+
+                                } else {
+
+                                    allSuccess = TabelaDAO.inativarRegistroConsultaAnonima(selectedIds, tableNameDB, acao_ativar_ou_inativar, "");
+
+                                }
+                            }
+
+                            if (allSuccess) {
+                                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Registros inativados com sucesso");
+                                List<Integer> viewRowsToRemove = new ArrayList<>(selectedRows);
+                                TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
+
+                                Collections.sort(viewRowsToRemove, Collections.reverseOrder());
+
+                                for (Integer viewRow : viewRowsToRemove) {
+                                    try {
+                                        int modelRow = sorter.convertRowIndexToModel(viewRow);
+
+                                        if (modelRow >= 0 && modelRow < model.getRowCount()) {
+                                            model.removeRow(modelRow);
+                                        }
+                                    } catch (IndexOutOfBoundsException error) {
+                                        System.err.println("Erro ao remover linha: " + viewRow + " - " + error.getMessage());
+                                    }
+                                }
+
+                                selectedRows.clear();
+
+                                int totalFiltered = sorter.getViewRowCount();
+                                totalPages = (int) Math.ceil((double) totalFiltered / ROWS_PER_PAGE);
+
+                                if (currentPage > totalPages) {
+                                    currentPage = totalPages;
+                                }
+
+                                updateRowFilter(currentPage);
+                                pagination.setPagegination(currentPage, totalPages);
+
+                            } else {
+                                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao inativar registros");
+                            }
+
                         }
                     });
                 } else {
@@ -364,17 +526,17 @@ public class CreateCustomTable {
                 }
             }
         });
-        
+
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(cmdCreate, "/Multimidia/imagens/view.png", 10);
+        redimencionarIcone.redimensionarIcones(cmdCreate, "/Multimidia/imagens/plus-cadastrar.png", 10);
         redimencionarIcone.redimensionarIcones(cmdEdit, "/Multimidia/imagens/edit.png", 10);
-        redimencionarIcone.redimensionarIcones(cmdDelete, "/Multimidia/imagens/delete.png", 10);
+        redimencionarIcone.redimensionarIcones(cmdInativar, "/Multimidia/imagens/cadeado.png", 10);
 
         panel.add(txtSearch);
         panel.add(cmdCreate);
         panel.add(cmdEdit);
-        panel.add(cmdDelete);
-        
+        panel.add(cmdInativar);
+
         // Ouvinte para atualização da pesquisa: a cada alteração, atualiza a variável de pesquisa,
         // recalcula o total de páginas e redefine o filtro (resetando para a página 1)
         txtSearch.getDocument().addDocumentListener(new DocumentListener() {
@@ -392,7 +554,7 @@ public class CreateCustomTable {
             public void changedUpdate(DocumentEvent e) {
                 updateSearch();
             }
-            
+
             private void updateSearch() {
                 searchQuery = txtSearch.getText().toLowerCase();
                 TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();

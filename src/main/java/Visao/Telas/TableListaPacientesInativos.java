@@ -11,23 +11,28 @@ import java.awt.BorderLayout;
  *
  * @author john
  */
-public class TableListaEstagiarios extends SimpleForm {
+public class TableListaPacientesInativos extends SimpleForm {
     
     /**
      * Creates new form listaEsperaTable
      */
-    public TableListaEstagiarios() {
+    public TableListaPacientesInativos() {
         initComponents();
         
-        String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Ativo", "Ano", "Orientador"};
-        String queryTable = "SELECT id, nome, email, ativo, ano, orientador_id FROM estagiario WHERE ativo = 1";
-        boolean acao_ativar_ou_inativar = false;
+        String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil", "Data Inscrição", "Disponiblidade"};
+        String queryTable = """
+                            SELECT p.id, p.nome, p.telefone, p.data_nascimento, p.genero, p.estado_civil, p.data_inscricao, p.disponibilidade 
+                            FROM paciente p
+                            LEFT JOIN arquivo_morto am ON p.id = am.paciente_id
+                            WHERE am.paciente_id IS NOT NULL""";
+        
+        boolean acao_ativar_ou_inativar = true;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Inativar");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Pacientes Inativos", "Paciente", acao_ativar_ou_inativar, "Ativar");
 
-        painel_lista_espera.setLayout(new BorderLayout());
+        painel_lista_espera.setLayout(new BorderLayout()); 
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Lista de Pacientes Inativos", "Paciente"), BorderLayout.CENTER);
     }
 
     /**
@@ -100,18 +105,18 @@ public class TableListaEstagiarios extends SimpleForm {
 
         lbOrientador.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        lbOrientador.setText("Lista de Estagiários");
+        lbOrientador.setText("Lista de Pacientes Inativos");
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
+                .addContainerGap(87, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addGap(0, 618, Short.MAX_VALUE))
+                .addGap(0, 569, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

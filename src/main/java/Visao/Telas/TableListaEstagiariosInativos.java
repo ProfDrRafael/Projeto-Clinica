@@ -11,19 +11,19 @@ import java.awt.BorderLayout;
  *
  * @author john
  */
-public class TableListaEstagiarios extends SimpleForm {
+public class TableListaEstagiariosInativos extends SimpleForm {
     
     /**
      * Creates new form listaEsperaTable
      */
-    public TableListaEstagiarios() {
+    public TableListaEstagiariosInativos() {
         initComponents();
         
         String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Ativo", "Ano", "Orientador"};
-        String queryTable = "SELECT id, nome, email, ativo, ano, orientador_id FROM estagiario WHERE ativo = 1";
-        boolean acao_ativar_ou_inativar = false;
+        String queryTable = "SELECT id, nome, email, ativo, ano, orientador_id FROM estagiario WHERE ativo = 0";
+        boolean acao_ativar_ou_inativar = true;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Inativar");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Ativar");
 
         painel_lista_espera.setLayout(new BorderLayout());
 

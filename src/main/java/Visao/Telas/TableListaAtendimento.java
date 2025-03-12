@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.CreateCustomTable;
 import Visao.Components.SimpleForm;
 import java.awt.BorderLayout;
@@ -12,23 +13,22 @@ import java.awt.BorderLayout;
  * @author john
  */
 public class TableListaAtendimento extends SimpleForm {
-    
+
     /**
      * Creates new form listaEsperaTable
      */
     public TableListaAtendimento() {
         initComponents();
-     
-        String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Preenchido", "Comparecimento","Plantão", "Prontuário", "Estagiário"};
+
+        String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Preenchido", "Comparecimento", "Plantão", "Prontuário", "Estagiário"};
         String queryTable = "SELECT id, data, hora, preenchido, comparecimento, plantao, prontuario_id, estagiario_id FROM atendimento";
-        
-        // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento");
+        boolean acao_ativar_ou_inativar = false;
 
-        // Set up the painel_lista_espera layout
-        painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
-        // Add the custom table to the center of the panel
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento", acao_ativar_ou_inativar, "Inativar");
+
+        painel_lista_espera.setLayout(new BorderLayout());
+
         painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento"), BorderLayout.CENTER);
     }
 

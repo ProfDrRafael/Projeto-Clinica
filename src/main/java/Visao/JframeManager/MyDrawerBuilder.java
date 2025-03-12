@@ -152,9 +152,12 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Todos os Estagiários", "listing.svg"), // index 15
             new Item("Todos os Pacientes", "listing.svg"), // index 16
             new Item("Todos os Usuários", "listing.svg"), // index 17
+            new Item("Todos os Pacientes Inativos", "listing.svg"), // index 18
+            new Item("Todos os Estagiários Inativos", "listing.svg"), // index 19
+            new Item("Todos os Usuários Inativos", "listing.svg"), // index 20
             new Item.Label("Outros"), // Label
-            new Item("Configurações", "settings.svg"), // index 18
-            new Item("Deslogar", "logout.svg") // index 19
+            new Item("Configurações", "settings.svg"), // index 21
+            new Item("Deslogar", "logout.svg") // index 22
         };
 
         // Construir a lista de nomes de menu sem labels
@@ -273,6 +276,15 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         break;
                     case "Todos os Usuários":
                         FormManager.showForm(new TableListaUsuarios());
+                        break;
+                    case "Todos os Pacientes Inativos":
+                        FormManager.showForm(new TableListaPacientesInativos());
+                        break;
+                    case "Todos os Estagiários Inativos":
+                        FormManager.showForm(new TableListaEstagiariosInativos());
+                        break;
+                    case "Todos os Usuários Inativos":
+                        FormManager.showForm(new TableListaUsuariosInativos());
                         break;
                     case "Configurações":
                         FormManager.showForm(new PageWelcome());

@@ -21,14 +21,13 @@ public class TableListaAgenda extends SimpleForm {
      
         String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Sala", "Atendimento","Paciente", "Estagiário"};
         String queryTable = "SELECT id, data, hora, sala, atendimento_id, paciente_id, estagiario_id FROM agenda";
+        boolean acao_ativar_ou_inativar = false;
         
-        // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Agendamentos", "Agenda");
+        
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Agendamentos", "Agenda", acao_ativar_ou_inativar, "Inativar");
 
-        // Set up the painel_lista_espera layout
-        painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
+        painel_lista_espera.setLayout(new BorderLayout()); 
 
-        // Add the custom table to the center of the panel
         painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Agendamentos", "Agenda"), BorderLayout.CENTER);
     }
 

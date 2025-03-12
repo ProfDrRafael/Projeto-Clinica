@@ -11,23 +11,23 @@ import java.awt.BorderLayout;
  *
  * @author john
  */
-public class TableListaEstagiarios extends SimpleForm {
+public class TableListaUsuariosInativos extends SimpleForm {
     
     /**
      * Creates new form listaEsperaTable
      */
-    public TableListaEstagiarios() {
+    public TableListaUsuariosInativos() {
         initComponents();
         
-        String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Ativo", "Ano", "Orientador"};
-        String queryTable = "SELECT id, nome, email, ativo, ano, orientador_id FROM estagiario WHERE ativo = 1";
-        boolean acao_ativar_ou_inativar = false;
+        String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Tipo"};
+        String queryTable = "SELECT id, nome, email, 'Estagiario' AS origem FROM estagiario WHERE ativo = 0 UNION ALL SELECT id, nome, email, 'Orientador' AS origem FROM orientador WHERE ativo = 0 UNION ALL SELECT id, nome, email, 'Secretaria' AS origem FROM secretaria WHERE ativo = 0 ;";
+        boolean acao_ativar_ou_inativar = true;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Inativar");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios", acao_ativar_ou_inativar, "Ativar");
 
-        painel_lista_espera.setLayout(new BorderLayout());
+        painel_lista_espera.setLayout(new BorderLayout()); 
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios"), BorderLayout.CENTER);
     }
 
     /**
@@ -100,18 +100,18 @@ public class TableListaEstagiarios extends SimpleForm {
 
         lbOrientador.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        lbOrientador.setText("Lista de Estagiários");
+        lbOrientador.setText("Lista de Usuários");
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
+                .addContainerGap(151, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addGap(0, 618, Short.MAX_VALUE))
+                .addGap(0, 634, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

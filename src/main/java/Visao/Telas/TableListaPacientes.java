@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.CreateCustomTable;
 import Visao.Components.SimpleForm;
 import java.awt.BorderLayout;
@@ -13,23 +14,25 @@ import java.awt.BorderLayout;
  */
 public class TableListaPacientes extends SimpleForm {
 
-    
     /**
      * Creates new form listaEsperaTable
      */
     public TableListaPacientes() {
         initComponents();
-        
-        String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil"};
-        String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil FROM paciente";
-        
-        // Initialize the CreateCustomTable instance with the table name
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Pacientes", "Paciente");
 
-        // Set up the painel_lista_espera layout
-        painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
+        String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero", "Estado Civil"};
+        String queryTable = """
+                            SELECT p.id, p.nome, p.telefone, p.data_nascimento, p.genero, p.estado_civil 
+                            FROM paciente p
+                            LEFT JOIN arquivo_morto am ON p.id = am.paciente_id
+                            WHERE am.paciente_id IS NULL""";
+        
+        boolean acao_ativar_ou_inativar = false;
 
-        // Add the custom table to the center of the panel
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Pacientes", "Paciente", acao_ativar_ou_inativar, "Inativar");
+
+        painel_lista_espera.setLayout(new BorderLayout());
+
         painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Pacientes", "Paciente"), BorderLayout.CENTER);
     }
 
@@ -138,6 +141,5 @@ public class TableListaPacientes extends SimpleForm {
     private javax.swing.JPanel painel_lista_espera;
     private javax.swing.JTable tbListaEsperaNaoAtendidos;
     // End of variables declaration//GEN-END:variables
-
 
 }
