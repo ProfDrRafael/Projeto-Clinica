@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Persistencia.Dao.ProntuarioDAO;
 import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Paciente;
 import Regradenegocio.EstagiarioRN;
@@ -14,7 +13,6 @@ import Visao.Components.SimpleForm;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.RedimencionarIcones;
 
-import Persistencia.Dao.EstagiarioDAO;
 import Visao.Utils.MessagesAlert;
 
 import javax.swing.*;
@@ -48,7 +46,6 @@ public class FormProntuario extends SimpleForm {
         EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegritoQueixa, btItalicoQueixa, btSublinhadoQueixa);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpObservacoes);
 
-        configurarCampoEncaminhadoPor();
         inicializarComboBoxEstagiarios();
     }
 
@@ -79,9 +76,7 @@ public class FormProntuario extends SimpleForm {
         jScrollPane4 = new javax.swing.JScrollPane();
         tpObservacoes = new javax.swing.JTextPane();
         jSeparator2 = new javax.swing.JSeparator();
-        lbEncaminhado = new javax.swing.JLabel();
         cbPaciente = new javax.swing.JComboBox<>();
-        tfEncaminhadoPor = new javax.swing.JTextField();
         btNegritoObs = new javax.swing.JButton();
         btItalicoObs = new javax.swing.JButton();
         btSublinhadoObs = new javax.swing.JButton();
@@ -175,13 +170,7 @@ public class FormProntuario extends SimpleForm {
         tpObservacoes.setFont(cbEstagiario.getFont());
         jScrollPane4.setViewportView(tpObservacoes);
 
-        lbEncaminhado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbEncaminhado.setForeground(new java.awt.Color(0, 102, 102));
-        lbEncaminhado.setText("*Encaminhado por:");
-
         cbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
-        tfEncaminhadoPor.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout pnFormLayout = new javax.swing.GroupLayout(pnForm);
         pnForm.setLayout(pnFormLayout);
@@ -203,11 +192,9 @@ public class FormProntuario extends SimpleForm {
                         .addGap(20, 20, 20)
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnFormLayout.createSequentialGroup()
-                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfEncaminhadoPor)
+                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlEstagiario)
-                                    .addComponent(cbEstagiario, 0, 449, Short.MAX_VALUE)
-                                    .addComponent(lbEncaminhado))
+                                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnFormLayout.createSequentialGroup()
@@ -229,7 +216,7 @@ public class FormProntuario extends SimpleForm {
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnFormLayout.createSequentialGroup()
                                         .addComponent(jlQueixaInicial)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                                         .addComponent(btNegritoQueixa)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btItalicoQueixa)
@@ -254,13 +241,9 @@ public class FormProntuario extends SimpleForm {
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbPaciente)
                             .addComponent(cbEstagiario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createSequentialGroup()
-                                .addComponent(lbEncaminhado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfEncaminhadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -300,7 +283,7 @@ public class FormProntuario extends SimpleForm {
             }
 
             messagesAlert.showSuccessMessage("Prontuário salvo com sucesso!");
-//            limparFormulario();
+            //            limparFormulario();
         } catch (Exception e) {
             messagesAlert.showErrorMessage("Erro ao salvar o prontuário: " + e.getMessage());
         }
@@ -327,11 +310,9 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JLabel jlPaciente;
     private javax.swing.JLabel jlQueixaInicial;
     private javax.swing.JLabel lbClinica;
-    private javax.swing.JLabel lbEncaminhado;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel pnForm;
-    private javax.swing.JTextField tfEncaminhadoPor;
     private javax.swing.JTextPane tpObservacoes;
     private javax.swing.JTextPane tpQueixa;
     // End of variables declaration//GEN-END:variables
@@ -344,21 +325,37 @@ public class FormProntuario extends SimpleForm {
             SessaoRN sessaoRN = new SessaoRN();
             SessaoVO sessaoAtual = sessaoRN.buscarUltimaSessao(); // Obtém a sessão atual
 
+            // Verifica se a sessão foi encontrada
+            if (sessaoAtual == null) {
+                bloquearCampos();
+                messagesAlert.showErrorMessage("Sessão não encontrada. Por favor, faça login novamente.");
+                return;
+            }
+
             EstagiarioRN estagiarioRN = new EstagiarioRN();
             List<EstagiarioVO> estagiariosVO = estagiarioRN.listarEstagiarios();
             List<Estagiario> estagiarios = estagiariosVO.stream()
                     .map(EstagiarioVO::toEntity)
                     .toList();
 
+            // Se não houver estagiários cadastrados, bloqueia os campos e exibe a mensagem
+            if (estagiarios == null || estagiarios.isEmpty()) {
+                bloquearCampos();
+                cbEstagiario.setModel(new DefaultComboBoxModel<>()); // Limpa o combo box
+                messagesAlert.showErrorMessage("Não há estagiários cadastrados no sistema.");
+                return;
+            }
+
+            // Prepara o modelo para o combo box e atribui-o
             DefaultComboBoxModel<Estagiario> modelo = new DefaultComboBoxModel<>();
             for (Estagiario estagiario : estagiarios) {
                 modelo.addElement(estagiario);
             }
             cbEstagiario.setModel(modelo);
 
-            // Verifica se o tipo da sessão atual é "Estagiario"
+            // Verifica se a sessão é de um estagiário
             if ("Estagiario".equalsIgnoreCase(sessaoAtual.getTipo())) {
-                // Filtra o estagiário correspondente ao e-mail da sessão
+                // Procura o estagiário que corresponde ao e-mail da sessão
                 Estagiario estagiarioSessao = estagiarios.stream()
                         .filter(estagiario -> estagiario.getEmail().equals(sessaoAtual.getEmail()))
                         .findFirst()
@@ -368,17 +365,26 @@ public class FormProntuario extends SimpleForm {
                     cbEstagiario.setSelectedItem(estagiarioSessao); // Seleciona o estagiário
                     cbEstagiario.setEnabled(false); // Desabilita o combo box
                     carregarPacientesPorEstagiario(); // Atualiza a lista de pacientes
+                } else {
+                    // Caso o estagiário da sessão não esteja na lista cadastrada
+                    bloquearCampos();
+                    messagesAlert.showErrorMessage("Estagiário da sessão não está cadastrado no sistema.");
+                    return;
                 }
             } else {
-                cbEstagiario.setSelectedIndex(-1); // Caso não seja um estagiário, deixa o combo box livre
+                // Se a sessão for de outro tipo (ex: coordenador ou administrador), deixa o combo box sem seleção
+                cbEstagiario.setSelectedIndex(-1);
             }
 
             // Adiciona o listener para carregar pacientes ao selecionar um estagiário
             cbEstagiario.addActionListener(e -> carregarPacientesPorEstagiario());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar estagiários: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//            messagesAlert.showErrorMessage("Erro ao carregar estagiários: " + e.getMessage());
+            bloquearCampos();
+            messagesAlert.showErrorMessage("Estagiário da sessão não está cadastrado no sistema.");
         }
     }
+
 
     /**
      * Carrega os pacientes do estagiário selecionado no comboBox de pacientes.
@@ -403,7 +409,6 @@ public class FormProntuario extends SimpleForm {
                     for (ActionListener al : cbPaciente.getActionListeners()) {
                         cbPaciente.removeActionListener(al);
                     }
-                    cbPaciente.addActionListener(e -> atualizarEncaminhadoPor());
                 } catch (Exception e) {
                     messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
                 }
@@ -413,23 +418,6 @@ public class FormProntuario extends SimpleForm {
         } catch (Exception e) {
             messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
         }
-    }
-
-
-    /**
-     * Atualiza o campo "EncaminhadoPor" com base no paciente selecionado.
-     */
-    private void atualizarEncaminhadoPor() {
-        Paciente pacienteSelecionado = (Paciente) cbPaciente.getSelectedItem();
-        if (pacienteSelecionado != null) {
-            tfEncaminhadoPor.setText(pacienteSelecionado.getEncaminhadoPor() != null ? pacienteSelecionado.getEncaminhadoPor() : "Não informado");
-        } else {
-            tfEncaminhadoPor.setText("");
-        }
-    }
-
-    private void configurarCampoEncaminhadoPor() {
-        tfEncaminhadoPor.setEditable(false); // Torna o campo somente leitura
     }
 
     private boolean validarCampos() {
@@ -468,5 +456,21 @@ public class FormProntuario extends SimpleForm {
         return true;
     }
 
-
+    private void bloquearCampos() {
+        cbEstagiario.setEnabled(false);
+        cbEstagiario.setSelectedIndex(-1);
+        cbPaciente.setEnabled(false);
+        cbPaciente.setSelectedIndex(-1);
+        tpObservacoes.setEnabled(false);
+        tpQueixa.setEnabled(false);
+        btNegritoObs.setEnabled(false);
+        btItalicoObs.setEnabled(false);
+        btSublinhadoObs.setEnabled(false);
+        btNegritoQueixa.setEnabled(false);
+        btItalicoQueixa.setEnabled(false);
+        btSublinhadoQueixa.setEnabled(false);
+        btSalvar.setEnabled(false);
+        btHistoricoAtendimentos.setEnabled(false);
+        btEditar.setEnabled(false);
+    }
 }

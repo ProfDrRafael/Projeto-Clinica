@@ -5,9 +5,7 @@
 package Visao.Telas;
 
 import Persistencia.Dao.EstagiarioDAO;
-import Persistencia.Dao.OrientadorDAO;
 import Persistencia.Entity.Estagiario;
-import Persistencia.Entity.Orientador;
 import Regradenegocio.EstagiarioRN;
 import Regradenegocio.OrientadorRN;
 import VO.EstagiarioVO;
@@ -16,7 +14,6 @@ import Visao.Components.SimpleForm;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 import java.util.List;
-
 
 /**
  *
@@ -82,7 +79,7 @@ public class FormEstagiario extends SimpleForm {
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
-        pNorth.setPreferredSize(new java.awt.Dimension(638, 183));
+        pNorth.setPreferredSize(new java.awt.Dimension(638, 189));
 
         lbClinica.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
@@ -97,20 +94,20 @@ public class FormEstagiario extends SimpleForm {
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(149, 149, 149)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addContainerGap(682, Short.MAX_VALUE))
+                .addContainerGap(410, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 60, Short.MAX_VALUE)
+                .addGap(0, 69, Short.MAX_VALUE)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 69, Short.MAX_VALUE))
+                .addGap(0, 61, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -173,7 +170,7 @@ public class FormEstagiario extends SimpleForm {
                 .addGap(18, 18, 18)
                 .addComponent(btSalvar)
                 .addGap(29, 29, 29))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1014, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +219,7 @@ public class FormEstagiario extends SimpleForm {
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btEditar)
                     .addComponent(btSalvar))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -314,12 +311,18 @@ public class FormEstagiario extends SimpleForm {
     // End of variables declaration//GEN-END:variables
 
     private void carregarEstagiarios() {
-        EstagiarioDAO estagiarioDAO = new EstagiarioDAO();
-        List<Estagiario> estagiarios = estagiarioDAO.buscarTodos();
+        try {
+            EstagiarioDAO estagiarioDAO = new EstagiarioDAO();
+            List<Estagiario> estagiarios = estagiarioDAO.buscarTodos();
 
-        cbEstagiario.removeAllItems();
-        for (Estagiario estagiario : estagiarios) {
-            cbEstagiario.addItem(estagiario.getNome());
+            cbEstagiario.removeAllItems();
+            for (Estagiario estagiario : estagiarios) {
+                cbEstagiario.addItem(estagiario.getNome());
+            }
+        }
+        catch (Exception e) {
+            messagesAlert.showErrorMessage("Não há estagiários cadastrados no sistema.");
+            bloquearTodosOsCampos();
         }
     }
 
@@ -344,5 +347,14 @@ public class FormEstagiario extends SimpleForm {
         tfData.setEnabled(!bloquear);
         cbAtivo.setEnabled(!bloquear);
         btSalvar.setEnabled(!bloquear);
+    }
+
+    private void bloquearTodosOsCampos() {
+        cbEstagiario.setEnabled(false);
+        cbOrientador.setEnabled(false);
+        tfData.setEnabled(false);
+        cbAtivo.setEnabled(false);
+        btEditar.setEnabled(false);
+        btSalvar.setEnabled(false);
     }
 }

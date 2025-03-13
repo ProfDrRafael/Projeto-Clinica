@@ -16,11 +16,12 @@ import java.util.function.Consumer;
  * @author john
  */
 public class FormProduzirRelato extends SimpleForm {
-    private Consumer<String> onRelatoSubmetido;
+    private final Consumer<String> onRelatoSubmetido;
     private final MessagesAlert messagesAlert;
 
     /**
      * Creates new form atendimentoForm
+     * @param onRelatoSubmetido
      */
     public FormProduzirRelato(Consumer<String> onRelatoSubmetido) {
         this.onRelatoSubmetido = onRelatoSubmetido;
@@ -148,7 +149,7 @@ public class FormProduzirRelato extends SimpleForm {
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -169,11 +170,11 @@ public class FormProduzirRelato extends SimpleForm {
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(219, Short.MAX_VALUE)
+                .addContainerGap(149, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addGap(0, 564, Short.MAX_VALUE))
+                .addGap(0, 657, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

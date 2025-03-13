@@ -25,6 +25,7 @@ public class FormLogin extends SimpleForm {
 
     /**
      * Creates new form formLogin
+     * @param autenticacaoService
      */
     public FormLogin(AutenticacaoService autenticacaoService) {
         this.autenticacaoService = autenticacaoService;
@@ -240,7 +241,6 @@ public class FormLogin extends SimpleForm {
             UsuarioVO usuario = autenticacaoService.autenticar(email, senha);
 
             messagesAlert.showSuccessMessage("Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
-            System.out.println(usuario.getTipo());
             FormManager.login(usuario);
         } catch (RuntimeException ex) {
             messagesAlert.showErrorMessage("Erro de autenticação: " + ex.getMessage());

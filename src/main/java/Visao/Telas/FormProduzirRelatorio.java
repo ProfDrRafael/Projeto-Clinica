@@ -10,7 +10,6 @@ import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 
-import javax.swing.*;
 import java.util.function.Consumer;
 
 /**
@@ -18,10 +17,11 @@ import java.util.function.Consumer;
  * @author john
  */
 public class FormProduzirRelatorio extends SimpleForm {
-    private Consumer<String> onRelatoSubmetido;
+    private final Consumer<String> onRelatoSubmetido;
 
     /**
      * Creates new form atendimentoForm
+     * @param onRelatoSubmetido
      */
     public FormProduzirRelatorio(Consumer<String> onRelatoSubmetido) {
         this.onRelatoSubmetido = onRelatoSubmetido;
