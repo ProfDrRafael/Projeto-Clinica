@@ -45,9 +45,6 @@ public class Paciente {
     @Column(name = "orientacao_sexual")
     private String orientacao_sexual;
 
-    @Column(name = "encaminhado_por", length = 100)
-    private String encaminhadoPor;
-
     @Lob
     @Column(name = "estado_civil")
     private String estadoCivil;
@@ -155,14 +152,6 @@ public class Paciente {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public String getEncaminhadoPor() {
-        return encaminhadoPor;
-    }
-
-    public void setEncaminhadoPor(String encaminhadoPor) {
-        this.encaminhadoPor = encaminhadoPor;
     }
 
     public String getEstadoCivil() {

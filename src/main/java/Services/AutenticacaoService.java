@@ -3,11 +3,8 @@ package Services;
 import Persistencia.Dao.*;
 import Persistencia.Entity.*;
 import VO.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AutenticacaoService {
-    private static final Logger logger = LoggerFactory.getLogger(AutenticacaoService.class);
 
     private final OrientadorDAO orientadorDAO;
     private final EstagiarioDAO estagiarioDAO;
@@ -68,7 +65,6 @@ public class AutenticacaoService {
                 estagiario.getAtivo(),
                 estagiario.getAno(),
                 estagiario.getSemestreFim(),
-                estagiario.getAnoFim(),
                 orientadorVO
         );
     }

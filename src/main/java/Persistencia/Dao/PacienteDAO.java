@@ -156,7 +156,6 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
             pacienteEntity.setAtendido(pacienteVO.isAtendido());
             pacienteEntity.setAtivo(pacienteVO.isAtivo());
             pacienteEntity.setGrupo(pacienteVO.getGrupo());
-            pacienteEntity.setEncaminhadoPor(pacienteVO.getEncaminhadoPor());
 
             // Atualizar o responsável, se necessário
             if (pacienteVO.getResponsavel() != null) {
