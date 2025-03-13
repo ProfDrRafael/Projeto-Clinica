@@ -1,18 +1,28 @@
 package Regradenegocio;
 
 import Persistencia.Dao.AgendaDAO;
+import Persistencia.Dao.EstagiarioDAO;
+import Persistencia.Dao.OrientadorDAO;
 import Persistencia.Entity.Agenda;
 import VO.AgendaVO;
+import VO.EstagiarioVO;
+import VO.OrientadorVO;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AgendaRN {
     private final AgendaDAO agendaDAO;
+    private final OrientadorDAO orientadorDAO;
+    private final EstagiarioDAO estagiarioDAO;
 
     public AgendaRN() {
         this.agendaDAO = new AgendaDAO();
+        this.orientadorDAO = new OrientadorDAO();
+        this.estagiarioDAO = new EstagiarioDAO();
     }
 
     /**
@@ -48,12 +58,55 @@ public class AgendaRN {
      *
      * @return Lista de objetos AgendaVO representando as agendas cadastradas.
      */
-//    public List<AgendaVO> listarTodas() {
-//        List<Agenda> agendas = agendaDAO.listarTodos(); // Obtém todas as entidades do banco
-//        return agendas.stream()
-//                .map(AgendaVO::new) // Converte cada entidade para VO
-//                .toList();
-//    }
+    public List<AgendaVO> listarTodas() {
+        List<Agenda> agendas = agendaDAO.listarTodos(); // Obtém todas as entidades do banco
+        System.out.println(agendas); 
+        
+        if(agendas != null){
+            return agendas.stream()
+                    .map(AgendaVO::fromEntity)
+                    .collect(Collectors.toList());
+            
+        }
+        
+        return new ArrayList<>();
+    }
+    
+    /**
+     * Lista as agendas dos alunos do Orientador.
+     * (OBS.: Esse método pressupõe que a entidade Agenda possua uma referência ao orientador, 
+     *  por exemplo, através do paciente: a.paciente.orientador.id)
+     * @param email
+     * @return 
+     */
+    public List<AgendaVO> listarPorOrientador(String email) {
+        OrientadorVO orientador = OrientadorVO.fromEntity(orientadorDAO.buscarPorEmail(email)); 
+        List<Agenda> agendas = agendaDAO.buscarPorOrientador(orientador);
+        System.out.println(agendas);
+        if (agendas != null) {
+            return agendas.stream()
+                    .map(AgendaVO::fromEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+    
+    /**
+     * Lista as agendas do Estagiário.
+     * @param email
+     * @return 
+     */
+    public List<AgendaVO> listarPorEstagiario(String email) {
+        EstagiarioVO estagiario = EstagiarioVO.fromEntity(estagiarioDAO.buscarPorEmail(email));
+        List<Agenda> agendas = agendaDAO.buscarPorEstagiario(estagiario);
+        System.out.println(agendas);
+        if (agendas != null) {
+            return agendas.stream()
+                    .map(AgendaVO::fromEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
 
     /**
      * Busca uma agenda por ID.

@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package VO;
 
 import Persistencia.Entity.Agenda;
-
+import Persistencia.Entity.Atendimento;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- *
- * @author rafael
- */
 public class AgendaVO {
     private Integer id;
     private LocalDate data; // Alterado para LocalDate
@@ -24,17 +16,17 @@ public class AgendaVO {
     private PacienteVO pacienteVO;
     private EstagiarioVO estagiarioVO;
 
-    private Integer atendimentoId; // Pode ser nulo
+    private AtendimentoVO atendimentoVO; // Pode ser nulo
 
     // Construtor completo
-    public AgendaVO(Integer id, LocalDate data, LocalTime hora, Byte sala, PacienteVO pacienteVO, EstagiarioVO estagiarioVO, Integer atendimentoId) {
+    public AgendaVO(Integer id, LocalDate data, LocalTime hora, Byte sala, PacienteVO pacienteVO, EstagiarioVO estagiarioVO, AtendimentoVO atendimentoVO) {
         this.id = id;
         this.data = data;
         this.hora = hora;
         this.sala = sala;
         this.pacienteVO = pacienteVO;
         this.estagiarioVO = estagiarioVO;
-        this.atendimentoId = atendimentoId;
+        this.atendimentoVO = atendimentoVO;
     }
 
     /**
@@ -109,12 +101,25 @@ public class AgendaVO {
         this.estagiarioVO = estagiarioVO;
     }
 
-    public Integer getAtendimentoId() {
-        return atendimentoId;
+    public AtendimentoVO getAtendimentoId() {
+        return atendimentoVO;
     }
 
-    public void setAtendimentoId(Integer atendimentoId) {
-        this.atendimentoId = atendimentoId;
+    public void setAtendimentoId(AtendimentoVO atendimentoVO) {
+        this.atendimentoVO = atendimentoVO;
+    }
+    
+    // Método de conversão de Entity para VO
+    public static AgendaVO fromEntity(Agenda entity) {
+        return new AgendaVO(
+            entity.getId(),
+            entity.getData(),
+            entity.getHora(),
+            entity.getSala(),
+            entity.getPaciente() != null ? PacienteVO.fromEntity(entity.getPaciente()) : null,
+            entity.getEstagiario() != null ? EstagiarioVO.fromEntity(entity.getEstagiario()) : null,
+            entity.getAtendimento() != null ? AtendimentoVO.fromEntity(entity.getAtendimento()) : null
+        );
     }
 
     // Método de conversão de VO para Entity
@@ -136,9 +141,11 @@ public class AgendaVO {
         }
 
         // Associa atendimento por ID, se existir
-        if (this.getAtendimentoId() != null && this.getAtendimentoId() > 0) {
-            var atendimento = new Persistencia.Entity.Atendimento();
-            atendimento.setId(this.getAtendimentoId());
+        if (this.getAtendimentoId() != null 
+                && this.getAtendimentoId().getId() != null 
+                && this.getAtendimentoId().getId() > 0) {
+            Atendimento atendimento = new Atendimento();
+            atendimento.setId(this.getAtendimentoId().getId());
             agenda.setAtendimento(atendimento);
         }
 
@@ -162,9 +169,11 @@ public class AgendaVO {
         }
 
         // Atualiza o atendimento por ID, se existir
-        if (this.getAtendimentoId() != null && this.getAtendimentoId() > 0) {
-            var atendimento = new Persistencia.Entity.Atendimento();
-            atendimento.setId(this.getAtendimentoId());
+        if (this.getAtendimentoId() != null 
+                && this.getAtendimentoId().getId() != null 
+                && this.getAtendimentoId().getId() > 0) {
+            Atendimento atendimento = new Atendimento();
+            atendimento.setId(this.getAtendimentoId().getId());
             agenda.setAtendimento(atendimento);
         }
     }
@@ -178,7 +187,7 @@ public class AgendaVO {
                 ", sala=" + sala +
                 ", pacienteVO=" + (pacienteVO != null ? pacienteVO.getPaciente() : null) +
                 ", estagiarioVO=" + (estagiarioVO != null ? estagiarioVO.getNomeCompleto() : null) +
-                ", atendimentoId=" + atendimentoId +
+                ", atendimentoVO=" + (atendimentoVO != null ? atendimentoVO.getId() : null) +
                 '}';
     }
 }

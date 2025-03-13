@@ -35,11 +35,11 @@ public class Atendimento {
     @Column(name = "relato_atendimento")
     private String relatoAtendimento;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "prontuario_id", nullable = false)
     private Persistencia.Entity.Prontuario prontuario;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estagiario_id", nullable = false)
     private Persistencia.Entity.Estagiario estagiario;
 

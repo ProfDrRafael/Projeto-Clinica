@@ -11,10 +11,8 @@ import javax.swing.*;
 
 import Visao.Components.MainForm; // Componente principal do formulário
 import Visao.Components.SimpleForm; // Classe base para formulários simples
-import Persistencia.modelTemp.ModelUser; // Modelo de usuário
 import Visao.Slider.PanelSlider; // Painel que implementa transições deslizantes
 import Visao.Slider.SimpleTransition; // Transições simples para o PanelSlider
-import Visao.Telas.FormEsqueciSenha;
 import Visao.Utils.UndoRedo;
 import Visao.Telas.FormLogin;
 import Visao.Telas.PageWelcome;
@@ -187,8 +185,7 @@ public class FormManager {
             MyDrawerBuilder drawerBuilder = (MyDrawerBuilder) instance.menu.getDrawerBuilder();
             System.out.println(user);
             drawerBuilder.setUser(user); // Define o usuário no menu
-
-
+            
             // Exibe a interface principal
             instance.frame.repaint();
             instance.frame.revalidate();

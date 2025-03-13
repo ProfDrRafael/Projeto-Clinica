@@ -5,6 +5,9 @@ import jakarta.persistence.EntityTransaction;
 
 import static Persistencia.Dao.JPAUtil.getEntityManager;
 import Persistencia.Entity.Agenda;
+import VO.EstagiarioVO;
+import VO.OrientadorVO;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
@@ -57,14 +60,32 @@ public class AgendaDAO extends GenericoDAO<Agenda> {
     /**
      * Busca uma lista de agendas por estagiário.
      *
-     * @param estagiarioId ID do estagiário.
+     * @param estagiario
      * @return Lista de agendas associadas ao estagiário.
      */
-    public List<Agenda> buscarPorEstagiarioId(int estagiarioId) {
+    public List<Agenda> buscarPorEstagiario(EstagiarioVO estagiario) {
         EntityManager em = getEntityManager();
         try {
             return em.createQuery("SELECT a FROM Agenda a WHERE a.estagiario.id = :estagiarioId", Agenda.class)
-                    .setParameter("estagiarioId", estagiarioId)
+                    .setParameter("estagiarioId", estagiario.getId())
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    /**
+     * Busca agendas dos alunos do orientador.
+     * Ajuste a query conforme a estrutura do seu modelo.
+     * @param orientadorId
+     * @return 
+     */
+    public List<Agenda> buscarPorOrientador(OrientadorVO orientador) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT a FROM Agenda a WHERE a.estagiario.orientador.id = :orientadorId", Agenda.class)
+                    .setParameter("orientadorId", orientador.getId())
                     .getResultList();
         } finally {
             em.close();
@@ -96,4 +117,14 @@ public class AgendaDAO extends GenericoDAO<Agenda> {
             em.close();
         }
     }
+    
+    public List<Agenda> listarTodos() {
+        EntityManager em;
+        em = JPAUtil.getEntityManager();
+        TypedQuery<Agenda> query = em.createQuery(
+            "SELECT a FROM Agenda a ORDER BY hora", Agenda.class
+        );
+        return query.getResultList();
+    }
+    
 }

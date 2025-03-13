@@ -24,6 +24,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -51,26 +53,10 @@ public class FormAtendimento extends SimpleForm {
         EditorTextPaneEstilization.JTextComponentStylization(tpDescricao, btNegrito, btItalico, btSublinhado);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpDescricao);
 
+        
         inicializarComboBoxPacientes();
+        tfData.setVisible(false);
     }
-
-//    public FormAtendimento(String relato) {
-//        this();
-//        initComponents();
-//        //redimensionarIcones();
-//
-//        if (relato != null && !relato.trim().isEmpty()) {
-//            tpDescricao.setText(relato);
-//        }
-//
-////        EditorTextPaneEstilization.EstilizeEditorTextPane(tpDescricao);
-//
-//        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-//        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
-//        redimencionarIcone.redimensionarIcones(btAnexar, "/Multimidia/imagens/anexar.png");
-//
-//        inicializarComboBoxPacientes();
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,7 +121,7 @@ public class FormAtendimento extends SimpleForm {
         lbData.setText("*Data:");
 
         lbNomeResponsavel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbNomeResponsavel.setText("Beltrano");
+        lbNomeResponsavel.setText(" ");
 
         btAnexar.setBackground(new java.awt.Color(204, 204, 204));
         btAnexar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -179,9 +165,15 @@ public class FormAtendimento extends SimpleForm {
         lbEmergencial.setText("Emergencial:");
 
         cbEmergencial.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbEmergencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEmergencialActionPerformed(evt);
+            }
+        });
 
         cbData.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbData.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        tfData.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
@@ -199,79 +191,83 @@ public class FormAtendimento extends SimpleForm {
                 .addGap(44, 44, 44))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane4)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbPaciente)
+                    .addComponent(cbbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ldDescricao)
                     .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbPaciente)
-                            .addComponent(cbbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pCentroLayout.createSequentialGroup()
-                                .addComponent(lbResponsavel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbNomeResponsavel))
-                            .addComponent(ldDescricao))
-                        .addGap(60, 60, 60)
+                        .addComponent(lbResponsavel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbNomeResponsavel)))
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pCentroLayout.createSequentialGroup()
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbData)
-                                    .addGroup(pCentroLayout.createSequentialGroup()
-                                        .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbHora)
-                                    .addComponent(ftfHora, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE))
-                            .addGroup(pCentroLayout.createSequentialGroup()
-                                .addComponent(lbEmergencial)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(pCentroLayout.createSequentialGroup()
-                                .addComponent(cbEmergencial, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btNegrito)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btItalico)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btSublinhado)))))
+                                .addComponent(btSublinhado))
+                            .addGroup(pCentroLayout.createSequentialGroup()
+                                .addComponent(cbEmergencial)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfData)
+                                    .addComponent(lbEmergencial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbData)
+                            .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbHora)
+                            .addComponent(ftfHora, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4)
+                .addContainerGap())
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lbPaciente))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbData)
-                            .addComponent(lbHora))))
+                .addGap(21, 21, 21)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbPaciente)
+                    .addComponent(lbData)
+                    .addComponent(lbHora))
                 .addGap(18, 18, 18)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfData)
+                    .addComponent(ftfHora)
                     .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(cbbPaciente)
-                        .addComponent(ftfHora)
-                        .addComponent(cbData)))
+                        .addComponent(cbData)
+                        .addComponent(cbbPaciente)))
                 .addGap(18, 18, 18)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNomeResponsavel)
-                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbNomeResponsavel)
                         .addGroup(pCentroLayout.createSequentialGroup()
-                            .addComponent(lbResponsavel)
-                            .addGap(29, 29, 29)
+                            .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(pCentroLayout.createSequentialGroup()
+                                    .addComponent(lbResponsavel)
+                                    .addGap(29, 29, 29))
+                                .addGroup(pCentroLayout.createSequentialGroup()
+                                    .addComponent(cbEmergencial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(23, 23, 23)))
                             .addComponent(ldDescricao))
                         .addGroup(pCentroLayout.createSequentialGroup()
                             .addComponent(lbEmergencial)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cbEmergencial, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btNegrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btSublinhado))))
+                            .addGap(15, 15, 15)
+                            .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btNegrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btSublinhado)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
@@ -280,7 +276,7 @@ public class FormAtendimento extends SimpleForm {
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btAnexar))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lbNomeResponsavel.getAccessibleContext().setAccessibleName("");
@@ -303,11 +299,11 @@ public class FormAtendimento extends SimpleForm {
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(248, Short.MAX_VALUE)
+                .addContainerGap(244, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addGap(0, 593, Short.MAX_VALUE))
+                .addGap(0, 589, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,6 +317,16 @@ public class FormAtendimento extends SimpleForm {
 
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbEmergencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEmergencialActionPerformed
+        if (cbEmergencial.isSelected()) {
+            tfData.setVisible(true);
+        } else {
+            tfData.setVisible(false);
+        }
+        pCentro.revalidate(); // Atualiza o layout do painel
+//        pCentro.repaint();    // Redesenha o painel
+    }//GEN-LAST:event_cbEmergencialActionPerformed
 
     private void btAnexarActionPerformed(java.awt.event.ActionEvent evt) {
         FormProduzirRelato formRelato = new FormProduzirRelato(relato -> {
@@ -423,32 +429,28 @@ public class FormAtendimento extends SimpleForm {
             PacienteRN pacienteRN = new PacienteRN();
             List<PacienteVO> pacientes = pacienteRN.listarPacientes();
 
+            if (pacientes == null || pacientes.isEmpty()) {
+                bloquearCampos();
+                messagesAlert.showErrorMessage("Não há pacientes cadastrados no sistema.");
+                return;
+            }
+
             DefaultComboBoxModel<PacienteVO> modelo = new DefaultComboBoxModel<>();
             for (PacienteVO paciente : pacientes) {
                 modelo.addElement(paciente);
             }
+
             cbbPaciente.setModel((DefaultComboBoxModel) modelo);
             cbbPaciente.setSelectedIndex(-1);
 
             // Adiciona o listener para reagir à mudança de seleção
             cbbPaciente.addActionListener(e -> atualizarNomeResponsavel());
         } catch (Exception e) {
-            messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage());
+            messagesAlert.showErrorMessage("Erro ao carregar pacientes!");
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Erro ao carregar pacientes", e);
         }
     }
 
-//    private void atualizarNomeResponsavel() {
-//        PacienteVO pacienteSelecionado = (PacienteVO) cbbPaciente.getSelectedItem();
-//        if (pacienteSelecionado != null) {
-//            if (pacienteSelecionado.getResponsavel() != null) {
-//                lbNomeResponsavel.setText(pacienteSelecionado.getResponsavel().getNome());
-//            } else {
-//                lbNomeResponsavel.setText("");
-//            }
-//        } else {
-//            lbNomeResponsavel.setText("");
-//        }
-//    }
     private void atualizarNomeResponsavel() {
         PacienteVO pacienteSelecionado = (PacienteVO) cbbPaciente.getSelectedItem();
         if (pacienteSelecionado != null) {
@@ -472,6 +474,20 @@ public class FormAtendimento extends SimpleForm {
         ftfHora.setText("");
         tpDescricao.setText("");
         cbEmergencial.setSelected(false);
+    }
+
+    private void bloquearCampos() {
+        cbbPaciente.setEnabled(false);
+        cbData.setEnabled(false);
+        ftfHora.setEnabled(false);
+        tpDescricao.setEnabled(false);
+        cbEmergencial.setEnabled(false);
+        btSalvar.setEnabled(false);
+        btAnexar.setEnabled(false);
+        btNegrito.setEnabled(false);
+        btItalico.setEnabled(false);
+        btSublinhado.setEnabled(false);
+        tfData.setEnabled(false);
     }
 
     private void carregarDatasAtendimentos(Integer pacienteId) {
@@ -553,5 +569,5 @@ public class FormAtendimento extends SimpleForm {
 
         return true;
     }
-
+    
 }
