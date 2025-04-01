@@ -24,7 +24,7 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         boolean acao_ativar_ou_inativar = false;
         
         
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente", acao_ativar_ou_inativar, "Inativar");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout()); 
 

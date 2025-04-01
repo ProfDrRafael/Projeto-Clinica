@@ -23,7 +23,7 @@ public class TableListaEstagiarios extends SimpleForm {
         String queryTable = "SELECT id, nome, email, ativo, ano, orientador_id FROM estagiario WHERE ativo = 1";
         boolean acao_ativar_ou_inativar = false;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Inativar");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout());
 

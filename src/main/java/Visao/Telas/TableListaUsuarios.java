@@ -23,7 +23,7 @@ public class TableListaUsuarios extends SimpleForm {
         String queryTable = "SELECT id, nome, email, 'Administrador' AS origem FROM administrador UNION ALL SELECT id, nome, email, 'Estagiario' AS origem FROM estagiario WHERE ativo = 1 UNION ALL SELECT id, nome, email, 'Orientador' AS origem FROM orientador WHERE ativo = 1 UNION ALL SELECT id, nome, email, 'Secretaria' AS origem FROM secretaria WHERE ativo = 1 ;";
         boolean acao_ativar_ou_inativar = false;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios", acao_ativar_ou_inativar, "Inativar");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout()); 
 

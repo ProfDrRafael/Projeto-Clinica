@@ -28,7 +28,7 @@ public class TableListaPacientesInativos extends SimpleForm {
         
         boolean acao_ativar_ou_inativar = true;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Pacientes Inativos", "Paciente", acao_ativar_ou_inativar, "Ativar");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Pacientes Inativos", "Paciente", acao_ativar_ou_inativar, "Ativar", "/Multimidia/imagens/cadeado_desbloqueado.png");
 
         painel_lista_espera.setLayout(new BorderLayout()); 
 

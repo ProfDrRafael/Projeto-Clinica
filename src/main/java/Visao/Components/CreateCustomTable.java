@@ -69,17 +69,19 @@ public class CreateCustomTable {
     private String statusButtonLabel;
     private boolean acao_ativar_ou_inativar;
     private ArrayList<Integer> selectedRows = new ArrayList<>();
+    private String iconeAtivacao;
 
     // Variável para armazenar o texto de pesquisa (em minúsculo)
     private String searchQuery = "";
 
-    public CreateCustomTable(String nomeTabela, String[] tabelaColunas, String tipoFormTela, String tableNameDB, boolean acao_ativar_ou_inativar, String statusButtonLabel) {
+    public CreateCustomTable(String nomeTabela, String[] tabelaColunas, String tipoFormTela, String tableNameDB, boolean acao_ativar_ou_inativar, String statusButtonLabel, String iconeAtivacao) {
         this.nomeTabela = nomeTabela;
         this.tabelaColunas = tabelaColunas;
         this.tipoFormTela = tipoFormTela;
         this.tableNameDB = tableNameDB;
         this.acao_ativar_ou_inativar = acao_ativar_ou_inativar;
         this.statusButtonLabel = statusButtonLabel;
+        this.iconeAtivacao = iconeAtivacao;
     }
 
     /**
@@ -530,7 +532,7 @@ public class CreateCustomTable {
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(cmdCreate, "/Multimidia/imagens/plus-cadastrar.png", 10);
         redimencionarIcone.redimensionarIcones(cmdEdit, "/Multimidia/imagens/edit.png", 10);
-        redimencionarIcone.redimensionarIcones(cmdInativar, "/Multimidia/imagens/cadeado.png", 10);
+        redimencionarIcone.redimensionarIcones(cmdInativar, iconeAtivacao, 10);
 
         panel.add(txtSearch);
         panel.add(cmdCreate);
