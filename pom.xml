@@ -150,5 +150,11 @@
             <version>2.0.0</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>jfreechart</groupId>
+            <artifactId>JFreeChart</artifactId>
+            <version>1.5.3</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

@@ -27,6 +27,7 @@ import Visao.Telas.*;
 import Visao.Utils.MessagesAlert;
 import raven.swing.AvatarIcon;
 import VO.UsuarioVO;
+import Visao.Components.SimpleForm;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
@@ -224,88 +225,12 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         });
 
 
-        // Define o comportamento dos eventos de menu
         simpleMenuOption.addMenuEvent(new MenuEvent() {
             @Override
             public void selected(MenuAction action, int[] index) {
                 String menuName = menuNames.get(index[0]);
-                switch (menuName) {
-                    case "Estatísticas":
-                        FormManager.showForm(new TableEstatisticas());
-                        break;
-                    case "Administrador":
-                        FormManager.showForm(new MenuAdministrador());
-                        break;
-                    case "Orientador":
-                        FormManager.showForm(new MenuOrientador());
-                        break;
-                    case "Secretária":
-                        FormManager.showForm(new MenuSecretaria());
-                        break;
-                    case "Estagiário":
-                        FormManager.showForm(new MenuEstagiario());
-                        break;
-                    case "Estagiário Cadastro":
-                        FormManager.showForm(new FormEstagiario());
-                        break;
-                    case "Usuário":
-                        FormManager.showForm(new FormUsuario());
-                        break;
-                    case "Paciente":
-                        FormManager.showForm(new FormPaciente());
-                        break;
-                    case "Prontuario":
-                        FormManager.showForm(new FormProntuario());
-                        break;
-                    case "Agenda":
-                        FormManager.showForm(new FormAgenda());
-                        break;
-                    case "Calendário":
-                        FormManager.showForm(new PageCalendario());
-                        break;
-                    case "Formulário de Atendimento":
-                        FormManager.showForm(new FormAtendimento());
-                        break;
-                    case "Lista de Espera Geral":
-                        FormManager.showForm(new TableListaEsperaGeral());
-                        break;
-                    case "Lista de Espera Especifica":
-                        FormManager.showForm(new TableListaEsperaEspecifica());
-                        break;
-                    case "Agendamentos":
-                        FormManager.showForm(new TableListaAgenda());
-                        break;
-                    case "Atendimentos":
-                        FormManager.showForm(new TableListaAtendimento());
-                        break;
-                    case "Todos os Estagiários":
-                        FormManager.showForm(new TableListaEstagiarios());
-                        break;
-                    case "Todos os Pacientes":
-                        FormManager.showForm(new TableListaPacientes());
-                        break;
-                    case "Todos os Usuários":
-                        FormManager.showForm(new TableListaUsuarios());
-                        break;
-                    case "Todos os Pacientes Inativos":
-                        FormManager.showForm(new TableListaPacientesInativos());
-                        break;
-                    case "Todos os Estagiários Inativos":
-                        FormManager.showForm(new TableListaEstagiariosInativos());
-                        break;
-                    case "Todos os Usuários Inativos":
-                        FormManager.showForm(new TableListaUsuariosInativos());
-                        break;
-                    case "Configurações":
-                        FormManager.showForm(new PageWelcome());
-                        break;
-                    case "Deslogar":
-                        MessagesAlert logout = new MessagesAlert();
-                        logout.MessageAlertDesconectarOpcoes();
-                        break;
-                    default:
-                        System.out.println("Nenhum formulário correspondente encontrado para o menu: " + menuName);
-                }
+
+                FormManager.showForm(new PageProgressBar(() -> FormManager.showForm(getFormByName(menuName))));
             }
         });
 
@@ -318,6 +243,36 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         
         return simpleMenuOption; // Retorna as opções de menu
     }
+    
+    private SimpleForm getFormByName(String menuName) {
+        return switch (menuName) {
+            case "Estatísticas" -> new TableEstatisticas();
+            case "Administrador" -> new MenuAdministrador();
+            case "Orientador" -> new MenuOrientador();
+            case "Secretária" -> new MenuSecretaria();
+            case "Estagiário" -> new MenuEstagiario();
+            case "Estagiário Cadastro" -> new FormEstagiario();
+            case "Usuário" -> new FormUsuario();
+            case "Paciente" -> new FormPaciente();
+            case "Prontuário" -> new FormProntuario();
+            case "Agenda" -> new FormAgenda();
+            case "Calendário" -> new PageCalendario();
+            case "Formulário de Atendimento" -> new FormAtendimento();
+            case "Lista de Espera Geral" -> new TableListaEsperaGeral();
+            case "Lista de Espera Específica" -> new TableListaEsperaEspecifica();
+            case "Agendamentos" -> new TableListaAgenda();
+            case "Atendimentos" -> new TableListaAtendimento();
+            case "Todos os Estagiários" -> new TableListaEstagiarios();
+            case "Todos os Pacientes" -> new TableListaPacientes();
+            case "Toos os Usuários" -> new TableListaUsuarios();
+            case "Todos os Pacientes Inativos" -> new TableListaPacientesInativos();
+            case "Todos os Estagiários Inativos" -> new TableListaEstagiariosInativos();
+            case "Todos os Usuários Inativos" -> new TableListaUsuariosInativos();
+            case "Configurações" -> new PageWelcome();
+            default -> new PageWelcome();
+        };
+    }
+    
 
     /**
      * Configura o painel do menu lateral (drawer).

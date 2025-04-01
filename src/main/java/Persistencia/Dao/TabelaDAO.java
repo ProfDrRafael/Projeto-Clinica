@@ -4,11 +4,8 @@
  */
 package Persistencia.Dao;
 
-import Persistencia.Entity.Administrador;
-import com.formdev.flatlaf.util.StringUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
