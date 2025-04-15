@@ -4,7 +4,14 @@
  */
 package Visao.Telas;
 
+import Services.ArticleData;
+import Services.NewsApiService;
+import Visao.Components.Carousel;
 import Visao.Components.SimpleForm;
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -12,11 +19,37 @@ import Visao.Components.SimpleForm;
  */
 public class PageWelcome extends SimpleForm {
 
+    private JPanel pSouth;
+    private Carousel carousel;
+
     /**
      * Creates new form PageWelcome
      */
     public PageWelcome() {
         initComponents();
+        initCarousel();
+
+    }
+
+    private void initCarousel() {
+        SwingUtilities.invokeLater(() -> {
+            NewsApiService newsService = new NewsApiService();
+
+            new Thread(() -> {
+                List<ArticleData> artigos = newsService.fetchTopPsychologyHeadlines();
+
+                SwingUtilities.invokeLater(() -> {
+                    carousel = new Carousel(artigos); 
+                    pSouth = new JPanel(new BorderLayout());
+                    pSouth.setPreferredSize(new java.awt.Dimension(1024, 200));
+                    pSouth.add(carousel, BorderLayout.CENTER);
+
+                    add(pSouth, BorderLayout.SOUTH);
+                    revalidate(); 
+                    repaint();
+                });
+            }).start();
+        });
     }
 
     /**
