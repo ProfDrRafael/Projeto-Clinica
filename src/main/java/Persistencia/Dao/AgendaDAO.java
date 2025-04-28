@@ -127,4 +127,13 @@ public class AgendaDAO extends GenericoDAO<Agenda> {
         return query.getResultList();
     }
     
+    public List<Agenda> buscarAgendamentosPlantao() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT a FROM Agenda a WHERE a.plantao = true", Agenda.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

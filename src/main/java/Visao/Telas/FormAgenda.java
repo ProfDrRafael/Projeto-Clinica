@@ -6,21 +6,19 @@ package Visao.Telas;
 
 import Regradenegocio.AgendaRN;
 import Regradenegocio.EstagiarioRN;
+import Regradenegocio.EstagiarioXPacienteRN;
 import Regradenegocio.PacienteRN;
 import VO.AgendaVO;
 import VO.EstagiarioVO;
+import VO.EstagiarioXPacienteVO;
 import VO.PacienteVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
-
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -28,6 +26,7 @@ import java.util.List;
  * @author john
  */
 public class FormAgenda extends SimpleForm {
+
     private final MessagesAlert messagesAlert;
 
     /**
@@ -40,14 +39,32 @@ public class FormAgenda extends SimpleForm {
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
-        
+
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
         EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegrito, btItalico, btSublinhado);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpObservacoes);
 
+        cbTipoAtendimento.setSelectedIndex(-1);
         carregarEstagiarios();
         carregarPacientes();
         adicionarListenerPaciente();
+    }
+
+    // Novo construtor para pré-carregar data e hora
+    public FormAgenda(LocalDate data, LocalTime hora, byte sala) {
+        this(); // Chama o construtor padrão (que chama initComponents())
+        // Pré-carrega o campo de data no formato "dd-MM-yyyy"
+        tfData.setText(data.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        tfData.setEnabled(false);
+
+        // Pré-carrega a hora no combobox. 
+        // Converte o LocalTime para String no formato esperado ("H:mm")
+        String horaFormatada = hora.format(DateTimeFormatter.ofPattern("H:mm"));
+        cbHora.setSelectedItem(horaFormatada);
+        cbHora.setEnabled(false);
+
+        cbSala.setSelectedIndex(sala - 1);
+        cbSala.setEnabled(false);
     }
 
     /**
@@ -83,10 +100,12 @@ public class FormAgenda extends SimpleForm {
         tfData = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tpObservacoes = new javax.swing.JTextPane();
-        cbEstagiario1 = new javax.swing.JComboBox<>();
+        cbPaciente = new javax.swing.JComboBox<>();
         btNegrito = new javax.swing.JButton();
         btItalico = new javax.swing.JButton();
         btSublinhado = new javax.swing.JButton();
+        lbTipoAtendimento = new javax.swing.JLabel();
+        cbTipoAtendimento = new javax.swing.JComboBox<>();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
@@ -184,8 +203,19 @@ public class FormAgenda extends SimpleForm {
         tpObservacoes.setFont(cbSala.getFont());
         jScrollPane1.setViewportView(tpObservacoes);
 
-        cbEstagiario1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbEstagiario1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
+        cbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        lbTipoAtendimento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbTipoAtendimento.setForeground(new java.awt.Color(0, 102, 102));
+        lbTipoAtendimento.setText("*Tipo Atendimento:");
+
+        cbTipoAtendimento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbTipoAtendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Triagem", "Psicoterapia", "Grupo" }));
+        cbTipoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoAtendimentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
@@ -200,22 +230,6 @@ public class FormAgenda extends SimpleForm {
                 .addGap(76, 76, 76))
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pCentroLayout.createSequentialGroup()
-                                .addComponent(lbPaciente)
-                                .addGap(236, 236, 236))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                                .addComponent(cbEstagiario1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)))
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbCelular)
-                            .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ftfCelular2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbContato2)))
                     .addGroup(pCentroLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,13 +258,35 @@ public class FormAgenda extends SimpleForm {
                                 .addComponent(btItalico)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btSublinhado))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pCentroLayout.createSequentialGroup()
+                                .addComponent(lbTipoAtendimento)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pCentroLayout.createSequentialGroup()
+                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pCentroLayout.createSequentialGroup()
+                                        .addComponent(lbPaciente)
+                                        .addGap(236, 236, 236))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                                        .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21)))
+                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbCelular)
+                                    .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
+                                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ftfCelular2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbContato2))))))
                 .addContainerGap(67, Short.MAX_VALUE))
-            .addGroup(pCentroLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addComponent(jSeparator3))
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator3)
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
         pCentroLayout.setVerticalGroup(
@@ -280,9 +316,13 @@ public class FormAgenda extends SimpleForm {
                     .addComponent(ftfCelular2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbEstagiario1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbTipoAtendimento)
+                    .addComponent(cbTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbObservacoes)
@@ -291,7 +331,7 @@ public class FormAgenda extends SimpleForm {
                         .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSublinhado)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -337,6 +377,20 @@ public class FormAgenda extends SimpleForm {
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbTipoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoAtendimentoActionPerformed
+        Object selected = cbTipoAtendimento.getSelectedItem();
+        if (selected != null && "Grupo".equalsIgnoreCase(selected.toString())) {
+            ftfCelular.setEnabled(false);
+            ftfCelular2.setEnabled(false);
+            cbPaciente.setSelectedIndex(-1);
+            cbPaciente.setEnabled(false);
+        } else {
+            ftfCelular.setEnabled(true);
+            ftfCelular2.setEnabled(true);
+            cbPaciente.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbTipoAtendimentoActionPerformed
+
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btCancelarActionPerformed
         limparCampos();
         messagesAlert.showSuccessMessage("Alterações canceladas.");
@@ -351,6 +405,37 @@ public class FormAgenda extends SimpleForm {
             AgendaVO agendaVO = criarAgendaVO();
             AgendaRN agendaRN = new AgendaRN();
             agendaRN.salvar(agendaVO);
+
+            // Verificar se o agendamento NÃO é emergencial
+            if (cbTipoAtendimento.getSelectedItem() != null
+                    && !cbTipoAtendimento.getSelectedItem().toString().equalsIgnoreCase("Emergencial")) {
+
+                // Obter o paciente e o estagiário selecionados
+                PacienteRN pacienteRN = new PacienteRN();
+                PacienteVO paciente = pacienteRN.buscarPorNomePreciso(cbPaciente.getSelectedItem().toString());
+
+                EstagiarioRN estagiarioRN = new EstagiarioRN();
+                EstagiarioVO estagiario = estagiarioRN.buscarEstagiarioPorNome(cbEstagiario.getSelectedItem().toString());
+
+                if (paciente != null && estagiario != null) {
+                    // Verificar se já existe uma associação entre o paciente e o estagiário
+                    EstagiarioXPacienteRN estagiarioXPacienteRN = new EstagiarioXPacienteRN();
+                    List<EstagiarioXPacienteVO> associacoes = estagiarioXPacienteRN.buscarPorPaciente(paciente.getId());
+
+                    boolean jaAssociado = associacoes.stream()
+                            .anyMatch(assoc -> assoc.getEstagiario() != null
+                            && assoc.getEstagiario().getId().equals(estagiario.getId()));
+
+                    // Se não estiver associado, criar a associação
+                    if (!jaAssociado) {
+                        EstagiarioXPacienteVO novaAssociacao = new EstagiarioXPacienteVO();
+                        novaAssociacao.setEstagiario(estagiario);
+                        novaAssociacao.setPaciente(paciente);
+
+                        estagiarioXPacienteRN.associarEstagiarioPaciente(novaAssociacao);
+                    }
+                }
+            }
 
             messagesAlert.showSuccessMessage("Agendamento salvo com sucesso!");
             limparCampos();
@@ -369,9 +454,10 @@ public class FormAgenda extends SimpleForm {
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSublinhado;
     private javax.swing.JComboBox<String> cbEstagiario;
-    private javax.swing.JComboBox<String> cbEstagiario1;
     private javax.swing.JComboBox<String> cbHora;
+    private javax.swing.JComboBox<String> cbPaciente;
     private javax.swing.JComboBox<String> cbSala;
+    private javax.swing.JComboBox<String> cbTipoAtendimento;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JFormattedTextField ftfCelular;
     private javax.swing.JFormattedTextField ftfCelular2;
@@ -389,6 +475,7 @@ public class FormAgenda extends SimpleForm {
     private javax.swing.JLabel lbPaciente;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JLabel lbSala;
+    private javax.swing.JLabel lbTipoAtendimento;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextField tfData;
@@ -408,10 +495,10 @@ public class FormAgenda extends SimpleForm {
         PacienteRN pacienteRN = new PacienteRN();
         List<PacienteVO> pacientes = pacienteRN.listarPacientes();
 
-        if(pacientes != null){
-            cbEstagiario1.removeAllItems();
+        if (pacientes != null) {
+            cbPaciente.removeAllItems();
             for (PacienteVO paciente : pacientes) {
-                cbEstagiario1.addItem(paciente.getPaciente());
+                cbPaciente.addItem(paciente.getPaciente());
             }
         }
     }
@@ -420,7 +507,7 @@ public class FormAgenda extends SimpleForm {
         EstagiarioRN estagiarioRN = new EstagiarioRN();
         List<EstagiarioVO> estagiarios = estagiarioRN.listarEstagiarios();
 
-        if(estagiarios == null || estagiarios.isEmpty()){
+        if (estagiarios == null || estagiarios.isEmpty()) {
             bloquearCampos();
             messagesAlert.showErrorMessage("Não há estagiários cadastrados no sistema");
             return;
@@ -433,11 +520,11 @@ public class FormAgenda extends SimpleForm {
     }
 
     private void adicionarListenerPaciente() {
-        cbEstagiario1.addActionListener(evt -> carregarTelefonesPaciente());
+        cbPaciente.addActionListener(evt -> carregarTelefonesPaciente());
     }
 
     private void carregarTelefonesPaciente() {
-        String nomePaciente = (String) cbEstagiario1.getSelectedItem(); // Nome do paciente selecionado
+        String nomePaciente = (String) cbPaciente.getSelectedItem(); // Nome do paciente selecionado
         if (nomePaciente != null) {
             PacienteRN pacienteRN = new PacienteRN();
             PacienteVO paciente = pacienteRN.buscarPorNomePreciso(nomePaciente);
@@ -454,6 +541,8 @@ public class FormAgenda extends SimpleForm {
     }
 
     private AgendaVO criarAgendaVO() {
+        boolean isEmergencial = "Emergencial".equalsIgnoreCase((String) cbTipoAtendimento.getSelectedItem());
+
         System.out.println(tfData.getText());
         System.out.println(cbHora.getSelectedItem());
 
@@ -466,7 +555,17 @@ public class FormAgenda extends SimpleForm {
         System.out.println(horaFormatada);
 
         PacienteRN pacienteRN = new PacienteRN();
-        PacienteVO paciente = pacienteRN.buscarPorNomePreciso(cbEstagiario1.getSelectedItem().toString());
+        PacienteVO paciente;
+
+        if (isEmergencial) {
+            paciente = pacienteRN.buscarPacientePorId(24);
+
+            if (paciente == null) {
+                throw new IllegalArgumentException("Paciente não encontrado.");
+            }
+        } else {
+            paciente = pacienteRN.buscarPorNomePreciso(cbPaciente.getSelectedItem().toString());
+        }
 
         if (paciente == null) {
             throw new IllegalArgumentException("Paciente não encontrado.");
@@ -479,7 +578,7 @@ public class FormAgenda extends SimpleForm {
             throw new IllegalArgumentException("Estagiário não encontrado.");
         }
 
-        return new AgendaVO(null, data, LocalTime.parse(horaFormatada), Byte.valueOf(cbSala.getSelectedItem().toString()), paciente, estagiario, null); // atendimento definido para 1, mas preciso rever essa lógica
+        return new AgendaVO(null, data, LocalTime.parse(horaFormatada), Byte.valueOf(cbSala.getSelectedItem().toString()), paciente, estagiario, null, cbTipoAtendimento.getSelectedItem().toString()); // atendimento definido para 1, mas preciso rever essa lógica
     }
 
     private void bloquearCampos() {
@@ -489,7 +588,7 @@ public class FormAgenda extends SimpleForm {
         cbHora.setEnabled(false);
         cbSala.setEnabled(false);
         cbEstagiario.setEnabled(false);
-        cbEstagiario1.setEnabled(false);
+        cbPaciente.setEnabled(false);
         ftfCelular.setEditable(false);
         ftfCelular.setEnabled(false);
         ftfCelular2.setEditable(false);
@@ -536,35 +635,43 @@ public class FormAgenda extends SimpleForm {
             });
             return false;
         }
-        if (cbEstagiario1.getSelectedItem() == null) {
-            MessagesAlert.showWarningMessage("O campo Paciente é obrigatório.", response -> {
-                if (response) {
-                    cbEstagiario1.requestFocus();
-                }
-            });
-            return false;
+
+        // Verifica se o tipo de atendimento é "Emergencial"
+        if (cbTipoAtendimento.getSelectedItem() != null
+                && cbTipoAtendimento.getSelectedItem().toString().equalsIgnoreCase("Emergencial")) {
+
+            // Validação do campo Estagiário
+            if (cbPaciente.getSelectedItem() == null) {
+                MessagesAlert.showWarningMessage("O campo Estagiário é obrigatório.", response -> {
+                    if (response) {
+                        cbPaciente.requestFocus();
+                    }
+                });
+                return false;
+            }
+
+            // Validação do campo Celular vazio ou com máscara padrão
+            String celular = ftfCelular.getText().trim();
+            if (celular.isEmpty() || celular.equals("() -")) {
+                MessagesAlert.showWarningMessage("O campo Celular é obrigatório.", response -> {
+                    if (response) {
+                        ftfCelular.requestFocus();
+                    }
+                });
+                return false;
+            }
+
+            // Validação do formato do número de celular
+            if (!validarFormatoCelular(celular)) {
+                MessagesAlert.showWarningMessage("O número de celular está no formato incorreto.", response -> {
+                    if (response) {
+                        ftfCelular.requestFocus();
+                    }
+                });
+                return false;
+            }
         }
-        if (ftfCelular.getText().trim().isEmpty() || ftfCelular.getText().equals("() -")) {
-            MessagesAlert.showWarningMessage("O campo Celular é obrigatório.", response -> {
-                if (response) {
-                    ftfCelular.requestFocus();
-                }
-            });
-            return false;
-        }
-        if (!validarFormatoCelular(ftfCelular.getText())) {
-            MessagesAlert.showWarningMessage("O número de celular está no formato incorreto.", response -> {
-                if (response) {
-                    ftfCelular.requestFocus();
-                }
-            });
-//            messagesAlert.showWarningMessage("O campo Celular é obrigatório.", response -> {
-//                if (response) {
-//                    ftfCelular.requestFocus();
-//                }
-//            });
-            return false;
-        }
+
         return true;
     }
 
@@ -574,4 +681,11 @@ public class FormAgenda extends SimpleForm {
         return celular.matches(regex);
     }
 
+    private void setEmergencyMode(boolean isEmergency) {
+        cbPaciente.setEnabled(!isEmergency);
+        ftfCelular.setEnabled(!isEmergency);
+        ftfCelular2.setEnabled(!isEmergency);
+
+        cbPaciente.setSelectedIndex(isEmergency ? -1 : 0);
+    }
 }

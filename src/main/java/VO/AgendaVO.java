@@ -8,18 +8,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AgendaVO {
+
     private Integer id;
-    private LocalDate data; // Alterado para LocalDate
+    private LocalDate data;
     private LocalTime hora;
     private Byte sala;
 
     private PacienteVO pacienteVO;
     private EstagiarioVO estagiarioVO;
 
-    private AtendimentoVO atendimentoVO; // Pode ser nulo
+    private AtendimentoVO atendimentoVO;
 
-    // Construtor completo
-    public AgendaVO(Integer id, LocalDate data, LocalTime hora, Byte sala, PacienteVO pacienteVO, EstagiarioVO estagiarioVO, AtendimentoVO atendimentoVO) {
+    private String tipoAtendimento;
+
+    public AgendaVO(Integer id, LocalDate data, LocalTime hora, Byte sala, PacienteVO pacienteVO, EstagiarioVO estagiarioVO, AtendimentoVO atendimentoVO, String tipoAtendimento) {
         this.id = id;
         this.data = data;
         this.hora = hora;
@@ -27,6 +29,10 @@ public class AgendaVO {
         this.pacienteVO = pacienteVO;
         this.estagiarioVO = estagiarioVO;
         this.atendimentoVO = atendimentoVO;
+        this.tipoAtendimento = tipoAtendimento;
+    }
+
+    public AgendaVO() {
     }
 
     /**
@@ -108,17 +114,26 @@ public class AgendaVO {
     public void setAtendimentoId(AtendimentoVO atendimentoVO) {
         this.atendimentoVO = atendimentoVO;
     }
-    
+
+    public String getTipoAtendimento() {
+        return tipoAtendimento;
+    }
+
+    public void setTipoAtendimento(String tipoAtendimento) {
+        this.tipoAtendimento = tipoAtendimento;
+    }
+
     // Método de conversão de Entity para VO
     public static AgendaVO fromEntity(Agenda entity) {
         return new AgendaVO(
-            entity.getId(),
-            entity.getData(),
-            entity.getHora(),
-            entity.getSala(),
-            entity.getPaciente() != null ? PacienteVO.fromEntity(entity.getPaciente()) : null,
-            entity.getEstagiario() != null ? EstagiarioVO.fromEntity(entity.getEstagiario()) : null,
-            entity.getAtendimento() != null ? AtendimentoVO.fromEntity(entity.getAtendimento()) : null
+                entity.getId(),
+                entity.getData(),
+                entity.getHora(),
+                entity.getSala(),
+                entity.getPaciente() != null ? PacienteVO.fromEntity(entity.getPaciente()) : null,
+                entity.getEstagiario() != null ? EstagiarioVO.fromEntity(entity.getEstagiario()) : null,
+                entity.getAtendimento() != null ? AtendimentoVO.fromEntity(entity.getAtendimento()) : null,
+                entity.getTipoAtendimento()
         );
     }
 
@@ -129,6 +144,7 @@ public class AgendaVO {
         agenda.setData(this.getData());
         agenda.setHora(this.getHora());
         agenda.setSala(this.getSala());
+        agenda.setTipoAtendimento(this.getTipoAtendimento());
 
         // Converte PacienteVO para Paciente
         if (this.getPacienteVO() != null) {
@@ -141,8 +157,8 @@ public class AgendaVO {
         }
 
         // Associa atendimento por ID, se existir
-        if (this.getAtendimentoId() != null 
-                && this.getAtendimentoId().getId() != null 
+        if (this.getAtendimentoId() != null
+                && this.getAtendimentoId().getId() != null
                 && this.getAtendimentoId().getId() > 0) {
             Atendimento atendimento = new Atendimento();
             atendimento.setId(this.getAtendimentoId().getId());
@@ -157,6 +173,7 @@ public class AgendaVO {
         agenda.setData(this.getData());
         agenda.setHora(this.getHora());
         agenda.setSala(this.getSala());
+        agenda.setTipoAtendimento(this.getTipoAtendimento());
 
         // Atualiza o Paciente, se necessário
         if (this.getPacienteVO() != null) {
@@ -169,8 +186,8 @@ public class AgendaVO {
         }
 
         // Atualiza o atendimento por ID, se existir
-        if (this.getAtendimentoId() != null 
-                && this.getAtendimentoId().getId() != null 
+        if (this.getAtendimentoId() != null
+                && this.getAtendimentoId().getId() != null
                 && this.getAtendimentoId().getId() > 0) {
             Atendimento atendimento = new Atendimento();
             atendimento.setId(this.getAtendimentoId().getId());
@@ -180,14 +197,7 @@ public class AgendaVO {
 
     @Override
     public String toString() {
-        return "AgendaVO{" +
-                "id=" + id +
-                ", data=" + data +
-                ", hora=" + hora +
-                ", sala=" + sala +
-                ", pacienteVO=" + (pacienteVO != null ? pacienteVO.getPaciente() : null) +
-                ", estagiarioVO=" + (estagiarioVO != null ? estagiarioVO.getNomeCompleto() : null) +
-                ", atendimentoVO=" + (atendimentoVO != null ? atendimentoVO.getId() : null) +
-                '}';
+        String salaStr = (sala != null) ? sala.toString() : "N/A";
+        return String.format("%s-%s / Sala: %s", data, hora, salaStr);
     }
 }
