@@ -7,9 +7,9 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.mycompany.cadastrosecretaria.CadastroSecretaria</exec.mainClass>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <exec.mainClass>Visao.App.Application</exec.mainClass>
     </properties>
     <name>ClinicaPsicologia</name>
     <repositories>
