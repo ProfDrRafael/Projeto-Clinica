@@ -138,12 +138,12 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Estagiário Cadastro", "user.svg"), // index 6
             new Item("Usuário", "user.svg"), // index 7
             new Item("Paciente", "user.svg"), // index 8
-            new Item("Prontuario", "forms.svg"), // index 9
+            new Item("Prontuário", "forms.svg"), // index 9
             new Item("Agenda", "calendar.svg"), // index 10
             new Item("Formulário de Atendimento", "forms.svg"), // index 11
             new Item.Label("Listagem"), // Label
             new Item("Lista de Espera Geral", "listing.svg"), // index 11
-            new Item("Lista de Espera Especifica", "listing.svg"), // index 12
+            new Item("Lista de Espera Específica", "listing.svg"), // index 12
             new Item("Agendamentos", "listing.svg"), // index 13
             new Item("Atendimentos", "listing.svg"), // index 14
             new Item("Todos os Estagiários", "listing.svg"), // index 15
@@ -264,7 +264,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             case "Atendimentos" -> new TableListaAtendimento();
             case "Todos os Estagiários" -> new TableListaEstagiarios();
             case "Todos os Pacientes" -> new TableListaPacientes();
-            case "Toos os Usuários" -> new TableListaUsuarios();
+            case "Todos os Usuários" -> new TableListaUsuarios();
             case "Todos os Pacientes Inativos" -> new TableListaPacientesInativos();
             case "Todos os Estagiários Inativos" -> new TableListaEstagiariosInativos();
             case "Todos os Usuários Inativos" -> new TableListaUsuariosInativos();

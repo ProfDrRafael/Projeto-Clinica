@@ -2,15 +2,18 @@ package Regradenegocio;
 
 import Persistencia.Dao.EstagiarioDAO;
 import Persistencia.Dao.OrientadorDAO;
+import Persistencia.Dao.PesquisadorDAO;
 import Persistencia.Dao.SecretariaDAO;
 import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Orientador;
+import Persistencia.Entity.Pesquisador;
 import Persistencia.Entity.Secretaria;
 import VO.UsuarioVO;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import VO.SecretariaVO;
 import Services.SenhaService;
+import VO.PesquisadorVO;
 
 public class UsuarioRN {
     private SenhaService senhaService;
@@ -35,6 +38,9 @@ public class UsuarioRN {
             } else if (usuarioVO instanceof SecretariaVO) {
                 SecretariaDAO secretariaDAO = new SecretariaDAO();
                 secretariaDAO.salvar(converterVOParaSecretaria((SecretariaVO) usuarioVO));
+            } else if (usuarioVO instanceof PesquisadorVO) {
+                PesquisadorDAO pesquisadorDAO = new PesquisadorDAO();
+                pesquisadorDAO.salvar(converterVOParaPesquisador((PesquisadorVO) usuarioVO));
             } else {
                 throw new IllegalArgumentException("Tipo de usuário inválido.");
             }
@@ -85,5 +91,15 @@ public class UsuarioRN {
         secretaria.setSenha(senhaService.criptografarSenha(vo.getSenha())); // Criptografar a senha se necessário
         // Outros atributos específicos de Secretaria
         return secretaria;
+    }
+    
+    private Pesquisador converterVOParaPesquisador(PesquisadorVO vo) {
+        Pesquisador pesquisador = new Pesquisador();
+        pesquisador.setNome(vo.getNomeCompleto());
+        pesquisador.setEmail(vo.getEmail());
+        pesquisador.setSenha(senhaService.criptografarSenha(vo.getSenha())); // Criptografar a senha se necessário
+        pesquisador.setAtivo(vo.getAtivo());
+        // Outros atributos específicos de Pesquisador
+        return pesquisador;
     }
 }

@@ -5,8 +5,11 @@
 package Persistencia.Dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +47,43 @@ public class TabelaEstatisticaDAO {
         } finally {
             em.close();
         }
+        return result;
+    }
+
+    public static List<Object[]> buscarEvolucaoAtendimentos(LocalDate inicio, LocalDate fim, String periodo) {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Object[]> result = new ArrayList<>();
+
+        try {
+            String groupBy;
+            switch (periodo) {
+                case "dia" ->
+                    groupBy = "FUNCTION('DATE', a.data)";
+                case "semana" ->
+                    groupBy = "YEAR(a.data), WEEK(a.data)";
+                case "mês" ->
+                    groupBy = "YEAR(a.data), MONTH(a.data)";
+                case "ano" ->
+                    groupBy = "YEAR(a.data)";
+                default ->
+                    throw new IllegalArgumentException("Período inválido.");
+            }
+
+            String hql = "SELECT " + groupBy + ", COUNT(a) "
+                    + "FROM Atendimento a "
+                    + "WHERE a.data BETWEEN :inicio AND :fim "
+                    + "GROUP BY " + groupBy + " "
+                    + "ORDER BY " + groupBy;
+
+            Query query = em.createQuery(hql);
+            query.setParameter("inicio", inicio);
+            query.setParameter("fim", fim);
+
+            result = query.getResultList();
+        } finally {
+            em.close();
+        }
+
         return result;
     }
 
@@ -115,6 +155,37 @@ public class TabelaEstatisticaDAO {
         return result;
     }
 
+    public static List<Object[]> getPacientesPorFaixaEtaria(List<int[]> faixasEtarias) {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Object[]> result = new ArrayList<>();
+        try {
+            StringBuilder hql = new StringBuilder("SELECT ");
+            System.out.println(faixasEtarias);
+            for (int i = 0; i < faixasEtarias.size(); i++) {
+                int[] faixa = faixasEtarias.get(i);
+                System.out.println("FAIXA ETARIAAAA VALOR 1: " + faixa[0] + " FAIXA ETARIAAAA VALOR 2: " + faixa[1]);
+                hql.append("SUM(CASE WHEN TIMESTAMPDIFF(YEAR, p.dataNascimento, CURRENT_DATE()) BETWEEN ")
+                        .append(faixa[0]).append(" AND ").append(faixa[1])
+                        .append(" THEN 1 ELSE 0 END), ");
+            }
+            hql.setLength(hql.length() - 2);
+            hql.append(" FROM Paciente p");
+
+            Query query = em.createQuery(hql.toString());
+            Object[] queryResult = (Object[]) query.getSingleResult();
+
+            for (int i = 0; i < queryResult.length; i++) {
+                result.add(new Object[]{
+                    faixasEtarias.get(i)[0] + "-" + faixasEtarias.get(i)[1],
+                    queryResult[i]
+                });
+            }
+        } finally {
+            em.close();
+        }
+        return result;
+    }
+
     public static List<Object[]> getTaxaComparecimentoPorPeriodo(String periodo) {
         EntityManager em = JPAUtil.getEntityManager();
         List<Object[]> result = new ArrayList<>();
@@ -139,6 +210,79 @@ public class TabelaEstatisticaDAO {
                     + "ROUND(((SUM(CASE WHEN a.comparecimento = true THEN 1 ELSE 0 END) * 1.0 / COUNT(a)) * 100), 2) AS taxaComparecimento "
                     + "FROM Atendimento a GROUP BY " + groupBy + " ORDER BY " + groupBy;
             result = em.createQuery(hql, Object[].class).getResultList();
+        } finally {
+            em.close();
+        }
+        return result;
+    }
+
+    public static List<Object[]> getTaxaComparecimentoPorPeriodo(LocalDate inicio, LocalDate fim, String periodo) {
+        System.out.println("INICIO: " + inicio);
+        System.out.println("FIM: " + fim);
+
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Object[]> result = new ArrayList<>();
+        try {
+            String groupBy;
+            switch (periodo.toLowerCase()) {
+                case "dia" ->
+                    groupBy = "FUNCTION('DATE', a.data)";
+                case "semana" ->
+                    groupBy = "YEAR(a.data), WEEK(a.data)";
+                case "mês" ->
+                    groupBy = "YEAR(a.data), MONTH(a.data)";
+                case "ano" ->
+                    groupBy = "YEAR(a.data)";
+                default ->
+                    throw new IllegalArgumentException("Período inválido.");
+            }
+
+            String hql = "SELECT " + groupBy + ", COUNT(a), "
+                    + "SUM(CASE WHEN a.comparecimento = true THEN 1 ELSE 0 END) "
+                    + "FROM Atendimento a "
+                    + "WHERE a.data BETWEEN :inicio AND :fim "
+                    + "GROUP BY " + groupBy + " ORDER BY " + groupBy;
+
+            Query query = em.createQuery(hql);
+            query.setParameter("inicio", inicio);
+            query.setParameter("fim", fim);
+            System.out.println("HQL: " + hql + " QUERY: " + query);
+            result = query.getResultList();
+        } finally {
+            em.close();
+        }
+        return result;
+    }
+
+    public static List<Object[]> getEvolucaoListaEspera(LocalDate inicio, LocalDate fim, String periodo) {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Object[]> result = new ArrayList<>();
+        try {
+            String groupBy;
+            switch (periodo.toLowerCase()) {
+                case "dia" ->
+                    groupBy = "FUNCTION('DATE', p.dataInscricao)";
+                case "semana" ->
+                    groupBy = "YEAR(p.dataInscricao), WEEK(p.dataInscricao)";
+                case "mês" ->
+                    groupBy = "YEAR(p.dataInscricao), MONTH(p.dataInscricao)";
+                case "ano" ->
+                    groupBy = "YEAR(p.dataInscricao)";
+                default ->
+                    throw new IllegalArgumentException("Período inválido.");
+            }
+
+            String hql = "SELECT " + groupBy + ", COUNT(le) "
+                    + "FROM ListaDeEspera le "
+                    + "JOIN le.paciente p "
+                    + "WHERE p.dataInscricao BETWEEN :inicio AND :fim "
+                    + "GROUP BY " + groupBy + " ORDER BY " + groupBy;
+
+            Query query = em.createQuery(hql);
+            query.setParameter("inicio", inicio);
+            query.setParameter("fim", fim);
+
+            result = query.getResultList();
         } finally {
             em.close();
         }

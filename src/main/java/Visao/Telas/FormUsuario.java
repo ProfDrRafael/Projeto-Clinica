@@ -10,11 +10,13 @@ import VO.OrientadorVO;
 import VO.SecretariaVO;
 import VO.UsuarioVO;
 import Regradenegocio.UsuarioRN;
+import VO.PesquisadorVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 import java.awt.HeadlessException;
 import java.time.LocalDate;
+import javax.swing.JPanel;
 
 /**
  *
@@ -31,6 +33,11 @@ public class FormUsuario extends SimpleForm {
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
+    }
+    
+    public void createSouthPanel(){
+        JPanel panel = new JPanel();
+
     }
 
     /**
@@ -82,6 +89,11 @@ public class FormUsuario extends SimpleForm {
 
         cbFuncao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         cbFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Orientador", "Estagiário", "Secretária", "Pesquisador" }));
+        cbFuncao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbFuncaoItemStateChanged(evt);
+            }
+        });
 
         lbFuncao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbFuncao.setForeground(new java.awt.Color(0, 102, 102));
@@ -209,6 +221,15 @@ public class FormUsuario extends SimpleForm {
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbFuncaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFuncaoItemStateChanged
+//        String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
+//        
+//        if("Pesquisador".equals(funcaoSelecionada)){
+//            
+//            
+//        }
+    }//GEN-LAST:event_cbFuncaoItemStateChanged
+
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btSalvarActionPerformed
         UsuarioRN usuarioRN = new UsuarioRN();
         MessagesAlert messagesAlert = new MessagesAlert();
@@ -229,7 +250,6 @@ public class FormUsuario extends SimpleForm {
                 }
                 case "Estagiário" -> {
                     Integer ano = LocalDate.now().getYear();
-                    ;
                     usuarioVO = new EstagiarioVO(0, nome, email, senha, ano);
                 }
                 case "Orientador" -> {
@@ -237,6 +257,9 @@ public class FormUsuario extends SimpleForm {
                 }
                 case "Secretária" -> {
                     usuarioVO = new SecretariaVO(0, nome, email, senha);
+                }
+                case "Pesquisador" -> {
+                    usuarioVO = new PesquisadorVO(0, nome, email, senha);
                 }
                 default -> {
                     messagesAlert.showErrorMessage("Função inválida selecionada.");

@@ -20,10 +20,10 @@ public class TableListaUsuariosInativos extends SimpleForm {
         initComponents();
         
         String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Tipo"};
-        String queryTable = "SELECT id, nome, email, 'Estagiario' AS origem FROM estagiario WHERE ativo = 0 UNION ALL SELECT id, nome, email, 'Orientador' AS origem FROM orientador WHERE ativo = 0 UNION ALL SELECT id, nome, email, 'Secretaria' AS origem FROM secretaria WHERE ativo = 0 ;";
+        String queryTable = "SELECT id, nome, email, 'Estagiario' AS origem FROM estagiario WHERE ativo = 0 UNION ALL SELECT id, nome, email, 'Orientador' AS origem FROM orientador WHERE ativo = 0 UNION ALL SELECT id, nome, email, 'Secretaria' AS origem FROM secretaria WHERE ativo = 0 UNION ALL SELECT id, nome, email, 'Pesquisador' AS origem FROM pesquisador WHERE ativo = 0;";
         boolean acao_ativar_ou_inativar = true;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios", acao_ativar_ou_inativar, "Ativar", "/Multimidia/imagens/cadeado_desbloqueado.png");
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios", acao_ativar_ou_inativar, "Ativar", "/Multimidia/icon/cadeado_desbloqueado.png");
 
         painel_lista_espera.setLayout(new BorderLayout()); 
 

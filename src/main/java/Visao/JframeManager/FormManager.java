@@ -179,7 +179,7 @@ public class FormManager {
             sessao.setEmail(user.getEmail());
             sessao.setTipo(user.getTipo());
 
-            new SessaoRN().salvarSessao(sessao);
+            //new SessaoRN().salvarSessao(sessao);
 
             // Configura o menu dinamicamente com base no tipo do usuário
             MyDrawerBuilder drawerBuilder = (MyDrawerBuilder) instance.menu.getDrawerBuilder();

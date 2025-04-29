@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Persistencia.Dao.AtendimentoDAO;
-import Persistencia.Dao.PacienteDAO;
-import Persistencia.Dao.ProntuarioDAO;
 import Persistencia.Entity.Atendimento;
 import Persistencia.Entity.Estagiario;
 import Regradenegocio.AtendimentoRN;
