@@ -17,7 +17,7 @@ import javax.swing.SwingWorker;
  */
 public class PageProgressBar extends SimpleForm {
 
-    private Runnable onComplete; 
+    private Runnable onComplete;
 
     public PageProgressBar(Runnable onComplete) {
         this.onComplete = onComplete;
@@ -30,8 +30,8 @@ public class PageProgressBar extends SimpleForm {
             @Override
             protected Void doInBackground() throws InterruptedException {
                 for (int i = 0; i <= 100; i += 5) {
-                    Thread.sleep(50); 
-                    publish(i); 
+                    Thread.sleep(50);
+                    publish(i);
                 }
                 return null;
             }
@@ -44,12 +44,16 @@ public class PageProgressBar extends SimpleForm {
 
             @Override
             protected void done() {
-                SwingUtilities.invokeLater(() -> {
-                    FormManager.getForms().undo(); 
-                    if (onComplete != null) {
-                        onComplete.run();
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        FormManager.getForms().undo();
+                        if (onComplete != null) {
+                            onComplete.run();
+                        }
                     }
                 });
+
             }
         };
         worker.execute();
