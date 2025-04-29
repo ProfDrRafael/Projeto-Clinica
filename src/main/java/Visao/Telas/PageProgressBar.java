@@ -48,12 +48,16 @@ public class PageProgressBar extends SimpleForm {
 
             @Override
             protected void done() {
-                SwingUtilities.invokeLater(() -> {
-                    FormManager.getForms().undo();
-                    if (onComplete != null) {
-                        onComplete.run();
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        FormManager.getForms().undo();
+                        if (onComplete != null) {
+                            onComplete.run();
+                        }
                     }
                 });
+
             }
         };
         worker.execute();

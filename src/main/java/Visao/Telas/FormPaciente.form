@@ -551,10 +551,10 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
-                    <StringItem index="0" value="Negra"/>
-                    <StringItem index="1" value="Branca"/>
-                    <StringItem index="2" value="Amarela"/>
-                    <StringItem index="3" value="Parda"/>
+                    <StringItem index="0" value="Negro(a)"/>
+                    <StringItem index="1" value="Branco(a)"/>
+                    <StringItem index="2" value="Amarelo(a)"/>
+                    <StringItem index="3" value="Pardo(a)"/>
                     <StringItem index="4" value="Ind&#xed;gena"/>
                   </StringArray>
                 </Property>

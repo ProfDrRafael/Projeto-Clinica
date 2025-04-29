@@ -9,7 +9,6 @@ import Persistencia.Entity.Cidade;
 import Persistencia.modelTemp.EnderecoModelCepApi;
 import Persistencia.Entity.Endereco;
 import Persistencia.Entity.Estado;
-import Persistencia.Entity.Paciente;
 import Persistencia.Entity.Pais;
 import Persistencia.Entity.Responsavel;
 import Regradenegocio.EnderecoRN;
@@ -33,8 +32,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import raven.toast.Notifications;
 
 /*
@@ -49,24 +46,6 @@ public class FormPaciente extends SimpleForm {
 
     private Endereco enderecoObject;
     private int pacienteId;
-
-    public static void main(String[] args) {
-        // Create and display the form in the Event Dispatch Thread
-        SwingUtilities.invokeLater(() -> {
-            FormPaciente form = new FormPaciente();
-
-            // Create a frame to hold the form
-            JFrame frame = new JFrame("Cadastro de Paciente");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setSize(800, 600); // Set appropriate size
-            frame.add(form);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-
-            // Initialize form after adding to frame
-            form.formInitAndOpen();
-        });
-    }
 
     /**
      * Creates new form telaCadastroPacientePanel
@@ -397,7 +376,7 @@ public class FormPaciente extends SimpleForm {
         lbEstadoCivil.setText("Estado Civil:");
 
         cbRacaCorEtnia.setFont(cbGenero.getFont());
-        cbRacaCorEtnia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Negra", "Branca", "Amarela", "Parda", "Indígena" }));
+        cbRacaCorEtnia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Negro(a)", "Branco(a)", "Amarelo(a)", "Pardo(a)", "Indígena" }));
 
         lbRaca.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbRaca.setForeground(new java.awt.Color(0, 102, 102));
@@ -1027,6 +1006,14 @@ public class FormPaciente extends SimpleForm {
         } catch (HeadlessException | NumberFormatException e) {
             messagesAlert.showErrorMessage("Erro: " + e.getMessage());
         }
+        
+        
+        MessagesAlert.showWarningMessage("Deseja continuar cadastrando?", response -> {
+            if (!response) {
+                FormManager.showForm(new PageWelcome());
+                
+            }
+        });
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void cbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEstadoItemStateChanged
@@ -1128,6 +1115,13 @@ public class FormPaciente extends SimpleForm {
         } catch (Exception e) {
             messagesAlert.showErrorMessage("Erro: " + e.getMessage());
         }
+        
+        MessagesAlert.showWarningMessage("Deseja continuar editando?", response -> {
+            if (!response) {
+                FormManager.showForm(new PageWelcome());
+                
+            }
+        });
     }//GEN-LAST:event_btEditarActionPerformed
 
 

@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-
 import Persistencia.Entity.Atendimento;
 import Persistencia.Entity.Estagiario;
 import Regradenegocio.AgendaRN;
