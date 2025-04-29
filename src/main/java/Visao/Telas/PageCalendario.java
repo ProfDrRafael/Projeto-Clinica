@@ -9,21 +9,27 @@ import Regradenegocio.SessaoRN;
 import VO.AgendaVO;
 import VO.SessaoVO;
 import Visao.Components.SimpleForm;
+import Visao.JframeManager.FormManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -33,24 +39,28 @@ import javax.swing.SwingConstants;
  * @author otniel
  */
 public class PageCalendario extends SimpleForm {
+
     private YearMonth currentYearMonth;
     private Map<LocalDate, List<AgendaVO>> agendamentos;
     private final Color COR_DIA_HOJE = new Color(173, 216, 230);
     private final Color COR_AGENDAMENTO = new Color(144, 238, 144);
-    private final AgendaRN agendaRN; 
+    private final AgendaRN agendaRN;
     private final SessaoRN sessao;
-    
+    private JPanel ultimoDiaSelecionado = null;
+    private LocalDate ultimoDiaSelecionadoData = null;
+
+
     /**
      * Creates new form PageCalendario
      */
     public PageCalendario() {
         initComponents();
-        currentYearMonth = YearMonth.now(); 
+        currentYearMonth = YearMonth.now();
         agendaRN = new AgendaRN();
-        
+
         sessao = new SessaoRN();
-        
-        carregarAgendamentosDoBanco(sessao.buscarUltimaSessao()); 
+
+        carregarAgendamentosDoBanco(sessao.buscarUltimaSessao());
         updateCalendar();
     }
 
@@ -68,9 +78,13 @@ public class PageCalendario extends SimpleForm {
         lbProntuario = new javax.swing.JLabel();
         pnPageCalendario = new javax.swing.JPanel();
         pnAgendamentos = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        pnHorarios = new javax.swing.JPanel();
         lbAgendamentos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        cbSala = new javax.swing.JComboBox<>();
         pnCalendario = new javax.swing.JPanel();
         pnCabecalho = new javax.swing.JPanel();
         lbMesAno = new javax.swing.JLabel();
@@ -100,7 +114,7 @@ public class PageCalendario extends SimpleForm {
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addContainerGap(823, Short.MAX_VALUE))
+                .addContainerGap(743, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,6 +134,10 @@ public class PageCalendario extends SimpleForm {
         pnAgendamentos.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.gray));
         pnAgendamentos.setAutoscrolls(true);
 
+        pnHorarios.setBackground(java.awt.SystemColor.controlHighlight);
+        pnHorarios.setLayout(new javax.swing.BoxLayout(pnHorarios, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane2.setViewportView(pnHorarios);
+
         lbAgendamentos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbAgendamentos.setText("Agendamentos");
 
@@ -131,6 +149,16 @@ public class PageCalendario extends SimpleForm {
         jTextArea1.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel1.setText("Horários disponíveis:");
+
+        cbSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sala 1", "Sala 2", "Sala 3", "Sala 4", "Sala 5", "Sala 6" }));
+        cbSala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSalaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnAgendamentosLayout = new javax.swing.GroupLayout(pnAgendamentos);
         pnAgendamentos.setLayout(pnAgendamentosLayout);
         pnAgendamentosLayout.setHorizontalGroup(
@@ -138,10 +166,16 @@ public class PageCalendario extends SimpleForm {
             .addGroup(pnAgendamentosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnAgendamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                     .addGroup(pnAgendamentosLayout.createSequentialGroup()
-                        .addComponent(lbAgendamentos)
-                        .addGap(0, 113, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGroup(pnAgendamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbAgendamentos)
+                            .addGroup(pnAgendamentosLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnAgendamentosLayout.setVerticalGroup(
@@ -150,7 +184,14 @@ public class PageCalendario extends SimpleForm {
                 .addContainerGap()
                 .addComponent(lbAgendamentos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnAgendamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnCalendario.setBackground(java.awt.SystemColor.controlHighlight);
@@ -180,24 +221,24 @@ public class PageCalendario extends SimpleForm {
         pnCabecalho.setLayout(pnCabecalhoLayout);
         pnCabecalhoLayout.setHorizontalGroup(
             pnCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnCabecalhoLayout.createSequentialGroup()
-                .addGap(313, 313, 313)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnCabecalhoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMesAnterior)
                 .addGap(71, 71, 71)
                 .addComponent(lbMesAno)
                 .addGap(57, 57, 57)
                 .addComponent(btnProximoMes)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(153, 153, 153))
         );
         pnCabecalhoLayout.setVerticalGroup(
             pnCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnCabecalhoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnCabecalhoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMesAnterior)
                     .addComponent(btnProximoMes)
                     .addComponent(lbMesAno))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnPageCalendarioLayout = new javax.swing.GroupLayout(pnPageCalendario);
@@ -205,26 +246,25 @@ public class PageCalendario extends SimpleForm {
         pnPageCalendarioLayout.setHorizontalGroup(
             pnPageCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPageCalendarioLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(pnPageCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnPageCalendarioLayout.createSequentialGroup()
-                        .addComponent(pnCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 733, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(pnCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnCabecalho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         pnPageCalendarioLayout.setVerticalGroup(
             pnPageCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPageCalendarioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnPageCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnCalendario, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                    .addComponent(pnAgendamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(26, 26, 26))
+                .addGap(17, 17, 17)
+                .addGroup(pnPageCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnPageCalendarioLayout.createSequentialGroup()
+                        .addComponent(pnCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         add(pnPageCalendario, java.awt.BorderLayout.CENTER);
@@ -238,11 +278,20 @@ public class PageCalendario extends SimpleForm {
         navigateMonth(1);
     }//GEN-LAST:event_btnProximoMesActionPerformed
 
+    private void cbSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSalaActionPerformed
+        if (ultimoDiaSelecionadoData != null) {
+            carregarHorariosDisponiveis(ultimoDiaSelecionadoData);
+        }
+    }//GEN-LAST:event_cbSalaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMesAnterior;
     private javax.swing.JButton btnProximoMes;
+    private javax.swing.JComboBox<String> cbSala;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbAgendamentos;
     private javax.swing.JLabel lbClinica;
@@ -252,13 +301,14 @@ public class PageCalendario extends SimpleForm {
     private javax.swing.JPanel pnAgendamentos;
     private javax.swing.JPanel pnCabecalho;
     private javax.swing.JPanel pnCalendario;
+    private javax.swing.JPanel pnHorarios;
     private javax.swing.JPanel pnPageCalendario;
     // End of variables declaration//GEN-END:variables
 
     private void navigateMonth(int months) {
-        currentYearMonth = months > 0 ?
-        currentYearMonth.plusMonths(1) :
-        currentYearMonth.minusMonths(1);
+        currentYearMonth = months > 0
+                ? currentYearMonth.plusMonths(1)
+                : currentYearMonth.minusMonths(1);
         updateCalendar();
     }
 
@@ -276,7 +326,7 @@ public class PageCalendario extends SimpleForm {
         }
 
         LocalDate primeiroDia = currentYearMonth.atDay(1);
-        int diaDaSemana = primeiroDia.getDayOfWeek().getValue() % 7; 
+        int diaDaSemana = primeiroDia.getDayOfWeek().getValue() % 7;
 
         // Dias do mês anterior
         LocalDate ultimoDiaMesAnterior = currentYearMonth.minusMonths(1).atEndOfMonth();
@@ -323,17 +373,32 @@ public class PageCalendario extends SimpleForm {
 
         // Adicionar o número de consultas
         if (agendamentos.containsKey(data)) {
-            JLabel lblConsultas = new JLabel(agendamentos.get(data).size() > 1? agendamentos.get(data).size() + " consultas" : agendamentos.get(data).size() + "consulta", SwingConstants.CENTER);
+            JLabel lblConsultas = new JLabel(agendamentos.get(data).size() > 1 ? agendamentos.get(data).size() + " consultas" : agendamentos.get(data).size() + " consulta", SwingConstants.CENTER);
             lblConsultas.setFont(new Font("Arial", Font.ITALIC, 10));
             panel.add(lblConsultas, BorderLayout.SOUTH);
         }
 
         // Mostrar detalhes
+//        panel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                lbAgendamentos.setText("Agendamentos" + " - " + data.getDayOfMonth() + "/" + data.getMonthValue());
+//                mostrarConsultas(data);
+//            }
+//        });
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                lbAgendamentos.setText("Agendamentos" + " - " + data.getDayOfMonth() + "/" + data.getMonthValue());
+                if (ultimoDiaSelecionado != null) {
+                    ultimoDiaSelecionado.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                }
+
+                panel.setBorder(BorderFactory.createLineBorder(new Color(0, 102, 102), 2));
+                ultimoDiaSelecionado = panel;
+
+                lbAgendamentos.setText("Agendamentos - " + data.getDayOfMonth() + "/" + data.getMonthValue());
                 mostrarConsultas(data);
+                carregarHorariosDisponiveis(data);
             }
         });
 
@@ -345,37 +410,193 @@ public class PageCalendario extends SimpleForm {
         jTextArea1.setText("");
         if (agendamentos.containsKey(data)) {
             for (AgendaVO agenda : agendamentos.get(data)) {
-                String paciente = (agenda.getPacienteVO() != null) ? 
-                    agenda.getPacienteVO().getNome() : "N/A";
+                String paciente = (agenda.getPacienteVO() != null)
+                        ? agenda.getPacienteVO().getNome() : "N/A";
 
-                String estagiario = (agenda.getEstagiarioVO() != null) ? 
-                    agenda.getEstagiarioVO().getNomeCompleto() : "N/A";
+                String estagiario = (agenda.getEstagiarioVO() != null)
+                        ? agenda.getEstagiarioVO().getNomeCompleto() : "N/A";
 
                 jTextArea1.append(String.format(
-                    "Horário: %s\nSala: %d\nPaciente: %s\nEstagiário: %s\n--------------------\n",
-                    agenda.getHora().toString(), 
-                    agenda.getSala(),
-                    paciente,
-                    estagiario
+                        "Horário: %s\nSala: %d\nPaciente: %s\nEstagiário: %s\n--------------------\n",
+                        agenda.getHora().toString(),
+                        agenda.getSala(),
+                        paciente,
+                        estagiario
                 ));
             }
+        } else {
+            jTextArea1.setText("Não há agendamentos para este dia.");
         }
     }
-    
+
     private void carregarAgendamentosDoBanco(SessaoVO sessao) {
         agendamentos = new HashMap<>();
-        
+
         List<AgendaVO> agendas;
         agendas = switch (sessao.getTipo()) {
-            case "Administrador", "Secretaria" -> agendaRN.listarTodas();
-            case "Orientador" -> agendaRN.listarPorOrientador(sessao.getEmail());
-            case "Estagiario" -> agendaRN.listarPorEstagiario(sessao.getEmail());
-            default -> List.of();
-        }; 
-        
+            case "Administrador", "Secretaria" ->
+                agendaRN.listarTodas();
+            case "Orientador" ->
+                agendaRN.listarPorOrientador(sessao.getEmail());
+            case "Estagiario" ->
+                agendaRN.listarPorEstagiario(sessao.getEmail());
+            default ->
+                List.of();
+        };
+
         for (AgendaVO agenda : agendas) {
             LocalDate data = agenda.getData();
             agendamentos.computeIfAbsent(data, k -> new ArrayList<>()).add(agenda);
         }
     }
+
+    /**
+     * Preenche o painel pnHorarios com botões para os horários disponíveis (que
+     * ainda não foram agendados) para a data selecionada. Ao clicar em um
+     * botão, é aberto o FormAgenda com a data e horário informados.
+     */
+//    private void carregarHorariosDisponiveis(LocalDate data) {
+//        // Garante layout vertical
+//        pnHorarios.removeAll();
+//
+//        ultimoDiaSelecionadoData = data;
+//
+//        if (data.isBefore(LocalDate.now())) {
+//            pnHorarios.add(new JLabel("Não é possível agendar para datas passadas."));
+//            pnHorarios.revalidate();
+//            pnHorarios.repaint();
+//            return;
+//        }
+//
+//        List<LocalTime> fixedHorarios = Arrays.asList(
+//                LocalTime.of(8, 0),
+//                LocalTime.of(9, 0),
+//                LocalTime.of(10, 0),
+//                LocalTime.of(14, 0),
+//                LocalTime.of(15, 0),
+//                LocalTime.of(16, 0),
+//                LocalTime.of(17, 0),
+//                LocalTime.of(18, 0)
+//        );
+//
+//        List<AgendaVO> agendasDia = agendamentos.getOrDefault(data, new ArrayList<>());
+//
+//        for (LocalTime horario : fixedHorarios) {
+//            boolean jaAgendado = agendasDia.stream()
+//                    .anyMatch(agenda -> agenda.getHora().equals(horario));
+//            if (!jaAgendado) {
+//                JButton btn = new JButton(horario.toString());
+//                btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+//
+//                // Estilização do botão
+//                btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+//                btn.setBackground(new Color(0, 109, 109));
+////                btn.setBackground(new Color(228, 228, 228));
+//                btn.setForeground(Color.WHITE);
+////                btn.setForeground(new Color(0, 102, 102));
+//                btn.setFocusPainted(false);
+//                btn.setOpaque(true);
+//                btn.setBorder(BorderFactory.createCompoundBorder(
+//                        BorderFactory.createLineBorder(new Color(0, 102, 102), 2),
+//                        //                        BorderFactory.createEmptyBorder(10, 20, 10, 20)
+//                        BorderFactory.createEmptyBorder(1, 1, 1, 1)
+//                ));
+//
+//                // Define uma altura fixa
+//                btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+//                btn.setMinimumSize(new Dimension(100, 35));
+//                btn.setPreferredSize(new Dimension(100, 35));
+//
+//                btn.addActionListener(e -> {
+//                    String salaTexto = (String) cbSala.getSelectedItem();
+//                    byte salaNumero = Byte.parseByte(salaTexto.replaceAll("\\D+", ""));
+//
+//                    FormManager.showForm(new FormAgenda(data, horario, salaNumero));
+//                });
+//
+//                pnHorarios.add(btn);
+//                pnHorarios.add(Box.createRigidArea(new Dimension(0, 5)));
+//            }
+//        }
+//
+//        pnHorarios.revalidate();
+//        pnHorarios.repaint();
+//    }
+
+    private void carregarHorariosDisponiveis(LocalDate data) {
+        pnHorarios.removeAll();
+
+        // Salva a data clicada para atualização futura
+        ultimoDiaSelecionadoData = data;
+
+        // Bloqueia dias passados
+        if (data.isBefore(LocalDate.now())) {
+            pnHorarios.add(new JLabel("Não é possível agendar para datas passadas."));
+            pnHorarios.revalidate();
+            pnHorarios.repaint();
+            return;
+        }
+
+        // Recupera sala selecionada
+        String salaSelecionada = (String) cbSala.getSelectedItem();
+        byte sala = Byte.parseByte(salaSelecionada.replaceAll("\\D+", ""));
+
+        List<LocalTime> fixedHorarios = Arrays.asList(
+                LocalTime.of(8, 0),
+                LocalTime.of(9, 0),
+                LocalTime.of(10, 0),
+                LocalTime.of(14, 0),
+                LocalTime.of(15, 0),
+                LocalTime.of(16, 0),
+                LocalTime.of(17, 0),
+                LocalTime.of(18, 0)
+        );
+
+        List<AgendaVO> agendasDia = agendamentos.getOrDefault(data, new ArrayList<>());
+
+        boolean encontrouHorario = false;
+
+        for (LocalTime horario : fixedHorarios) {
+            boolean jaAgendado = agendasDia.stream()
+                    .anyMatch(agenda -> agenda.getHora().equals(horario) && agenda.getSala() == sala);
+
+            if (!jaAgendado) {
+                encontrouHorario = true;
+
+                JButton btn = new JButton(horario.toString());
+                btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                // Estilo
+                btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                btn.setBackground(new Color(0, 109, 109));
+                btn.setForeground(Color.WHITE);
+                btn.setFocusPainted(false);
+                btn.setOpaque(true);
+                btn.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new Color(0, 102, 102), 2),
+                        BorderFactory.createEmptyBorder(1, 1, 1, 1)
+                ));
+
+                btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+                btn.setMinimumSize(new Dimension(100, 35));
+                btn.setPreferredSize(new Dimension(100, 35));
+
+                btn.addActionListener(e -> {
+                    FormManager.showForm(new FormAgenda(data, horario, sala));
+                });
+
+                pnHorarios.add(btn);
+                pnHorarios.add(Box.createRigidArea(new Dimension(0, 5)));
+            }
+        }
+
+        if (!encontrouHorario) {
+            pnHorarios.add(new JLabel("Nenhum horário disponível para esta sala."));
+        }
+
+        pnHorarios.revalidate();
+        pnHorarios.repaint();
+    }
+
+
 }

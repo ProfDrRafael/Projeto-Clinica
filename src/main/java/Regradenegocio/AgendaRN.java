@@ -200,4 +200,14 @@ public class AgendaRN {
             }
         }
     }
+    
+    public List<AgendaVO> listarAgendamentosPlantao() {
+        List<Agenda> agendas = agendaDAO.buscarAgendamentosPlantao();
+        if (agendas != null) {
+            return agendas.stream()
+                    .map(AgendaVO::fromEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
 }

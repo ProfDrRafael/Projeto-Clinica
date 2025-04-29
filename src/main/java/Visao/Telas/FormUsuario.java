@@ -13,14 +13,26 @@ import Regradenegocio.UsuarioRN;
 import Visao.Components.SimpleForm;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
-import java.awt.HeadlessException;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.text.PlainDocument;
+import java.awt.*;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.DocumentFilter.FilterBypass;
 
 /**
  *
  * @author john
  */
 public class FormUsuario extends SimpleForm {
+    private final Border defaultBorder = (new JTextField()).getBorder();
+    private final Border errorBorder   = BorderFactory.createLineBorder(Color.RED, 1);
+    private final Pattern emailRegex   = Pattern.compile("^[\\p{L}0-9._%+-]+@[\\p{L}0-9.-]+\\.[A-Za-z]{2,}$");
 
     /**
      * Creates new form cadastroUsuario
@@ -30,7 +42,11 @@ public class FormUsuario extends SimpleForm {
         // redimensionarIcones();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
+
+        initValidacao();
+        lbPasswordWarning1.setVisible(false);
+        lbPasswordWarning2.setVisible(false);
     }
 
     /**
@@ -56,6 +72,8 @@ public class FormUsuario extends SimpleForm {
         pfConfirmarSenha = new javax.swing.JPasswordField();
         lbConfirmarSenha = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        lbPasswordWarning1 = new javax.swing.JLabel();
+        lbPasswordWarning2 = new javax.swing.JLabel();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
@@ -112,11 +130,21 @@ public class FormUsuario extends SimpleForm {
         lbConfirmarSenha.setForeground(new java.awt.Color(0, 102, 102));
         lbConfirmarSenha.setText("*Confirmar senha:");
 
+        lbPasswordWarning1.setForeground(java.awt.Color.red);
+        lbPasswordWarning1.setText(" ");
+
+        lbPasswordWarning2.setForeground(java.awt.Color.red);
+        lbPasswordWarning2.setText(" ");
+
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSalvar)
+                .addGap(52, 52, 52))
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -127,12 +155,6 @@ public class FormUsuario extends SimpleForm {
                 .addGap(12, 12, 12)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pCentroLayout.createSequentialGroup()
-                        .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbConfirmarSenha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pCentroLayout.createSequentialGroup()
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pCentroLayout.createSequentialGroup()
@@ -140,12 +162,19 @@ public class FormUsuario extends SimpleForm {
                                 .addGap(18, 18, 18)
                                 .addComponent(lbFuncao)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbFuncao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cbFuncao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pCentroLayout.createSequentialGroup()
+                                .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbConfirmarSenha))
+                            .addComponent(lbPasswordWarning1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbPasswordWarning2)
+                            .addComponent(pfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 55, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSalvar)
-                .addGap(52, 52, 52))
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +195,11 @@ public class FormUsuario extends SimpleForm {
                     .addComponent(pfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbSenha))
-                .addGap(18, 18, 18)
+                .addGap(3, 3, 3)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbPasswordWarning1)
+                    .addComponent(lbPasswordWarning2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btSalvar)
@@ -224,11 +257,11 @@ public class FormUsuario extends SimpleForm {
         UsuarioRN usuarioRN = new UsuarioRN();
         MessagesAlert messagesAlert = new MessagesAlert();
 
+        if (!validarFormulario()) return;
+
         try {
-            // Obter a função selecionada no ComboBox
             String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
 
-            // Inicializar o VO apropriado com base na função selecionada
             UsuarioVO usuarioVO;
             String nome = tfNome.getText();
             String email = tfEmail.getText();
@@ -240,7 +273,6 @@ public class FormUsuario extends SimpleForm {
                 }
                 case "Estagiário" -> {
                     Integer ano = LocalDate.now().getYear();
-                    ;
                     usuarioVO = new EstagiarioVO(0, nome, email, senha, ano);
                 }
                 case "Orientador" -> {
@@ -273,6 +305,109 @@ public class FormUsuario extends SimpleForm {
         }
     }// GEN-LAST:event_btSalvarActionPerformed
 
+    private static class NoDigitsFilter extends DocumentFilter {
+        @Override
+        public void insertString(FilterBypass fb, int offs, String str, AttributeSet a) throws BadLocationException {
+            if (str != null && str.chars().allMatch(FormUsuario::isAllowedChar)) {
+                super.insertString(fb, offs, str, a);
+            }
+        }
+        @Override
+        public void replace(FilterBypass fb, int offs, int len, String str, AttributeSet a) throws BadLocationException {
+            if (str != null && str.chars().allMatch(FormUsuario::isAllowedChar)) {
+                super.replace(fb, offs, len, str, a);
+            }
+        }
+    }
+
+    /** helper: permite letras, acentos e espaço */
+    private static boolean isAllowedChar(int codePoint) {
+        return Character.isLetter(codePoint) || Character.isSpaceChar(codePoint);
+    }
+
+    /** Chame no fim do construtor (depois de initComponents) */
+    private void initValidacao() {
+        /* aplica filtro ao campo Nome */
+        ((PlainDocument) tfNome.getDocument()).setDocumentFilter(new NoDigitsFilter());
+
+        /* listeners de validação */
+        tfNome.getDocument().addDocumentListener(new SimpleListener(this::validarNome));
+        tfEmail.getDocument().addDocumentListener(new SimpleListener(this::validarEmail));
+        pfSenha.getDocument().addDocumentListener(new SimpleListener(this::validarSenhas));
+        pfConfirmarSenha.getDocument().addDocumentListener(new SimpleListener(this::validarSenhas));
+
+        lbPasswordWarning1.setText("Mínimo 8 caracteres");
+        lbPasswordWarning2.setText("As duas senhas devem ser iguais");
+    }
+
+    private boolean validarNome() {
+        String nome = tfNome.getText().trim();
+        boolean ok = nome.length() >= 3 && nome.length() <= 60;
+        tfNome.setBorder(ok ? defaultBorder : errorBorder);
+        return ok;
+    }
+
+    private boolean validarEmail() {
+        String email = tfEmail.getText().trim();
+        boolean ok = emailRegex.matcher(email).matches();
+        tfEmail.setBorder(ok ? defaultBorder : errorBorder);
+        return ok;
+    }
+
+    private boolean validarSenhas() {
+        String s1 = new String(pfSenha.getPassword());
+        String s2 = new String(pfConfirmarSenha.getPassword());
+
+        boolean lenOk      = s1.length() >= 8;
+        boolean mismatch   = !s1.isEmpty() && !s2.isEmpty() && !s1.equals(s2);
+        boolean bothFilled = !s1.isEmpty() && !s2.isEmpty();
+        boolean ok         = lenOk && !mismatch;
+
+        lbPasswordWarning1.setVisible(!lenOk && !s1.isEmpty());
+        lbPasswordWarning2.setVisible(mismatch);
+
+        lbPasswordWarning1.setText("Mínimo 8 caracteres");
+        lbPasswordWarning2.setText("As senhas não coincidem");
+
+        pfSenha.setBorder(lenOk ? defaultBorder : errorBorder);
+        pfConfirmarSenha.setBorder(ok ? defaultBorder : errorBorder);
+
+        return ok;
+    }
+
+    private boolean validarFormulario() {
+        if (!validarNome()) {
+            MessagesAlert.showWarningMessage(
+                    "Nome deve ter entre 3 e 60 letras.",
+                    ok -> tfNome.requestFocus()
+            );
+            return false;
+        }
+        if (!validarEmail()) {
+            MessagesAlert.showWarningMessage(
+                    "E‑mail inválido.",
+                    ok -> tfEmail.requestFocus()
+            );
+            return false;
+        }
+        if (!validarSenhas()) {
+            MessagesAlert.showWarningMessage(
+                    "Senha inválid.",
+                    ok -> pfSenha.requestFocus()
+            );
+            return false;
+        }
+        return true;
+    }
+
+    private static class SimpleListener implements javax.swing.event.DocumentListener {
+        private final Runnable r;
+        SimpleListener(Runnable r) { this.r = r; }
+        public void insertUpdate(javax.swing.event.DocumentEvent e){ r.run(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e){ r.run(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e){ r.run(); }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox<String> cbFuncao;
@@ -283,6 +418,8 @@ public class FormUsuario extends SimpleForm {
     private javax.swing.JLabel lbFuncao;
     private javax.swing.JLabel lbLogoCadastro;
     private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbPasswordWarning1;
+    private javax.swing.JLabel lbPasswordWarning2;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JLabel lbSenha;
     private javax.swing.JPanel pCentro;

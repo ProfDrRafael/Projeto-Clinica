@@ -34,7 +34,7 @@ public class AtendimentoRN {
      * @throws IllegalArgumentException Caso dados obrigatórios não sejam preenchidos.
      */
     public Atendimento preencherAtendimento(LocalDate data, LocalTime hora, Prontuario prontuario, Estagiario estagiario,
-                                            String relato, Boolean preenchido, String justificativa, Boolean plantao) {
+                                            String relato, Boolean preenchido, String justificativa, String tipoAtendimento) {
         Atendimento atendimento = new Atendimento();
         atendimento.setData(data);
         atendimento.setHora(hora);
@@ -43,7 +43,7 @@ public class AtendimentoRN {
         atendimento.setRelatoAtendimento(relato);
         atendimento.setPreenchido(preenchido);
         atendimento.setJustificativa(justificativa);
-        atendimento.setPlantao(plantao); // Define se o atendimento é um plantão
+        atendimento.setTipoAtendimento(tipoAtendimento); // Define se o atendimento é um plantão
         return atendimento;
     }
 

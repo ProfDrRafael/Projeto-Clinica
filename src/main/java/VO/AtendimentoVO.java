@@ -20,7 +20,7 @@ public class AtendimentoVO {
     private PacienteVO paciente;
     private ProntuarioEletronicoVO prontuario;
     private EstagiarioVO estagiarioResponsavel;
-    private Boolean plantao;
+    private String tipoAtendimento;
 
     // Construtor padrão
     public AtendimentoVO() {
@@ -29,7 +29,7 @@ public class AtendimentoVO {
     // Construtor completo
     public AtendimentoVO(Integer id, Date data, Time hora, Boolean preenchido, Boolean comparecimento,
                          String justificativa, String relatoAtendimento, PacienteVO paciente,
-                         EstagiarioVO estagiarioResponsavel, Boolean plantao) {
+                         EstagiarioVO estagiarioResponsavel, String tipoAtendimento) {
         this.id = id;
         this.data = data;
         this.hora = hora;
@@ -39,7 +39,7 @@ public class AtendimentoVO {
         this.relatoAtendimento = relatoAtendimento;
         this.paciente = paciente;
         this.estagiarioResponsavel = estagiarioResponsavel;
-        this.plantao = plantao;
+        this.tipoAtendimento = tipoAtendimento;
     }
 
     /**
@@ -183,17 +183,17 @@ public class AtendimentoVO {
     }
 
     /**
-     * @return the plantao
+     * @return the tipoAtendimento
      */
-    public Boolean getPlantao() {
-        return plantao;
+    public String getTipoAtendimento() {
+        return tipoAtendimento;
     }
 
     /**
-     * @param plantao the plantao to set
+     * @param tipoAtendimento the tipoAtendimento to set
      */
-    public void setPlantao(Boolean plantao) {
-        this.plantao = plantao;
+    public void setTipoAtendimento(String tipoAtendimento) {
+        this.tipoAtendimento = tipoAtendimento;
     }
 
     // Método para converter de Entity para VO
@@ -209,7 +209,7 @@ public class AtendimentoVO {
         vo.setPaciente(entity.getProntuario() != null ? PacienteVO.fromEntity(entity.getProntuario().getPaciente()) : null);
         vo.setProntuario(entity.getProntuario() != null ? ProntuarioEletronicoVO.fromEntity(entity.getProntuario()) : null);
         vo.setEstagiarioResponsavel(entity.getEstagiario() != null ? EstagiarioVO.fromEntity(entity.getEstagiario()) : null);
-        vo.setPlantao(entity.getPlantao());
+        vo.setTipoAtendimento(entity.getTipoAtendimento());
         return vo;
     }
 
@@ -236,7 +236,7 @@ public class AtendimentoVO {
             entity.setEstagiario(this.getEstagiarioResponsavel().toEntity());
         }
 
-        entity.setPlantao(this.getPlantao());
+        entity.setTipoAtendimento(this.getTipoAtendimento());
 
         return entity;
     }
@@ -256,4 +256,6 @@ public class AtendimentoVO {
                 ", paciente=" + (paciente != null ? paciente.getPaciente() : "null") +
                 '}';
     }
+
+
 }
