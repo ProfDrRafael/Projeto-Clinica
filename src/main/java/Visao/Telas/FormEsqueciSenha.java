@@ -138,29 +138,30 @@ public class FormEsqueciSenha extends SimpleForm {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Copyright©Clínica Cpan. Todos os direitos reservados.");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/cpan-small.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/recuperarLogoUm.png"))); // NOI18N
 
         javax.swing.GroupLayout pDireitaLayout = new javax.swing.GroupLayout(pDireita);
         pDireita.setLayout(pDireitaLayout);
         pDireitaLayout.setHorizontalGroup(
             pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
             .addGroup(pDireitaLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addGroup(pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))))
         );
         pDireitaLayout.setVerticalGroup(
             pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(111, 111, 111)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(16, 16, 16))
+                .addGap(18, 18, 18))
         );
 
         pLogin.add(pDireita);

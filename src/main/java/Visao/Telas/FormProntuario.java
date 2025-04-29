@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Paciente;
 import Regradenegocio.EstagiarioRN;
@@ -18,11 +19,13 @@ import Visao.Utils.MessagesAlert;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 /**
  *
  * @author john
  */
 public class FormProntuario extends SimpleForm {
+
     private final MessagesAlert messagesAlert;
 
     /**
@@ -34,18 +37,19 @@ public class FormProntuario extends SimpleForm {
         //redimensionarIcones();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
-        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
-        redimencionarIcone.redimensionarIcones(btHistoricoAtendimentos, "/Multimidia/imagens/historicoAtendimentos.png");
-        
-        EditorTextPaneEstilization.EstilizeEditorTextPane(tpQueixa);
-        EditorTextPaneEstilization.JTextComponentStylization(tpQueixa, btNegritoObs, btItalicoObs, btSublinhadoObs);
-        EditorTextPaneEstilization.JTextComponentUndoRedo(tpQueixa);
-        
-        EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
-        EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegritoQueixa, btItalicoQueixa, btSublinhadoQueixa);
-        EditorTextPaneEstilization.JTextComponentUndoRedo(tpObservacoes);
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
+        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png",40);
+        redimencionarIcone.redimensionarIcones(btHistoricoAtendimentos, "/Multimidia/imagens/historicoAtendimentos.png",40);
 
+        // Para o campo de Queixa, use os botões de Queixa:
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpQueixa);
+        EditorTextPaneEstilization.JTextComponentStylization(tpQueixa, btNegritoQueixa, btItalicoQueixa, btSublinhadoQueixa);
+        EditorTextPaneEstilization.JTextComponentUndoRedo(tpQueixa);
+
+// Para o campo de Observações, use os botões de Observações:
+        EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
+        EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegritoObs, btItalicoObs, btSublinhadoObs);
+        EditorTextPaneEstilization.JTextComponentUndoRedo(tpObservacoes);
         inicializarComboBoxEstagiarios();
     }
 
@@ -61,6 +65,7 @@ public class FormProntuario extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lbLogoProntuario = new javax.swing.JLabel();
         pnForm = new javax.swing.JPanel();
         jlQueixaInicial = new javax.swing.JLabel();
         jlObservacoes = new javax.swing.JLabel();
@@ -100,31 +105,39 @@ public class FormProntuario extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Prontuário");
 
+        lbLogoProntuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoProntuario.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lbLogoProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addGap(0, 655, Short.MAX_VALUE))
+                .addGap(0, 675, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 72, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbLogoProntuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
 
         pnForm.setBackground(java.awt.SystemColor.controlHighlight);
-        pnForm.setPreferredSize(new java.awt.Dimension(980, 438));
+        pnForm.setPreferredSize(new java.awt.Dimension(940, 438));
 
         jlQueixaInicial.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlQueixaInicial.setForeground(new java.awt.Color(0, 102, 102));
@@ -193,84 +206,87 @@ public class FormProntuario extends SimpleForm {
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnFormLayout.createSequentialGroup()
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlEstagiario)
-                                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                    .addComponent(jlObservacoes)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnFormLayout.createSequentialGroup()
-                                        .addComponent(jlPaciente)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE))
-                                    .addComponent(cbPaciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jlQueixaInicial)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pnFormLayout.createSequentialGroup()
-                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnFormLayout.createSequentialGroup()
-                                        .addComponent(jlObservacoes)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btNegritoObs)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btItalicoObs)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btSublinhadoObs)))
-                                .addGap(18, 18, 18)
+                                .addGap(1, 1, 1)
                                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlEstagiario)
+                                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, 0)
+                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlPaciente)
                                     .addGroup(pnFormLayout.createSequentialGroup()
-                                        .addComponent(jlQueixaInicial)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                        .addComponent(btNegritoQueixa)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btItalicoQueixa)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btSublinhadoQueixa))
-                                    .addComponent(jScrollPane3)))))
+                                        .addGap(21, 21, 21)
+                                        .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 54, Short.MAX_VALUE))
                     .addGroup(pnFormLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1)))
-                .addContainerGap())
+                .addGap(20, 20, 20))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addComponent(btNegritoObs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btItalicoObs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSublinhadoObs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btNegritoQueixa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btItalicoQueixa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSublinhadoQueixa)
+                .addGap(118, 118, 118))
         );
         pnFormLayout.setVerticalGroup(
             pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnFormLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(19, 19, 19)
+                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnFormLayout.createSequentialGroup()
+                        .addComponent(jlEstagiario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbEstagiario))
+                    .addGroup(pnFormLayout.createSequentialGroup()
+                        .addComponent(jlPaciente)
+                        .addGap(6, 6, 6)
+                        .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlEstagiario)
-                    .addComponent(jlPaciente))
+                    .addComponent(jlQueixaInicial)
+                    .addComponent(jlObservacoes))
+                .addGap(9, 9, 9)
                 .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnFormLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btNegritoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btItalicoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btSublinhadoQueixa))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbPaciente)
-                            .addComponent(cbEstagiario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                        .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createSequentialGroup()
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jlObservacoes)
-                                    .addComponent(jlQueixaInicial)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btNegritoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btItalicoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btSublinhadoQueixa))))
-                    .addGroup(pnFormLayout.createSequentialGroup()
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btSalvar)
+                            .addComponent(btHistoricoAtendimentos)
+                            .addComponent(btEditar))
+                        .addGap(81, 81, 81))
+                    .addGroup(pnFormLayout.createSequentialGroup()
                         .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btNegritoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btItalicoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btSublinhadoObs))))
-                .addGap(18, 18, 18)
-                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(pnFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btSalvar)
-                    .addComponent(btHistoricoAtendimentos)
-                    .addComponent(btEditar))
-                .addGap(54, 54, 54))
+                            .addComponent(btSublinhadoObs))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         add(pnForm, java.awt.BorderLayout.CENTER);
@@ -310,6 +326,7 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JLabel jlPaciente;
     private javax.swing.JLabel jlQueixaInicial;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbLogoProntuario;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel pnForm;
@@ -384,7 +401,6 @@ public class FormProntuario extends SimpleForm {
             messagesAlert.showErrorMessage("Estagiário da sessão não está cadastrado no sistema.");
         }
     }
-
 
     /**
      * Carrega os pacientes do estagiário selecionado no comboBox de pacientes.

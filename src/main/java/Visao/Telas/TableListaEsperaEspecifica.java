@@ -46,6 +46,7 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
+        lbLogoEspecifica = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1000, 768));
         setMinimumSize(new java.awt.Dimension(1000, 768));
@@ -103,25 +104,34 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
         lbOrientador.setText("Lista de Espera Atendidos");
 
+        lbLogoEspecifica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/listaEspecifica.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lbLogoEspecifica)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbClinica)
-                    .addComponent(lbOrientador))
-                .addGap(0, 562, Short.MAX_VALUE))
+                    .addComponent(lbOrientador)
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lbClinica)))
+                .addGap(0, 429, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 67, Short.MAX_VALUE)
+                .addComponent(lbLogoEspecifica)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
                 .addComponent(lbOrientador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -131,6 +141,7 @@ public class TableListaEsperaEspecifica extends SimpleForm {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbLogoEspecifica;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_espera;

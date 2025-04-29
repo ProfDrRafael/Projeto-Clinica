@@ -36,8 +36,8 @@ public class FormEstagiario extends SimpleForm {
         // redimensionarIcones();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
-        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
+        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png",40);
 
         carregarEstagiarios();
         carregarOrientadores();
@@ -58,6 +58,7 @@ public class FormEstagiario extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lbLogoEstagiario = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
         lbAtivo = new javax.swing.JLabel();
         lbAno = new javax.swing.JLabel();
@@ -87,27 +88,35 @@ public class FormEstagiario extends SimpleForm {
 
         lbProntuario.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
-        lbProntuario.setText("Usuário - Estagiário");
+        lbProntuario.setText("Orientador x Estagiário  ");
+
+        lbLogoEstagiario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoVincularEstag.png"))); // NOI18N
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(149, 149, 149)
+                .addGap(19, 19, 19)
+                .addComponent(lbLogoEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addContainerGap(410, Short.MAX_VALUE))
+                .addGap(0, 282, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 69, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(lbLogoEstagiario, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(57, 57, 57))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -302,6 +311,7 @@ public class FormEstagiario extends SimpleForm {
     private javax.swing.JLabel lbAno;
     private javax.swing.JLabel lbAtivo;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbLogoEstagiario;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JLabel lbUsuarioEstagiario;

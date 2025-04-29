@@ -80,29 +80,27 @@ public class FormLogin extends SimpleForm {
         lbDireitos.setForeground(new java.awt.Color(255, 255, 255));
         lbDireitos.setText("Copyright©Clínica Cpan. Todos os direitos reservados.");
 
-        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/cpan-small.png"))); // NOI18N
+        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/novaLogo.png"))); // NOI18N
 
         javax.swing.GroupLayout pEsquerdaLayout = new javax.swing.GroupLayout(pEsquerda);
         pEsquerda.setLayout(pEsquerdaLayout);
         pEsquerdaLayout.setHorizontalGroup(
             pEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEsquerdaLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(lbDireitos, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
-            .addGroup(pEsquerdaLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(lbLogo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(pEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbLogo)
+                    .addComponent(lbDireitos, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
         );
         pEsquerdaLayout.setVerticalGroup(
             pEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEsquerdaLayout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(lbLogo)
-                .addGap(111, 111, 111)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbDireitos)
-                .addGap(16, 16, 16))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pLogin.add(pEsquerda);
@@ -119,7 +117,7 @@ public class FormLogin extends SimpleForm {
             }
         });
 
-        lbLogin.setText("Login:");
+        lbLogin.setText("Email:");
 
         pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -148,48 +146,51 @@ public class FormLogin extends SimpleForm {
             }
         });
 
-        lbTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbTitulo.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(0, 102, 102));
-        lbTitulo.setText("Login");
+        lbTitulo.setText("Iniciar Sessão");
 
         javax.swing.GroupLayout pDireitaLayout = new javax.swing.GroupLayout(pDireita);
         pDireita.setLayout(pDireitaLayout);
         pDireitaLayout.setHorizontalGroup(
             pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbTitulo)
-                .addGap(159, 159, 159))
             .addGroup(pDireitaLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btEntrar)
-                    .addGroup(pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lbLogin)
-                        .addComponent(jlSenha)
-                        .addComponent(lbEsqueceuSenha)
-                        .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-                        .addComponent(tfLogin)))
+                .addGroup(pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDireitaLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbLogin)
+                            .addComponent(jlSenha)
+                            .addComponent(lbEsqueceuSenha)
+                            .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                            .addComponent(tfLogin)))
+                    .addGroup(pDireitaLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(lbTitulo)))
                 .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btEntrar)
+                .addGap(23, 23, 23))
         );
         pDireitaLayout.setVerticalGroup(
             pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDireitaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(38, 38, 38)
                 .addComponent(lbTitulo)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(lbLogin)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jlSenha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
                 .addComponent(lbEsqueceuSenha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(btEntrar)
-                .addGap(49, 49, 49))
+                .addGap(29, 29, 29))
         );
 
         pLogin.add(pDireita);

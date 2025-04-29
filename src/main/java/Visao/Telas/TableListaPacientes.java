@@ -51,6 +51,7 @@ public class TableListaPacientes extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
+        lblLogoListaPacientes = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1000, 768));
         setMinimumSize(new java.awt.Dimension(1000, 768));
@@ -108,25 +109,32 @@ public class TableListaPacientes extends SimpleForm {
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
         lbOrientador.setText("Lista de Pacientes");
 
+        lblLogoListaPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/listaPacientes.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblLogoListaPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addGap(0, 627, Short.MAX_VALUE))
+                .addContainerGap(530, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 67, Short.MAX_VALUE)
+                .addGap(64, 64, 64)
                 .addComponent(lbOrientador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addGap(0, 7, Short.MAX_VALUE)
+                .addComponent(lblLogoListaPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -137,6 +145,7 @@ public class TableListaPacientes extends SimpleForm {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbOrientador;
+    private javax.swing.JLabel lblLogoListaPacientes;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_espera;
     private javax.swing.JTable tbListaEsperaNaoAtendidos;

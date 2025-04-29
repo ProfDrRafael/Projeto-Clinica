@@ -8,6 +8,7 @@ import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 
+
 /**
  *
  * @author john
@@ -21,11 +22,12 @@ public class MenuSecretaria extends SimpleForm {
         initComponents();
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btCadastrarPaciente, "/Multimidia/imagens/cadastrar.png");
-        redimencionarIcone.redimensionarIcones(btCadastrarEstagiario, "/Multimidia/imagens/estagiario.png");
-        redimencionarIcone.redimensionarIcones(btCadastrarOrientador, "/Multimidia/imagens/cadastrar.png");
-        redimencionarIcone.redimensionarIcones(btVisualizarAgenda, "/Multimidia/imagens/agenda.png");
+        redimencionarIcone.redimensionarIcones(btCadastrarPaciente, "/Multimidia/imagens/pacienteLogo.png",150);
+        redimencionarIcone.redimensionarIcones(btCadastrarEstagiario, "/Multimidia/imagens/vincularLogo.png",150);
+        redimencionarIcone.redimensionarIcones(btCadastrarOrientador, "/Multimidia/imagens/adicionarLogo.png",130);
+        redimencionarIcone.redimensionarIcones(btVisualizarAgenda, "/Multimidia/imagens/logoAgenda.png",130);
         redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png");
+         
     }
 
     /**
@@ -47,6 +49,7 @@ public class MenuSecretaria extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
+        lblLogoSecretaria = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(950, 630));
         setMinimumSize(new java.awt.Dimension(950, 630));
@@ -61,9 +64,11 @@ public class MenuSecretaria extends SimpleForm {
         btCadastrarPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btCadastrarPaciente.setForeground(new java.awt.Color(255, 255, 255));
         btCadastrarPaciente.setText("Cadastrar Paciente");
-        btCadastrarPaciente.setMaximumSize(new java.awt.Dimension(300, 40));
-        btCadastrarPaciente.setMinimumSize(new java.awt.Dimension(300, 40));
-        btCadastrarPaciente.setPreferredSize(new java.awt.Dimension(300, 40));
+        btCadastrarPaciente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btCadastrarPaciente.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btCadastrarPaciente.setMaximumSize(new java.awt.Dimension(300, 60));
+        btCadastrarPaciente.setMinimumSize(new java.awt.Dimension(300, 60));
+        btCadastrarPaciente.setPreferredSize(new java.awt.Dimension(300, 60));
         btCadastrarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCadastrarPacienteActionPerformed(evt);
@@ -81,10 +86,12 @@ public class MenuSecretaria extends SimpleForm {
         btCadastrarEstagiario.setBackground(new java.awt.Color(84, 68, 43));
         btCadastrarEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btCadastrarEstagiario.setForeground(new java.awt.Color(255, 255, 255));
-        btCadastrarEstagiario.setText("Cadastrar Estagiário");
-        btCadastrarEstagiario.setMaximumSize(new java.awt.Dimension(300, 40));
-        btCadastrarEstagiario.setMinimumSize(new java.awt.Dimension(300, 40));
-        btCadastrarEstagiario.setPreferredSize(new java.awt.Dimension(300, 40));
+        btCadastrarEstagiario.setText("Vincular Estagiário");
+        btCadastrarEstagiario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btCadastrarEstagiario.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btCadastrarEstagiario.setMaximumSize(new java.awt.Dimension(300, 60));
+        btCadastrarEstagiario.setMinimumSize(new java.awt.Dimension(300, 60));
+        btCadastrarEstagiario.setPreferredSize(new java.awt.Dimension(300, 60));
         btCadastrarEstagiario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCadastrarEstagiarioActionPerformed(evt);
@@ -102,10 +109,12 @@ public class MenuSecretaria extends SimpleForm {
         btCadastrarOrientador.setBackground(new java.awt.Color(192, 50, 33));
         btCadastrarOrientador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btCadastrarOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        btCadastrarOrientador.setText("Cadastrar Orientador");
-        btCadastrarOrientador.setMaximumSize(new java.awt.Dimension(300, 40));
-        btCadastrarOrientador.setMinimumSize(new java.awt.Dimension(300, 40));
-        btCadastrarOrientador.setPreferredSize(new java.awt.Dimension(300, 40));
+        btCadastrarOrientador.setText("Cadastrar Usuário");
+        btCadastrarOrientador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btCadastrarOrientador.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btCadastrarOrientador.setMaximumSize(new java.awt.Dimension(300, 60));
+        btCadastrarOrientador.setMinimumSize(new java.awt.Dimension(300, 60));
+        btCadastrarOrientador.setPreferredSize(new java.awt.Dimension(300, 60));
         btCadastrarOrientador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCadastrarOrientadorActionPerformed(evt);
@@ -124,9 +133,11 @@ public class MenuSecretaria extends SimpleForm {
         btVisualizarAgenda.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btVisualizarAgenda.setForeground(new java.awt.Color(255, 255, 255));
         btVisualizarAgenda.setText("Visualizar Agenda");
-        btVisualizarAgenda.setMaximumSize(new java.awt.Dimension(300, 40));
-        btVisualizarAgenda.setMinimumSize(new java.awt.Dimension(300, 40));
-        btVisualizarAgenda.setPreferredSize(new java.awt.Dimension(300, 40));
+        btVisualizarAgenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btVisualizarAgenda.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btVisualizarAgenda.setMaximumSize(new java.awt.Dimension(300, 60));
+        btVisualizarAgenda.setMinimumSize(new java.awt.Dimension(300, 60));
+        btVisualizarAgenda.setPreferredSize(new java.awt.Dimension(300, 60));
         btVisualizarAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVisualizarAgendaActionPerformed(evt);
@@ -145,9 +156,11 @@ public class MenuSecretaria extends SimpleForm {
         btDesconectar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btDesconectar.setForeground(new java.awt.Color(255, 255, 255));
         btDesconectar.setText("Desconectar");
-        btDesconectar.setMaximumSize(new java.awt.Dimension(300, 40));
-        btDesconectar.setMinimumSize(new java.awt.Dimension(300, 40));
-        btDesconectar.setPreferredSize(new java.awt.Dimension(300, 40));
+        btDesconectar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btDesconectar.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btDesconectar.setMaximumSize(new java.awt.Dimension(160, 60));
+        btDesconectar.setMinimumSize(new java.awt.Dimension(160, 60));
+        btDesconectar.setPreferredSize(new java.awt.Dimension(160, 60));
         btDesconectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDesconectarActionPerformed(evt);
@@ -159,7 +172,7 @@ public class MenuSecretaria extends SimpleForm {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 150;
         gridBagConstraints.ipady = 60;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
+        gridBagConstraints.weighty = 0.4;
         gridBagConstraints.insets = new java.awt.Insets(10, 222, 10, 222);
         pCentro.add(btDesconectar, gridBagConstraints);
 
@@ -176,25 +189,33 @@ public class MenuSecretaria extends SimpleForm {
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
         lbOrientador.setText("Secretária");
 
+        lblLogoSecretaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoSecretaria.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(184, 184, 184)
+                .addContainerGap()
+                .addComponent(lblLogoSecretaria)
+                .addGap(18, 18, 18)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addContainerGap(636, Short.MAX_VALUE))
+                .addContainerGap(568, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblLogoSecretaria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
                 .addComponent(lbOrientador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(60, 60, 60))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -237,6 +258,7 @@ public class MenuSecretaria extends SimpleForm {
     private javax.swing.JButton btVisualizarAgenda;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbOrientador;
+    private javax.swing.JLabel lblLogoSecretaria;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables

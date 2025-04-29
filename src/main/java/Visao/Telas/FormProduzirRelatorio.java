@@ -31,8 +31,8 @@ public class FormProduzirRelatorio extends SimpleForm {
         // EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelatorio);
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png");
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png",40);
 
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelatorio);
         EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelatorio, btNegrito, btItalico, btSublinhado);
@@ -75,6 +75,7 @@ public class FormProduzirRelatorio extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lbLogoRelatorio = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1000, 832));
         setMinimumSize(new java.awt.Dimension(1000, 832));
@@ -274,25 +275,33 @@ public class FormProduzirRelatorio extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Produzir Relatório");
 
+        lbLogoRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoProduzirRelatorio_resized.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(213, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lbLogoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addGap(0, 558, Short.MAX_VALUE))
+                .addContainerGap(560, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 72, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbLogoRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -336,6 +345,7 @@ public class FormProduzirRelatorio extends SimpleForm {
     private javax.swing.JLabel lbEvolucaoAtendimento;
     private javax.swing.JLabel lbHipoteseDiagnostica;
     private javax.swing.JLabel lbIdade;
+    private javax.swing.JLabel lbLogoRelatorio;
     private javax.swing.JLabel lbNumero3;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JLabel lbQueixa;

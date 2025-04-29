@@ -78,8 +78,8 @@ public class FormPaciente extends SimpleForm {
         inserirDadosFormulario();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png");
-        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
+        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png",40);
 
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDisponibilidade);
         EditorTextPaneEstilization.JTextComponentStylization(tpDisponibilidade, btNegrito, btItalico, btSublinhado);
@@ -208,6 +208,7 @@ public class FormPaciente extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lbLogoCadastro = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
         pIdentificacao = new javax.swing.JPanel();
         lbGenero = new javax.swing.JLabel();
@@ -290,12 +291,16 @@ public class FormPaciente extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Cadastro de Paciente");
 
+        lbLogoCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoPreCadastro_resized.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbLogoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
@@ -304,11 +309,15 @@ public class FormPaciente extends SimpleForm {
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 41, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 41, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbLogoCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(pNorth, java.awt.BorderLayout.PAGE_START);
@@ -514,7 +523,7 @@ public class FormPaciente extends SimpleForm {
                         .addComponent(lbRaca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbRacaCorEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pEndereco.setBackground(java.awt.SystemColor.controlHighlight);
@@ -695,7 +704,7 @@ public class FormPaciente extends SimpleForm {
                 .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pBotoes.setBackground(java.awt.SystemColor.controlHighlight);
@@ -1163,6 +1172,7 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JLabel lbEstagiario;
     private javax.swing.JLabel lbGenero;
     private javax.swing.JLabel lbInstrucao;
+    private javax.swing.JLabel lbLogoCadastro;
     private javax.swing.JLabel lbNaturalidade;
     private javax.swing.JLabel lbNaturalidade1;
     private javax.swing.JLabel lbNumero;

@@ -21,13 +21,13 @@ public class MenuAdministrador extends SimpleForm {
         initComponents();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btAcessarListaEspera, "/Multimidia/imagens/listaEspera.png");
-        redimencionarIcone.redimensionarIcones(btRelatorioClinica, "/Multimidia/imagens/secretaria.png");
-        redimencionarIcone.redimensionarIcones(btGerenciarListas, "/Multimidia/imagens/cadastrar.png");
-        redimencionarIcone.redimensionarIcones(btGerenciarAgenda, "/Multimidia/imagens/agenda.png");
-        redimencionarIcone.redimensionarIcones(btGerenciarUsuarios, "/Multimidia/imagens/cadastrar.png");
-        redimencionarIcone.redimensionarIcones(btProntuarioPesquisa, "/Multimidia/imagens/editar-btn.png");
-        redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png");
+        redimencionarIcone.redimensionarIcones(btAcessarListaEspera, "/Multimidia/imagens/gerenciarListas.png",110);
+        redimencionarIcone.redimensionarIcones(btRelatorioClinica, "/Multimidia/imagens/relatorios.png",130);
+        redimencionarIcone.redimensionarIcones(btGerenciarListas, "/Multimidia/imagens/gerenciarListasAdm.png",110);
+        redimencionarIcone.redimensionarIcones(btGerenciarAgenda, "/Multimidia/imagens/gerenciarAgendas.png",135);
+        redimencionarIcone.redimensionarIcones(btGerenciarUsuarios, "/Multimidia/imagens/gerenciarUsuariosAdm.png",100);
+        redimencionarIcone.redimensionarIcones(btProntuarioPesquisa, "/Multimidia/imagens/pesquisar.png",100);
+        redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png",100);
         
     }
 
@@ -44,6 +44,7 @@ public class MenuAdministrador extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lbLogoAdm = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
         btRelatorioClinica = new javax.swing.JButton();
         btGerenciarListas = new javax.swing.JButton();
@@ -69,25 +70,33 @@ public class MenuAdministrador extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Administrador");
 
+        lbLogoAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoAdmin2.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(182, 182, 182)
+                .addGap(5, 5, 5)
+                .addComponent(lbLogoAdm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addContainerGap(735, Short.MAX_VALUE))
+                .addContainerGap(688, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbLogoAdm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(61, 61, 61))
+                .addGap(62, 62, 62))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -99,10 +108,13 @@ public class MenuAdministrador extends SimpleForm {
         btRelatorioClinica.setBackground(new java.awt.Color(64, 61, 88));
         btRelatorioClinica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btRelatorioClinica.setForeground(new java.awt.Color(255, 255, 255));
-        btRelatorioClinica.setText("Relatórios da Clínica");
-        btRelatorioClinica.setMaximumSize(new java.awt.Dimension(200, 40));
-        btRelatorioClinica.setMinimumSize(new java.awt.Dimension(200, 40));
-        btRelatorioClinica.setPreferredSize(new java.awt.Dimension(200, 40));
+        btRelatorioClinica.setText("Relatórios");
+        btRelatorioClinica.setActionCommand("Relatórios ");
+        btRelatorioClinica.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btRelatorioClinica.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btRelatorioClinica.setMaximumSize(new java.awt.Dimension(185, 40));
+        btRelatorioClinica.setMinimumSize(new java.awt.Dimension(185, 40));
+        btRelatorioClinica.setPreferredSize(new java.awt.Dimension(185, 40));
         btRelatorioClinica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btRelatorioClinicaActionPerformed(evt);
@@ -121,9 +133,11 @@ public class MenuAdministrador extends SimpleForm {
         btGerenciarListas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btGerenciarListas.setForeground(new java.awt.Color(255, 255, 255));
         btGerenciarListas.setText("Gerenciar Listas");
-        btGerenciarListas.setMaximumSize(new java.awt.Dimension(200, 40));
-        btGerenciarListas.setMinimumSize(new java.awt.Dimension(200, 40));
-        btGerenciarListas.setPreferredSize(new java.awt.Dimension(200, 40));
+        btGerenciarListas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btGerenciarListas.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btGerenciarListas.setMaximumSize(new java.awt.Dimension(185, 40));
+        btGerenciarListas.setMinimumSize(new java.awt.Dimension(185, 40));
+        btGerenciarListas.setPreferredSize(new java.awt.Dimension(185, 40));
         btGerenciarListas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciarListasActionPerformed(evt);
@@ -141,10 +155,13 @@ public class MenuAdministrador extends SimpleForm {
         btProntuarioPesquisa.setBackground(new java.awt.Color(30, 27, 24));
         btProntuarioPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btProntuarioPesquisa.setForeground(new java.awt.Color(255, 255, 255));
-        btProntuarioPesquisa.setText("Prontuários p/ Pesquisa");
-        btProntuarioPesquisa.setMaximumSize(new java.awt.Dimension(200, 40));
-        btProntuarioPesquisa.setMinimumSize(new java.awt.Dimension(200, 40));
-        btProntuarioPesquisa.setPreferredSize(new java.awt.Dimension(200, 40));
+        btProntuarioPesquisa.setText("   Pesquisar ");
+        btProntuarioPesquisa.setActionCommand("Pesquisar Prontuários");
+        btProntuarioPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btProntuarioPesquisa.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btProntuarioPesquisa.setMaximumSize(new java.awt.Dimension(185, 40));
+        btProntuarioPesquisa.setMinimumSize(new java.awt.Dimension(185, 40));
+        btProntuarioPesquisa.setPreferredSize(new java.awt.Dimension(185, 40));
         btProntuarioPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btProntuarioPesquisaActionPerformed(evt);
@@ -162,10 +179,12 @@ public class MenuAdministrador extends SimpleForm {
         btGerenciarAgenda.setBackground(new java.awt.Color(34, 56, 67));
         btGerenciarAgenda.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btGerenciarAgenda.setForeground(new java.awt.Color(255, 255, 255));
-        btGerenciarAgenda.setText("Gerenciar Agendas");
-        btGerenciarAgenda.setMaximumSize(new java.awt.Dimension(200, 40));
-        btGerenciarAgenda.setMinimumSize(new java.awt.Dimension(200, 40));
-        btGerenciarAgenda.setPreferredSize(new java.awt.Dimension(200, 40));
+        btGerenciarAgenda.setText("<html>Gerenciar<br>Agendas</html>");
+        btGerenciarAgenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btGerenciarAgenda.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btGerenciarAgenda.setMaximumSize(new java.awt.Dimension(185, 40));
+        btGerenciarAgenda.setMinimumSize(new java.awt.Dimension(185, 40));
+        btGerenciarAgenda.setPreferredSize(new java.awt.Dimension(185, 40));
         btGerenciarAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciarAgendaActionPerformed(evt);
@@ -183,9 +202,11 @@ public class MenuAdministrador extends SimpleForm {
         btAcessarListaEspera.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btAcessarListaEspera.setForeground(new java.awt.Color(255, 255, 255));
         btAcessarListaEspera.setText("Lista de Espera");
-        btAcessarListaEspera.setMaximumSize(new java.awt.Dimension(200, 40));
-        btAcessarListaEspera.setMinimumSize(new java.awt.Dimension(200, 40));
-        btAcessarListaEspera.setPreferredSize(new java.awt.Dimension(200, 40));
+        btAcessarListaEspera.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btAcessarListaEspera.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btAcessarListaEspera.setMaximumSize(new java.awt.Dimension(185, 40));
+        btAcessarListaEspera.setMinimumSize(new java.awt.Dimension(185, 40));
+        btAcessarListaEspera.setPreferredSize(new java.awt.Dimension(185, 40));
         btAcessarListaEspera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAcessarListaEsperaActionPerformed(evt);
@@ -203,10 +224,12 @@ public class MenuAdministrador extends SimpleForm {
         btGerenciarUsuarios.setBackground(new java.awt.Color(88, 100, 29));
         btGerenciarUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btGerenciarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        btGerenciarUsuarios.setText("Gerenciar Usuários");
-        btGerenciarUsuarios.setMaximumSize(new java.awt.Dimension(200, 40));
-        btGerenciarUsuarios.setMinimumSize(new java.awt.Dimension(200, 40));
-        btGerenciarUsuarios.setPreferredSize(new java.awt.Dimension(200, 40));
+        btGerenciarUsuarios.setText("<html>Gerenciar<br>Usuários</html>");
+        btGerenciarUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btGerenciarUsuarios.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btGerenciarUsuarios.setMaximumSize(new java.awt.Dimension(185, 40));
+        btGerenciarUsuarios.setMinimumSize(new java.awt.Dimension(185, 40));
+        btGerenciarUsuarios.setPreferredSize(new java.awt.Dimension(185, 40));
         btGerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciarUsuariosActionPerformed(evt);
@@ -225,9 +248,11 @@ public class MenuAdministrador extends SimpleForm {
         btDesconectar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btDesconectar.setForeground(new java.awt.Color(255, 255, 255));
         btDesconectar.setText("Desconectar");
-        btDesconectar.setMaximumSize(new java.awt.Dimension(200, 40));
-        btDesconectar.setMinimumSize(new java.awt.Dimension(200, 40));
-        btDesconectar.setPreferredSize(new java.awt.Dimension(200, 40));
+        btDesconectar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btDesconectar.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btDesconectar.setMaximumSize(new java.awt.Dimension(160, 40));
+        btDesconectar.setMinimumSize(new java.awt.Dimension(160, 40));
+        btDesconectar.setPreferredSize(new java.awt.Dimension(160, 40));
         btDesconectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDesconectarActionPerformed(evt);
@@ -285,6 +310,7 @@ public class MenuAdministrador extends SimpleForm {
     private javax.swing.JButton btProntuarioPesquisa;
     private javax.swing.JButton btRelatorioClinica;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbLogoAdm;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;

@@ -136,29 +136,29 @@ public class FormEsqueciSenha2 extends SimpleForm {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Copyright©Clínica Cpan. Todos os direitos reservados.");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/cpan-small.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/recuperarLogoDois.png"))); // NOI18N
 
         javax.swing.GroupLayout pDireitaLayout = new javax.swing.GroupLayout(pDireita);
         pDireita.setLayout(pDireitaLayout);
         pDireitaLayout.setHorizontalGroup(
             pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
             .addGroup(pDireitaLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(49, 49, 49)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         pDireitaLayout.setVerticalGroup(
             pDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDireitaLayout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(111, 111, 111)
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(16, 16, 16))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pLogin.add(pDireita);
@@ -170,7 +170,7 @@ public class FormEsqueciSenha2 extends SimpleForm {
         String token = tfLogin.getText().trim();
         FormEsqueciSenha3 formEsqueciSenha3 = new FormEsqueciSenha3(email, tipoUsuario, token, redefinirSenhaService);
         FormManager.EsqueciSenha(formEsqueciSenha3);
-    }//GEN-LAST:event_btEntrarActionPerformed
+    }                                        
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -39,7 +39,7 @@ public class FormAgenda extends SimpleForm {
         // redimensionarIcones();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png",40);
         
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
         EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegrito, btItalico, btSublinhado);
@@ -90,6 +90,7 @@ public class FormAgenda extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lblLogoAgenda = new javax.swing.JLabel();
 
         dateChooser1.setTextField(tfData);
 
@@ -291,7 +292,7 @@ public class FormAgenda extends SimpleForm {
                         .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSublinhado)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -313,25 +314,34 @@ public class FormAgenda extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Agenda");
 
+        lblLogoAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoAgenda.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(149, 149, 149)
+                .addComponent(lblLogoAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbClinica)
-                    .addComponent(lbProntuario))
-                .addContainerGap(766, Short.MAX_VALUE))
+                    .addComponent(lbProntuario)
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lbClinica)))
+                .addContainerGap(693, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 69, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLogoAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -389,6 +399,7 @@ public class FormAgenda extends SimpleForm {
     private javax.swing.JLabel lbPaciente;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JLabel lbSala;
+    private javax.swing.JLabel lblLogoAgenda;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextField tfData;

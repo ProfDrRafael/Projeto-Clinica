@@ -15,7 +15,7 @@ import net.miginfocom.swing.MigLayout; // Layout de gerenciamento de posição b
 
 /**
  * Classe responsável pela mudança de temas (claro/escuro) na aplicação.
- * 
+ *
  * @author Raven
  */
 public class ThemesChange extends JPanel {
@@ -29,7 +29,7 @@ public class ThemesChange extends JPanel {
 
     /**
      * Cria um ícone a partir de um arquivo SVG, aplicando um filtro de cor.
-     * 
+     *
      * @param path O caminho do arquivo SVG
      * @return O ícone criado
      */
@@ -93,7 +93,7 @@ public class ThemesChange extends JPanel {
 
     /**
      * Muda entre os modos claro e escuro.
-     * 
+     *
      * @param dark Indica se o modo escuro deve ser ativado
      */
     private void changeMode(boolean dark) {

@@ -135,7 +135,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Secretária", "menu.svg"), // index 4
             new Item("Estagiário", "menu.svg"), // index 5
             new Item.Label("Cadastrar"), // Label
-            new Item("Estagiário Cadastro", "user.svg"), // index 6
+            new Item("Vincular Estagiário", "user.svg"), // index 6
             new Item("Usuário", "user.svg"), // index 7
             new Item("Paciente", "user.svg"), // index 8
             new Item("Prontuario", "forms.svg"), // index 9

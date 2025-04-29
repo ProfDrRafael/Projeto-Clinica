@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 /**
  *
@@ -17,12 +18,15 @@ import javax.swing.SwingWorker;
  */
 public class PageProgressBar extends SimpleForm {
 
-    private Runnable onComplete; 
+    private Runnable onComplete;
 
     public PageProgressBar(Runnable onComplete) {
         this.onComplete = onComplete;
         initComponents();
+       
+
         loadProgressBar();
+
     }
 
     private void loadProgressBar() {
@@ -30,8 +34,8 @@ public class PageProgressBar extends SimpleForm {
             @Override
             protected Void doInBackground() throws InterruptedException {
                 for (int i = 0; i <= 100; i += 5) {
-                    Thread.sleep(50); 
-                    publish(i); 
+                    Thread.sleep(50);
+                    publish(i);
                 }
                 return null;
             }
@@ -45,7 +49,7 @@ public class PageProgressBar extends SimpleForm {
             @Override
             protected void done() {
                 SwingUtilities.invokeLater(() -> {
-                    FormManager.getForms().undo(); 
+                    FormManager.getForms().undo();
                     if (onComplete != null) {
                         onComplete.run();
                     }
@@ -75,7 +79,7 @@ public class PageProgressBar extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbCarregando = new javax.swing.JLabel();
         pbCarregando = new javax.swing.JProgressBar();
-        lbLogo = new javax.swing.JLabel();
+        lbLogoCapiva = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1024, 768));
         setMinimumSize(new java.awt.Dimension(1024, 768));
@@ -91,36 +95,36 @@ public class PageProgressBar extends SimpleForm {
 
         pbCarregando.setStringPainted(true);
 
-        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/cpan-small.png"))); // NOI18N
+        lbLogoCapiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/capivaraLoading.gif"))); // NOI18N
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(426, 426, 426)
-                .addComponent(lbCarregando)
-                .addGap(0, 466, Short.MAX_VALUE))
-            .addGroup(pNorthLayout.createSequentialGroup()
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pNorthLayout.createSequentialGroup()
-                        .addGap(411, 411, 411)
-                        .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pNorthLayout.createSequentialGroup()
-                        .addGap(349, 349, 349)
-                        .addComponent(lbLogo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                        .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(105, 105, 105))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                        .addComponent(lbCarregando)
+                        .addGap(440, 440, 440))))
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(376, 376, 376)
+                .addComponent(lbLogoCapiva)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(lbLogo)
+                .addGap(149, 149, 149)
+                .addComponent(lbLogoCapiva)
                 .addGap(18, 18, 18)
                 .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbCarregando)
-                .addGap(0, 456, Short.MAX_VALUE))
+                .addContainerGap(338, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.CENTER);
@@ -129,7 +133,7 @@ public class PageProgressBar extends SimpleForm {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbCarregando;
-    private javax.swing.JLabel lbLogo;
+    private javax.swing.JLabel lbLogoCapiva;
     private javax.swing.JPanel pNorth;
     private javax.swing.JProgressBar pbCarregando;
     // End of variables declaration//GEN-END:variables
