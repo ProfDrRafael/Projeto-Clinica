@@ -179,13 +179,13 @@ public class FormManager {
             sessao.setEmail(user.getEmail());
             sessao.setTipo(user.getTipo());
 
-            //new SessaoRN().salvarSessao(sessao);
+            new SessaoRN().salvarSessao(sessao);
 
             // Configura o menu dinamicamente com base no tipo do usuário
             MyDrawerBuilder drawerBuilder = (MyDrawerBuilder) instance.menu.getDrawerBuilder();
             System.out.println(user);
             drawerBuilder.setUser(user); // Define o usuário no menu
-            
+
             // Exibe a interface principal
             instance.frame.repaint();
             instance.frame.revalidate();
@@ -197,7 +197,6 @@ public class FormManager {
                     "Bem-vindo(a), " + user.getNomeCompleto() + "!");
         });
     }
-
 
 
     /**

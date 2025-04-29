@@ -793,18 +793,18 @@ public class TableEstatisticas extends SimpleForm {
 
         Map<String, JPanel> painelGrafico = new HashMap<>();
 
-        //painelGrafico.put("Todos", createPainelTodos());
+        painelGrafico.put("Todos", createPainelTodos());
         painelGrafico.put("Gênero", createStyledPanel(estatisticasRN.createGenderPieChartPanel(null), "genero"));
         painelGrafico.put("Estado Civil", createStyledPanel(estatisticasRN.createEstadoCivilPieChartPanel(null), "estadoCivil"));
         painelGrafico.put("Raça/Cor/Etnia", createStyledPanel(estatisticasRN.createRacaCorEtniaPieChartPanel(null), "raca/cor/etnia"));
-        //painelGrafico.put("Evolução Atendimentos", createStyledPanel(estatisticasRN.createEvolucaoAtendimentoChartPanel(), "evolucaoAtendimento"));
+        painelGrafico.put("Evolução Atendimentos", createStyledPanel(estatisticasRN.createEvolucaoAtendimentoChartPanel(), "evolucaoAtendimento"));
         painelGrafico.put("Agendados vs Realizados", createStyledPanel(estatisticasRN.createAgendadosVSRealizadosChartPanel(), "agendadosVSrealizados"));
         painelGrafico.put("Lista de Espera", createStyledPanel(estatisticasRN.createPacientesListaEsperaChartPanel(), "listaEspera"));
-        //painelGrafico.put("Tempo Médio Atendimento", createStyledPanel(estatisticasRN.createTempoMedioAtendimentoChartPanel(), "tempoMedioAtendimento"));
+        painelGrafico.put("Tempo Médio Atendimento", createStyledPanel(estatisticasRN.createTempoMedioAtendimentoChartPanel(), "tempoMedioAtendimento"));
         painelGrafico.put("Paciente por Idade", createStyledPanel(estatisticasRN.createPacienteIdadeBarChartPanel(), "pacienteIdade"));
         painelGrafico.put("Paciente Comparecimento", createStyledPanel(estatisticasRN.createPacienteComparecimentoBarChartPanel(), "pacienteComparecimento"));
         painelGrafico.put("Ocupação das Salas", createStyledPanel(estatisticasRN.createSalaOcupacaoBarChartPanel(null), "ocupacaoSalas"));
-        //painelGrafico.put("Distribuição Atendimentos", createStyledPanel(estatisticasRN.createDistribuicaoAtendimentosBarChartPanel(null), "distribuicaoAtendimentos"));
+        painelGrafico.put("Distribuição Atendimentos", createStyledPanel(estatisticasRN.createDistribuicaoAtendimentosBarChartPanel(null), "distribuicaoAtendimentos"));
 
         for (Map.Entry<String, JPanel> entry : painelGrafico.entrySet()) {
             containerGrafico.add(entry.getValue(), entry.getKey());

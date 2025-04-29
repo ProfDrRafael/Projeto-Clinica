@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Persistencia.Entity.Atendimento;
 import Persistencia.Entity.Estagiario;
 import Regradenegocio.AgendaRN;
@@ -101,7 +102,6 @@ public class FormAtendimento extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
-        lblLogoAtendimento = new javax.swing.JLabel();
 
         dateChooser1.setTextField(tfDataEmergencial);
 
@@ -175,11 +175,6 @@ public class FormAtendimento extends SimpleForm {
         lbEmergencial.setText("Tipo de Atendimento:");
 
         cbData.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDataActionPerformed(evt);
-            }
-        });
 
         tfDataEmergencial.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -338,8 +333,6 @@ public class FormAtendimento extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Atendimento");
 
-        lblLogoAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoAtendimento_resized.png"))); // NOI18N
-
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
@@ -376,10 +369,6 @@ public class FormAtendimento extends SimpleForm {
     private void cbTipoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoAtendimentoActionPerformed
         verificarTipoAtendimentoSelecionado();
     }//GEN-LAST:event_cbTipoAtendimentoActionPerformed
-
-    private void cbDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDataActionPerformed
 
     private void btAnexarActionPerformed(java.awt.event.ActionEvent evt) {
         FormProduzirRelato formRelato = new FormProduzirRelato(relato -> {
@@ -474,7 +463,6 @@ public class FormAtendimento extends SimpleForm {
     private javax.swing.JLabel lbPaciente;
     private javax.swing.JLabel lbProntuario;
     private javax.swing.JLabel lbResponsavel;
-    private javax.swing.JLabel lblLogoAtendimento;
     private javax.swing.JLabel ldDescricao;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
