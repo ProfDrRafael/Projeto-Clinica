@@ -3,10 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
 
 /**
  *
@@ -19,12 +21,14 @@ public class MenuOrientador extends SimpleForm {
      */
     public MenuOrientador() {
         initComponents();
-        
+        // remove background customizado e volta ao default do L&F
+        pCenter.putClientProperty(FlatClientProperties.STYLE, "background:null");
+
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btValidarRelato, "/Multimidia/imagens/aprovarLogo.png",130);
-        redimencionarIcone.redimensionarIcones(btVerificarPendencias, "/Multimidia/imagens/pendenciasLogo.png",140);
-        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaGeral, "/Multimidia/imagens/listaEsperaGeralLogo.png",130);
-        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaEspecifica, "/Multimidia/imagens/listaEspecificaLogo.png",115);
+        redimencionarIcone.redimensionarIcones(btValidarRelato, "/Multimidia/imagens/aprovarLogo.png", 130);
+        redimencionarIcone.redimensionarIcones(btVerificarPendencias, "/Multimidia/imagens/pendenciasLogo.png", 140);
+        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaGeral, "/Multimidia/imagens/listaEsperaGeralLogo.png", 130);
+        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaEspecifica, "/Multimidia/imagens/listaEspecificaLogo.png", 115);
         redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png");
     }
 
@@ -227,13 +231,13 @@ public class MenuOrientador extends SimpleForm {
 
     private void btAcessarListaEsperaEspecificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaEspecificaActionPerformed
         TableListaEsperaEspecifica form = new TableListaEsperaEspecifica();
-        
+
         FormManager.showForm(form);
     }//GEN-LAST:event_btAcessarListaEsperaEspecificaActionPerformed
 
     private void btAcessarListaEsperaGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaGeralActionPerformed
         TableListaEsperaGeral form = new TableListaEsperaGeral();
-        
+
         FormManager.showForm(form);
     }//GEN-LAST:event_btAcessarListaEsperaGeralActionPerformed
 
@@ -254,5 +258,5 @@ public class MenuOrientador extends SimpleForm {
     private javax.swing.JPanel pCenter;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables
-    
+
 }

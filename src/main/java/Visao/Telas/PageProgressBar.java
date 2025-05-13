@@ -85,9 +85,9 @@ public class PageProgressBar extends SimpleForm {
         pbCarregando = new javax.swing.JProgressBar();
         lbLogoCapiva = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1024, 768));
-        setMinimumSize(new java.awt.Dimension(1024, 768));
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        setMaximumSize(new java.awt.Dimension(975, 630));
+        setMinimumSize(new java.awt.Dimension(975, 630));
+        setPreferredSize(new java.awt.Dimension(975, 630));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
@@ -106,18 +106,17 @@ public class PageProgressBar extends SimpleForm {
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+                .addContainerGap(123, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
                         .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(105, 105, 105))
+                        .addGap(87, 87, 87))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                        .addComponent(lbLogoCapiva)
+                        .addGap(361, 361, 361))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
                         .addComponent(lbCarregando)
-                        .addGap(440, 440, 440))))
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(376, 376, 376)
-                .addComponent(lbLogoCapiva)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(420, 420, 420))))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

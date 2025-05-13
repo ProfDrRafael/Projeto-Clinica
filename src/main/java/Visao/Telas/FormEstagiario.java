@@ -13,6 +13,7 @@ import VO.OrientadorVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ import java.util.List;
  * @author john
  */
 public class FormEstagiario extends SimpleForm {
+
     private final MessagesAlert messagesAlert;
 
     /**
@@ -27,6 +29,8 @@ public class FormEstagiario extends SimpleForm {
      */
     public FormEstagiario() {
         initComponents();
+        // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         messagesAlert = new MessagesAlert();
 
         cbAtivo.setSelected(true);
@@ -34,10 +38,9 @@ public class FormEstagiario extends SimpleForm {
         btSalvar.setEnabled(false);
 
         // redimensionarIcones();
-
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
-        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png",40);
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
+        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png", 40);
 
         carregarEstagiarios();
         carregarOrientadores();
@@ -329,8 +332,7 @@ public class FormEstagiario extends SimpleForm {
             for (Estagiario estagiario : estagiarios) {
                 cbEstagiario.addItem(estagiario.getNome());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             messagesAlert.showErrorMessage("Não há estagiários cadastrados no sistema.");
             bloquearTodosOsCampos();
         }

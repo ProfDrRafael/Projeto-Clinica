@@ -3,10 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
+import raven.alerts.MessageAlerts;
 
 /**
  *
@@ -20,15 +23,18 @@ public class MenuAdministrador extends SimpleForm {
     public MenuAdministrador() {
         initComponents();
 
+        // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
+
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btAcessarListaEspera, "/Multimidia/imagens/gerenciarListas.png",110);
-        redimencionarIcone.redimensionarIcones(btRelatorioClinica, "/Multimidia/imagens/relatorios.png",130);
-        redimencionarIcone.redimensionarIcones(btGerenciarListas, "/Multimidia/imagens/gerenciarListasAdm.png",110);
-        redimencionarIcone.redimensionarIcones(btGerenciarAgenda, "/Multimidia/imagens/gerenciarAgendas.png",135);
-        redimencionarIcone.redimensionarIcones(btGerenciarUsuarios, "/Multimidia/imagens/gerenciarUsuariosAdm.png",100);
-        redimencionarIcone.redimensionarIcones(btProntuarioPesquisa, "/Multimidia/imagens/pesquisar.png",100);
-        redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png",100);
-        
+        redimencionarIcone.redimensionarIcones(btAcessarListaEspera, "/Multimidia/imagens/gerenciarListas.png", 110);
+        redimencionarIcone.redimensionarIcones(btRelatorioClinica, "/Multimidia/imagens/relatorios.png", 130);
+        redimencionarIcone.redimensionarIcones(btGerenciarListas, "/Multimidia/imagens/gerenciarListasAdm.png", 110);
+        redimencionarIcone.redimensionarIcones(btGerenciarAgenda, "/Multimidia/imagens/gerenciarAgendas.png", 135);
+        redimencionarIcone.redimensionarIcones(btGerenciarUsuarios, "/Multimidia/imagens/gerenciarUsuariosAdm.png", 100);
+        redimencionarIcone.redimensionarIcones(btProntuarioPesquisa, "/Multimidia/imagens/pesquisar.png", 100);
+        redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png", 100);
+
     }
 
     /**
@@ -102,7 +108,8 @@ public class MenuAdministrador extends SimpleForm {
         add(pNorth, java.awt.BorderLayout.NORTH);
 
         pCentro.setBackground(java.awt.SystemColor.controlHighlight);
-        pCentro.setPreferredSize(new java.awt.Dimension(1024, 768));
+        pCentro.setPreferredSize(new java.awt.Dimension(975, 630));
+        pCentro.setRequestFocusEnabled(false);
         pCentro.setLayout(new java.awt.GridBagLayout());
 
         btRelatorioClinica.setBackground(new java.awt.Color(64, 61, 88));
@@ -277,7 +284,9 @@ public class MenuAdministrador extends SimpleForm {
     }//GEN-LAST:event_btDesconectarActionPerformed
 
     private void btRelatorioClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioClinicaActionPerformed
-        
+        TableEstatisticas form = new TableEstatisticas();
+
+        FormManager.showForm(form);
     }//GEN-LAST:event_btRelatorioClinicaActionPerformed
 
     private void btProntuarioPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProntuarioPesquisaActionPerformed
@@ -286,6 +295,9 @@ public class MenuAdministrador extends SimpleForm {
 
     private void btGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarUsuariosActionPerformed
         // TODO add your handling code here:
+        TableListaUsuarios form = new TableListaUsuarios();
+
+        FormManager.showForm(form);
     }//GEN-LAST:event_btGerenciarUsuariosActionPerformed
 
     private void btGerenciarListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarListasActionPerformed
@@ -297,7 +309,14 @@ public class MenuAdministrador extends SimpleForm {
     }//GEN-LAST:event_btGerenciarAgendaActionPerformed
 
     private void btAcessarListaEsperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaActionPerformed
-        // TODO add your handling code here:
+        MessagesAlert.showChooseLista(choice -> {
+            if (choice == 0) {
+                FormManager.showForm(new TableListaEsperaGeral());
+            } else if (choice == 1) {
+                FormManager.showForm(new TableListaEsperaEspecifica());
+            }
+            // se choice == -1, o usuário fechou o popup sem escolher
+        });
     }//GEN-LAST:event_btAcessarListaEsperaActionPerformed
 
 
@@ -315,5 +334,5 @@ public class MenuAdministrador extends SimpleForm {
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables
- 
+
 }

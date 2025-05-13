@@ -46,16 +46,16 @@ public class TableListaUsuarios extends SimpleForm {
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1000, 768));
-        setMinimumSize(new java.awt.Dimension(1000, 768));
-        setPreferredSize(new java.awt.Dimension(1000, 768));
+        setMaximumSize(new java.awt.Dimension(950, 650));
+        setMinimumSize(new java.awt.Dimension(950, 650));
+        setPreferredSize(new java.awt.Dimension(950, 650));
         setLayout(new java.awt.BorderLayout());
 
         painel_lista_espera.setBackground(new java.awt.Color(255, 255, 255));
         painel_lista_espera.setForeground(new java.awt.Color(255, 255, 255));
-        painel_lista_espera.setMaximumSize(new java.awt.Dimension(1024, 768));
-        painel_lista_espera.setMinimumSize(new java.awt.Dimension(1024, 768));
-        painel_lista_espera.setPreferredSize(new java.awt.Dimension(1024, 768));
+        painel_lista_espera.setMaximumSize(new java.awt.Dimension(950, 650));
+        painel_lista_espera.setMinimumSize(new java.awt.Dimension(950, 650));
+        painel_lista_espera.setPreferredSize(new java.awt.Dimension(950, 650));
 
         tbListaEsperaNaoAtendidos.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         tbListaEsperaNaoAtendidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -79,14 +79,14 @@ public class TableListaUsuarios extends SimpleForm {
             .addGroup(painel_lista_esperaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1005, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(3, Short.MAX_VALUE))
         );
         painel_lista_esperaLayout.setVerticalGroup(
             painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_lista_esperaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         add(painel_lista_espera, java.awt.BorderLayout.CENTER);

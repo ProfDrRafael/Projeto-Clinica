@@ -26,6 +26,7 @@ import Visao.JframeManager.FormManager;
 import Visao.Utils.RedimencionarIcones;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
+import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -52,13 +53,18 @@ public class FormPaciente extends SimpleForm {
      */
     public FormPaciente() {
         initComponents();
+        // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
+        pInscricao.putClientProperty(FlatClientProperties.STYLE, "background:null");
+        pEndereco.putClientProperty(FlatClientProperties.STYLE, "background:null");
+        pIdentificacao.putClientProperty(FlatClientProperties.STYLE, "background:null");
         //redimensionarIcones();
 
         inserirDadosFormulario();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
-        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png",40);
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
+        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png", 40);
 
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDisponibilidade);
         EditorTextPaneEstilization.JTextComponentStylization(tpDisponibilidade, btNegrito, btItalico, btSublinhado);
@@ -253,9 +259,9 @@ public class FormPaciente extends SimpleForm {
 
         dateChooser1.setTextField(tfData);
 
-        setMaximumSize(new java.awt.Dimension(1024, 1450));
-        setMinimumSize(new java.awt.Dimension(1024, 1450));
-        setPreferredSize(new java.awt.Dimension(1024, 1450));
+        setMaximumSize(new java.awt.Dimension(950, 1450));
+        setMinimumSize(new java.awt.Dimension(950, 1450));
+        setPreferredSize(new java.awt.Dimension(950, 1450));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
@@ -790,30 +796,28 @@ public class FormPaciente extends SimpleForm {
                         .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSublinhado)))
                 .addGap(18, 18, 18)
-                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pInscricaoLayout.createSequentialGroup()
                         .addComponent(lbAtendido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(cbAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pInscricaoLayout.createSequentialGroup()
                         .addComponent(lbOrientador)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6))
                     .addGroup(pInscricaoLayout.createSequentialGroup()
-                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pInscricaoLayout.createSequentialGroup()
-                                .addComponent(lbEstagiario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(pInscricaoLayout.createSequentialGroup()
-                                .addComponent(lbResponsavel)
-                                .addGap(6, 6, 6)))
-                        .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbEstagiario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbResponsavel))
+                .addGap(16, 16, 16)
+                .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         btSalvar.setBackground(new java.awt.Color(102, 255, 102));
@@ -866,11 +870,11 @@ public class FormPaciente extends SimpleForm {
                 .addComponent(pEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btEditar))
-                .addGap(83, 83, 83)
+                .addGap(106, 106, 106)
                 .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1006,12 +1010,11 @@ public class FormPaciente extends SimpleForm {
         } catch (HeadlessException | NumberFormatException e) {
             messagesAlert.showErrorMessage("Erro: " + e.getMessage());
         }
-        
-        
+
         MessagesAlert.showWarningMessage("Deseja continuar cadastrando?", response -> {
             if (!response) {
                 FormManager.showForm(new PageWelcome());
-                
+
             }
         });
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -1115,11 +1118,11 @@ public class FormPaciente extends SimpleForm {
         } catch (Exception e) {
             messagesAlert.showErrorMessage("Erro: " + e.getMessage());
         }
-        
+
         MessagesAlert.showWarningMessage("Deseja continuar editando?", response -> {
             if (!response) {
                 FormManager.showForm(new PageWelcome());
-                
+
             }
         });
     }//GEN-LAST:event_btEditarActionPerformed

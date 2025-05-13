@@ -48,16 +48,16 @@ public class TableListaAtendimento extends SimpleForm {
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1000, 768));
-        setMinimumSize(new java.awt.Dimension(1000, 768));
-        setPreferredSize(new java.awt.Dimension(1000, 768));
+        setMaximumSize(new java.awt.Dimension(950, 650));
+        setMinimumSize(new java.awt.Dimension(950, 650));
+        setPreferredSize(new java.awt.Dimension(950, 650));
         setLayout(new java.awt.BorderLayout());
 
         painel_lista_espera.setBackground(new java.awt.Color(255, 255, 255));
         painel_lista_espera.setForeground(new java.awt.Color(255, 255, 255));
         painel_lista_espera.setMaximumSize(new java.awt.Dimension(99999, 99999999));
         painel_lista_espera.setMinimumSize(new java.awt.Dimension(0, 0));
-        painel_lista_espera.setPreferredSize(new java.awt.Dimension(1200, 768));
+        painel_lista_espera.setPreferredSize(new java.awt.Dimension(950, 650));
 
         tbListaEsperaEspecifica.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         tbListaEsperaEspecifica.setModel(new javax.swing.table.DefaultTableModel(

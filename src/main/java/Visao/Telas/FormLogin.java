@@ -11,6 +11,7 @@ import VO.UsuarioVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
+import com.formdev.flatlaf.FlatClientProperties;
 
 import java.awt.Color;
 import java.awt.event.KeyListener;
@@ -25,12 +26,13 @@ public class FormLogin extends SimpleForm {
 
     /**
      * Creates new form formLogin
+     *
      * @param autenticacaoService
      */
     public FormLogin(AutenticacaoService autenticacaoService) {
         this.autenticacaoService = autenticacaoService;
         initComponents();
-        
+     
         tfLogin.setText("admin@admin.com");
         pfSenha.setText("senha123");
         addEnterKeyListener();
@@ -124,7 +126,7 @@ public class FormLogin extends SimpleForm {
         jlSenha.setText("Senha:");
 
         lbEsqueceuSenha.setForeground(new java.awt.Color(51, 51, 255));
-        lbEsqueceuSenha.setText("Esqueceu sua senha?");
+        lbEsqueceuSenha.setText("Esqueceu a senha?");
         lbEsqueceuSenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbEsqueceuSenhaMouseClicked(evt);
@@ -204,9 +206,9 @@ public class FormLogin extends SimpleForm {
 
     private void lbEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEsqueceuSenhaMouseClicked
         lbEsqueceuSenha.setBackground(Color.black);
-        
+
         FormEsqueciSenha esqueciSenha = new FormEsqueciSenha();
-        
+
         FormManager.EsqueciSenha(esqueciSenha);
     }//GEN-LAST:event_lbEsqueceuSenhaMouseClicked
 

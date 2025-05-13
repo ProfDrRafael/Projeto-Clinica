@@ -14,6 +14,7 @@ import VO.PesquisadorVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -31,15 +32,18 @@ import javax.swing.text.DocumentFilter.FilterBypass;
  * @author john
  */
 public class FormUsuario extends SimpleForm {
+
     private final Border defaultBorder = (new JTextField()).getBorder();
-    private final Border errorBorder   = BorderFactory.createLineBorder(Color.RED, 1);
-    private final Pattern emailRegex   = Pattern.compile("^[\\p{L}0-9._%+-]+@[\\p{L}0-9.-]+\\.[A-Za-z]{2,}$");
+    private final Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);
+    private final Pattern emailRegex = Pattern.compile("^[\\p{L}0-9._%+-]+@[\\p{L}0-9.-]+\\.[A-Za-z]{2,}$");
 
     /**
      * Creates new form cadastroUsuario
      */
     public FormUsuario() {
         initComponents();
+        // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         // redimensionarIcones();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
@@ -49,8 +53,8 @@ public class FormUsuario extends SimpleForm {
         lbPasswordWarning1.setVisible(false);
         lbPasswordWarning2.setVisible(false);
     }
-    
-    public void createSouthPanel(){
+
+    public void createSouthPanel() {
         JPanel panel = new JPanel();
 
     }
@@ -85,9 +89,9 @@ public class FormUsuario extends SimpleForm {
         lbProntuario = new javax.swing.JLabel();
         lbLogoCadastro = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(990, 480));
-        setMinimumSize(new java.awt.Dimension(990, 480));
-        setPreferredSize(new java.awt.Dimension(990, 480));
+        setMaximumSize(new java.awt.Dimension(950, 480));
+        setMinimumSize(new java.awt.Dimension(950, 480));
+        setPreferredSize(new java.awt.Dimension(950, 480));
         setLayout(new java.awt.BorderLayout());
 
         pCentro.setBackground(java.awt.SystemColor.controlHighlight);
@@ -277,7 +281,9 @@ public class FormUsuario extends SimpleForm {
         UsuarioRN usuarioRN = new UsuarioRN();
         MessagesAlert messagesAlert = new MessagesAlert();
 
-        if (!validarFormulario()) return;
+        if (!validarFormulario()) {
+            return;
+        }
 
         try {
             String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
@@ -329,12 +335,14 @@ public class FormUsuario extends SimpleForm {
     }// GEN-LAST:event_btSalvarActionPerformed
 
     private static class NoDigitsFilter extends DocumentFilter {
+
         @Override
         public void insertString(FilterBypass fb, int offs, String str, AttributeSet a) throws BadLocationException {
             if (str != null && str.chars().allMatch(FormUsuario::isAllowedChar)) {
                 super.insertString(fb, offs, str, a);
             }
         }
+
         @Override
         public void replace(FilterBypass fb, int offs, int len, String str, AttributeSet a) throws BadLocationException {
             if (str != null && str.chars().allMatch(FormUsuario::isAllowedChar)) {
@@ -343,12 +351,16 @@ public class FormUsuario extends SimpleForm {
         }
     }
 
-    /** helper: permite letras, acentos e espaço */
+    /**
+     * helper: permite letras, acentos e espaço
+     */
     private static boolean isAllowedChar(int codePoint) {
         return Character.isLetter(codePoint) || Character.isSpaceChar(codePoint);
     }
 
-    /** Chame no fim do construtor (depois de initComponents) */
+    /**
+     * Chame no fim do construtor (depois de initComponents)
+     */
     private void initValidacao() {
         /* aplica filtro ao campo Nome */
         ((PlainDocument) tfNome.getDocument()).setDocumentFilter(new NoDigitsFilter());
@@ -381,10 +393,10 @@ public class FormUsuario extends SimpleForm {
         String s1 = new String(pfSenha.getPassword());
         String s2 = new String(pfConfirmarSenha.getPassword());
 
-        boolean lenOk      = s1.length() >= 8;
-        boolean mismatch   = !s1.isEmpty() && !s2.isEmpty() && !s1.equals(s2);
+        boolean lenOk = s1.length() >= 8;
+        boolean mismatch = !s1.isEmpty() && !s2.isEmpty() && !s1.equals(s2);
         boolean bothFilled = !s1.isEmpty() && !s2.isEmpty();
-        boolean ok         = lenOk && !mismatch;
+        boolean ok = lenOk && !mismatch;
 
         lbPasswordWarning1.setVisible(!lenOk && !s1.isEmpty());
         lbPasswordWarning2.setVisible(mismatch);
@@ -424,11 +436,24 @@ public class FormUsuario extends SimpleForm {
     }
 
     private static class SimpleListener implements javax.swing.event.DocumentListener {
+
         private final Runnable r;
-        SimpleListener(Runnable r) { this.r = r; }
-        public void insertUpdate(javax.swing.event.DocumentEvent e){ r.run(); }
-        public void removeUpdate(javax.swing.event.DocumentEvent e){ r.run(); }
-        public void changedUpdate(javax.swing.event.DocumentEvent e){ r.run(); }
+
+        SimpleListener(Runnable r) {
+            this.r = r;
+        }
+
+        public void insertUpdate(javax.swing.event.DocumentEvent e) {
+            r.run();
+        }
+
+        public void removeUpdate(javax.swing.event.DocumentEvent e) {
+            r.run();
+        }
+
+        public void changedUpdate(javax.swing.event.DocumentEvent e) {
+            r.run();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

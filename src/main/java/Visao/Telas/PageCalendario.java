@@ -10,6 +10,7 @@ import VO.AgendaVO;
 import VO.SessaoVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
+import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -49,12 +50,12 @@ public class PageCalendario extends SimpleForm {
     private JPanel ultimoDiaSelecionado = null;
     private LocalDate ultimoDiaSelecionadoData = null;
 
-
     /**
      * Creates new form PageCalendario
      */
     public PageCalendario() {
         initComponents();
+
         currentYearMonth = YearMonth.now();
         agendaRN = new AgendaRN();
 
@@ -76,6 +77,7 @@ public class PageCalendario extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lblLogoCalendas = new javax.swing.JLabel();
         pnPageCalendario = new javax.swing.JPanel();
         pnAgendamentos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -91,11 +93,15 @@ public class PageCalendario extends SimpleForm {
         btnMesAnterior = new javax.swing.JButton();
         btnProximoMes = new javax.swing.JButton();
 
+        setMaximumSize(new java.awt.Dimension(950, 630));
+        setMinimumSize(new java.awt.Dimension(950, 630));
+        setPreferredSize(new java.awt.Dimension(950, 630));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
         pNorth.setMaximumSize(new java.awt.Dimension(638, 150));
         pNorth.setMinimumSize(new java.awt.Dimension(638, 150));
+        pNorth.setPreferredSize(new java.awt.Dimension(950, 210));
 
         lbClinica.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,27 +109,36 @@ public class PageCalendario extends SimpleForm {
 
         lbProntuario.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
-        lbProntuario.setText("Agenda");
+        lbProntuario.setText("Calendário");
+
+        lblLogoCalendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoCalendario.png"))); // NOI18N
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(118, 118, 118)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblLogoCalendas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbClinica)
-                    .addComponent(lbProntuario))
-                .addContainerGap(743, Short.MAX_VALUE))
+                    .addComponent(lbProntuario)
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lbClinica)))
+                .addContainerGap(576, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 44, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(lbProntuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addComponent(lblLogoCalendas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -264,7 +279,7 @@ public class PageCalendario extends SimpleForm {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         add(pnPageCalendario, java.awt.BorderLayout.CENTER);
@@ -297,6 +312,7 @@ public class PageCalendario extends SimpleForm {
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbMesAno;
     private javax.swing.JLabel lbProntuario;
+    private javax.swing.JLabel lblLogoCalendas;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel pnAgendamentos;
     private javax.swing.JPanel pnCabecalho;
@@ -522,7 +538,6 @@ public class PageCalendario extends SimpleForm {
 //        pnHorarios.revalidate();
 //        pnHorarios.repaint();
 //    }
-
     private void carregarHorariosDisponiveis(LocalDate data) {
         pnHorarios.removeAll();
 
@@ -597,6 +612,5 @@ public class PageCalendario extends SimpleForm {
         pnHorarios.revalidate();
         pnHorarios.repaint();
     }
-
 
 }

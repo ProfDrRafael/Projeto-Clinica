@@ -257,7 +257,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             case "Prontuário" -> new FormProntuario();
             case "Agenda" -> new FormAgenda();
             case "Calendário" -> new PageCalendario();
-            case "Formulário de Atendimento" -> new FormAtendimento();
+            case "Atendimento" -> new FormAtendimento();
             case "Lista de Espera Geral" -> new TableListaEsperaGeral();
             case "Lista de Espera Específica" -> new TableListaEsperaEspecifica();
             case "Agendamentos" -> new TableListaAgenda();
@@ -339,7 +339,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 allowedMenus.add("Orientador");
                 allowedMenus.add("Agenda");
                 allowedMenus.add("Calendário");
-                allowedMenus.add("Formulário de Atendimento");
+                allowedMenus.add("Atendimento");
                 allowedMenus.add("Lista de Espera Geral");
                 allowedMenus.add("Lista de Espera Especifica");
                 allowedMenus.add("Deslogar");
@@ -351,7 +351,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 allowedMenus.add("Prontuario");
                 allowedMenus.add("Agenda");
                 allowedMenus.add("Calendário");
-                allowedMenus.add("Formulário de Atendimento");
+                allowedMenus.add("Atendimento");
                 allowedMenus.add("Lista de Espera Geral");
                 allowedMenus.add("Lista de Espera Especifica");
                 allowedMenus.add("Deslogar");

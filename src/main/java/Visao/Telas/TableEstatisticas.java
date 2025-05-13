@@ -63,10 +63,12 @@ public class TableEstatisticas extends SimpleForm {
         init();
     }
 
+    
+
     @Override
     public void formRefresh() {
-        init();
-    }
+       init();
+    } 
 
     @Override
     public void formInitAndOpen() {

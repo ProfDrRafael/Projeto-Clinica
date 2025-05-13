@@ -27,7 +27,7 @@ public class PageWelcome extends SimpleForm {
      */
     public PageWelcome() {
         initComponents();
-        initCarousel();
+        //initCarousel();
 
     }
 
@@ -66,9 +66,9 @@ public class PageWelcome extends SimpleForm {
         lbOrientador = new javax.swing.JLabel();
         lbCpanLogo = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1024, 768));
-        setMinimumSize(new java.awt.Dimension(1024, 768));
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        setMaximumSize(new java.awt.Dimension(975, 630));
+        setMinimumSize(new java.awt.Dimension(975, 630));
+        setPreferredSize(new java.awt.Dimension(975, 630));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));

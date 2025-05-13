@@ -53,7 +53,8 @@ public class ThemesChange extends JPanel {
         JPanel panel = new JPanel(new MigLayout("fill", "[fill]10[fill]", "fill"));
         panel.putClientProperty(FlatClientProperties.STYLE, "" // Define propriedades de estilo para o painel interno
                 + "arc:999;" // Define bordas arredondadas
-                + "background:darken($Drawer.background,5%)"); // Define a cor de fundo escurecida
+                + "background:darken($Drawer.background,5%)");
+                 
 
         // Cria botões para alterar entre os modos claro e escuro
         JButton buttonLight = new JButton(createIcon("Multimidia/icon/light.svg")); // Botão para modo claro

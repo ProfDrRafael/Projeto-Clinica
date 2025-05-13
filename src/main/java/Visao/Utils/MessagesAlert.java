@@ -6,6 +6,7 @@ package Visao.Utils;
 
 import Visao.JframeManager.FormManager;
 import java.util.function.Consumer;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import raven.alerts.MessageAlerts;
 import raven.popup.component.PopupCallbackAction;
@@ -67,6 +68,28 @@ public class MessagesAlert {
                 }
             }
         );
+    }
+    
+        public static void showChooseLista(Consumer<Integer> callback) {
+            SwingUtilities.invokeLater(() -> {
+            String title   = "Acesso à Lista";
+            String message = "Para qual das listas você deseja ir?";
+            String[] options = {"Geral", "Específica"};
+            
+            int choice = JOptionPane.showOptionDialog(
+                null,                         // parent: null = centralizado na tela
+                message,                      // mensagem
+                title,                        // título da janela
+                JOptionPane.DEFAULT_OPTION,   // tipo de botões
+                JOptionPane.QUESTION_MESSAGE, // ícone de interrogação
+                null,                         // ícone custom (null = padrão)
+                options,                      // rótulos dos botões
+                options[0]                    // botão default selecionado
+            );
+            
+            // choice == 0 → "Geral"; choice == 1 → "Específica"; -1 = fechou a janela
+            callback.accept(choice);
+        });
     }
 
 }

@@ -158,7 +158,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Lista de Espera Espec&#xed;fica"/>
-            <Property name="actionCommand" type="java.lang.String" value="Lista de Espera Espec&#xed;fica"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[5, 10, 5, 10]"/>

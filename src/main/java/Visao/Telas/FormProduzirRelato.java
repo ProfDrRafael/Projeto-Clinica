@@ -8,6 +8,7 @@ import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
 
 import java.util.function.Consumer;
 
@@ -27,6 +28,8 @@ public class FormProduzirRelato extends SimpleForm {
         this.onRelatoSubmetido = onRelatoSubmetido;
         messagesAlert = new MessagesAlert();
         initComponents();
+        // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         //redimensionarIcones();
         
         

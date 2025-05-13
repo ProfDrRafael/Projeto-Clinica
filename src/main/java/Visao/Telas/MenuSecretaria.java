@@ -7,6 +7,7 @@ import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
 
 
 /**
@@ -20,6 +21,8 @@ public class MenuSecretaria extends SimpleForm {
      */
     public MenuSecretaria() {
         initComponents();
+          // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btCadastrarPaciente, "/Multimidia/imagens/pacienteLogo.png",150);

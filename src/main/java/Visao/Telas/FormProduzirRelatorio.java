@@ -9,6 +9,7 @@ import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
 
 import java.util.function.Consumer;
 
@@ -17,22 +18,25 @@ import java.util.function.Consumer;
  * @author john
  */
 public class FormProduzirRelatorio extends SimpleForm {
+
     private final Consumer<String> onRelatoSubmetido;
 
     /**
      * Creates new form atendimentoForm
+     *
      * @param onRelatoSubmetido
      */
     public FormProduzirRelatorio(Consumer<String> onRelatoSubmetido) {
         this.onRelatoSubmetido = onRelatoSubmetido;
         initComponents();
+        // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         // redimensionarIcones();
 
         // EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelatorio);
-
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png",40);
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png", 40);
 
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelatorio);
         EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelatorio, btNegrito, btItalico, btSublinhado);
