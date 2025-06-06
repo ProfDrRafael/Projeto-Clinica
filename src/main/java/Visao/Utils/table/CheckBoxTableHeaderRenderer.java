@@ -49,21 +49,34 @@ public class CheckBoxTableHeaderRenderer extends JCheckBox implements TableCellR
     }
 
     private void checkRow() {
-        boolean initValue = table.getRowCount() == 0 ? false : (boolean) table.getValueAt(0, column);
-        for (int i = 1; i < table.getRowCount(); i++) {
-            boolean v = (boolean) table.getValueAt(i, column);
-            if (initValue != v) {
-                putClientProperty(FlatClientProperties.SELECTED_STATE, FlatClientProperties.SELECTED_STATE_INDETERMINATE);
+        if (table.getRowCount() == 0) {
+            return; // Exit if no rows
+        }
+
+        // Check if first row is within bounds and has correct type
+        if (table.getRowCount() > 0 && table.getModel().getColumnCount() > column) {
+            Object firstValue = table.getValueAt(0, column);
+            if (firstValue instanceof Boolean) {
+                boolean initValue = (Boolean) firstValue;
+                for (int i = 1; i < table.getRowCount(); i++) {
+                    boolean v = (boolean) table.getValueAt(i, column);
+                    if (initValue != v) {
+                        putClientProperty(FlatClientProperties.SELECTED_STATE, FlatClientProperties.SELECTED_STATE_INDETERMINATE);
+                        table.getTableHeader().repaint();
+                        return;
+                    }
+                }
+                putClientProperty(FlatClientProperties.SELECTED_STATE, null);
+                setSelected(initValue);
                 table.getTableHeader().repaint();
-                return;
             }
         }
-        putClientProperty(FlatClientProperties.SELECTED_STATE, null);
-        setSelected(initValue);
-        table.getTableHeader().repaint();
     }
 
     private void selectedTableRow(boolean selected) {
+        System.out.println("Visao.Utils.table.CheckBoxTableHeaderRenderer.selectedTableRow()");
+        System.out.println("SELECTED???? " + selected);
+
         for (int i = 0; i < table.getRowCount(); i++) {
             table.setValueAt(selected, i, column);
         }

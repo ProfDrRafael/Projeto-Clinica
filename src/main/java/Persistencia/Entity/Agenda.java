@@ -8,7 +8,9 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "agenda")
 public class Agenda {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -21,17 +23,20 @@ public class Agenda {
     @Column(name = "sala", nullable = false)
     private Byte sala;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "atendimento_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "atendimento_id", nullable = true)
     private Persistencia.Entity.Atendimento atendimento;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "paciente_id", nullable = false)
     private Persistencia.Entity.Paciente paciente;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "estagiario_id", nullable = false)
     private Persistencia.Entity.Estagiario estagiario;
+
+    @Column(name = "tipo_atendimento", length = 50)
+    private String tipoAtendimento;
 
     public Integer getId() {
         return id;
@@ -89,4 +94,11 @@ public class Agenda {
         this.estagiario = estagiario;
     }
 
+    public String getTipoAtendimento() {
+        return tipoAtendimento;
+    }
+
+    public void setTipoAtendimento(String tipoAtendimento) {
+        this.tipoAtendimento = tipoAtendimento;
+    }
 }

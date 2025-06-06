@@ -4,215 +4,394 @@
  */
 package VO;
 
-import java.util.Date;
+import Persistencia.Dao.EstagiarioDAO;
+import Persistencia.Dao.OrientadorDAO;
+import Persistencia.Dao.PaisDAO;
+import Persistencia.Entity.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
  * @author rafael
  */
 public class PacienteVO {
-    private int id;
-    private String nomeCompleto;
-    private Date dataNascimento;
+
+    OrientadorDAO orientadorDAO = new OrientadorDAO();
+    EstagiarioDAO estagiarioDAO = new EstagiarioDAO();
+
+    private Integer id;
+    private String nome;
     private String genero;
-    private String telefone;
-    private EstagiarioVO estagiarioResponsavel; 
-    private String endereco;
-    private String telefoneContato;
-    private String adultoResponsavel;
-    private OrientadorVO orientadorResponsavel;
+    private String celularContato;
+    private String celular;
+    private String paciente;
+    private String dataNascimento;
+    private LocalDate dataInscricao;
+    private String instrucao;
+    private String profissao;
+    private String estadoCivil;
+    private String raca_cor_etnia;
+    private String orientacao;
+    private Integer nacionalidade;
     private String disponibilidade;
+    private Integer estagiario;
+    private Integer orientador;
+    private Endereco endereco;
+    private Responsavel responsavel;
     private boolean atendido;
-    
+    private boolean ativo;
+    private Byte grupo; // Campo adicional para grupo
 
-
-public PacienteVO(int id, String nomeCompleto, Date dataNascimento, String genero, String telefone, 
-                      EstagiarioVO estagiarioResponsavel, String endereco, String telefoneContato, 
-                      String adultoResponsavel, OrientadorVO orientadorResponsavel, String disponibilidade, 
-                      boolean atendido){
-        this.id = id;
-        this.nomeCompleto = nomeCompleto;
-        this.dataNascimento = dataNascimento;
+    // Construtor com todos os campos como argumentos
+    public PacienteVO(
+            String genero,
+            String celularContato,
+            String celular,
+            String paciente,
+            String dataNascimento,
+            LocalDate dataInscricao,
+            String instrucao,
+            String profissao,
+            String estadoCivil,
+            String raca_cor_etnia,
+            String orientacao,
+            Integer nacionalidade,
+            String disponibilidade,
+            Integer estagiario,
+            Integer orientador,
+            Endereco endereco,
+            Responsavel responsavel,
+            boolean atendido,
+            boolean ativo
+    ) {
         this.genero = genero;
-        this.telefone = telefone;
-        this.estagiarioResponsavel = estagiarioResponsavel;
-        this.endereco = endereco;
-        this.telefoneContato = telefoneContato;
-        this.adultoResponsavel = adultoResponsavel;
-        this.orientadorResponsavel = orientadorResponsavel;
+        this.celularContato = celularContato;
+        this.celular = celular;
+        this.paciente = paciente;
+        this.dataNascimento = dataNascimento;
+        this.dataInscricao = dataInscricao;
+        this.instrucao = instrucao;
+        this.profissao = profissao;
+        this.estadoCivil = estadoCivil;
+        this.raca_cor_etnia = raca_cor_etnia;
+        this.orientacao = orientacao;
+        this.nacionalidade = nacionalidade;
         this.disponibilidade = disponibilidade;
+        this.estagiario = estagiario;
+        this.orientador = orientador;
+        this.endereco = endereco;
+        this.responsavel = responsavel;
         this.atendido = atendido;
-    
-        
-}
+        this.ativo = ativo;
+    }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
+    public PacienteVO(
+            Integer id,
+            String nome,
+            String genero,
+            String celularContato,
+            String celular,
+            String paciente,
+            String dataNascimento,
+            LocalDate dataInscricao,
+            String instrucao,
+            String profissao,
+            String estadoCivil,
+            String raca_cor_etnia,
+            String orientacao,
+            Integer nacionalidade,
+            String disponibilidade,
+            Integer estagiario,
+            Integer orientador,
+            Endereco endereco,
+            Responsavel responsavel,
+            boolean atendido,
+            boolean ativo,
+            Byte grupo
+    ) {
+        this.id = id;
+        this.nome = nome;
+        this.genero = genero;
+        this.celularContato = celularContato;
+        this.celular = celular;
+        this.paciente = paciente;
+        this.dataNascimento = dataNascimento;
+        this.dataInscricao = dataInscricao;
+        this.instrucao = instrucao;
+        this.profissao = profissao;
+        this.estadoCivil = estadoCivil;
+        this.raca_cor_etnia = raca_cor_etnia;
+        this.orientacao = orientacao;
+        this.nacionalidade = nacionalidade;
+        this.disponibilidade = disponibilidade;
+        this.estagiario = estagiario;
+        this.orientador = orientador;
+        this.endereco = endereco;
+        this.responsavel = responsavel;
+        this.atendido = atendido;
+        this.ativo = ativo;
+        this.grupo = grupo;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * @return the nomeCompleto
+     * @return the nome
      */
-    public String getNomeCompleto() {
-        return nomeCompleto;
+    public String getNome() {
+        return nome;
     }
 
     /**
-     * @param nomeCompleto the nomeCompleto to set
+     * @param nome the nome to set
      */
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    /**
-     * @return the dataNascimento
-     */
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    /**
-     * @param dataNascimento the dataNascimento to set
-     */
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    /**
-     * @return the genero
-     */
     public String getGenero() {
         return genero;
     }
 
-    /**
-     * @param genero the genero to set
-     */
     public void setGenero(String genero) {
         this.genero = genero;
     }
 
-    /**
-     * @return the telefone
-     */
-    public String getTelefone() {
-        return telefone;
+    public String getCelularContato() {
+        return celularContato;
     }
 
-    /**
-     * @param telefone the telefone to set
-     */
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setCelularContato(String celularContato) {
+        this.celularContato = celularContato;
     }
 
-    /**
-     * @return the estagiarioResponsavel
-     */
-    public EstagiarioVO getEstagiarioResponsavel() {
-        return estagiarioResponsavel;
+    public String getCelular() {
+        return celular;
     }
 
-    /**
-     * @param estagiarioResponsavel the estagiarioResponsavel to set
-     */
-    public void setEstagiarioResponsavel(EstagiarioVO estagiarioResponsavel) {
-        this.estagiarioResponsavel = estagiarioResponsavel;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
-    /**
-     * @return the endereco
-     */
-    public String getEndereco() {
-        return endereco;
+    public String getPaciente() {
+        return paciente;
     }
 
-    /**
-     * @param endereco the endereco to set
-     */
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setPaciente(String paciente) {
+        this.paciente = paciente;
     }
 
-    /**
-     * @return the telefoneContato
-     */
-    public String getTelefoneContato() {
-        return telefoneContato;
+    public String getDataNascimento() {
+        return dataNascimento;
     }
 
-    /**
-     * @param telefoneContato the telefoneContato to set
-     */
-    public void setTelefoneContato(String telefoneContato) {
-        this.telefoneContato = telefoneContato;
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
-    /**
-     * @return the adultoResponsavel
-     */
-    public String getAdultoResponsavel() {
-        return adultoResponsavel;
+    public String getInstrucao() {
+        return instrucao;
     }
 
-    /**
-     * @param adultoResponsavel the adultoResponsavel to set
-     */
-    public void setAdultoResponsavel(String adultoResponsavel) {
-        this.adultoResponsavel = adultoResponsavel;
+    public void setInstrucao(String instrucao) {
+        this.instrucao = instrucao;
     }
 
-    /**
-     * @return the orientadorResponsavel
-     */
-    public OrientadorVO getOrientadorResponsavel() {
-        return orientadorResponsavel;
+    public String getProfissao() {
+        return profissao;
     }
 
-    /**
-     * @param orientadorResponsavel the orientadorResponsavel to set
-     */
-    public void setOrientadorResponsavel(OrientadorVO orientadorResponsavel) {
-        this.orientadorResponsavel = orientadorResponsavel;
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
     }
 
-    /**
-     * @return the disponibilidade
-     */
+    public String getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public String getRaca_cor_etnia() {
+        return raca_cor_etnia;
+    }
+
+    public void setRaca_cor_etnia(String raca_cor_etnia) {
+        this.raca_cor_etnia = raca_cor_etnia;
+    }
+
+    public String getOrientacao() {
+        return orientacao;
+    }
+
+    public void setOrientacao(String orientacao) {
+        this.orientacao = orientacao;
+    }
+
+    public Integer getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(Integer nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    }
+
     public String getDisponibilidade() {
         return disponibilidade;
     }
 
-    /**
-     * @param disponibilidade the disponibilidade to set
-     */
     public void setDisponibilidade(String disponibilidade) {
         this.disponibilidade = disponibilidade;
     }
 
-    /**
-     * @return the atendido
-     */
+    public Integer getEstagiario() {
+        return estagiario;
+    }
+
+    public void setEstagiario(Integer estagiario) {
+        this.estagiario = estagiario;
+    }
+
+    public Integer getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(Integer orientador) {
+        this.orientador = orientador;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Responsavel getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(Responsavel responsavel) {
+        this.responsavel = responsavel;
+    }
+
     public boolean isAtendido() {
         return atendido;
     }
 
-    /**
-     * @param atendido the atendido to set
-     */
     public void setAtendido(boolean atendido) {
         this.atendido = atendido;
     }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Byte getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Byte grupo) {
+        this.grupo = grupo;
+    }
+
+    // Método de conversão de Entity para VO
+    public static PacienteVO fromEntity(Paciente entity) {
+        return new PacienteVO(
+                entity.getId(),
+                entity.getNome(),
+                entity.getGenero(),
+                entity.getTelefoneContato(),
+                entity.getTelefone(),
+                entity.getNome(),
+                entity.getDataNascimento().toString(),
+                entity.getDataInscricao(),
+                entity.getGrauInstrucao(),
+                entity.getProfissao(),
+                entity.getEstadoCivil(),
+                entity.getRacaCorEtnia(),
+                null, // Orientação Sexual não definida no Entity original
+                entity.getNacionalidade().getId(),
+                entity.getDisponibilidade(),
+                null, // Estagiário não definido no Entity original
+                null, // Orientador não definido no Entity original
+                entity.getEndereco(),
+                entity.getResponsavel(),
+                entity.getAtendido(),
+                entity.getAtivo(),
+                entity.getGrupo()
+        );
+    }
+
+    // Método de conversão de VO para Entity
+    public Paciente toEntity() {
+        LocalDate dataNascimento = parseDate(this.dataNascimento);
+
+        Pais paisResultado = PaisDAO.buscarPorId(this.nacionalidade);
+
+        Paciente paciente = new Paciente();
+        paciente.setId(this.id);
+        paciente.setNome(this.nome);
+        paciente.setTelefoneContato(this.celularContato);
+        paciente.setTelefone(this.celular);
+        paciente.setNome(this.paciente);
+        paciente.setDataNascimento(dataNascimento);
+        paciente.setDataInscricao(LocalDate.now());
+        paciente.setGrauInstrucao(this.instrucao);
+        paciente.setGenero(genero);
+        paciente.setProfissao(this.profissao);
+        paciente.setEstadoCivil(this.estadoCivil);
+        paciente.setRacaCorEtnia(this.raca_cor_etnia);
+        paciente.setNacionalidade(paisResultado);
+        paciente.setDisponibilidade(disponibilidade);
+        paciente.setEndereco(endereco);
+        paciente.setResponsavel(responsavel);
+        paciente.setOrientacao_sexual(orientacao);
+        paciente.setAtendido(this.atendido);
+        paciente.setAtivo(this.ativo);
+        paciente.setGrupo(this.grupo);
+
+        return paciente;
+    }
+
+    public LocalDate parseDate(String dateStr) {
+        List<DateTimeFormatter> formatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        );
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDate.parse(dateStr, formatter);
+            } catch (DateTimeParseException e) {
+                // Tenta o próximo formato
+            }
+        }
+
+        throw new IllegalArgumentException("Data inválida: " + dateStr + ". Formatos aceitos: dd-MM-yyyy, yyyy-MM-dd, dd/MM/yyyy");
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+
 }
-
-

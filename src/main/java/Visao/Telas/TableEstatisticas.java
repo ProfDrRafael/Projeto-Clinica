@@ -1,231 +1,299 @@
 package Visao.Telas;
 
-// Importações necessárias para componentes gráficos, manipulação de datas, cores e gráficos
+import Persistencia.Dao.JPAUtil;
+import Persistencia.Entity.Permissao;
+import Persistencia.Entity.Pesquisador;
+import Regradenegocio.GraficosFiltrarRN;
+import Regradenegocio.GraficosRN;
+import Regradenegocio.SessaoRN;
+import Regradenegocio.UsuarioRN;
+import VO.SessaoVO;
+import VO.UsuarioVO;
+import Visao.Components.SimpleForm;
+import Visao.Components.CardIndicador;
 import com.formdev.flatlaf.FlatClientProperties;
+import jakarta.persistence.EntityManager;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-import raven.chart.ChartLegendRenderer;
-import raven.chart.bar.HorizontalBarChart;
-import raven.chart.data.category.DefaultCategoryDataset;
-import raven.chart.data.pie.DefaultPieDataset;
-import raven.chart.line.LineChart;
-import raven.chart.pie.PieChart;
-import Visao.Components.SimpleForm;
-import Visao.Utils.DateCalculator;
+import org.jfree.chart.ChartPanel;
 
-/**
- * Classe responsável por criar e exibir o formulário do Dashboard com gráficos diversos.
- * Extende a classe SimpleForm para usar funcionalidades básicas de um formulário.
- * @author Raven
- */
 public class TableEstatisticas extends SimpleForm {
 
-    // Construtor do formulário que chama o método de inicialização
+    private GraficosRN estatisticasRN = new GraficosRN();
+    private GraficosFiltrarRN graficosFiltrarRN = new GraficosFiltrarRN();
+    private final String tamanhoGraficoMedidas = "width 465px, height 300px";
+    private final int larguraGrafico = 465;
+    private final int alturaGrafico = 400;
+    private final int larguraCheckbox = 150;
+    private final int alturaCheckbox = 20;
+    private final String tamanhoGraficoAutoAjuste = "growx";
+    private final String graficoPadraoSelecionado = "Todos";
+    private JPanel topPanel;
+    private JPanel centerPanel;
+    private JPanel bottomPanel;
+    private JPanel indicatorsPanel;
+    private JComboBox<String> cbGrafico;
+    private JPanel containerGrafico;
+    private JPanel conteinerGraficoIndividual;
+
     public TableEstatisticas() {
         init();
     }
 
-    // Método chamado para atualizar os dados e iniciar a animação dos gráficos
     @Override
     public void formRefresh() {
-        lineChart.startAnimation();  // Inicia animação do gráfico de linha
-        pieChart1.startAnimation();  // Inicia animação do primeiro gráfico de pizza
-        pieChart2.startAnimation();  // Inicia animação do segundo gráfico de pizza
-        pieChart3.startAnimation();  // Inicia animação do terceiro gráfico de pizza
-        barChart1.startAnimation();  // Inicia animação do primeiro gráfico de barras horizontais
-        barChart2.startAnimation();  // Inicia animação do segundo gráfico de barras horizontais
+        init();
     }
 
-    // Método chamado na inicialização do formulário
     @Override
     public void formInitAndOpen() {
         System.out.println("init and open");
     }
 
-    // Método chamado quando o formulário é aberto
     @Override
     public void formOpen() {
         System.out.println("Open");
     }
 
-    // Método que inicializa o layout e os gráficos do formulário
     private void init() {
-        setLayout(new MigLayout("wrap,fill,gap 10", "fill"));  // Configura o layout com MigLayout
-        createPieChart();  // Cria os gráficos de pizza
-        createLineChart();  // Cria o gráfico de linha
-        createBarChart();  // Cria os gráficos de barras horizontais
+        setLayout(new MigLayout("wrap 1, insets 15", "[grow, fill]", "[]15[]15[]"));
+
+        topPanel = new JPanel(new MigLayout("wrap 1, insets 0", "[grow, fill]", "[]15[]15[]"));
+        topPanel.setOpaque(false);
+
+        centerPanel = new JPanel(new MigLayout("wrap 1, insets 0", "[grow, fill]", "[]15[]"));
+        centerPanel.setOpaque(false);
+
+        bottomPanel = new JPanel(new MigLayout("wrap 1, insets 0", "[grow, fill]", "[]15[]"));
+        bottomPanel.setOpaque(false);
+
+        indicatorsPanel = new JPanel(new GridBagLayout());
+        indicatorsPanel.setOpaque(false);
+
+        topPanel.add(createPanelIndicadores(indicatorsPanel), "growx, wrap");
+
+        bottomPanel.add(createContainerGraficos(centerPanel), this.tamanhoGraficoAutoAjuste);
+
+        add(topPanel, this.tamanhoGraficoAutoAjuste);
+        add(centerPanel, this.tamanhoGraficoAutoAjuste);
+        add(bottomPanel, this.tamanhoGraficoAutoAjuste);
     }
 
-    // Método que cria e configura os gráficos de pizza
-    private void createPieChart() {
-        // Criação e configuração do primeiro gráfico de pizza
-        pieChart1 = new PieChart();
-        JLabel header1 = new JLabel("Product Income");  // Define o cabeçalho do gráfico
-        header1.putClientProperty(FlatClientProperties.STYLE, "font:+1");  // Aumenta o tamanho da fonte
-        pieChart1.setHeader(header1);  // Define o cabeçalho no gráfico
-        pieChart1.getChartColor().addColor(  // Adiciona as cores do gráfico
-            Color.decode("#f87171"), Color.decode("#fb923c"), Color.decode("#fbbf24"),
-            Color.decode("#a3e635"), Color.decode("#34d399"), Color.decode("#22d3ee"),
-            Color.decode("#818cf8"), Color.decode("#c084fc")
-        );
-        pieChart1.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
-        pieChart1.setDataset(createPieData());  // Define o dataset do gráfico
-        add(pieChart1, "split 3,height 290");  // Adiciona o gráfico ao layout com altura fixa
+    private JPanel createStyledPanel(ChartPanel painelGrafico, String tipoGrafico) {
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
 
-        // Criação e configuração do segundo gráfico de pizza
-        pieChart2 = new PieChart();
-        JLabel header2 = new JLabel("Product Cost");  // Define o cabeçalho do gráfico
-        header2.putClientProperty(FlatClientProperties.STYLE, "font:+1");  // Aumenta o tamanho da fonte
-        pieChart2.setHeader(header2);  // Define o cabeçalho no gráfico
-        pieChart2.getChartColor().addColor(  // Adiciona as cores do gráfico
-            Color.decode("#f87171"), Color.decode("#fb923c"), Color.decode("#fbbf24"),
-            Color.decode("#a3e635"), Color.decode("#34d399"), Color.decode("#22d3ee"),
-            Color.decode("#818cf8"), Color.decode("#c084fc")
-        );
-        pieChart2.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
-        pieChart2.setDataset(createPieData());  // Define o dataset do gráfico
-        add(pieChart2, "height 290");  // Adiciona o gráfico ao layout com altura fixa
+        conteinerGraficoIndividual = new JPanel(new BorderLayout());
 
-        // Criação e configuração do terceiro gráfico de pizza, do tipo "Donut"
-        pieChart3 = new PieChart();
-        JLabel header3 = new JLabel("Product Profit");  // Define o cabeçalho do gráfico
-        header3.putClientProperty(FlatClientProperties.STYLE, "font:+1");  // Aumenta o tamanho da fonte
-        pieChart3.setHeader(header3);  // Define o cabeçalho no gráfico
-        pieChart3.getChartColor().addColor(  // Adiciona as cores do gráfico
-            Color.decode("#f87171"), Color.decode("#fb923c"), Color.decode("#fbbf24"),
-            Color.decode("#a3e635"), Color.decode("#34d399"), Color.decode("#22d3ee"),
-            Color.decode("#818cf8"), Color.decode("#c084fc")
-        );
-        pieChart3.setChartType(PieChart.ChartType.DONUT_CHART);  // Define o tipo de gráfico como "Donut"
-        pieChart3.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
-        pieChart3.setDataset(createPieData());  // Define o dataset do gráfico
-        add(pieChart3, "height 290");  // Adiciona o gráfico ao layout com altura fixa
-    }
+        conteinerGraficoIndividual.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+        conteinerGraficoIndividual.setPreferredSize(new Dimension(larguraGrafico, alturaGrafico));
 
-    // Método que cria e configura o gráfico de linha
-    private void createLineChart() {
-        lineChart = new LineChart();  // Cria um novo gráfico de linha
-        lineChart.setChartType(LineChart.ChartType.CURVE);  // Define o tipo de gráfico como curva
-        lineChart.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
-        add(lineChart);  // Adiciona o gráfico ao layout
-        createLineChartData();  // Cria os dados do gráfico de linha
-    }
+        conteinerGraficoIndividual.add(painelGrafico, BorderLayout.CENTER);
 
-    // Método que cria e configura os gráficos de barras horizontais
-    private void createBarChart() {
-        // Criação e configuração do primeiro gráfico de barras horizontais
-        barChart1 = new HorizontalBarChart();
-        JLabel header1 = new JLabel("Monthly Income");  // Define o cabeçalho do gráfico
-        header1.putClientProperty(FlatClientProperties.STYLE, "font:+1;border:0,0,5,0");  // Define o estilo do cabeçalho
-        barChart1.setHeader(header1);  // Adiciona o cabeçalho ao gráfico
-        barChart1.setBarColor(Color.decode("#f97316"));  // Define a cor das barras
-        barChart1.setDataset(createData());  // Define o dataset do gráfico
-        JPanel panel1 = new JPanel(new BorderLayout());  // Cria um painel para o gráfico
-        panel1.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
-        panel1.add(barChart1);  // Adiciona o gráfico ao painel
-        add(panel1, "split 2,gap 0 20");  // Adiciona o painel ao layout
-
-        // Criação e configuração do segundo gráfico de barras horizontais
-        barChart2 = new HorizontalBarChart();
-        JLabel header2 = new JLabel("Monthly Expense");  // Define o cabeçalho do gráfico
-        header2.putClientProperty(FlatClientProperties.STYLE, "font:+1;border:0,0,5,0");  // Define o estilo do cabeçalho
-        barChart2.setHeader(header2);  // Adiciona o cabeçalho ao gráfico
-        barChart2.setBarColor(Color.decode("#10b981"));  // Define a cor das barras
-        barChart2.setDataset(createData());  // Define o dataset do gráfico
-        JPanel panel2 = new JPanel(new BorderLayout());  // Cria um painel para o gráfico
-        panel2.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
-        panel2.add(barChart2);  // Adiciona o gráfico ao painel
-        add(panel2);  // Adiciona o painel ao layout
-    }
-
-    // Método que cria um dataset para gráficos de pizza
-    private DefaultPieDataset createData() {
-        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();  // Cria um novo dataset
-        Random random = new Random();  // Cria um objeto Random para gerar valores aleatórios
-        dataset.addValue("July (ongoing)", random.nextInt(100));  // Adiciona valor aleatório para julho
-        dataset.addValue("June", random.nextInt(100));  // Adiciona valor aleatório para junho
-        dataset.addValue("May", random.nextInt(100));  // Adiciona valor aleatório para maio
-        dataset.addValue("April", random.nextInt(100));  // Adiciona valor aleatório para abril
-        dataset.addValue("March", random.nextInt(100));  // Adiciona valor aleatório para março
-        dataset.addValue("February", random.nextInt(100));  // Adiciona valor aleatório para fevereiro
-        return dataset;  // Retorna o dataset
-    }
-
-    // Método que cria o dataset para gráficos de pizza com categorias de produtos
-    private DefaultPieDataset createPieData() {
-        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();  // Cria um novo dataset
-        Random random = new Random();  // Cria um objeto Random para gerar valores aleatórios
-        dataset.addValue("Bags", random.nextInt(100) + 50);  // Adiciona valor aleatório para "Bags"
-        dataset.addValue("Hats", random.nextInt(100) + 50);  // Adiciona valor aleatório para "Hats"
-        dataset.addValue("Glasses", random.nextInt(100) + 50);  // Adiciona valor aleatório para "Glasses"
-        dataset.addValue("Watches", random.nextInt(100) + 50);  // Adiciona valor aleatório para "Watches"
-        dataset.addValue("Jewelry", random.nextInt(100) + 50);  // Adiciona valor aleatório para "Jewelry"
-        return dataset;  // Retorna o dataset
-    }
-
-    // Método que cria os dados para o gráfico de linha
-    private void createLineChartData() {
-        DefaultCategoryDataset<String, String> categoryDataset = new DefaultCategoryDataset<>();  // Cria um novo dataset
-        Calendar cal = Calendar.getInstance();  // Obtém a data atual
-        SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy");  // Formato da data
-        Random ran = new Random();  // Objeto Random para gerar valores aleatórios
-        int randomDate = 30;  // Quantidade de dias de dados a serem gerados
-
-        // Adiciona dados aleatórios ao dataset para cada dia
-        for (int i = 1; i <= randomDate; i++) {
-            String date = df.format(cal.getTime());  // Formata a data atual
-            categoryDataset.addValue(ran.nextInt(700) + 5, "Income", date);  // Adiciona valor para "Income"
-            categoryDataset.addValue(ran.nextInt(700) + 5, "Expense", date);  // Adiciona valor para "Expense"
-            categoryDataset.addValue(ran.nextInt(700) + 5, "Profit", date);  // Adiciona valor para "Profit"
-            cal.add(Calendar.DATE, 1);  // Avança para o próximo dia
+        if (!tipoGrafico.equals("")) {
+            conteinerGraficoIndividual.add(graficosFiltrarRN.criarFiltro(tipoGrafico, bottomPanel, containerGrafico, estatisticasRN), BorderLayout.NORTH);
         }
 
-        // Controle da legenda do gráfico para não exibir todas as legendas
-        try {
-            Date date = df.parse(categoryDataset.getColumnKey(0));  // Obtém a primeira data do dataset
-            Date dateEnd = df.parse(categoryDataset.getColumnKey(categoryDataset.getColumnCount() - 1));  // Obtém a última data
+        return conteinerGraficoIndividual;
+    }
 
-            DateCalculator dcal = new DateCalculator(date, dateEnd);  // Calcula a diferença entre as datas
-            long diff = dcal.getDifferenceDays();  // Obtém a diferença em dias
+    private JPanel createPanelIndicadores(JPanel indicatorsPanel) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.weightx = 1.0;
 
-            double d = Math.ceil((diff / 10f));  // Calcula o intervalo para exibir as legendas
-            lineChart.setLegendRenderer(new ChartLegendRenderer() {
-                @Override
-                public Component getLegendComponent(Object legend, int index) {
-                    if (index % d == 0) {
-                        return super.getLegendComponent(legend, index);  // Exibe a legenda apenas em intervalos definidos
-                    } else {
-                        return null;  // Não exibe a legenda em outras posições
-                    }
+        CardIndicador cardTotalPacientes = new CardIndicador(Color.lightGray, Color.getHSBColor(201 / 360f, 0.63f, 0.42f));
+        cardTotalPacientes.setData("Total de Pacientes Ativos", String.valueOf(GraficosRN.getTotalPacientesAtivos()));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        indicatorsPanel.add(cardTotalPacientes, gbc);
+
+        CardIndicador cardTaxaComparecimento = new CardIndicador(Color.lightGray, Color.getHSBColor(178 / 360f, 0.24f, 0.40f));
+        cardTaxaComparecimento.setData("Taxa Média de Comparecimento", String.format("%.2f%%", GraficosRN.getTaxaMediaComparecimento()));
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        indicatorsPanel.add(cardTaxaComparecimento, gbc);
+
+        CardIndicador cardPacientesListaEspera = new CardIndicador(Color.lightGray, Color.getHSBColor(266 / 360f, 0.50f, 0.16f));
+        cardPacientesListaEspera.setData("Pacientes na Lista de Espera", String.valueOf(GraficosRN.getPacientesListaEspera()));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        indicatorsPanel.add(cardPacientesListaEspera, gbc);
+
+        CardIndicador cardAtendimentosMes = new CardIndicador(Color.lightGray, Color.getHSBColor(343 / 360f, 0.62f, 0.36f));
+        cardAtendimentosMes.setData("Total de Atendimentos (Mês Atual)", String.valueOf(GraficosRN.getTotalAtendimentosMesAtual()));
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        indicatorsPanel.add(cardAtendimentosMes, gbc);
+
+        CardIndicador cardEstagiarosAtivos = new CardIndicador(Color.lightGray, Color.getHSBColor(255 / 360f, 0.66f, 0.61f));
+        cardEstagiarosAtivos.setData("Estagiários Ativos", (String) String.valueOf(GraficosRN.getEstagiariosAtivos()));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        indicatorsPanel.add(cardEstagiarosAtivos, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        indicatorsPanel.add(cardEstagiarosAtivos, gbc);
+
+        return indicatorsPanel;
+    }
+
+    public JPanel createPainelTodos(String[] opcoesGrafico) {
+        Set<String> opcoesPermitidas = new HashSet<>(Arrays.asList(opcoesGrafico));
+
+        JPanel painelTodos = new JPanel();
+        painelTodos.setLayout(new BoxLayout(painelTodos, BoxLayout.Y_AXIS));
+        painelTodos.setOpaque(false);
+
+        if (opcoesPermitidas.contains("Gênero")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createGenderPieChartPanel(null), ""));
+        }
+
+        if (opcoesPermitidas.contains("Estado Civil")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createEstadoCivilPieChartPanel(null), ""));
+        }
+
+        if (opcoesPermitidas.contains("Raça/Cor/Etnia")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createRacaCorEtniaPieChartPanel(null), ""));
+        }
+
+        if (opcoesPermitidas.contains("Evolução Atendimentos")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createEvolucaoAtendimentoChartPanel(), ""));
+        }
+
+        if (opcoesPermitidas.contains("Agendados vs Realizados")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createAgendadosVSRealizadosChartPanel(), ""));
+        }
+
+        if (opcoesPermitidas.contains("Lista de Espera")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createPacientesListaEsperaChartPanel(), ""));
+        }
+
+        if (opcoesPermitidas.contains("Tempo Médio Atendimento")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createTempoMedioAtendimentoChartPanel(), ""));
+        }
+
+        if (opcoesPermitidas.contains("Paciente por Idade")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createPacienteIdadeBarChartPanel(), ""));
+        }
+
+        if (opcoesPermitidas.contains("Paciente Comparecimento")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createPacienteComparecimentoBarChartPanel(), ""));
+        }
+
+        if (opcoesPermitidas.contains("Ocupação das Salas")) {
+            painelTodos.add(createStyledPanel(estatisticasRN.createSalaOcupacaoBarChartPanel(), ""));
+        }
+
+        return painelTodos;
+    }
+
+    public JPanel createContainerGraficos(JPanel centerPanel) {
+        SessaoVO sessaoVO = new SessaoRN().buscarUltimaSessao();
+        UsuarioVO usuarioVO = new UsuarioRN().buscarUsuarioPorEmail(sessaoVO.getEmail(), "Pesquisador");
+
+        String[] opcoesGrafico = {
+            "Todos", "Gênero", "Estado Civil", "Raça/Cor/Etnia",
+            "Evolução Atendimentos", "Agendados vs Realizados",
+            "Lista de Espera", "Tempo Médio Atendimento",
+            "Paciente por Idade", "Paciente Comparecimento",
+            "Ocupação das Salas"
+        };
+
+        centerPanel.add(new JLabel("Escolha seu tipo de gráfico:"));
+
+        this.cbGrafico = new JComboBox<>(opcoesGrafico);
+
+        if (usuarioVO != null) {
+            EntityManager em = JPAUtil.getEntityManager();
+            Pesquisador pesquisador = em.find(Pesquisador.class, usuarioVO.getId());
+            em.close();
+
+            List<Permissao> permissoes = new UsuarioRN().buscarRecursosPermitidos(pesquisador);
+            Set<String> recursosPermitidos = permissoes.stream()
+                    .filter(Permissao::getPermitido)
+                    .map(Permissao::getRecurso)
+                    .collect(Collectors.toSet());
+
+            List<String> opcoesVisiveis = Arrays.stream(opcoesGrafico)
+                    .filter(recurso -> recursosPermitidos.contains(recurso))
+                    .collect(Collectors.toList());
+            
+            opcoesGrafico = opcoesVisiveis.toArray(new String[0]);
+
+            this.cbGrafico = new JComboBox<>(opcoesGrafico);
+        }
+
+        centerPanel.add(cbGrafico, "growx, wrap");
+
+        this.containerGrafico = new JPanel(new CardLayout());
+        containerGrafico.setOpaque(false);
+
+        Map<String, JPanel> painelGrafico = new HashMap<>();
+
+        painelGrafico.put("Todos", createPainelTodos(opcoesGrafico));
+        painelGrafico.put("Gênero", createStyledPanel(estatisticasRN.createGenderPieChartPanel(null), "Gênero"));
+        painelGrafico.put("Estado Civil", createStyledPanel(estatisticasRN.createEstadoCivilPieChartPanel(null), "Estado Civil"));
+        painelGrafico.put("Raça/Cor/Etnia", createStyledPanel(estatisticasRN.createRacaCorEtniaPieChartPanel(null), "Raça/Cor/Etnia"));
+        painelGrafico.put("Evolução Atendimentos", createStyledPanel(estatisticasRN.createEvolucaoAtendimentoChartPanel(), "Evolução Atendimentos"));
+        painelGrafico.put("Agendados vs Realizados", createStyledPanel(estatisticasRN.createAgendadosVSRealizadosChartPanel(), "Agendados vs Realizados"));
+        painelGrafico.put("Lista de Espera", createStyledPanel(estatisticasRN.createPacientesListaEsperaChartPanel(), "Lista de Espera"));
+        painelGrafico.put("Tempo Médio Atendimento", createStyledPanel(estatisticasRN.createTempoMedioAtendimentoChartPanel(), "Tempo Médio Atendimento"));
+        painelGrafico.put("Paciente por Idade", createStyledPanel(estatisticasRN.createPacienteIdadeBarChartPanel(), "Paciente por Idade"));
+        painelGrafico.put("Paciente Comparecimento", createStyledPanel(estatisticasRN.createPacienteComparecimentoBarChartPanel(), "Paciente Comparecimento"));
+        painelGrafico.put("Ocupação das Salas", createStyledPanel(estatisticasRN.createSalaOcupacaoBarChartPanel(), "Ocupação das Salas"));
+
+        for (Map.Entry<String, JPanel> entry : painelGrafico.entrySet()) {
+            containerGrafico.add(entry.getValue(), entry.getKey());
+        }
+
+        ((CardLayout) containerGrafico.getLayout()).show(containerGrafico, graficoPadraoSelecionado);
+
+        cbGrafico.addActionListener(e -> {
+            String graficoSelecionado = (String) cbGrafico.getSelectedItem();
+
+            if (graficoSelecionado != null) {
+                ((CardLayout) containerGrafico.getLayout()).show(containerGrafico, graficoSelecionado);
+
+                bottomPanel.removeAll();
+
+                if ("Todos".equals(graficoSelecionado)) {
+                    bottomPanel.add(containerGrafico, tamanhoGraficoAutoAjuste);
+                } else if ("Paciente por Idade".equals(graficoSelecionado)) {
+                    bottomPanel.add(containerGrafico, "width 465px, height 600px");
+                } else {
+                    bottomPanel.add(containerGrafico, this.tamanhoGraficoMedidas);
                 }
-            });
-        } catch (ParseException e) {
-            System.err.println(e);  // Exibe erro de parsing de data
-        }
 
-        lineChart.setCategoryDataset(categoryDataset);  // Define o dataset no gráfico de linha
-        lineChart.getChartColor().addColor(  // Adiciona as cores das linhas
-            Color.decode("#38bdf8"), Color.decode("#fb7185"), Color.decode("#34d399")
-        );
-        JLabel header = new JLabel("Income Data");  // Cria o cabeçalho do gráfico
-        header.putClientProperty(FlatClientProperties.STYLE, "font:+1;border:0,0,5,0");  // Define o estilo do cabeçalho
-        lineChart.setHeader(header);  // Define o cabeçalho no gráfico
+                bottomPanel.revalidate();
+                bottomPanel.repaint();
+            }
+        });
+
+        return containerGrafico;
     }
 
-    // Declaração dos componentes de gráficos usados no formulário
-    private LineChart lineChart;
-    private HorizontalBarChart barChart1;
-    private HorizontalBarChart barChart2;
-    private PieChart pieChart1;
-    private PieChart pieChart2;
-    private PieChart pieChart3;
 }

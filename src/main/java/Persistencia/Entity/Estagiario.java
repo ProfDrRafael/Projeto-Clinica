@@ -31,9 +31,6 @@ public class Estagiario {
     @Column(name = "semestre_fim")
     private String semestreFim;
 
-    @Column(name = "ano_fim")
-    private Integer anoFim;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orientador_id")
     private Persistencia.Entity.Orientador orientador;
@@ -94,20 +91,17 @@ public class Estagiario {
         this.semestreFim = semestreFim;
     }
 
-    public Integer getAnoFim() {
-        return anoFim;
-    }
-
-    public void setAnoFim(Integer anoFim) {
-        this.anoFim = anoFim;
-    }
-
     public Persistencia.Entity.Orientador getOrientador() {
         return orientador;
     }
 
     public void setOrientador(Persistencia.Entity.Orientador orientador) {
         this.orientador = orientador;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome; // Retorna apenas o nome do estagiário
     }
 
 }

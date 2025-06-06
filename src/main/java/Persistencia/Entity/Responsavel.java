@@ -1,14 +1,12 @@
 package Persistencia.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "responsavel")
 public class Responsavel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -18,22 +16,22 @@ public class Responsavel {
     @Column(name = "vinculo", nullable = false, length = 30)
     private String vinculo;
 
-    @Column(name = "telefone", nullable = false, length = 20)
+    @Column(name = "telefone", nullable = true, length = 20)
     private String telefone;
 
-    @Column(name = "telefone_contato", length = 20)
+    @Column(name = "telefone_contato",  nullable = true, length = 20)
     private String telefoneContato;
 
-    @Column(name = "grau_instrucao", length = 50)
+    @Column(name = "grau_instrucao", nullable = true, length = 50)
     private String grauInstrucao;
 
-    @Column(name = "profissao", length = 100)
+    @Column(name = "profissao", nullable = true, length = 100)
     private String profissao;
 
-    @Column(name = "genero", length = 50)
+    @Column(name = "genero", nullable = true, length = 50)
     private String genero;
 
-    @Column(name = "raca_cor_etnia", length = 50)
+    @Column(name = "raca_cor_etnia", nullable = true, length = 50)
     private String racaCorEtnia;
 
     public Integer getId() {

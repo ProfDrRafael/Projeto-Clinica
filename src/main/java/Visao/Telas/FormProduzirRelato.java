@@ -3,9 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.SimpleForm;
+import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.MessagesAlert;
+import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
+
+import java.util.function.Consumer;
 
 /**
  *
@@ -13,18 +19,29 @@ import Visao.Utils.redimencionarIcones;
  */
 public class FormProduzirRelato extends SimpleForm {
 
+    private final Consumer<String> onRelatoSubmetido;
+    private final MessagesAlert messagesAlert;
+
     /**
      * Creates new form atendimentoForm
+     *
+     * @param onRelatoSubmetido
      */
-    public FormProduzirRelato() {
+    public FormProduzirRelato(Consumer<String> onRelatoSubmetido) {
+        this.onRelatoSubmetido = onRelatoSubmetido;
+        messagesAlert = new MessagesAlert();
         initComponents();
-        //redimensionarIcones();
-        
+        // remove background customizado e volta ao default do L&F
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
+
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png", 40);
+
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
-        
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/excluir.png");
+        EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelato, btNegrito, btItalico, btSublinhado);
+        EditorTextPaneEstilization.JTextComponentUndoRedo(tpTextoRelato);
+
     }
 
     /**
@@ -43,9 +60,13 @@ public class FormProduzirRelato extends SimpleForm {
         jScrollPane4 = new javax.swing.JScrollPane();
         tpTextoRelato = new javax.swing.JTextPane();
         btCancelar = new javax.swing.JButton();
+        btNegrito = new javax.swing.JButton();
+        btItalico = new javax.swing.JButton();
+        btSublinhado = new javax.swing.JButton();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lblLogoRelato = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1000, 680));
         setMinimumSize(new java.awt.Dimension(1000, 680));
@@ -64,6 +85,11 @@ public class FormProduzirRelato extends SimpleForm {
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(51, 51, 51));
         btSalvar.setText("Submeter");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         tpTextoRelato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jScrollPane4.setViewportView(tpTextoRelato);
@@ -88,9 +114,18 @@ public class FormProduzirRelato extends SimpleForm {
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ldDescricao)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(ldDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btNegrito)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btItalico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btSublinhado)
+                        .addGap(84, 84, 84))))
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -106,8 +141,12 @@ public class FormProduzirRelato extends SimpleForm {
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(ldDescricao)
-                .addGap(18, 18, 18)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btNegrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ldDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btSublinhado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,7 +154,7 @@ public class FormProduzirRelato extends SimpleForm {
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -131,46 +170,77 @@ public class FormProduzirRelato extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Produzir Relato");
 
+        lblLogoRelato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoAtendimento_resized.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(231, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addComponent(lblLogoRelato, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addGap(0, 576, Short.MAX_VALUE))
+                .addContainerGap(549, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 72, Short.MAX_VALUE)
+                .addComponent(lblLogoRelato, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 7, Short.MAX_VALUE))
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
                 .addComponent(lbProntuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        // TODO add your handling code here:
+        FormManager.showForm(new FormAtendimento());
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        try {
+            javax.swing.text.rtf.RTFEditorKit rtfEditorKit = new javax.swing.text.rtf.RTFEditorKit();
+            java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
+            rtfEditorKit.write(outputStream, tpTextoRelato.getDocument(), 0, tpTextoRelato.getDocument().getLength());
+            String rtfText = outputStream.toString("UTF-8");
+
+            if (rtfText == null || rtfText.trim().isEmpty()) {
+                messagesAlert.showErrorMessage("O texto do relato não pode estar vazio.");
+                return;
+            }
+
+            if (onRelatoSubmetido != null) {
+                onRelatoSubmetido.accept(rtfText);  // passa o RTF ao invés do texto simples
+            }
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao salvar relato formatado.");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btItalico;
+    private javax.swing.JButton btNegrito;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSublinhado;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbProntuario;
+    private javax.swing.JLabel lblLogoRelato;
     private javax.swing.JLabel ldDescricao;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextPane tpTextoRelato;
     // End of variables declaration//GEN-END:variables
- 
+
 }

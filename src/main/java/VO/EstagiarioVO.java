@@ -14,7 +14,6 @@ public class EstagiarioVO extends UsuarioVO {
     private Boolean ativo;
     private Integer ano;
     private String semestreFim;
-    private Integer anoFim;
     private OrientadorVO orientadorVO;
 
     public EstagiarioVO(int id, String nomeCompleto, String email, String senha, Integer ano) {
@@ -23,12 +22,11 @@ public class EstagiarioVO extends UsuarioVO {
         this.ativo = true;
     }
 
-    public EstagiarioVO(int id, String nomeCompleto, String email, String senha, Boolean ativo, Integer ano, String semestreFim, Integer anoFim, OrientadorVO orientadorVO) {
+    public EstagiarioVO(int id, String nomeCompleto, String email, String senha, Boolean ativo, Integer ano, String semestreFim, OrientadorVO orientadorVO) {
         super(id, nomeCompleto, email, senha);
         this.ativo = ativo;
         this.ano = ano;
         this.semestreFim = semestreFim;
-        this.anoFim = anoFim;
         this.orientadorVO = orientadorVO;
     }
 
@@ -80,20 +78,6 @@ public class EstagiarioVO extends UsuarioVO {
     }
 
     /**
-     * @return the anoFim
-     */
-    public Integer getAnoFim() {
-        return anoFim;
-    }
-
-    /**
-     * @param anoFim the anoFim to set
-     */
-    public void setAnoFim(Integer anoFim) {
-        this.anoFim = anoFim;
-    }
-
-    /**
      * @return the orientadorVO
      */
     public OrientadorVO getOrientadorVO() {
@@ -116,7 +100,6 @@ public class EstagiarioVO extends UsuarioVO {
                 entity.getAtivo(),
                 entity.getAno(),
                 entity.getSemestreFim(),
-                entity.getAnoFim(),
                 entity.getOrientador() != null ? OrientadorVO.fromEntity(entity.getOrientador()) : null
         );
     }
@@ -131,7 +114,6 @@ public class EstagiarioVO extends UsuarioVO {
         estagiario.setAtivo(this.getAtivo());
         estagiario.setAno(this.getAno());
         estagiario.setSemestreFim(this.getSemestreFim());
-        estagiario.setAnoFim(this.getAnoFim());
         if (this.getOrientadorVO() != null) {
             estagiario.setOrientador(this.getOrientadorVO().toEntity());
         }
@@ -145,7 +127,6 @@ public class EstagiarioVO extends UsuarioVO {
         entity.setAtivo(this.getAtivo());
         entity.setAno(this.getAno());
         entity.setSemestreFim(this.getSemestreFim());
-        entity.setAnoFim(this.getAnoFim());
     }
 
     // Método de validação

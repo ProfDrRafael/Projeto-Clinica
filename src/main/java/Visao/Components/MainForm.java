@@ -38,12 +38,12 @@ public class MainForm extends JPanel {
         // Se a janela for undecorated, define algumas propriedades de estilo, como borda e arredondamento
         if (undecorated) {
             putClientProperty(FlatClientProperties.STYLE, ""
-                    + "border:5,5,5,5;"   // Borda de 5 pixels
+                    + "border:0,5,5,5;"   // Borda de 5 pixels
                     + "arc:30");          // Cantos arredondados com raio de 30 pixels
         }
 
         // Define o layout como MigLayout com configurações de preenchimento e alinhamento
-        setLayout(new MigLayout("wrap,fillx", "[fill]", ""));
+        setLayout(new MigLayout("wrap, fill", "[fill]", "[]0[grow,fill]0[]"));
         
         // Cria o cabeçalho da interface (barra de ferramentas)
         header = createHeader();
@@ -66,7 +66,7 @@ public class MainForm extends JPanel {
         
         // Adiciona o cabeçalho e o painel de rolagem ao layout principal
         add(header);
-        add(scroll);
+        add(scroll,"grow, push");
     }
 
     // Método que cria o cabeçalho com botões de menu, desfazer, refazer e atualizar
@@ -101,7 +101,7 @@ public class MainForm extends JPanel {
 
         // Define a ação de atualizar quando o botão "atualizar" é clicado
         cmdRefresh.addActionListener(e -> {
-            FormManager.refresh();
+            FormManager.reloadCurrentForm();
         });
 
         // Adiciona os botões ao painel do cabeçalho

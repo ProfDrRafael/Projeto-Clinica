@@ -10,20 +10,23 @@ package VO;
  */
 public class ProntuarioEletronicoVO {
     private int id;
-    private String paciente;
+    private PacienteVO paciente;
     private EstagiarioVO estagiarioResponsavel;
     private String queixaInicial;
     private String observacoes;
     private OrientadorVO orientadorResponsavel;
-    
-    public ProntuarioEletronicoVO(int id, String paciente, EstagiarioVO estagiarioResponsavel, String queixaInicial,
-            String observacoes, OrientadorVO orientadorResponsavel){
+
+    public ProntuarioEletronicoVO() {
+    }
+
+    public ProntuarioEletronicoVO(int id, PacienteVO paciente, EstagiarioVO estagiarioResponsavel,
+            String queixaInicial, String observacoes, OrientadorVO orientadorResponsavel) {
         this.id = id;
         this.paciente = paciente;
         this.estagiarioResponsavel = estagiarioResponsavel;
         this.queixaInicial = queixaInicial;
         this.observacoes = observacoes;
-        this.orientadorResponsavel = orientadorResponsavel; 
+        this.orientadorResponsavel = orientadorResponsavel;
     }
 
     /**
@@ -43,14 +46,14 @@ public class ProntuarioEletronicoVO {
     /**
      * @return the paciente
      */
-    public String getPaciente() {
+    public PacienteVO getPaciente() {
         return paciente;
     }
 
     /**
      * @param paciente the paciente to set
      */
-    public void setPaciente(String paciente) {
+    public void setPaciente(PacienteVO paciente) {
         this.paciente = paciente;
     }
 
@@ -109,6 +112,37 @@ public class ProntuarioEletronicoVO {
     public void setOrientadorResponsavel(OrientadorVO orientadorResponsavel) {
         this.orientadorResponsavel = orientadorResponsavel;
     }
-    
-    
+
+    public static ProntuarioEletronicoVO fromEntity(Persistencia.Entity.Prontuario prontuario) {
+        if (prontuario == null) {
+            return null; // Evita NullPointerException
+        }
+
+        return new ProntuarioEletronicoVO(
+                prontuario.getId(),
+                PacienteVO.fromEntity(prontuario.getPaciente()), // Converte Paciente para PacienteVO
+                EstagiarioVO.fromEntity(prontuario.getEstagiario()), // Converte Estagiario para EstagiarioVO
+                prontuario.getQueixaInicial(),
+                prontuario.getObservacoes(),
+                OrientadorVO.fromEntity(prontuario.getOrientador()) // Converte Orientador para OrientadorVO
+        );
+    }
+
+    public Persistencia.Entity.Prontuario toEntity() {
+        Persistencia.Entity.Prontuario prontuario = new Persistencia.Entity.Prontuario();
+        prontuario.setId(this.id);
+        prontuario.setPaciente(this.paciente != null ? this.paciente.toEntity() : null); // Converte PacienteVO para
+                                                                                         // Paciente
+        prontuario.setEstagiario(this.estagiarioResponsavel != null ? this.estagiarioResponsavel.toEntity() : null); // Converte
+                                                                                                                     // EstagiarioVO
+                                                                                                                     // para
+                                                                                                                     // Estagiario
+        prontuario.setQueixaInicial(this.queixaInicial);
+        prontuario.setObservacoes(this.observacoes);
+        prontuario.setOrientador(this.orientadorResponsavel != null ? this.orientadorResponsavel.toEntity() : null); // Converte
+                                                                                                                     // OrientadorVO
+                                                                                                                     // para
+                                                                                                                     // Orientador
+        return prontuario;
+    }
 }

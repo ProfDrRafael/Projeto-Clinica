@@ -3,10 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
-import Visao.Utils.redimencionarIcones;
+import Visao.Utils.RedimencionarIcones;
+import com.formdev.flatlaf.FlatClientProperties;
 
 /**
  *
@@ -19,12 +21,14 @@ public class MenuOrientador extends SimpleForm {
      */
     public MenuOrientador() {
         initComponents();
-        
-        redimencionarIcones redimencionarIcone = new redimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btValidarRelato, "/Multimidia/imagens/editar-btn.png");
-        redimencionarIcone.redimensionarIcones(btVerificarPendencias, "/Multimidia/imagens/cadastrar.png");
-        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaGeral, "/Multimidia/imagens/listaEspera.png");
-        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaEspecifica, "/Multimidia/imagens/listaEspera.png");
+        // remove background customizado e volta ao default do L&F
+        pCenter.putClientProperty(FlatClientProperties.STYLE, "background:null");
+
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
+        redimencionarIcone.redimensionarIcones(btValidarRelato, "/Multimidia/imagens/aprovarLogo.png", 130);
+        redimencionarIcone.redimensionarIcones(btVerificarPendencias, "/Multimidia/imagens/pendenciasLogo.png", 140);
+        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaGeral, "/Multimidia/imagens/listaEsperaGeralLogo.png", 130);
+        redimencionarIcone.redimensionarIcones(btAcessarListaEsperaEspecifica, "/Multimidia/imagens/listaEspecificaLogo.png", 115);
         redimencionarIcone.redimensionarIcones(btDesconectar, "/Multimidia/imagens/desconectar.png");
     }
 
@@ -47,6 +51,7 @@ public class MenuOrientador extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
+        lbLogoEstagiario = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(950, 630));
         setMinimumSize(new java.awt.Dimension(950, 630));
@@ -63,9 +68,11 @@ public class MenuOrientador extends SimpleForm {
         btValidarRelato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btValidarRelato.setForeground(new java.awt.Color(255, 255, 255));
         btValidarRelato.setText("Validar Relato e Relatório");
-        btValidarRelato.setMaximumSize(new java.awt.Dimension(300, 40));
-        btValidarRelato.setMinimumSize(new java.awt.Dimension(300, 40));
-        btValidarRelato.setPreferredSize(new java.awt.Dimension(300, 40));
+        btValidarRelato.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btValidarRelato.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btValidarRelato.setMaximumSize(new java.awt.Dimension(300, 60));
+        btValidarRelato.setMinimumSize(new java.awt.Dimension(300, 60));
+        btValidarRelato.setPreferredSize(new java.awt.Dimension(300, 60));
         btValidarRelato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btValidarRelatoActionPerformed(evt);
@@ -83,10 +90,12 @@ public class MenuOrientador extends SimpleForm {
         btVerificarPendencias.setBackground(new java.awt.Color(38, 42, 16));
         btVerificarPendencias.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btVerificarPendencias.setForeground(new java.awt.Color(255, 255, 255));
-        btVerificarPendencias.setText("Verifica Pendências");
-        btVerificarPendencias.setMaximumSize(new java.awt.Dimension(300, 40));
-        btVerificarPendencias.setMinimumSize(new java.awt.Dimension(300, 40));
-        btVerificarPendencias.setPreferredSize(new java.awt.Dimension(300, 40));
+        btVerificarPendencias.setText("Verificar Pendências");
+        btVerificarPendencias.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btVerificarPendencias.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btVerificarPendencias.setMaximumSize(new java.awt.Dimension(300, 60));
+        btVerificarPendencias.setMinimumSize(new java.awt.Dimension(300, 60));
+        btVerificarPendencias.setPreferredSize(new java.awt.Dimension(300, 60));
         btVerificarPendencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVerificarPendenciasActionPerformed(evt);
@@ -105,9 +114,11 @@ public class MenuOrientador extends SimpleForm {
         btAcessarListaEsperaGeral.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btAcessarListaEsperaGeral.setForeground(new java.awt.Color(255, 255, 255));
         btAcessarListaEsperaGeral.setText("Lista de Espera Geral");
-        btAcessarListaEsperaGeral.setMaximumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEsperaGeral.setMinimumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEsperaGeral.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaGeral.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btAcessarListaEsperaGeral.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btAcessarListaEsperaGeral.setMaximumSize(new java.awt.Dimension(300, 60));
+        btAcessarListaEsperaGeral.setMinimumSize(new java.awt.Dimension(300, 60));
+        btAcessarListaEsperaGeral.setPreferredSize(new java.awt.Dimension(300, 60));
         btAcessarListaEsperaGeral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAcessarListaEsperaGeralActionPerformed(evt);
@@ -126,9 +137,11 @@ public class MenuOrientador extends SimpleForm {
         btAcessarListaEsperaEspecifica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btAcessarListaEsperaEspecifica.setForeground(new java.awt.Color(255, 255, 255));
         btAcessarListaEsperaEspecifica.setText("Lista de Espera Específica");
-        btAcessarListaEsperaEspecifica.setMaximumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEsperaEspecifica.setMinimumSize(new java.awt.Dimension(300, 40));
-        btAcessarListaEsperaEspecifica.setPreferredSize(new java.awt.Dimension(300, 40));
+        btAcessarListaEsperaEspecifica.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btAcessarListaEsperaEspecifica.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btAcessarListaEsperaEspecifica.setMaximumSize(new java.awt.Dimension(300, 60));
+        btAcessarListaEsperaEspecifica.setMinimumSize(new java.awt.Dimension(300, 60));
+        btAcessarListaEsperaEspecifica.setPreferredSize(new java.awt.Dimension(300, 60));
         btAcessarListaEsperaEspecifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAcessarListaEsperaEspecificaActionPerformed(evt);
@@ -147,9 +160,10 @@ public class MenuOrientador extends SimpleForm {
         btDesconectar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btDesconectar.setForeground(new java.awt.Color(255, 255, 255));
         btDesconectar.setText("Desconectar");
-        btDesconectar.setMaximumSize(new java.awt.Dimension(300, 40));
-        btDesconectar.setMinimumSize(new java.awt.Dimension(300, 40));
-        btDesconectar.setPreferredSize(new java.awt.Dimension(300, 40));
+        btDesconectar.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        btDesconectar.setMaximumSize(new java.awt.Dimension(160, 60));
+        btDesconectar.setMinimumSize(new java.awt.Dimension(160, 60));
+        btDesconectar.setPreferredSize(new java.awt.Dimension(160, 60));
         btDesconectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDesconectarActionPerformed(evt);
@@ -161,7 +175,6 @@ public class MenuOrientador extends SimpleForm {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 150;
         gridBagConstraints.ipady = 60;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(10, 222, 10, 222);
         pCenter.add(btDesconectar, gridBagConstraints);
 
@@ -178,25 +191,30 @@ public class MenuOrientador extends SimpleForm {
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
         lbOrientador.setText("Orientador");
 
+        lbLogoEstagiario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoOrientador2_resized.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(181, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lbLogoEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addGap(0, 698, Short.MAX_VALUE))
+                .addGap(0, 659, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbLogoEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 72, Short.MAX_VALUE)
+                .addGap(61, 61, 61)
                 .addComponent(lbOrientador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -208,18 +226,20 @@ public class MenuOrientador extends SimpleForm {
     }//GEN-LAST:event_btDesconectarActionPerformed
 
     private void btValidarRelatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidarRelatoActionPerformed
-        // TODO add your handling code here:
+               FormValidarRelatos form = new FormValidarRelatos();
+
+        FormManager.showForm(form);
     }//GEN-LAST:event_btValidarRelatoActionPerformed
 
     private void btAcessarListaEsperaEspecificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaEspecificaActionPerformed
         TableListaEsperaEspecifica form = new TableListaEsperaEspecifica();
-        
+
         FormManager.showForm(form);
     }//GEN-LAST:event_btAcessarListaEsperaEspecificaActionPerformed
 
     private void btAcessarListaEsperaGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaGeralActionPerformed
         TableListaEsperaGeral form = new TableListaEsperaGeral();
-        
+
         FormManager.showForm(form);
     }//GEN-LAST:event_btAcessarListaEsperaGeralActionPerformed
 
@@ -235,9 +255,10 @@ public class MenuOrientador extends SimpleForm {
     private javax.swing.JButton btValidarRelato;
     private javax.swing.JButton btVerificarPendencias;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbLogoEstagiario;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JPanel pCenter;
     private javax.swing.JPanel pNorth;
     // End of variables declaration//GEN-END:variables
-    
+
 }

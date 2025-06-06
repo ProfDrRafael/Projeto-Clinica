@@ -4,7 +4,14 @@
  */
 package Visao.Telas;
 
+import Services.ArticleData;
+import Services.NewsApiService;
+import Visao.Components.Carousel;
 import Visao.Components.SimpleForm;
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -12,11 +19,37 @@ import Visao.Components.SimpleForm;
  */
 public class PageWelcome extends SimpleForm {
 
+    private JPanel pSouth;
+    private Carousel carousel;
+
     /**
      * Creates new form PageWelcome
      */
     public PageWelcome() {
         initComponents();
+        //initCarousel();
+
+    }
+
+    private void initCarousel() {
+        SwingUtilities.invokeLater(() -> {
+            NewsApiService newsService = new NewsApiService();
+
+            new Thread(() -> {
+                List<ArticleData> artigos = newsService.fetchTopPsychologyHeadlines();
+
+                SwingUtilities.invokeLater(() -> {
+                    carousel = new Carousel(artigos); 
+                    pSouth = new JPanel(new BorderLayout());
+                    pSouth.setPreferredSize(new java.awt.Dimension(1024, 200));
+                    pSouth.add(carousel, BorderLayout.CENTER);
+
+                    add(pSouth, BorderLayout.SOUTH);
+                    revalidate(); 
+                    repaint();
+                });
+            }).start();
+        });
     }
 
     /**
@@ -33,9 +66,9 @@ public class PageWelcome extends SimpleForm {
         lbOrientador = new javax.swing.JLabel();
         lbCpanLogo = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1024, 768));
-        setMinimumSize(new java.awt.Dimension(1024, 768));
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        setMaximumSize(new java.awt.Dimension(975, 630));
+        setMinimumSize(new java.awt.Dimension(975, 630));
+        setPreferredSize(new java.awt.Dimension(975, 630));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
@@ -49,36 +82,35 @@ public class PageWelcome extends SimpleForm {
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
         lbOrientador.setText("Seja bem vindo, Usuário");
 
-        lbCpanLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/cpan-small.png"))); // NOI18N
+        lbCpanLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/imagemHome.png"))); // NOI18N
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(356, 356, 356)
-                .addComponent(lbCpanLogo)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(pNorthLayout.createSequentialGroup()
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pNorthLayout.createSequentialGroup()
-                        .addGap(442, 442, 442)
-                        .addComponent(lbClinica))
+                        .addGap(244, 244, 244)
+                        .addComponent(lbCpanLogo))
                     .addGroup(pNorthLayout.createSequentialGroup()
-                        .addGap(328, 328, 328)
-                        .addComponent(lbOrientador)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(315, 315, 315)
+                        .addComponent(lbOrientador))
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(428, 428, 428)
+                        .addComponent(lbClinica)))
+                .addContainerGap(310, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(lbCpanLogo)
-                .addGap(29, 29, 29)
+                .addGap(124, 124, 124)
+                .addComponent(lbCpanLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbOrientador)
                 .addGap(18, 18, 18)
                 .addComponent(lbClinica)
-                .addGap(0, 353, Short.MAX_VALUE))
+                .addGap(0, 323, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.CENTER);

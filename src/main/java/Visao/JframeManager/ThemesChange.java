@@ -15,7 +15,7 @@ import net.miginfocom.swing.MigLayout; // Layout de gerenciamento de posição b
 
 /**
  * Classe responsável pela mudança de temas (claro/escuro) na aplicação.
- * 
+ *
  * @author Raven
  */
 public class ThemesChange extends JPanel {
@@ -29,7 +29,7 @@ public class ThemesChange extends JPanel {
 
     /**
      * Cria um ícone a partir de um arquivo SVG, aplicando um filtro de cor.
-     * 
+     *
      * @param path O caminho do arquivo SVG
      * @return O ícone criado
      */
@@ -53,7 +53,8 @@ public class ThemesChange extends JPanel {
         JPanel panel = new JPanel(new MigLayout("fill", "[fill]10[fill]", "fill"));
         panel.putClientProperty(FlatClientProperties.STYLE, "" // Define propriedades de estilo para o painel interno
                 + "arc:999;" // Define bordas arredondadas
-                + "background:darken($Drawer.background,5%)"); // Define a cor de fundo escurecida
+                + "background:darken($Drawer.background,5%)");
+                 
 
         // Cria botões para alterar entre os modos claro e escuro
         JButton buttonLight = new JButton(createIcon("Multimidia/icon/light.svg")); // Botão para modo claro
@@ -93,7 +94,7 @@ public class ThemesChange extends JPanel {
 
     /**
      * Muda entre os modos claro e escuro.
-     * 
+     *
      * @param dark Indica se o modo escuro deve ser ativado
      */
     private void changeMode(boolean dark) {

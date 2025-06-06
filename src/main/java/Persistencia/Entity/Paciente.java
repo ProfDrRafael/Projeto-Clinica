@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Table(name = "paciente")
 public class Paciente {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -29,7 +30,7 @@ public class Paciente {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nacionalidade_id")
-    private Pais nacionalidade;
+    private Persistencia.Entity.Pais nacionalidade;
 
     @Column(name = "raca_cor_etnia", length = 50)
     private String racaCorEtnia;
@@ -38,9 +39,11 @@ public class Paciente {
     @Lob
     @Column(name = "genero")
     private String genero;
-
-    @Column(name = "encaminhado_por", length = 100)
-    private String encaminhadoPor;
+    
+    @ColumnDefault("'Heterossexual'")
+    @Lob
+    @Column(name = "orientacao_sexual")
+    private String orientacao_sexual;
 
     @Lob
     @Column(name = "estado_civil")
@@ -52,8 +55,8 @@ public class Paciente {
     @Column(name = "profissao", length = 100)
     private String profissao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "responsavel_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "responsavel_id", nullable = true)
     private Persistencia.Entity.Responsavel responsavel;
 
     @Column(name = "disponibilidade")
@@ -127,11 +130,11 @@ public class Paciente {
         this.naturalidade = naturalidade;
     }
 
-    public Pais getNacionalidade() {
+    public Persistencia.Entity.Pais getNacionalidade() {
         return nacionalidade;
     }
 
-    public void setNacionalidade(Pais nacionalidade) {
+    public void setNacionalidade(Persistencia.Entity.Pais nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
 
@@ -149,14 +152,6 @@ public class Paciente {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public String getEncaminhadoPor() {
-        return encaminhadoPor;
-    }
-
-    public void setEncaminhadoPor(String encaminhadoPor) {
-        this.encaminhadoPor = encaminhadoPor;
     }
 
     public String getEstadoCivil() {
@@ -187,7 +182,7 @@ public class Paciente {
         return responsavel;
     }
 
-    public void setResponsavel(Persistencia.Entity.Responsavel responsavel) {
+    public void setResponsavel(Responsavel responsavel) {
         this.responsavel = responsavel;
     }
 
@@ -239,4 +234,24 @@ public class Paciente {
         this.grupo = grupo;
     }
 
+    
+
+    /**
+     * @return the orientacao_sexual
+     */
+    public String getOrientacao_sexual() {
+        return orientacao_sexual;
+    }
+
+    /**
+     * @param orientacao_sexual the orientacao_sexual to set
+     */
+    public void setOrientacao_sexual(String orientacao_sexual) {
+        this.orientacao_sexual = orientacao_sexual;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome; // Retorna apenas o nome do estagiário
+    }
 }

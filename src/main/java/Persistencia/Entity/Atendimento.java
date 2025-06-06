@@ -10,6 +10,7 @@ import java.time.LocalTime;
 @Table(name = "atendimento")
 public class Atendimento {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -34,17 +35,16 @@ public class Atendimento {
     @Column(name = "relato_atendimento")
     private String relatoAtendimento;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "prontuario_id", nullable = false)
     private Persistencia.Entity.Prontuario prontuario;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estagiario_id", nullable = false)
     private Persistencia.Entity.Estagiario estagiario;
 
-    @ColumnDefault("0")
-    @Column(name = "plantao")
-    private Boolean plantao;
+    @Column(name = "tipo_atendimento", length = 50)
+    private String tipoAtendimento;
 
     public Integer getId() {
         return id;
@@ -118,12 +118,11 @@ public class Atendimento {
         this.estagiario = estagiario;
     }
 
-    public Boolean getPlantao() {
-        return plantao;
+    public String getTipoAtendimento() {
+        return tipoAtendimento;
     }
 
-    public void setPlantao(Boolean plantao) {
-        this.plantao = plantao;
+    public void setTipoAtendimento(String tipoAtendimento) {
+        this.tipoAtendimento = tipoAtendimento;
     }
-
 }

@@ -1,6 +1,7 @@
 package Persistencia.Entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "secretaria")
@@ -18,6 +19,10 @@ public class Secretaria {
 
     @Column(name = "senha", nullable = false)
     private String senha;
+    
+    @ColumnDefault("1")
+    @Column(name = "ativo")
+    private Boolean ativo;
 
     public Integer getId() {
         return id;
@@ -51,4 +56,11 @@ public class Secretaria {
         this.senha = senha;
     }
 
+    public Boolean getAtivo() {
+        return ativo;
+    }
+    
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
 }

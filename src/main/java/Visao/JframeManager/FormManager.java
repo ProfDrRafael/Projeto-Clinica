@@ -1,29 +1,32 @@
 package Visao.JframeManager;
 
+import Regradenegocio.SessaoRN;
 import Services.AutenticacaoService;
+import VO.SessaoVO;
+import VO.UsuarioVO;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange; // Utilitário para mudanças de temas com animações
-import java.awt.Image; // Manipulação de imagens
-import javax.swing.JFrame; // Classe para a janela principal
-import javax.swing.SwingUtilities; // Utilitário para manipulações na interface gráfica
+
+import java.awt.*;
+import javax.swing.*;
+
 import Visao.Components.MainForm; // Componente principal do formulário
 import Visao.Components.SimpleForm; // Classe base para formulários simples
-import Visao.Login.Login; // Tela de login
-import Persistencia.modelTemp.ModelUser; // Modelo de usuário
 import Visao.Slider.PanelSlider; // Painel que implementa transições deslizantes
 import Visao.Slider.SimpleTransition; // Transições simples para o PanelSlider
-import Visao.Telas.FormEsqueciSenha;
-import Visao.Utils.UndoRedo; // Utilitário para funcionalidades de desfazer/refazer
+import Visao.Utils.UndoRedo;
 import Visao.Telas.FormLogin;
+import Visao.Telas.PageProgressBar;
 import Visao.Telas.PageWelcome;
-import java.awt.BorderLayout;
+import java.lang.reflect.InvocationTargetException;
 import net.miginfocom.swing.MigLayout;
 import raven.toast.Notifications;
 
 /**
- * Classe responsável por gerenciar a exibição de formulários, transições e o menu lateral.
- * Implementa funcionalidades de login, logout e transições entre formulários.
- * Também lida com as ações de desfazer/refazer, e atualização da interface gráfica.
- * 
+ * Classe responsável por gerenciar a exibição de formulários, transições e o
+ * menu lateral. Implementa funcionalidades de login, logout e transições entre
+ * formulários. Também lida com as ações de desfazer/refazer, e atualização da
+ * interface gráfica.
+ *
  * @author Raven
  */
 public class FormManager {
@@ -40,8 +43,9 @@ public class FormManager {
     private final boolean undecorated; // Define se a janela está sem decoração (barra de título, bordas)
 
     /**
-     * Método para inicializar o FormManager. Cria uma instância da classe associada à janela principal.
-     * 
+     * Método para inicializar o FormManager. Cria uma instância da classe
+     * associada à janela principal.
+     *
      * @param frame Janela principal
      * @param undecorated Se a janela terá bordas e barra de título ou não
      */
@@ -50,8 +54,9 @@ public class FormManager {
     }
 
     /**
-     * Construtor privado da classe, usado para inicializar os componentes e o menu.
-     * 
+     * Construtor privado da classe, usado para inicializar os componentes e o
+     * menu.
+     *
      * @param frame Janela principal
      * @param undecorated Se a janela será decorada ou não
      */
@@ -69,36 +74,61 @@ public class FormManager {
     public static void showMenu() {
         instance.menuShowing = true; // Atualiza o estado do menu como visível
         instance.panelSlider.addSlide(
-            instance.menu, 
-            SimpleTransition.getShowMenuTransition(instance.menu.getDrawerBuilder().getDrawerWidth(), instance.undecorated)
+                instance.menu,
+                SimpleTransition.getShowMenuTransition(instance.menu.getDrawerBuilder().getDrawerWidth(), instance.undecorated)
         ); // Adiciona o menu com uma transição suave
     }
 
     /**
      * Exibe um novo formulário no painel principal, com transição animada.
-     * 
+     *
      * @param component Formulário a ser exibido
      */
     public static void showForm(SimpleForm component) {
-        if (isNewFormAble()) { // Verifica se pode exibir um novo formulário
-            instance.forms.add(component); // Adiciona o formulário à pilha de formulários
-            if (instance.menuShowing == true) { // Se o menu está visível
-                instance.menuShowing = false; // Oculta o menu
-                Image oldImage = instance.panelSlider.createOldImage(); // Captura a imagem do estado anterior
-                instance.mainForm.setForm(component); // Define o novo formulário no mainForm
-                instance.panelSlider.addSlide(
-                    instance.mainForm, 
-                    SimpleTransition.getSwitchFormTransition(oldImage, instance.menu.getDrawerBuilder().getDrawerWidth())
-                ); // Transição suave entre o menu e o formulário
-            } else {
-                instance.mainForm.showForm(component); // Exibe o formulário diretamente se o menu já está oculto
-            }
-            instance.forms.getCurrent().formInitAndOpen(); // Inicializa e abre o formulário atual
+        if (!isNewFormAble()) {
+            return;
         }
+
+        SimpleForm atual = instance.forms.getCurrent();
+        // Se já estamos exibindo um formulário do mesmo tipo, não empilha de novo
+        if (atual != null && atual.getClass().equals(component.getClass())) {
+            // Apenas reaplica/transiciona para o mesmo form sem empilhar
+            if (instance.menuShowing) {
+                instance.menuShowing = false;
+                Image oldImage = instance.panelSlider.createOldImage();
+                instance.mainForm.setForm(component);
+                instance.panelSlider.addSlide(
+                        instance.mainForm,
+                        SimpleTransition.getSwitchFormTransition(oldImage, instance.menu.getDrawerBuilder().getDrawerWidth())
+                );
+            } else {
+                instance.mainForm.showForm(component);
+            }
+            // Reabre/refresh no form atual
+            instance.forms.getCurrent().formInitAndOpen();
+            return;
+        }
+
+        // Se for um form novo, empilha normalmente
+        instance.forms.add(component);
+
+        if (instance.menuShowing) {
+            instance.menuShowing = false;
+            Image oldImage = instance.panelSlider.createOldImage();
+            instance.mainForm.setForm(component);
+            instance.panelSlider.addSlide(
+                    instance.mainForm,
+                    SimpleTransition.getSwitchFormTransition(oldImage, instance.menu.getDrawerBuilder().getDrawerWidth())
+            );
+        } else {
+            instance.mainForm.showForm(component);
+        }
+
+        instance.forms.getCurrent().formInitAndOpen();
     }
 
     /**
-     * 
+     *
      * @param esqueciSenha
      */
     public static void EsqueciSenha(SimpleForm esqueciSenha) {
@@ -127,28 +157,12 @@ public class FormManager {
             FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
         });
     }
-    
+
     /**
-     * Realiza o logout, removendo os componentes atuais e exibindo a tela de login.
+     * Realiza o logout, removendo os componentes atuais e exibindo a tela de
+     * login.
      */
     public static void logout() {
-//        // Captura o estado atual da interface para a animação
-//        FlatAnimatedLafChange.showSnapshot(); 
-//        
-//        // Remove todos os componentes da janela
-//        instance.frame.getContentPane().removeAll(); 
-//
-//        // Configura MigLayout no container principal
-//        instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]"));
-//
-//        // Adiciona o FormLogin centralizado tanto verticalmente quanto horizontalmente
-//        FormLogin formLogin = new FormLogin();
-//        instance.frame.getContentPane().add(formLogin, "align center center, grow"); 
-//    
-//        instance.frame.repaint(); // Re-renderiza a janela
-//        instance.frame.revalidate(); // Revalida a janela
-//        FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
-// Captura o estado atual da interface para a animação
         // Captura o estado atual da interface para a animação
         FlatAnimatedLafChange.showSnapshot();
 
@@ -177,47 +191,50 @@ public class FormManager {
         });
     }
 
+    public static void loading(PageProgressBar telaLoading) {
+        instance.frame.getContentPane().removeAll();
+        
+        instance.frame.getContentPane().add(telaLoading, "grow");
+
+        instance.frame.revalidate();
+        instance.frame.repaint();
+    }
+
     /**
-     * Realiza o login de um usuário, configurando o menu e exibindo a interface principal.
-     * 
+     * Realiza o login de um usuário, configurando o menu e exibindo a interface
+     * principal.
+     *
      * @param user O usuário que está realizando o login
      */
-    public static void login(ModelUser user) {
-//        FlatAnimatedLafChange.showSnapshot(); // Captura o estado atual da interface
-//        instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
-//        
-//        // Aqui você pode definir o layout padrão que deseja usar, como BorderLayout
-//        instance.frame.getContentPane().setLayout(new BorderLayout());
-//        
-//        instance.frame.getContentPane().add(instance.panelSlider); // Adiciona o painel deslizante
-//        ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
-//        instance.frame.repaint(); // Re-renderiza a janela
-//        instance.frame.revalidate(); // Revalida a janela
-//        FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
-        FlatAnimatedLafChange.showSnapshot(); // Captura o estado atual da interface
+    public static void login(UsuarioVO user) {
+        FlatAnimatedLafChange.showSnapshot();
 
-        // Animação de fade-out
-        instance.frame.getContentPane().setVisible(false); 
-        
         SwingUtilities.invokeLater(() -> {
-            instance.frame.getContentPane().removeAll(); // Remove todos os componentes da janela
-            instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]")); // Consistência no layout
+            instance.frame.getContentPane().removeAll();
+            instance.frame.getContentPane().setLayout(new BorderLayout());
+            instance.frame.getContentPane().add(instance.panelSlider);
 
-            // Adiciona o painel deslizante (você pode centralizá-lo de maneira semelhante)
-            instance.frame.getContentPane().add(instance.panelSlider, "align center center, grow"); 
-            ((MyDrawerBuilder) instance.menu.getDrawerBuilder()).setUser(user); // Configura o menu para o usuário logado
+            SessaoVO sessao = new SessaoVO();
+            sessao.setId(null);
+            sessao.setNome(user.getNomeCompleto());
+            sessao.setEmail(user.getEmail());
+            sessao.setTipo(user.getTipo());
 
-            // Exibe a animação de fade-in após a remoção dos componentes
-            instance.frame.getContentPane().setVisible(true); 
-            instance.frame.repaint(); // Re-renderiza a janela
-            instance.frame.revalidate(); // Revalida a janela
-            FlatAnimatedLafChange.hideSnapshotWithAnimation(); // Exibe a animação de transição
+            new SessaoRN().salvarSessao(sessao);
 
-            // Mostra o formulário de dashboard (painel principal)
+            // Configura o menu dinamicamente com base no tipo do usuário
+            MyDrawerBuilder drawerBuilder = (MyDrawerBuilder) instance.menu.getDrawerBuilder();
+            
+            drawerBuilder.setUser(user); // Define o usuário no menu
+
+            // Exibe a interface principal
+            instance.frame.repaint();
+            instance.frame.revalidate();
+            FlatAnimatedLafChange.hideSnapshotWithAnimation();
+
             FormManager.showForm(new PageWelcome());
 
-            //  Show notifications
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Login realizado com sucesso");
+        
         });
     }
 
@@ -227,13 +244,14 @@ public class FormManager {
     public static void hideMenu() {
         instance.menuShowing = false; // Atualiza o estado do menu como oculto
         instance.panelSlider.addSlide(
-            instance.mainForm, 
-            SimpleTransition.getHideMenuTransition(instance.menu.getDrawerBuilder().getDrawerWidth(), instance.undecorated)
+                instance.mainForm,
+                SimpleTransition.getHideMenuTransition(instance.menu.getDrawerBuilder().getDrawerWidth(), instance.undecorated)
         ); // Adiciona uma transição suave para ocultar o menu
     }
 
     /**
-     * Desfaz a ação de exibição de um formulário, voltando para o formulário anterior.
+     * Desfaz a ação de exibição de um formulário, voltando para o formulário
+     * anterior.
      */
     public static void undo() {
         if (isNewFormAble()) { // Verifica se pode desfazer
@@ -245,7 +263,8 @@ public class FormManager {
     }
 
     /**
-     * Refaz a ação de exibição de um formulário, indo para o próximo formulário na pilha.
+     * Refaz a ação de exibição de um formulário, indo para o próximo formulário
+     * na pilha.
      */
     public static void redo() {
         if (isNewFormAble()) { // Verifica se pode refazer
@@ -259,6 +278,9 @@ public class FormManager {
     /**
      * Atualiza o formulário atual, caso o menu esteja oculto.
      */
+    /**
+     * Atualiza o formulário atual, caso o menu esteja oculto.
+     */
     public static void refresh() {
         if (!instance.menuShowing) {
             instance.forms.getCurrent().formRefresh(); // Atualiza o formulário atual
@@ -267,7 +289,7 @@ public class FormManager {
 
     /**
      * Retorna a pilha de formulários (Undo/Redo) gerenciados.
-     * 
+     *
      * @return Objeto de controle de desfazer/refazer para formulários.
      */
     public static UndoRedo<SimpleForm> getForms() {
@@ -275,20 +297,46 @@ public class FormManager {
     }
 
     /**
-     * Verifica se pode exibir um novo formulário, verificando se o formulário atual pode ser fechado.
-     * 
-     * @return true se um novo formulário pode ser exibido, false caso contrário.
+     * Verifica se pode exibir um novo formulário, verificando se o formulário
+     * atual pode ser fechado.
+     *
+     * @return true se um novo formulário pode ser exibido, false caso
+     * contrário.
      */
     public static boolean isNewFormAble() {
         return instance.forms.getCurrent() == null || instance.forms.getCurrent().formClose(); // Verifica se o formulário atual pode ser fechado
     }
 
     /**
-     * Atualiza a interface dos formulários temporários, aplicando mudanças na aparência (look and feel).
+     * Atualiza a interface dos formulários temporários, aplicando mudanças na
+     * aparência (look and feel).
      */
     public static void updateTempFormUI() {
-        for (SimpleForm f : instance.forms) { // Para cada formulário na pilha
-            SwingUtilities.updateComponentTreeUI(f); // Atualiza a árvore de componentes (UI)
+        // 1) atualiza cada SimpleForm registrado
+        for (SimpleForm f : instance.forms) {
+            SwingUtilities.updateComponentTreeUI(f);
+        }
+        // 2) atualiza TODO o restante da UI: frame, panelSlider, mainForm, menus, etc.
+        for (Window w : Window.getWindows()) {
+            SwingUtilities.updateComponentTreeUI(w);
+        }
+    }
+
+    public static void reloadCurrentForm() {
+        if (!instance.menuShowing && instance.forms.getCurrent() != null) {
+            SimpleForm currentForm = instance.forms.getCurrent();
+
+            if (isNewFormAble()) {
+                try {
+                    SimpleForm newForm = currentForm.getClass().getDeclaredConstructor().newInstance();
+
+                    showForm(newForm);
+
+                } catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER,
+                            "Erro ao recarregar o formulário: " + e.getMessage());
+                }
+            }
         }
     }
 }

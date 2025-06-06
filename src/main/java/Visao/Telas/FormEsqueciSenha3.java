@@ -3,18 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Services.RedefinirSenhaService;
+import Visao.Utils.MessagesAlert;
 
 import javax.swing.*;
-
 
 /**
  *
  * @author john
  */
 public class FormEsqueciSenha3 extends SimpleForm {
+
     private String email;
     private String tipoUsuario;
     private String token;
@@ -163,14 +165,16 @@ public class FormEsqueciSenha3 extends SimpleForm {
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {
         String novaSenha = new String(pfSenha.getPassword());
+        MessagesAlert messagesAlert = new MessagesAlert();
+
         try {
             redefinirSenhaService.redefinirSenha(token, novaSenha);
-            JOptionPane.showMessageDialog(this, "Senha redefinida com sucesso!");
+            messagesAlert.showSuccessMessage("Senha redefinida com sucesso!");
             FormManager.logout();
         } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao redefinir senha: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            messagesAlert.showErrorMessage("Erro ao redefinir senha: " + ex.getMessage());
         }
-    }//GEN-LAST:event_btEntrarActionPerformed
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

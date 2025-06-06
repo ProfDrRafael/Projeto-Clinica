@@ -11,15 +11,15 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 
-import Persistencia.modelTemp.Endereco;
+import Persistencia.modelTemp.EnderecoModelCepApi;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import raven.toast.Notifications;
 
 public class ViaCepService {
 
-    public Endereco getEndereco(String cep) throws IOException {
-        Endereco end = null;
+    public EnderecoModelCepApi getEndereco(String cep) throws IOException {
+        EnderecoModelCepApi end = null;
         HttpGet request = new HttpGet("https://viacep.com.br/ws/" + cep + "/json/");
 
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().disableRedirectHandling().build();
@@ -29,7 +29,7 @@ public class ViaCepService {
             if (entity != null) {
                 String result = EntityUtils.toString(entity);
                 Gson gson = new Gson();
-                end = gson.fromJson(result, Endereco.class);
+                end = gson.fromJson(result, EnderecoModelCepApi.class);
             }
         } catch (IOException ex) {
             // Exceção específica de IO é tratada aqui

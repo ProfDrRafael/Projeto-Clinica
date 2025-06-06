@@ -1,5 +1,6 @@
 package Persistencia.Dao;
 
+import Persistencia.Entity.Paciente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -23,13 +24,36 @@ public class GenericoDAO<T> {
             em = JPAUtil.getEntityManager();
             tx = em.getTransaction();
             tx.begin();
-            em.persist(entity);
+            em.merge(entity);
             tx.commit();
         } catch (Exception e) {
             if (tx != null && tx.isActive()) {
                 tx.rollback();
             }
             logger.error("Erro ao salvar a entidade: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public T salvarERetornar(T entity) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
+        try {
+            em = JPAUtil.getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            T entidadePersistida = em.merge(entity);
+            tx.commit();
+            return entidadePersistida;
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            logger.error("Erro ao salvar a entidade: ", e);
+            return null;
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();
@@ -106,6 +130,29 @@ public class GenericoDAO<T> {
                 tx.rollback();
             }
             logger.error("Erro ao deletar a entidade: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public Paciente salvarRetornandoEntidade(Paciente entity) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
+        try {
+            em = JPAUtil.getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            em.persist(entity);
+            tx.commit();
+            return entity; // Agora a entidade tem o ID preenchido
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            logger.error("Erro ao salvar a paciente: ", e);
+            return null;
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();

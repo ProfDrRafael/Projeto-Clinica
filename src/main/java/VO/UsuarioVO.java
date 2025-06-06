@@ -9,12 +9,12 @@ package VO;
  * @author rafael
  */
 public abstract class UsuarioVO {
-    private int id;
+    private Integer id;
     private String nomeCompleto;
     private String email;
     private String senha;
 
-    public UsuarioVO(int id, String nomeCompleto, String email, String senha) {
+    public UsuarioVO(Integer id, String nomeCompleto, String email, String senha) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.email = email;
@@ -24,14 +24,14 @@ public abstract class UsuarioVO {
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,4 +78,8 @@ public abstract class UsuarioVO {
     }
 
     public abstract String getTipo();
+
+    public String toString() {
+        return this.nomeCompleto;
+    }
 }

@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.CreateCustomTable;
 import Visao.Components.SimpleForm;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -13,16 +16,94 @@ import java.awt.BorderLayout;
  */
 public class TableListaPacientes extends SimpleForm {
 
-    /**
-     * Creates new form listaEsperaTable
-     */
+     private static final String QUERY_ATIVOS = """
+        SELECT p.id, p.nome, p.telefone, p.data_nascimento, p.genero, p.estado_civil
+        FROM paciente p
+        LEFT JOIN arquivo_morto am ON p.id = am.paciente_id
+        WHERE am.paciente_id IS NULL
+    """;
+
+    private static final String QUERY_INATIVOS = """
+        SELECT p.id, p.nome, p.telefone, p.data_nascimento, p.genero, p.estado_civil
+        FROM paciente p
+        INNER JOIN arquivo_morto am ON p.id = am.paciente_id
+    """;
+
+    private final String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero", "Estado Civil"};
+    private boolean mostrandoInativos = false;
+    private JToggleButton switchToggle;
+    private CreateCustomTable customTable;
+
     public TableListaPacientes() {
         initComponents();
-        
-        // Add custom table component
-        CreateCustomTable customTable = new CreateCustomTable();
-        painel_lista_espera.setLayout(new BorderLayout()); // Set the layout to BorderLayout
-        painel_lista_espera.add(customTable.createCustomTable(), BorderLayout.CENTER); // Add custom table to the center
+
+        setLayout(new BorderLayout());
+
+        // Remove pNorth do layout principal para evitar duplicidade
+        remove(pNorth);
+
+        // Cria o toggle button para alternar entre ativos e inativos
+        switchToggle = new JToggleButton("Mostrar inativos");
+        switchToggle.addActionListener(this::onToggle);
+
+        // Painel para centralizar o toggle
+        javax.swing.JPanel pTogglePanel = new javax.swing.JPanel();
+        pTogglePanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER));
+        pTogglePanel.add(switchToggle);
+
+        // Painel vertical que empilha pNorth e toggle
+        javax.swing.JPanel pTop = new javax.swing.JPanel();
+        pTop.setLayout(new javax.swing.BoxLayout(pTop, javax.swing.BoxLayout.Y_AXIS));
+
+        pTop.add(pNorth);
+        pTop.add(pTogglePanel);
+
+        add(pTop, BorderLayout.NORTH);
+
+        // Configura painel_lista_espera para o centro
+        painel_lista_espera.removeAll();
+        painel_lista_espera.setLayout(new BorderLayout());
+        add(painel_lista_espera, BorderLayout.CENTER);
+
+        rebuildTable();
+    }
+
+    private void onToggle(ActionEvent e) {
+        mostrandoInativos = switchToggle.isSelected();
+        switchToggle.setText(mostrandoInativos ? "Mostrar ativos" : "Mostrar inativos");
+        rebuildTable();
+    }
+
+    private void rebuildTable() {
+        String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
+        boolean acaoInativar = mostrandoInativos;  // true para "Ativar", false para "Inativar"
+        String botaoLabel = mostrandoInativos ? "Ativar" : "Inativar";
+        String icone = mostrandoInativos ? "/Multimidia/imagens/cadeado.png" : "/Multimidia/icon/cadeado_desbloqueado.png";
+
+        painel_lista_espera.removeAll();
+
+        customTable = new CreateCustomTable(
+            query,
+            tableColumns,
+            "Todos os Pacientes",
+            "Paciente",
+            acaoInativar,
+            botaoLabel,
+            icone
+        );
+
+        painel_lista_espera.add(
+            customTable.createCustomTable(
+                query,
+                tableColumns,
+                "Todos os Pacientes",
+                "Paciente"
+            ),
+            BorderLayout.CENTER
+        );
+
+        painel_lista_espera.revalidate();
+        painel_lista_espera.repaint();
     }
 
     /**
@@ -40,17 +121,18 @@ public class TableListaPacientes extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
+        lblLogoListaPacientes = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1000, 768));
-        setMinimumSize(new java.awt.Dimension(1000, 768));
-        setPreferredSize(new java.awt.Dimension(1000, 768));
+        setMaximumSize(new java.awt.Dimension(950, 650));
+        setMinimumSize(new java.awt.Dimension(950, 650));
+        setPreferredSize(new java.awt.Dimension(950, 650));
         setLayout(new java.awt.BorderLayout());
 
         painel_lista_espera.setBackground(new java.awt.Color(255, 255, 255));
         painel_lista_espera.setForeground(new java.awt.Color(255, 255, 255));
-        painel_lista_espera.setMaximumSize(new java.awt.Dimension(1024, 768));
-        painel_lista_espera.setMinimumSize(new java.awt.Dimension(1024, 768));
-        painel_lista_espera.setPreferredSize(new java.awt.Dimension(1024, 768));
+        painel_lista_espera.setMaximumSize(new java.awt.Dimension(950, 650));
+        painel_lista_espera.setMinimumSize(new java.awt.Dimension(950, 650));
+        painel_lista_espera.setPreferredSize(new java.awt.Dimension(950, 650));
 
         tbListaEsperaNaoAtendidos.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         tbListaEsperaNaoAtendidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -74,14 +156,14 @@ public class TableListaPacientes extends SimpleForm {
             .addGroup(painel_lista_esperaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1005, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(3, Short.MAX_VALUE))
         );
         painel_lista_esperaLayout.setVerticalGroup(
             painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_lista_esperaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         add(painel_lista_espera, java.awt.BorderLayout.CENTER);
@@ -97,25 +179,32 @@ public class TableListaPacientes extends SimpleForm {
         lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
         lbOrientador.setText("Lista de Pacientes");
 
+        lblLogoListaPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/listaPacientes.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblLogoListaPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbOrientador))
-                .addGap(0, 627, Short.MAX_VALUE))
+                .addContainerGap(530, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 67, Short.MAX_VALUE)
+                .addGap(64, 64, 64)
                 .addComponent(lbOrientador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addGap(0, 7, Short.MAX_VALUE)
+                .addComponent(lblLogoListaPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -126,10 +215,10 @@ public class TableListaPacientes extends SimpleForm {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbOrientador;
+    private javax.swing.JLabel lblLogoListaPacientes;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_espera;
     private javax.swing.JTable tbListaEsperaNaoAtendidos;
     // End of variables declaration//GEN-END:variables
-
 
 }

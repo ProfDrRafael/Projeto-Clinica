@@ -15,15 +15,15 @@ public class Prontuario {
     @Column(name = "queixa_inicial", nullable = false, length = 1500)
     private String queixaInicial;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estagiario_id", nullable = false)
     private Estagiario estagiario;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "orientador_id", nullable = false)
     private Orientador orientador;
 
