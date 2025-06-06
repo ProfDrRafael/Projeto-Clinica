@@ -11,10 +11,9 @@ import VO.UsuarioVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
-import com.formdev.flatlaf.FlatClientProperties;
-
 import java.awt.Color;
 import java.awt.event.KeyListener;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -237,15 +236,32 @@ public class FormLogin extends SimpleForm {
         String email = tfLogin.getText().trim();
         String senha = new String(pfSenha.getPassword());
         MessagesAlert messagesAlert = new MessagesAlert();
+        
+        PageProgressBar telaCarregamento = new PageProgressBar(() -> {
+            SwingWorker<UsuarioVO, Void> worker = new SwingWorker() {
+                @Override
+                protected UsuarioVO doInBackground() {
+                    return autenticacaoService.autenticar(email, senha);
+                }
 
-        try {
-            UsuarioVO usuario = autenticacaoService.autenticar(email, senha);
+                @Override
+                protected void done() {
+                    try {
+                        UsuarioVO usuario = autenticacaoService.autenticar(email, senha);
 
-            messagesAlert.showSuccessMessage("Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
-            FormManager.login(usuario);
-        } catch (RuntimeException ex) {
-            messagesAlert.showErrorMessage("Erro de autenticação: " + ex.getMessage());
-        }
+                        messagesAlert.showSuccessMessage("Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
+                        FormManager.login(usuario);
+                    } catch (Exception ex) {
+                        messagesAlert.showErrorMessage("Erro de autenticação: " + ex.getMessage());
+                        FormManager.logout();
+                    }
+                }
+                
+            };
+            worker.execute();
+        });
+        
+        FormManager.loading(telaCarregamento);
     }
     private void tfLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginFocusLost
         // TODO add your handling code here:

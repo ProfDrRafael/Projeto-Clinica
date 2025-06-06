@@ -15,6 +15,7 @@ import Visao.Slider.PanelSlider; // Painel que implementa transições deslizant
 import Visao.Slider.SimpleTransition; // Transições simples para o PanelSlider
 import Visao.Utils.UndoRedo;
 import Visao.Telas.FormLogin;
+import Visao.Telas.PageProgressBar;
 import Visao.Telas.PageWelcome;
 import java.lang.reflect.InvocationTargetException;
 import net.miginfocom.swing.MigLayout;
@@ -190,6 +191,15 @@ public class FormManager {
         });
     }
 
+    public static void loading(PageProgressBar telaLoading) {
+        instance.frame.getContentPane().removeAll();
+        
+        instance.frame.getContentPane().add(telaLoading, "grow");
+
+        instance.frame.revalidate();
+        instance.frame.repaint();
+    }
+
     /**
      * Realiza o login de um usuário, configurando o menu e exibindo a interface
      * principal.
@@ -214,7 +224,7 @@ public class FormManager {
 
             // Configura o menu dinamicamente com base no tipo do usuário
             MyDrawerBuilder drawerBuilder = (MyDrawerBuilder) instance.menu.getDrawerBuilder();
-            System.out.println(user);
+            
             drawerBuilder.setUser(user); // Define o usuário no menu
 
             // Exibe a interface principal
