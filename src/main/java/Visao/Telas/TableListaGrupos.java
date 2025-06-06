@@ -4,32 +4,37 @@
  */
 package Visao.Telas;
 
+import Persistencia.Entity.Grupo;
+import Regradenegocio.GrupoRN;
 import Visao.Components.CreateCustomTable;
 import Visao.Components.SimpleForm;
+
+import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.util.List;
 
 /**
  *
  * @author john
  */
-public class TableListaAtendimento extends SimpleForm {
+public class TableListaGrupos extends SimpleForm {
 
     /**
      * Creates new form listaEsperaTable
      */
-    public TableListaAtendimento() {
+    public TableListaGrupos() {
         initComponents();
 
-        String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Preenchido", "Comparecimento", "Tipo Atendimento", "Prontuário", "Estagiário"};
-        String queryTable = "SELECT id, data, hora, preenchido, comparecimento, plantao, tipo_atendimento, estagiario_id FROM atendimento";
+        String[] tableColumns = new String[]{"#", "ID", "Nome", "Descrição"};
+        String queryTable = "SELECT id, nome, descricao FROM grupo";
+
+        // Define se haverá ação de ativar/inativar
         boolean acao_ativar_ou_inativar = false;
 
-
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
-
-        painel_lista_espera.setLayout(new BorderLayout());
-
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento"), BorderLayout.CENTER);
+        // Cria e adiciona a tabela customizada
+        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Grupos", "Grupo", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        painel_lista_grupos.setLayout(new BorderLayout());
+        painel_lista_grupos.add(customTable.createCustomTable(queryTable, tableColumns, "Grupos", "Grupo"), BorderLayout.CENTER);
     }
 
     /**
@@ -41,57 +46,55 @@ public class TableListaAtendimento extends SimpleForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painel_lista_espera = new javax.swing.JPanel();
+        painel_lista_grupos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListaEsperaEspecifica = new javax.swing.JTable();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
-        lbOrientador = new javax.swing.JLabel();
+        lbTitulo = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(950, 650));
-        setMinimumSize(new java.awt.Dimension(950, 650));
-        setPreferredSize(new java.awt.Dimension(950, 650));
+        setMaximumSize(new java.awt.Dimension(1000, 768));
+        setMinimumSize(new java.awt.Dimension(1000, 768));
+        setPreferredSize(new java.awt.Dimension(1000, 768));
         setLayout(new java.awt.BorderLayout());
 
-        painel_lista_espera.setBackground(new java.awt.Color(255, 255, 255));
-        painel_lista_espera.setForeground(new java.awt.Color(255, 255, 255));
-        painel_lista_espera.setMaximumSize(new java.awt.Dimension(99999, 99999999));
-        painel_lista_espera.setMinimumSize(new java.awt.Dimension(0, 0));
-        painel_lista_espera.setPreferredSize(new java.awt.Dimension(950, 650));
+        painel_lista_grupos.setBackground(new java.awt.Color(255, 255, 255));
+        painel_lista_grupos.setForeground(new java.awt.Color(255, 255, 255));
+        painel_lista_grupos.setMaximumSize(new java.awt.Dimension(99999, 99999999));
+        painel_lista_grupos.setMinimumSize(new java.awt.Dimension(0, 0));
+        painel_lista_grupos.setPreferredSize(new java.awt.Dimension(1200, 768));
 
         tbListaEsperaEspecifica.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         tbListaEsperaEspecifica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Fulano de Tal", "19", "14/05/2023", "Masculino", "Adulto"},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Posição", "Nome", "Idade", "Data Cadastro", "Sexo", "Faixa Etária"
+                "Nome", "Descrição"
             }
         ));
         jScrollPane1.setViewportView(tbListaEsperaEspecifica);
 
-        javax.swing.GroupLayout painel_lista_esperaLayout = new javax.swing.GroupLayout(painel_lista_espera);
-        painel_lista_espera.setLayout(painel_lista_esperaLayout);
-        painel_lista_esperaLayout.setHorizontalGroup(
-            painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_lista_esperaLayout.createSequentialGroup()
+        javax.swing.GroupLayout painel_lista_gruposLayout = new javax.swing.GroupLayout(painel_lista_grupos);
+        painel_lista_grupos.setLayout(painel_lista_gruposLayout);
+        painel_lista_gruposLayout.setHorizontalGroup(
+            painel_lista_gruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_lista_gruposLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 944, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        painel_lista_esperaLayout.setVerticalGroup(
-            painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_lista_esperaLayout.createSequentialGroup()
+        painel_lista_gruposLayout.setVerticalGroup(
+            painel_lista_gruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_lista_gruposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(125, 125, 125))
         );
 
-        add(painel_lista_espera, java.awt.BorderLayout.CENTER);
+        add(painel_lista_grupos, java.awt.BorderLayout.CENTER);
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
         pNorth.setPreferredSize(new java.awt.Dimension(638, 183));
@@ -100,26 +103,26 @@ public class TableListaAtendimento extends SimpleForm {
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
         lbClinica.setText("Clínica de Psicologia");
 
-        lbOrientador.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        lbOrientador.setText("Lista de Atendimentos");
+        lbTitulo.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lbTitulo.setText("Lista de Grupos");
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+                .addContainerGap(151, Short.MAX_VALUE)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
-                    .addComponent(lbOrientador))
-                .addGap(0, 585, Short.MAX_VALUE))
+                    .addComponent(lbTitulo))
+                .addGap(0, 631, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addGap(0, 67, Short.MAX_VALUE)
-                .addComponent(lbOrientador)
+                .addComponent(lbTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
                 .addGap(0, 68, Short.MAX_VALUE))
@@ -132,9 +135,9 @@ public class TableListaAtendimento extends SimpleForm {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
-    private javax.swing.JLabel lbOrientador;
+    private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pNorth;
-    private javax.swing.JPanel painel_lista_espera;
+    private javax.swing.JPanel painel_lista_grupos;
     private javax.swing.JTable tbListaEsperaEspecifica;
     // End of variables declaration//GEN-END:variables
 

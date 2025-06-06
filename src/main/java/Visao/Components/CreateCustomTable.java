@@ -8,6 +8,7 @@ import Visao.Telas.FormAgenda;
 import Visao.Telas.FormAtendimento;
 import Visao.Telas.FormPaciente;
 import Visao.Telas.FormUsuario;
+import Visao.Telas.PageGrupos;
 import Visao.Telas.PageWelcome;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones; // Importa utilitário para redimensionar ícones
@@ -43,6 +44,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.SwingUtilities;
 
 /**
@@ -70,6 +74,7 @@ public class CreateCustomTable extends JPanel{
     private boolean acao_ativar_ou_inativar;
     private ArrayList<Integer> selectedRows = new ArrayList<>();
     private String iconeAtivacao;
+    private Integer foreignKeyId;
 
     // Variável para armazenar o texto de pesquisa (em minúsculo)
     private String searchQuery = "";
@@ -82,6 +87,10 @@ public class CreateCustomTable extends JPanel{
         this.acao_ativar_ou_inativar = acao_ativar_ou_inativar;
         this.statusButtonLabel = statusButtonLabel;
         this.iconeAtivacao = iconeAtivacao;
+    }
+
+    public void setForeignKeyId(Integer foreignKeyId) {
+        this.foreignKeyId = foreignKeyId;
     }
 
     /**
@@ -356,6 +365,8 @@ public class CreateCustomTable extends JPanel{
                         FormManager.showForm(new FormPaciente());
                     case "Todos os Usuários" ->
                         FormManager.showForm(new FormUsuario());
+                    case "Grupos" ->
+                        FormManager.showForm(new PageGrupos());
                     default ->
                         FormManager.showForm(new PageWelcome());
                 }
@@ -431,7 +442,9 @@ public class CreateCustomTable extends JPanel{
                             formUsuario.preencherDadosFormulario(id, tipoUsuario);
                             FormManager.showForm(formUsuario);
                             break;
-
+                        case "Grupos":
+                            FormManager.showForm(new PageGrupos());
+                            break;
                         default:
                             FormManager.showForm(new PageWelcome());
                             break;
@@ -445,6 +458,65 @@ public class CreateCustomTable extends JPanel{
 
         cmdInativar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                if ("Pacientes do Grupo".equals(tipoFormTela)) {
+                    if (selectedRows.isEmpty()) {
+                        Notifications.getInstance().show(Notifications.Type.ERROR,
+                                Notifications.Location.TOP_CENTER,
+                                "Selecione ao menos um paciente.");
+                        return;
+                    }
+
+                    MessagesAlert.showWarningMessage("Deseja realmente remover estes vínculos?", resp -> {
+                        if (!resp) return;
+
+                        try {
+                            // pega o grupoId que você setou externamente
+                            int grupoId = foreignKeyId;
+
+                            // constroi lista de paciente_id
+                            TableRowSorter<DefaultTableModel> sorter =
+                                    (TableRowSorter<DefaultTableModel>) table.getRowSorter();
+                            List<Integer> pacienteIds = new ArrayList<>();
+                            for (int viewRow : selectedRows) {
+                                int modelRow = sorter.convertRowIndexToModel(viewRow);
+                                pacienteIds.add((Integer) model.getValueAt(modelRow, 1));
+                            }
+                            String inClause = pacienteIds.stream()
+                                    .map(String::valueOf)
+                                    .collect(Collectors.joining(","));
+
+                            String sql =
+                                    "DELETE FROM grupo_x_paciente " +
+                                            "WHERE grupo_id = " + foreignKeyId +
+                                            "  AND paciente_id IN (" + inClause + ")";
+
+// 4) executa direto
+                            boolean ok = TabelaDAO.executarConsultaAnonima(sql);
+
+                            if (ok) {
+                                // remove as linhas da tabela em memória…
+                                // seu código de model.removeRow(...)
+                                Notifications.getInstance().show(Notifications.Type.SUCCESS,
+                                        Notifications.Location.TOP_CENTER,
+                                        "Vínculos removidos com sucesso");
+                            } else {
+                                Notifications.getInstance().show(Notifications.Type.ERROR,
+                                        Notifications.Location.TOP_CENTER,
+                                        "Falha ao remover vínculos");
+                            }
+                        } catch (Exception ex) {
+                            Logger.getLogger(getClass().getName())
+                                    .log(Level.SEVERE, "Erro ao remover vínculos", ex);
+                            Notifications.getInstance().show(Notifications.Type.ERROR,
+                                    Notifications.Location.TOP_CENTER,
+                                    "Erro inesperado ao remover");
+                        }
+                    });
+                    return;  // interrompe o listener genérico
+                }
+
+
                 if (selectedRows.size() > 0) {
                     MessagesAlert.showWarningMessage("Deseja inativar esse registro?", response -> {
                         try {

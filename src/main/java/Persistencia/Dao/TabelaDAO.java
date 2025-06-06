@@ -5,8 +5,10 @@
 package Persistencia.Dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import java.util.List;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -138,6 +140,22 @@ public class TabelaDAO {
             if (em != null && em.isOpen()) {
                 em.close();
             }
+        }
+    }
+    
+    public static boolean executarConsultaAnonima(String sql) {
+        EntityManager em = JPAUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            int updated = em.createNativeQuery(sql).executeUpdate();
+            tx.commit();
+            return updated > 0;
+        } catch (Exception ex) {
+            if (tx.isActive()) tx.rollback();
+//            Logger.getLogger(TabelaDAO.class.getName())
+//                  .log(Level.SEVERE, "Erro no executarConsultaAnonima", ex);
+            return false;
         }
     }
 }
