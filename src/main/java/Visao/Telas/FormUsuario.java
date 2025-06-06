@@ -28,7 +28,6 @@ import java.util.regex.Pattern;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import javax.swing.text.DocumentFilter.FilterBypass;
 import raven.toast.Notifications;
 
 /**
@@ -468,7 +467,7 @@ public class FormUsuario extends SimpleForm {
         }
         if (!validarSenhas()) {
             MessagesAlert.showWarningMessage(
-                    "Senha inválid.",
+                    "Senha inválida.",
                     ok -> pfSenha.requestFocus()
             );
             return false;
