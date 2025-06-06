@@ -21,7 +21,7 @@ public class TableListaAtendimento extends SimpleForm {
         initComponents();
 
         String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Preenchido", "Comparecimento", "Tipo Atendimento", "Prontuário", "Estagiário"};
-        String queryTable = "SELECT id, data, hora, preenchido, comparecimento, plantao, tipo_atendimento, estagiario_id FROM atendimento";
+        String queryTable = "SELECT id, data, hora, preenchido, comparecimento, tipo_atendimento, estagiario_id FROM atendimento";
         boolean acao_ativar_ou_inativar = false;
 
 
