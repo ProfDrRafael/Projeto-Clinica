@@ -20,9 +20,11 @@ public class TableListaAtendimento extends SimpleForm {
     public TableListaAtendimento() {
         initComponents();
 
-        String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Preenchido", "Comparecimento", "Plantão", "Prontuário", "Estagiário"};
-        String queryTable = "SELECT id, data, hora, preenchido, comparecimento, plantao, prontuario_id, estagiario_id FROM atendimento";
+        String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Preenchido", "Comparecimento", "Tipo", "Prontuário", "Estagiário"};
+        String queryTable = "SELECT id, data, hora, preenchido, comparecimento, tipo_atendimento, prontuario_id, estagiario_id FROM atendimento";
         boolean acao_ativar_ou_inativar = false;
+
+
 
 
         CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
