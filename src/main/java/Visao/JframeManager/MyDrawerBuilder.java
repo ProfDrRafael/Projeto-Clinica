@@ -151,6 +151,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Prontuário", "forms.svg"), // index 9
             new Item("Agenda", "calendar.svg"), // index 10
             new Item("Atendimento", "forms.svg"), // index 11
+            new Item("Grupos", "group.svg"),
             new Item.Label("Listagem"), // Label
             new Item("Lista de Espera Geral", "listing.svg"), // index 11
             new Item("Lista de Espera Específica", "listing.svg"), // index 12
@@ -161,7 +162,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Todos os Usuários", "listing.svg"), // index 17
             new Item("Todos os Pacientes Inativos", "listing.svg"), // index 18
             new Item("Todos os Estagiários Inativos", "listing.svg"), // index 19
-            new Item("Todos os Usuários Inativos", "listing.svg"), // index 20
+            new Item("Todos os Usuários Inativos", "listing.svg"), // index 2
+            new Item("Todos os Grupos", "listing.svg"),
             new Item.Label("Outros"), // Label
             new Item("Configurações", "settings.svg"), // index 21
             new Item("Deslogar", "logout.svg") // index 22
@@ -258,54 +260,32 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         }
 
         return switch (menuName) {
-            case "Estatísticas" ->
-                new TableEstatisticas();
-            case "Administrador" ->
-                new MenuAdministrador();
-            case "Orientador" ->
-                new MenuOrientador();
-            case "Secretária" ->
-                new MenuSecretaria();
-            case "Estagiário" ->
-                new MenuEstagiario();
-            case "Estagiário Cadastro" ->
-                new FormEstagiario();
-            case "Usuário" ->
-                new FormUsuario();
-            case "Paciente" ->
-                new FormPaciente();
-            case "Prontuário" ->
-                new FormProntuario();
-            case "Agenda" ->
-                new FormAgenda();
-            case "Calendário" ->
-                new PageCalendario();
-            case "Atendimento" ->
-                new FormAtendimento();
-            case "Lista de Espera Geral" ->
-                new TableListaEsperaGeral();
-            case "Lista de Espera Específica" ->
-                new TableListaEsperaEspecifica();
-            case "Agendamentos" ->
-                new TableListaAgenda();
-            case "Atendimentos" ->
-                new TableListaAtendimento();
-            case "Todos os Estagiários" ->
-                new TableListaEstagiarios();
-            case "Todos os Pacientes" ->
-                new TableListaPacientes();
-            case "Todos os Usuários" ->
-                new TableListaUsuarios();
-            case "Todos os Pacientes Inativos" ->
-                new TableListaPacientesInativos();
-            case "Todos os Estagiários Inativos" ->
-                new TableListaEstagiariosInativos();
-            case "Todos os Usuários Inativos" ->
-                new TableListaUsuariosInativos();
-            case "Configurações" ->
-                new PageConfiguracoes();
-            default ->
-                new PageWelcome();
+            case "Estatísticas" -> new TableEstatisticas();
+            case "Administrador" -> new MenuAdministrador();
+            case "Orientador" -> new MenuOrientador();
+            case "Secretária" -> new MenuSecretaria();
+            case "Estagiário" -> new MenuEstagiario();
+            case "Estagiário Cadastro" -> new FormEstagiario();
+            case "Usuário" -> new FormUsuario();
+            case "Paciente" -> new FormPaciente();
+            case "Prontuário" -> new FormProntuario();
+            case "Agenda" -> new FormAgenda();
+            case "Calendário" -> new PageCalendario();
+            case "Atendimento" -> new FormAtendimento();
+            case "Grupos" -> new PageGrupos();
+            case "Lista de Espera Geral" -> new TableListaEsperaGeral();
+            case "Lista de Espera Específica" -> new TableListaEsperaEspecifica();
+            case "Agendamentos" -> new TableListaAgenda();
+            case "Atendimentos" -> new TableListaAtendimento();
+            case "Todos os Estagiários" -> new TableListaEstagiarios();
+            case "Todos os Pacientes" -> new TableListaPacientes();
+            case "Todos os Usuários" -> new TableListaUsuarios();
+            case "Todos os Pacientes Inativos" -> new TableListaPacientesInativos();
+            case "Todos os Estagiários Inativos" -> new TableListaEstagiariosInativos();
+            case "Todos os Usuários Inativos" -> new TableListaUsuariosInativos();
+            case "Todos os Grupos" -> new TableListaGrupos();
+            case "Configurações" -> new PageConfiguracoes();
+            default -> new PageWelcome();
         };
     }
 
