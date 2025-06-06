@@ -51,7 +51,7 @@ import javax.swing.SwingUtilities;
  *
  * @author john
  */
-public class CreateCustomTable {
+public class CreateCustomTable extends JPanel{
 
     private static final int ROWS_PER_PAGE = 10;
     private static final int COLUMN_WIDTH_SMALL = 50;
