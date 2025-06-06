@@ -36,6 +36,7 @@ public class FormProntuario extends SimpleForm {
         initComponents();
         // remove background customizado e volta ao default do L&F
         pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
+        pTriagem.putClientProperty(FlatClientProperties.STYLE, "background:null");
         messagesAlert = new MessagesAlert();
         //redimensionarIcones();
 
@@ -65,16 +66,9 @@ public class FormProntuario extends SimpleForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pNorth = new javax.swing.JPanel();
-        lbClinica = new javax.swing.JLabel();
-        lbProntuario = new javax.swing.JLabel();
-        lbLogoProntuario = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
         jlQueixaInicial = new javax.swing.JLabel();
         jlObservacoes = new javax.swing.JLabel();
-        jlPaciente = new javax.swing.JLabel();
-        cbEstagiario = new javax.swing.JComboBox();
-        jlEstagiario = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btEditar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
@@ -84,18 +78,344 @@ public class FormProntuario extends SimpleForm {
         jScrollPane4 = new javax.swing.JScrollPane();
         tpObservacoes = new javax.swing.JTextPane();
         jSeparator2 = new javax.swing.JSeparator();
-        cbPaciente = new javax.swing.JComboBox<>();
         btNegritoObs = new javax.swing.JButton();
         btItalicoObs = new javax.swing.JButton();
         btSublinhadoObs = new javax.swing.JButton();
         btSublinhadoQueixa = new javax.swing.JButton();
         btItalicoQueixa = new javax.swing.JButton();
         btNegritoQueixa = new javax.swing.JButton();
+        pTriagem = new javax.swing.JPanel();
+        jlPaciente = new javax.swing.JLabel();
+        jlEstagiario = new javax.swing.JLabel();
+        cbEstagiario = new javax.swing.JComboBox();
+        cbPaciente = new javax.swing.JComboBox<>();
+        cbEstadoCivil = new javax.swing.JComboBox<>();
+        lbEstadoCivil = new javax.swing.JLabel();
+        lbInstrucao = new javax.swing.JLabel();
+        cbInstrucao = new javax.swing.JComboBox<>();
+        lbProfissao = new javax.swing.JLabel();
+        lbRendaFamiliar1 = new javax.swing.JLabel();
+        tfRendaFamiliar = new javax.swing.JTextField();
+        tfRendaFamiliar1 = new javax.swing.JTextField();
+        tfProfissao1 = new javax.swing.JTextField();
+        lbRendaFamiliar2 = new javax.swing.JLabel();
+        lbRendaFamiliar3 = new javax.swing.JLabel();
+        tfProfissao4 = new javax.swing.JTextField();
+        tfProfissao5 = new javax.swing.JTextField();
+        lbRendaFamiliar6 = new javax.swing.JLabel();
+        pNorth = new javax.swing.JPanel();
+        lbClinica = new javax.swing.JLabel();
+        lbProntuario = new javax.swing.JLabel();
+        lbLogoProntuario = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(950, 630));
-        setMinimumSize(new java.awt.Dimension(950, 630));
-        setPreferredSize(new java.awt.Dimension(950, 630));
+        setMaximumSize(new java.awt.Dimension(950, 1160));
+        setMinimumSize(new java.awt.Dimension(950, 1160));
+        setPreferredSize(new java.awt.Dimension(950, 1160));
         setLayout(new java.awt.BorderLayout());
+
+        pCentro.setBackground(java.awt.SystemColor.controlHighlight);
+        pCentro.setPreferredSize(new java.awt.Dimension(950, 630));
+
+        jlQueixaInicial.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlQueixaInicial.setForeground(new java.awt.Color(0, 102, 102));
+        jlQueixaInicial.setText("Queixa inicial:");
+
+        jlObservacoes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlObservacoes.setForeground(new java.awt.Color(0, 102, 102));
+        jlObservacoes.setText("Observações:");
+
+        btEditar.setBackground(new java.awt.Color(255, 255, 51));
+        btEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btEditar.setForeground(new java.awt.Color(51, 51, 51));
+        btEditar.setText("Editar");
+
+        btSalvar.setBackground(new java.awt.Color(102, 255, 102));
+        btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btSalvar.setForeground(new java.awt.Color(51, 51, 51));
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
+        btHistoricoAtendimentos.setBackground(new java.awt.Color(204, 204, 204));
+        btHistoricoAtendimentos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btHistoricoAtendimentos.setForeground(new java.awt.Color(51, 51, 51));
+        btHistoricoAtendimentos.setText("Histórico de atendimentos");
+
+        tpQueixa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jScrollPane3.setViewportView(tpQueixa);
+
+        tpObservacoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jScrollPane4.setViewportView(tpObservacoes);
+
+        pTriagem.setBackground(java.awt.SystemColor.controlHighlight);
+        pTriagem.setMaximumSize(new java.awt.Dimension(940, 516));
+        pTriagem.setMinimumSize(new java.awt.Dimension(940, 516));
+
+        jlPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlPaciente.setForeground(new java.awt.Color(0, 102, 102));
+        jlPaciente.setText("*Paciente:");
+
+        jlEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlEstagiario.setForeground(new java.awt.Color(0, 102, 102));
+        jlEstagiario.setText("*Estagiário:");
+
+        cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        cbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        cbEstadoCivil.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)", "União Estável", "Separado(a)" }));
+        cbEstadoCivil.setMaximumSize(new java.awt.Dimension(192, 38));
+
+        lbEstadoCivil.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEstadoCivil.setForeground(new java.awt.Color(0, 102, 102));
+        lbEstadoCivil.setText("Estado Civil:");
+
+        lbInstrucao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbInstrucao.setForeground(new java.awt.Color(0, 102, 102));
+        lbInstrucao.setText("Grau de Instrução:");
+
+        cbInstrucao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbInstrucao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ensino Fundamental incompleto", "Ensino Fundamental completo", "Ensino Médio incompleto", "Ensino Médio completo", "Ensino Técnico", "Superior incompleto", "Superior completo", "Pós-graduação", "Mestrado", "Doutorado", "Pós-doutorado", "Analfabeto" }));
+
+        lbProfissao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbProfissao.setForeground(new java.awt.Color(0, 102, 102));
+        lbProfissao.setText("Profissão e Período em que trabalha:");
+
+        lbRendaFamiliar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbRendaFamiliar1.setForeground(new java.awt.Color(0, 102, 102));
+        lbRendaFamiliar1.setText("Renda Familiar:");
+
+        tfRendaFamiliar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfRendaFamiliar.setMaximumSize(new java.awt.Dimension(192, 38));
+        tfRendaFamiliar.setMinimumSize(new java.awt.Dimension(192, 38));
+        tfRendaFamiliar.setPreferredSize(new java.awt.Dimension(192, 38));
+        tfRendaFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfRendaFamiliarActionPerformed(evt);
+            }
+        });
+        tfRendaFamiliar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfRendaFamiliarKeyTyped(evt);
+            }
+        });
+
+        tfRendaFamiliar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfRendaFamiliar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfRendaFamiliar1ActionPerformed(evt);
+            }
+        });
+        tfRendaFamiliar1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfRendaFamiliar1KeyTyped(evt);
+            }
+        });
+
+        tfProfissao1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfProfissao1.setToolTipText("ex. Rafael da Silva");
+        tfProfissao1.setMaximumSize(new java.awt.Dimension(192, 38));
+        tfProfissao1.setMinimumSize(new java.awt.Dimension(192, 38));
+        tfProfissao1.setPreferredSize(new java.awt.Dimension(192, 38));
+
+        lbRendaFamiliar2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbRendaFamiliar2.setForeground(new java.awt.Color(0, 102, 102));
+        lbRendaFamiliar2.setText("Precedência do Encaminhamento:");
+
+        lbRendaFamiliar3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbRendaFamiliar3.setForeground(new java.awt.Color(0, 102, 102));
+        lbRendaFamiliar3.setText("Faz uso de Medicação? Qual?");
+
+        tfProfissao4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfProfissao4.setToolTipText("ex. Rafael da Silva");
+        tfProfissao4.setMaximumSize(new java.awt.Dimension(192, 38));
+        tfProfissao4.setMinimumSize(new java.awt.Dimension(192, 38));
+        tfProfissao4.setPreferredSize(new java.awt.Dimension(192, 38));
+        tfProfissao4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfProfissao4ActionPerformed(evt);
+            }
+        });
+
+        tfProfissao5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfProfissao5.setToolTipText("ex. Rafael da Silva");
+        tfProfissao5.setMaximumSize(new java.awt.Dimension(192, 38));
+        tfProfissao5.setMinimumSize(new java.awt.Dimension(192, 38));
+        tfProfissao5.setPreferredSize(new java.awt.Dimension(192, 38));
+        tfProfissao5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfProfissao5ActionPerformed(evt);
+            }
+        });
+
+        lbRendaFamiliar6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbRendaFamiliar6.setForeground(new java.awt.Color(0, 102, 102));
+        lbRendaFamiliar6.setText("Responsável pela Triagem:");
+
+        javax.swing.GroupLayout pTriagemLayout = new javax.swing.GroupLayout(pTriagem);
+        pTriagem.setLayout(pTriagemLayout);
+        pTriagemLayout.setHorizontalGroup(
+            pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pTriagemLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pTriagemLayout.createSequentialGroup()
+                        .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfRendaFamiliar1)
+                            .addComponent(lbProfissao)
+                            .addGroup(pTriagemLayout.createSequentialGroup()
+                                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jlEstagiario)
+                                    .addComponent(cbEstagiario, 0, 430, Short.MAX_VALUE)
+                                    .addComponent(lbEstadoCivil)
+                                    .addComponent(cbEstadoCivil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(44, 44, 44)
+                                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jlPaciente)
+                                    .addComponent(lbInstrucao)
+                                    .addComponent(cbInstrucao, 0, 449, Short.MAX_VALUE)
+                                    .addComponent(cbPaciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(pTriagemLayout.createSequentialGroup()
+                        .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbRendaFamiliar3)
+                            .addComponent(lbRendaFamiliar1)
+                            .addComponent(tfRendaFamiliar, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                            .addComponent(tfProfissao4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbRendaFamiliar2)
+                            .addComponent(lbRendaFamiliar6)
+                            .addComponent(tfProfissao1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfProfissao5, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))))
+        );
+        pTriagemLayout.setVerticalGroup(
+            pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pTriagemLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlEstagiario)
+                    .addComponent(jlPaciente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbEstagiario)
+                    .addComponent(cbPaciente))
+                .addGap(18, 18, 18)
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbEstadoCivil)
+                    .addComponent(lbInstrucao))
+                .addGap(8, 8, 8)
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbInstrucao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(lbProfissao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfRendaFamiliar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pTriagemLayout.createSequentialGroup()
+                        .addComponent(lbRendaFamiliar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfRendaFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfProfissao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pTriagemLayout.createSequentialGroup()
+                        .addComponent(lbRendaFamiliar2)
+                        .addGap(44, 44, 44)))
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbRendaFamiliar3)
+                    .addComponent(lbRendaFamiliar6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfProfissao4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfProfissao5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
+        pCentro.setLayout(pCentroLayout);
+        pCentroLayout.setHorizontalGroup(
+            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btHistoricoAtendimentos)
+                .addGap(114, 114, 114))
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pCentroLayout.createSequentialGroup()
+                            .addComponent(btNegritoObs)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btItalicoObs)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btSublinhadoObs))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlObservacoes))
+                .addGap(48, 48, 48)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlQueixaInicial)
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pCentroLayout.createSequentialGroup()
+                            .addComponent(btNegritoQueixa)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btItalicoQueixa)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btSublinhadoQueixa))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1059, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pTriagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pCentroLayout.setVerticalGroup(
+            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addComponent(pTriagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlQueixaInicial)
+                    .addComponent(jlObservacoes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btNegritoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btItalicoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btSublinhadoObs))
+                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btNegritoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btItalicoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btSublinhadoQueixa)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addGap(16, 16, 16)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSalvar)
+                    .addComponent(btHistoricoAtendimentos)
+                    .addComponent(btEditar))
+                .addContainerGap(123, Short.MAX_VALUE))
+        );
+
+        add(pCentro, java.awt.BorderLayout.CENTER);
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
         pNorth.setPreferredSize(new java.awt.Dimension(950, 183));
@@ -121,7 +441,7 @@ public class FormProntuario extends SimpleForm {
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addGap(0, 675, Short.MAX_VALUE))
+                .addGap(0, 628, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,149 +458,6 @@ public class FormProntuario extends SimpleForm {
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
-
-        pCentro.setBackground(java.awt.SystemColor.controlHighlight);
-        pCentro.setPreferredSize(new java.awt.Dimension(950, 630));
-
-        jlQueixaInicial.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jlQueixaInicial.setForeground(new java.awt.Color(0, 102, 102));
-        jlQueixaInicial.setText("Queixa inicial:");
-
-        jlObservacoes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jlObservacoes.setForeground(new java.awt.Color(0, 102, 102));
-        jlObservacoes.setText("Observações:");
-
-        jlPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jlPaciente.setForeground(new java.awt.Color(0, 102, 102));
-        jlPaciente.setText("*Paciente:");
-
-        cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
-        jlEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jlEstagiario.setForeground(new java.awt.Color(0, 102, 102));
-        jlEstagiario.setText("*Estagiário:");
-
-        btEditar.setBackground(new java.awt.Color(255, 255, 51));
-        btEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btEditar.setForeground(new java.awt.Color(51, 51, 51));
-        btEditar.setText("Editar");
-
-        btSalvar.setBackground(new java.awt.Color(102, 255, 102));
-        btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btSalvar.setForeground(new java.awt.Color(51, 51, 51));
-        btSalvar.setText("Salvar");
-        btSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarActionPerformed(evt);
-            }
-        });
-
-        btHistoricoAtendimentos.setBackground(new java.awt.Color(204, 204, 204));
-        btHistoricoAtendimentos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btHistoricoAtendimentos.setForeground(new java.awt.Color(51, 51, 51));
-        btHistoricoAtendimentos.setText("Histórico de atendimentos");
-
-        tpQueixa.setFont(cbEstagiario.getFont());
-        jScrollPane3.setViewportView(tpQueixa);
-
-        tpObservacoes.setFont(cbEstagiario.getFont());
-        jScrollPane4.setViewportView(tpObservacoes);
-
-        cbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
-        javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
-        pCentro.setLayout(pCentroLayout);
-        pCentroLayout.setHorizontalGroup(
-            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCentroLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addComponent(jlObservacoes)
-                        .addGap(341, 341, 341)
-                        .addComponent(jlQueixaInicial))
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pCentroLayout.createSequentialGroup()
-                                .addComponent(btNegritoObs)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btItalicoObs)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btSublinhadoObs))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pCentroLayout.createSequentialGroup()
-                                .addComponent(btNegritoQueixa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btItalicoQueixa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btSublinhadoQueixa))))
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlEstagiario)
-                            .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlPaciente)
-                            .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSeparator2)
-            .addGroup(pCentroLayout.createSequentialGroup()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1059, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btHistoricoAtendimentos)
-                .addGap(114, 114, 114))
-        );
-        pCentroLayout.setVerticalGroup(
-            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCentroLayout.createSequentialGroup()
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlEstagiario)
-                    .addComponent(jlPaciente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbPaciente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlObservacoes)
-                    .addComponent(jlQueixaInicial))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btNegritoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btItalicoObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btSublinhadoObs))
-                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btNegritoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btItalicoQueixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btSublinhadoQueixa)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btSalvar)
-                    .addComponent(btHistoricoAtendimentos)
-                    .addComponent(btEditar))
-                .addGap(35, 35, 35))
-        );
-
-        add(pCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
@@ -296,6 +473,34 @@ public class FormProntuario extends SimpleForm {
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
+    private void tfRendaFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRendaFamiliarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfRendaFamiliarActionPerformed
+
+    private void tfRendaFamiliarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfRendaFamiliarKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfRendaFamiliarKeyTyped
+
+    private void tfRendaFamiliar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRendaFamiliar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfRendaFamiliar1ActionPerformed
+
+    private void tfRendaFamiliar1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfRendaFamiliar1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfRendaFamiliar1KeyTyped
+
+    private void tfProfissao4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfProfissao4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfProfissao4ActionPerformed
+
+    private void tfProfissao5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfProfissao5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfProfissao5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btHistoricoAtendimentos;
@@ -306,7 +511,9 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSublinhadoObs;
     private javax.swing.JButton btSublinhadoQueixa;
+    private javax.swing.JComboBox<String> cbEstadoCivil;
     private javax.swing.JComboBox cbEstagiario;
+    private javax.swing.JComboBox<String> cbInstrucao;
     private javax.swing.JComboBox<String> cbPaciente;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -317,10 +524,23 @@ public class FormProntuario extends SimpleForm {
     private javax.swing.JLabel jlPaciente;
     private javax.swing.JLabel jlQueixaInicial;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbEstadoCivil;
+    private javax.swing.JLabel lbInstrucao;
     private javax.swing.JLabel lbLogoProntuario;
+    private javax.swing.JLabel lbProfissao;
     private javax.swing.JLabel lbProntuario;
+    private javax.swing.JLabel lbRendaFamiliar1;
+    private javax.swing.JLabel lbRendaFamiliar2;
+    private javax.swing.JLabel lbRendaFamiliar3;
+    private javax.swing.JLabel lbRendaFamiliar6;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
+    private javax.swing.JPanel pTriagem;
+    private javax.swing.JTextField tfProfissao1;
+    private javax.swing.JTextField tfProfissao4;
+    private javax.swing.JTextField tfProfissao5;
+    private javax.swing.JTextField tfRendaFamiliar;
+    private javax.swing.JTextField tfRendaFamiliar1;
     private javax.swing.JTextPane tpObservacoes;
     private javax.swing.JTextPane tpQueixa;
     // End of variables declaration//GEN-END:variables
