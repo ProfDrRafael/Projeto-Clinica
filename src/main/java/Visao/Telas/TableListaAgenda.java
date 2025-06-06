@@ -22,6 +22,7 @@ public class TableListaAgenda extends SimpleForm {
         String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Sala", "Atendimento","Paciente", "Estagiário"};
         String queryTable = "SELECT id, data, hora, sala, atendimento_id, paciente_id, estagiario_id FROM agenda";
         boolean acao_ativar_ou_inativar = false;
+
         
         
         CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Agendamentos", "Agenda", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");

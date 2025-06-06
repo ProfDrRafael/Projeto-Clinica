@@ -321,6 +321,8 @@ public class PageCalendario extends SimpleForm {
     private javax.swing.JPanel pnPageCalendario;
     // End of variables declaration//GEN-END:variables
 
+   
+
     private void navigateMonth(int months) {
         currentYearMonth = months > 0
                 ? currentYearMonth.plusMonths(1)
@@ -394,14 +396,6 @@ public class PageCalendario extends SimpleForm {
             panel.add(lblConsultas, BorderLayout.SOUTH);
         }
 
-        // Mostrar detalhes
-//        panel.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                lbAgendamentos.setText("Agendamentos" + " - " + data.getDayOfMonth() + "/" + data.getMonthValue());
-//                mostrarConsultas(data);
-//            }
-//        });
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -466,78 +460,6 @@ public class PageCalendario extends SimpleForm {
         }
     }
 
-    /**
-     * Preenche o painel pnHorarios com botões para os horários disponíveis (que
-     * ainda não foram agendados) para a data selecionada. Ao clicar em um
-     * botão, é aberto o FormAgenda com a data e horário informados.
-     */
-//    private void carregarHorariosDisponiveis(LocalDate data) {
-//        // Garante layout vertical
-//        pnHorarios.removeAll();
-//
-//        ultimoDiaSelecionadoData = data;
-//
-//        if (data.isBefore(LocalDate.now())) {
-//            pnHorarios.add(new JLabel("Não é possível agendar para datas passadas."));
-//            pnHorarios.revalidate();
-//            pnHorarios.repaint();
-//            return;
-//        }
-//
-//        List<LocalTime> fixedHorarios = Arrays.asList(
-//                LocalTime.of(8, 0),
-//                LocalTime.of(9, 0),
-//                LocalTime.of(10, 0),
-//                LocalTime.of(14, 0),
-//                LocalTime.of(15, 0),
-//                LocalTime.of(16, 0),
-//                LocalTime.of(17, 0),
-//                LocalTime.of(18, 0)
-//        );
-//
-//        List<AgendaVO> agendasDia = agendamentos.getOrDefault(data, new ArrayList<>());
-//
-//        for (LocalTime horario : fixedHorarios) {
-//            boolean jaAgendado = agendasDia.stream()
-//                    .anyMatch(agenda -> agenda.getHora().equals(horario));
-//            if (!jaAgendado) {
-//                JButton btn = new JButton(horario.toString());
-//                btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-//
-//                // Estilização do botão
-//                btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-//                btn.setBackground(new Color(0, 109, 109));
-////                btn.setBackground(new Color(228, 228, 228));
-//                btn.setForeground(Color.WHITE);
-////                btn.setForeground(new Color(0, 102, 102));
-//                btn.setFocusPainted(false);
-//                btn.setOpaque(true);
-//                btn.setBorder(BorderFactory.createCompoundBorder(
-//                        BorderFactory.createLineBorder(new Color(0, 102, 102), 2),
-//                        //                        BorderFactory.createEmptyBorder(10, 20, 10, 20)
-//                        BorderFactory.createEmptyBorder(1, 1, 1, 1)
-//                ));
-//
-//                // Define uma altura fixa
-//                btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-//                btn.setMinimumSize(new Dimension(100, 35));
-//                btn.setPreferredSize(new Dimension(100, 35));
-//
-//                btn.addActionListener(e -> {
-//                    String salaTexto = (String) cbSala.getSelectedItem();
-//                    byte salaNumero = Byte.parseByte(salaTexto.replaceAll("\\D+", ""));
-//
-//                    FormManager.showForm(new FormAgenda(data, horario, salaNumero));
-//                });
-//
-//                pnHorarios.add(btn);
-//                pnHorarios.add(Box.createRigidArea(new Dimension(0, 5)));
-//            }
-//        }
-//
-//        pnHorarios.revalidate();
-//        pnHorarios.repaint();
-//    }
     private void carregarHorariosDisponiveis(LocalDate data) {
         pnHorarios.removeAll();
 
@@ -612,5 +534,7 @@ public class PageCalendario extends SimpleForm {
         pnHorarios.revalidate();
         pnHorarios.repaint();
     }
+    
+    
 
 }
