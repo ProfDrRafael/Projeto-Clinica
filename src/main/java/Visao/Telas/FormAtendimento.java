@@ -45,15 +45,15 @@ public class FormAtendimento extends SimpleForm {
         // remove background customizado e volta ao default do L&F
         pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         pSouth.putClientProperty(FlatClientProperties.STYLE, "background:null");
-        
+
         messagesAlert = new MessagesAlert();
-        
+
         //redimensionarIcones();
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDescricao);
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",35);
-        redimencionarIcone.redimensionarIcones(btAnexar, "/Multimidia/imagens/anexar.png",35);
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 35);
+        redimencionarIcone.redimensionarIcones(btAnexar, "/Multimidia/imagens/anexar.png", 35);
 
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDescricao);
         EditorTextPaneEstilization.JTextComponentStylization(tpDescricao, btNegrito, btItalico, btSublinhado);
@@ -412,10 +412,10 @@ public class FormAtendimento extends SimpleForm {
     }//GEN-LAST:event_cbTipoAtendimentoActionPerformed
 
     private void btAnexarActionPerformed(java.awt.event.ActionEvent evt) {
-        FormProduzirRelato formRelato = new FormProduzirRelato(relato -> {
-            if (relato != null && !relato.trim().isEmpty()) {
-                this.relatoAtendimento = relato;
-                messagesAlert.showSuccessMessage("Texto do relato adicionado com sucesso.");
+        FormProduzirRelato formRelato = new FormProduzirRelato(relatoRTF -> {
+            if (relatoRTF != null && !relatoRTF.trim().isEmpty()) {
+                this.relatoAtendimento = relatoRTF; // agora em formato RTF
+                messagesAlert.showSuccessMessage("Texto do relato (formatado) adicionado com sucesso.");
             } else {
                 messagesAlert.showErrorMessage("O texto do relato não pode estar vazio.");
             }
