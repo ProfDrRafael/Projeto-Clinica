@@ -6,29 +6,112 @@ package Visao.Telas;
 import Visao.Components.CreateCustomTable;
 import Visao.Components.SimpleForm;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import javax.swing.JToggleButton;
 
 /**
  *
  * @author john
  */
 public class TableListaUsuarios extends SimpleForm {
-    
-    /**
+
+     /**
      * Creates new form listaEsperaTable
      */
+    // Queries para ativos e inativos
+    // Queries para ativos e inativos
+    private static final String QUERY_ATIVOS
+            = // administrador não tem coluna ativo, então sem WHERE aqui
+            "SELECT id, nome, email, 'Administrador' AS origem FROM administrador "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Estagiario' AS origem  FROM estagiario  WHERE ativo = 1 "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Orientador' AS origem  FROM orientador  WHERE ativo = 1 "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Secretaria' AS origem  FROM secretaria  WHERE ativo = 1 "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Pesquisador' AS origem FROM pesquisador WHERE ativo = 1;";
+
+    private static final String QUERY_INATIVOS
+            = // idem: sem WHERE no administrador
+            "SELECT id, nome, email, 'Administrador' AS origem FROM administrador "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Estagiario' AS origem  FROM estagiario  WHERE ativo = 0 "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Orientador' AS origem  FROM orientador  WHERE ativo = 0 "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Secretaria' AS origem  FROM secretaria  WHERE ativo = 0 "
+            + "UNION ALL "
+            + "SELECT id, nome, email, 'Pesquisador' AS origem FROM pesquisador WHERE ativo = 0;";
+    private final String[] tableColumns = {"#", "ID", "Nome", "Email", "Tipo"};
+    private boolean mostrandoInativos = false;
+    private JToggleButton switchToggle;
+    private CreateCustomTable customTable;
+
     public TableListaUsuarios() {
         initComponents();
-        
-        String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Tipo"};
-        String queryTable = "SELECT id, nome, email, 'Administrador' AS origem FROM administrador UNION ALL SELECT id, nome, email, 'Estagiario' AS origem FROM estagiario WHERE ativo = 1 UNION ALL SELECT id, nome, email, 'Orientador' AS origem FROM orientador WHERE ativo = 1 UNION ALL SELECT id, nome, email, 'Secretaria' AS origem FROM secretaria WHERE ativo = 1 UNION ALL SELECT id, nome, email, 'Pesquisador' AS origem FROM pesquisador WHERE ativo = 1;";
-        boolean acao_ativar_ou_inativar = false;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        // 1) Ajusta layout principal
+        setLayout(new BorderLayout());
 
-        painel_lista_espera.setLayout(new BorderLayout()); 
+        // 2) Cria e adiciona o toggle no topo
+        switchToggle = new JToggleButton("Mostrar inativos");
+        switchToggle.addActionListener(this::onToggle);
+        add(switchToggle, BorderLayout.NORTH);
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Usuários", "Usuarios"), BorderLayout.CENTER);
+        // 3) Prepara o painel central (limpa a tabela estática)
+        painel_lista_espera.removeAll();
+        painel_lista_espera.setLayout(new BorderLayout());
+        add(painel_lista_espera, BorderLayout.CENTER);
+
+        // 4) Carrega pela primeira vez
+        rebuildTable();
     }
+
+    private void onToggle(ActionEvent e) {
+        mostrandoInativos = switchToggle.isSelected();
+        switchToggle.setText(mostrandoInativos ? "Mostrar ativos" : "Mostrar inativos");
+        rebuildTable();
+    }
+
+    /**
+     * Remove o conteúdo antigo e recria CreateCustomTable com a query adequada.
+     */
+    private void rebuildTable() {
+        String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
+        boolean acaoInativar = mostrandoInativos;               
+        String botaoLabel = mostrandoInativos ? "Ativar" : "Inativar";
+        String icone = mostrandoInativos
+                ? "/Multimidia/imagens/cadeado.png"
+                : "/Multimidia/icon/cadeado_desbloqueado.png";
+
+        painel_lista_espera.removeAll();
+
+        customTable = new CreateCustomTable(
+                query,
+                tableColumns,
+                "Todos os Usuários",
+                "Usuarios",
+                acaoInativar,
+                botaoLabel,
+                icone
+        );
+
+        painel_lista_espera.add(
+                customTable.createCustomTable(
+                        query,
+                        tableColumns,
+                        "Todos os Usuários",
+                        "Usuarios"
+                ),
+                BorderLayout.CENTER
+        );
+
+        painel_lista_espera.revalidate();
+        painel_lista_espera.repaint();
+    }
+
+    /**
 
     /**
      * This method is called from within the constructor to initialize the form.

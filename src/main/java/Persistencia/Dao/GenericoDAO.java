@@ -37,6 +37,29 @@ public class GenericoDAO<T> {
         }
     }
 
+    public T salvarERetornar(T entity) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
+        try {
+            em = JPAUtil.getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            T entidadePersistida = em.merge(entity);
+            tx.commit();
+            return entidadePersistida;
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            logger.error("Erro ao salvar a entidade: ", e);
+            return null;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
     public void atualizar(T entity) {
         EntityManager em = null;
         EntityTransaction tx = null;

@@ -10,6 +10,7 @@ public class AutenticacaoService {
     private final EstagiarioDAO estagiarioDAO;
     private final AdministradorDAO administradorDAO;
     private final SecretariaDAO secretariaDAO;
+    private final PesquisadorDAO pesquisadorDAO;
     private final SenhaService senhaService;
 
     public AutenticacaoService() {
@@ -17,6 +18,7 @@ public class AutenticacaoService {
         this.estagiarioDAO = new EstagiarioDAO();
         this.administradorDAO = new AdministradorDAO();
         this.secretariaDAO = new SecretariaDAO();
+        this.pesquisadorDAO = new PesquisadorDAO();
         this.senhaService = new SenhaService();
     }
 
@@ -39,6 +41,11 @@ public class AutenticacaoService {
         Secretaria secretaria = secretariaDAO.buscarPorEmail(email);
         if (secretaria != null && senhaService.verificarSenha(senha, secretaria.getSenha())) {
             return criarSecretariaVO(secretaria);
+        }
+        
+        Pesquisador pesquisador = pesquisadorDAO.buscarPorEmail(email);
+        if (pesquisador != null && senhaService.verificarSenha(senha, pesquisador.getSenha())) {
+            return criarPesquisadorVO(pesquisador);
         }
 
         throw new RuntimeException("Usuário ou senha inválidos.");
@@ -84,6 +91,14 @@ public class AutenticacaoService {
                 secretaria.getNome(),
                 secretaria.getEmail(),
                 secretaria.getSenha()
+        );
+    }
+    private PesquisadorVO criarPesquisadorVO(Pesquisador pesquisador) {
+        return new PesquisadorVO(
+                pesquisador.getId(),
+                pesquisador.getNome(),
+                pesquisador.getEmail(),
+                pesquisador.getSenha()
         );
     }
 }

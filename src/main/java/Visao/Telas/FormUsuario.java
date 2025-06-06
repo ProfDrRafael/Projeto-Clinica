@@ -4,12 +4,14 @@
  */
 package Visao.Telas;
 
+import Persistencia.Entity.Pesquisador;
 import VO.AdministradorVO;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import VO.SecretariaVO;
 import VO.UsuarioVO;
 import Regradenegocio.UsuarioRN;
+import Regradenegocio.PermissoesRN;
 import VO.PesquisadorVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.MessagesAlert;
@@ -21,11 +23,13 @@ import javax.swing.border.Border;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.DocumentFilter.FilterBypass;
+import raven.toast.Notifications;
 
 /**
  *
@@ -36,12 +40,18 @@ public class FormUsuario extends SimpleForm {
     private final Border defaultBorder = (new JTextField()).getBorder();
     private final Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);
     private final Pattern emailRegex = Pattern.compile("^[\\p{L}0-9._%+-]+@[\\p{L}0-9.-]+\\.[A-Za-z]{2,}$");
+    private PanelPermissoesPesquisador panelPermissoes;
+    private boolean isFormSendoEditado = false;
+    private UsuarioVO usuarioVO;
 
     /**
      * Creates new form cadastroUsuario
      */
     public FormUsuario() {
         initComponents();
+        
+        this.isFormSendoEditado = false;
+        
         // remove background customizado e volta ao default do L&F
         pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         // redimensionarIcones();
@@ -52,11 +62,25 @@ public class FormUsuario extends SimpleForm {
         initValidacao();
         lbPasswordWarning1.setVisible(false);
         lbPasswordWarning2.setVisible(false);
+
     }
 
-    public void createSouthPanel() {
-        JPanel panel = new JPanel();
+    private void addPanelPermissoes() {
+        if (panelPermissoes == null) {
+            panelPermissoes = new PanelPermissoesPesquisador(); 
+            add(panelPermissoes, BorderLayout.SOUTH);
+            revalidate();
+            repaint();
+        }
+    }
 
+    private void removePanelPermissoes() {
+        if (panelPermissoes != null) {
+            remove(panelPermissoes);
+            panelPermissoes = null;
+            revalidate();
+            repaint();
+        }
     }
 
     /**
@@ -69,6 +93,10 @@ public class FormUsuario extends SimpleForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pNorth = new javax.swing.JPanel();
+        lbClinica = new javax.swing.JLabel();
+        lbProntuario = new javax.swing.JLabel();
+        lbLogoCadastro = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
         tfNome = new javax.swing.JTextField();
         lbNome = new javax.swing.JLabel();
@@ -84,15 +112,55 @@ public class FormUsuario extends SimpleForm {
         jSeparator1 = new javax.swing.JSeparator();
         lbPasswordWarning1 = new javax.swing.JLabel();
         lbPasswordWarning2 = new javax.swing.JLabel();
-        pNorth = new javax.swing.JPanel();
-        lbClinica = new javax.swing.JLabel();
-        lbProntuario = new javax.swing.JLabel();
-        lbLogoCadastro = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(950, 480));
-        setMinimumSize(new java.awt.Dimension(950, 480));
-        setPreferredSize(new java.awt.Dimension(950, 480));
+        setMaximumSize(new java.awt.Dimension(1000, 2000));
+        setMinimumSize(new java.awt.Dimension(1000, 480));
+        setPreferredSize(new java.awt.Dimension(1000, 480));
         setLayout(new java.awt.BorderLayout());
+
+        pNorth.setBackground(new java.awt.Color(0, 102, 102));
+        pNorth.setPreferredSize(new java.awt.Dimension(638, 183));
+
+        lbClinica.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lbClinica.setForeground(new java.awt.Color(255, 255, 255));
+        lbClinica.setText("Clínica de Psicologia");
+
+        lbProntuario.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
+        lbProntuario.setText("Cadastro de Usuário");
+
+        lbLogoCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoCadastrar_resized.png"))); // NOI18N
+
+        javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
+        pNorth.setLayout(pNorthLayout);
+        pNorthLayout.setHorizontalGroup(
+            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbLogoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lbClinica))
+                    .addComponent(lbProntuario))
+                .addContainerGap(489, Short.MAX_VALUE))
+        );
+        pNorthLayout.setVerticalGroup(
+            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(lbProntuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbClinica)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbLogoCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        add(pNorth, java.awt.BorderLayout.NORTH);
 
         pCentro.setBackground(java.awt.SystemColor.controlHighlight);
         pCentro.setPreferredSize(new java.awt.Dimension(1024, 768));
@@ -156,10 +224,6 @@ public class FormUsuario extends SimpleForm {
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSalvar)
-                .addGap(52, 52, 52))
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -189,7 +253,11 @@ public class FormUsuario extends SimpleForm {
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbPasswordWarning2)
                             .addComponent(pfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 55, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSalvar)
+                .addContainerGap())
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,65 +284,26 @@ public class FormUsuario extends SimpleForm {
                     .addComponent(lbPasswordWarning2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSalvar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
-
-        pNorth.setBackground(new java.awt.Color(0, 102, 102));
-        pNorth.setPreferredSize(new java.awt.Dimension(638, 183));
-
-        lbClinica.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        lbClinica.setForeground(new java.awt.Color(255, 255, 255));
-        lbClinica.setText("Clínica de Psicologia");
-
-        lbProntuario.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
-        lbProntuario.setText("Cadastro de Usuário");
-
-        lbLogoCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoCadastrar_resized.png"))); // NOI18N
-
-        javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
-        pNorth.setLayout(pNorthLayout);
-        pNorthLayout.setHorizontalGroup(
-            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbLogoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pNorthLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lbClinica))
-                    .addComponent(lbProntuario))
-                .addContainerGap(487, Short.MAX_VALUE))
-        );
-        pNorthLayout.setVerticalGroup(
-            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(lbProntuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbClinica)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbLogoCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbFuncaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFuncaoItemStateChanged
-//        String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
-//        
-//        if("Pesquisador".equals(funcaoSelecionada)){
-//            
-//            
-//        }
+        String funcaoSelecionada = cbFuncao.getSelectedItem().toString();
+
+        if ("Pesquisador".equals(funcaoSelecionada)) {
+            addPanelPermissoes();
+        } else {
+            removePanelPermissoes();
+        }
+        
+        if(isFormSendoEditado){
+            panelPermissoes.preencherDadosEdicao(usuarioVO);
+        }
     }//GEN-LAST:event_cbFuncaoItemStateChanged
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btSalvarActionPerformed
@@ -323,9 +352,21 @@ public class FormUsuario extends SimpleForm {
                 return;
             }
 
+            UsuarioVO usuarioResultado = usuarioRN.salvarUsuario(usuarioVO);
+
             // salvar o usuário
-            if (usuarioRN.salvarUsuario(usuarioVO)) {
+            if (usuarioRN.salvarUsuario(usuarioVO) != null) {
                 messagesAlert.showSuccessMessage("Usuário salvo com sucesso!");
+
+                if (usuarioVO instanceof PesquisadorVO) {
+                    HashMap<String, java.util.List<String>> selecionados = panelPermissoes.obterOpcoesSelecionadas();
+
+                    Pesquisador pesquisadorEntity = new Pesquisador();
+                    pesquisadorEntity.setId(usuarioResultado.getId());
+
+                    PermissoesRN permissaoRN = new PermissoesRN();
+                    permissaoRN.salvarPermissoes(pesquisadorEntity, selecionados);
+                }
             } else {
                 messagesAlert.showErrorMessage("Erro ao salvar o usuário.");
             }
@@ -433,6 +474,33 @@ public class FormUsuario extends SimpleForm {
             return false;
         }
         return true;
+    }
+
+    public void preencherDadosFormulario(int pacienteId, String tipoUsuario) {
+        this.isFormSendoEditado = true;
+        
+        try {
+            UsuarioRN usuarioRN = new UsuarioRN();
+            UsuarioVO usuario = usuarioRN.buscarUsuarioPorId(pacienteId, tipoUsuario);
+
+            if (usuario == null) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Usuário não encontrado!");
+                return;
+            }
+            
+            this.usuarioVO = usuario;
+
+            tfNome.setText(usuario.getNomeCompleto());
+            tfEmail.setText(usuario.getEmail());
+            pfSenha.setText(usuario.getSenha());
+            pfConfirmarSenha.setText(usuario.getSenha());
+            cbFuncao.setSelectedItem(tipoUsuario);
+
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao editar paciente: " + ex);
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao carregar dados do paciente!");
+        }
     }
 
     private static class SimpleListener implements javax.swing.event.DocumentListener {

@@ -1,6 +1,8 @@
 package Persistencia.Entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
@@ -23,6 +25,9 @@ public class Pesquisador {
     @ColumnDefault("1")
     @Column(name = "ativo")
     private Boolean ativo;
+    
+    @OneToMany(mappedBy = "pesquisador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Permissao> permissoes = new ArrayList<>();
     
     public Integer getId() {
         return id;
@@ -89,6 +94,20 @@ public class Pesquisador {
      */
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    /**
+     * @return the permissoes
+     */
+    public List<Permissao> getPermissoes() {
+        return permissoes;
+    }
+
+    /**
+     * @param permissoes the permissoes to set
+     */
+    public void setPermissoes(List<Permissao> permissoes) {
+        this.permissoes = permissoes;
     }
 
     

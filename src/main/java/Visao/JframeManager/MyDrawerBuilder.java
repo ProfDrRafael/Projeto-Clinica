@@ -1,5 +1,11 @@
 package Visao.JframeManager;
 
+import Persistencia.Dao.JPAUtil;
+import Persistencia.Entity.Permissao;
+import Persistencia.Entity.Pesquisador;
+import Regradenegocio.SessaoRN;
+import Regradenegocio.UsuarioRN;
+import VO.SessaoVO;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
@@ -28,6 +34,8 @@ import Visao.Utils.MessagesAlert;
 import raven.swing.AvatarIcon;
 import VO.UsuarioVO;
 import Visao.Components.SimpleForm;
+import jakarta.persistence.EntityManager;
+import java.util.stream.Collectors;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
@@ -37,7 +45,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     private List<String> menuNames; // Nomes de todos os menus sem labels
 
     /**
-     * Define o usuário atual e atualiza o cabeçalho do menu com o nome do usuário.
+     * Define o usuário atual e atualiza o cabeçalho do menu com o nome do
+     * usuário.
      *
      *
      * @param user O usuário a ser definido.
@@ -68,10 +77,11 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     }
 
     /**
-     * Cria e retorna os dados do cabeçalho do menu, incluindo o ícone do usuário e
-     * informações.
+     * Cria e retorna os dados do cabeçalho do menu, incluindo o ícone do
+     * usuário e informações.
      *
-     * Cria e retorna os dados do cabeçalho do menu, incluindo o ícone do usuário e informações.
+     * Cria e retorna os dados do cabeçalho do menu, incluindo o ícone do
+     * usuário e informações.
      *
      * @return Dados do cabeçalho simples.
      */
@@ -187,7 +197,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 return icon; // Retorna o ícone com o filtro aplicado
             }
         };
-        
+
         simpleMenuOption.setMenuValidation(new MenuValidation() {
             @Override
             public boolean menuValidation(int[] index) {
@@ -224,7 +234,6 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             }
         });
 
-
         simpleMenuOption.addMenuEvent(new MenuEvent() {
             @Override
             public void selected(MenuAction action, int[] index) {
@@ -238,41 +247,67 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         simpleMenuOption.setMenus(items)
                 .setBaseIconPath("Multimidia/menu") // Define o caminho base dos ícones
                 .setIconScale(0.45f); // Define a escala dos ícones
-        
-        
-        
+
         return simpleMenuOption; // Retorna as opções de menu
     }
-    
+
     private SimpleForm getFormByName(String menuName) {
+        if (menuName.equals("Deslogar")) {
+            MessagesAlert logout = new MessagesAlert();
+            logout.MessageAlertDesconectarOpcoes();
+        }
+
         return switch (menuName) {
-            case "Estatísticas" -> new TableEstatisticas();
-            case "Administrador" -> new MenuAdministrador();
-            case "Orientador" -> new MenuOrientador();
-            case "Secretária" -> new MenuSecretaria();
-            case "Estagiário" -> new MenuEstagiario();
-            case "Estagiário Cadastro" -> new FormEstagiario();
-            case "Usuário" -> new FormUsuario();
-            case "Paciente" -> new FormPaciente();
-            case "Prontuário" -> new FormProntuario();
-            case "Agenda" -> new FormAgenda();
-            case "Calendário" -> new PageCalendario();
-            case "Atendimento" -> new FormAtendimento();
-            case "Lista de Espera Geral" -> new TableListaEsperaGeral();
-            case "Lista de Espera Específica" -> new TableListaEsperaEspecifica();
-            case "Agendamentos" -> new TableListaAgenda();
-            case "Atendimentos" -> new TableListaAtendimento();
-            case "Todos os Estagiários" -> new TableListaEstagiarios();
-            case "Todos os Pacientes" -> new TableListaPacientes();
-            case "Todos os Usuários" -> new TableListaUsuarios();
-            case "Todos os Pacientes Inativos" -> new TableListaPacientesInativos();
-            case "Todos os Estagiários Inativos" -> new TableListaEstagiariosInativos();
-            case "Todos os Usuários Inativos" -> new TableListaUsuariosInativos();
-            case "Configurações" -> new PageConfiguracoes();
-            default -> new PageWelcome();
+            case "Estatísticas" ->
+                new TableEstatisticas();
+            case "Administrador" ->
+                new MenuAdministrador();
+            case "Orientador" ->
+                new MenuOrientador();
+            case "Secretária" ->
+                new MenuSecretaria();
+            case "Estagiário" ->
+                new MenuEstagiario();
+            case "Estagiário Cadastro" ->
+                new FormEstagiario();
+            case "Usuário" ->
+                new FormUsuario();
+            case "Paciente" ->
+                new FormPaciente();
+            case "Prontuário" ->
+                new FormProntuario();
+            case "Agenda" ->
+                new FormAgenda();
+            case "Calendário" ->
+                new PageCalendario();
+            case "Atendimento" ->
+                new FormAtendimento();
+            case "Lista de Espera Geral" ->
+                new TableListaEsperaGeral();
+            case "Lista de Espera Específica" ->
+                new TableListaEsperaEspecifica();
+            case "Agendamentos" ->
+                new TableListaAgenda();
+            case "Atendimentos" ->
+                new TableListaAtendimento();
+            case "Todos os Estagiários" ->
+                new TableListaEstagiarios();
+            case "Todos os Pacientes" ->
+                new TableListaPacientes();
+            case "Todos os Usuários" ->
+                new TableListaUsuarios();
+            case "Todos os Pacientes Inativos" ->
+                new TableListaPacientesInativos();
+            case "Todos os Estagiários Inativos" ->
+                new TableListaEstagiariosInativos();
+            case "Todos os Usuários Inativos" ->
+                new TableListaUsuariosInativos();
+            case "Configurações" ->
+                new PageConfiguracoes();
+            default ->
+                new PageWelcome();
         };
     }
-    
 
     /**
      * Configura o painel do menu lateral (drawer).
@@ -312,7 +347,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     }
 
     /**
-     * Método que retorna os nomes dos menus permitidos para um determinado tipo de usuário.
+     * Método que retorna os nomes dos menus permitidos para um determinado tipo
+     * de usuário.
      *
      * @param userType O tipo de usuário.
      * @return Um conjunto com os nomes dos menus permitidos.
@@ -320,7 +356,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     private Set<String> getAllowedMenuNames(String userType) {
         Set<String> allowedMenus = new HashSet<>();
         switch (userType) {
-            case "Administrador" -> allowedMenus.addAll(menuNames);
+            case "Administrador" ->
+                allowedMenus.addAll(menuNames);
             case "Secretaria" -> {
                 allowedMenus.add("Estatísticas");
                 allowedMenus.add("Secretária");
@@ -356,7 +393,36 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 allowedMenus.add("Lista de Espera Especifica");
                 allowedMenus.add("Deslogar");
             }
-            default -> allowedMenus.add("Deslogar");
+            case "Pesquisador" -> {
+                SessaoVO sessaoVO = new SessaoRN().buscarUltimaSessao();
+                UsuarioVO usuarioVO = new UsuarioRN().buscarUsuarioPorEmail(sessaoVO.getEmail(), "Pesquisador");
+
+                if (usuarioVO == null) {
+                    JOptionPane.showMessageDialog(null, "Pesquisador não encontrado com email: " + sessaoVO.getEmail());
+                    return Set.of("Deslogar");
+                }
+
+                EntityManager em = JPAUtil.getEntityManager();
+                Pesquisador pesquisador = em.find(Pesquisador.class, usuarioVO.getId());
+                em.close();
+
+                List<Permissao> permissoes = new UsuarioRN().buscarRecursosPermitidos(pesquisador);
+                Set<String> recursosPermitidos = permissoes.stream()
+                        .filter(Permissao::getPermitido)
+                        .map(Permissao::getRecurso)
+                        .collect(Collectors.toSet());
+
+                allowedMenus.add("Estatísticas");
+
+                for (String menu : menuNames) {
+                    if (recursosPermitidos.contains(menu)) {
+                        allowedMenus.add(menu);
+                    }
+                }
+                allowedMenus.add("Deslogar");
+            }
+            default ->
+                allowedMenus.add("Deslogar");
         }
         return allowedMenus;
     }
