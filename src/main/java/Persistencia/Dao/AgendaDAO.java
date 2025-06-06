@@ -126,11 +126,13 @@ public class AgendaDAO extends GenericoDAO<Agenda> {
         );
         return query.getResultList();
     }
-    
-    public List<Agenda> buscarAgendamentosPlantao() {
+
+    public List<Agenda> buscarPorPacienteETipoAtendimento(int pacienteId, String tipoAtendimento) {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT a FROM Agenda a WHERE a.plantao = true", Agenda.class)
+            return em.createQuery("SELECT a FROM Agenda a WHERE a.paciente.id = :pacienteId AND a.tipoAtendimento = :tipo", Agenda.class)
+                    .setParameter("pacienteId", pacienteId)
+                    .setParameter("tipo", tipoAtendimento)
                     .getResultList();
         } finally {
             em.close();

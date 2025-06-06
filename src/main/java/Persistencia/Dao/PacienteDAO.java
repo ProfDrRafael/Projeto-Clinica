@@ -4,6 +4,7 @@
  */
 package Persistencia.Dao;
 
+import Persistencia.Entity.Agenda;
 import Persistencia.Entity.Paciente;
 import Persistencia.Entity.Responsavel;
 import VO.PacienteVO;
@@ -17,6 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static Persistencia.Dao.JPAUtil.getEntityManager;
 
 /**
  *
@@ -35,7 +38,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         EntityManager em = null;
         EntityTransaction tx = null;
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
             tx = em.getTransaction();
             tx.begin();
             em.persist(entity);
@@ -56,7 +59,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         EntityManager em = null;
         EntityTransaction tx = null;
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
             tx = em.getTransaction();
             tx.begin();
             em.merge(entity);
@@ -77,7 +80,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         EntityManager em = null;
         Paciente entity = null;
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
 
             entity = em.createQuery(
                     "SELECT p FROM Paciente p LEFT JOIN FETCH p.endereco e LEFT JOIN FETCH e.cidade WHERE p.id = :id",
@@ -107,7 +110,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         List<PacienteVO> pacientesVO = new ArrayList<>();
 
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
             TypedQuery<Paciente> query = em.createQuery(
                     "SELECT p FROM Paciente p WHERE LOWER(p.nome) LIKE LOWER(:nome)", Paciente.class);
             query.setParameter("nome", "%" + nome + "%");
@@ -132,7 +135,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         EntityTransaction tx = null;
 
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
             tx = em.getTransaction();
             tx.begin();
 
@@ -193,7 +196,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         PacienteVO pacienteVO = null;
 
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
             TypedQuery<Paciente> query = em.createQuery(
                     "SELECT p FROM Paciente p WHERE LOWER(p.nome) = LOWER(:nome)", Paciente.class);
             query.setParameter("nome", nome);
@@ -218,7 +221,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         EntityManager em = null;
         List<Paciente> resultados = null;
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
             TypedQuery<Paciente> query = em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e",
                     entityClass);
             resultados = query.getResultList();
@@ -248,7 +251,7 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         EntityManager em = null;
         EntityTransaction tx = null;
         try {
-            em = JPAUtil.getEntityManager();
+            em = getEntityManager();
             tx = em.getTransaction();
             tx.begin();
             Paciente managedEntity = em.contains(entity) ? entity : em.merge(entity);
@@ -265,4 +268,39 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
             }
         }
     }
+
+    public List<PacienteVO> listarPacientesSemAtendimento() {
+        EntityManager em = null;
+        List<PacienteVO> pacientesVO = new ArrayList<>();
+
+        try {
+            em = getEntityManager();
+
+            String jpql = """
+            SELECT p FROM Paciente p
+            WHERE p.id NOT IN (
+                SELECT a.paciente.id FROM Agenda a
+                WHERE a.tipoAtendimento != 'Emergencial' AND a.tipoAtendimento IS NOT NULL
+            )
+            AND p.ativo = true
+        """;
+
+            List<Paciente> pacientes = em.createQuery(jpql, Paciente.class).getResultList();
+
+            for (Paciente paciente : pacientes) {
+                pacientesVO.add(PacienteVO.fromEntity(paciente));
+            }
+        } catch (Exception e) {
+            logger.error("Erro ao listar pacientes sem atendimento: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+
+        return pacientesVO;
+    }
+
+
+
 }

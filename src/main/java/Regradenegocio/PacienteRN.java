@@ -7,6 +7,7 @@ package Regradenegocio;
 import Persistencia.Dao.PacienteDAO;
 import Persistencia.Dao.ProntuarioDAO;
 import Persistencia.Entity.Prontuario;
+import Persistencia.Entity.Paciente;
 import VO.PacienteVO;
 import VO.ProntuarioEletronicoVO;
 
@@ -80,5 +81,13 @@ public class PacienteRN {
             return ProntuarioEletronicoVO.fromEntity(prontuario);
         }
         return null;
+    }
+
+    public Paciente salvarPacienteRetornandoEntidade(PacienteVO pacienteVO) {
+        return pacienteDAO.salvarRetornandoEntidade(pacienteVO.toEntity());
+    }
+
+    public List<PacienteVO> listarPacientesSemAtendimento() {
+        return pacienteDAO.listarPacientesSemAtendimento();
     }
 }
