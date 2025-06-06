@@ -226,7 +226,9 @@ public class MenuOrientador extends SimpleForm {
     }//GEN-LAST:event_btDesconectarActionPerformed
 
     private void btValidarRelatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidarRelatoActionPerformed
-        // TODO add your handling code here:
+               FormValidarRelatos form = new FormValidarRelatos();
+
+        FormManager.showForm(form);
     }//GEN-LAST:event_btValidarRelatoActionPerformed
 
     private void btAcessarListaEsperaEspecificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessarListaEsperaEspecificaActionPerformed

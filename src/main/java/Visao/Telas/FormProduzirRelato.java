@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
+
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
@@ -17,11 +18,13 @@ import java.util.function.Consumer;
  * @author john
  */
 public class FormProduzirRelato extends SimpleForm {
+
     private final Consumer<String> onRelatoSubmetido;
     private final MessagesAlert messagesAlert;
 
     /**
      * Creates new form atendimentoForm
+     *
      * @param onRelatoSubmetido
      */
     public FormProduzirRelato(Consumer<String> onRelatoSubmetido) {
@@ -30,19 +33,17 @@ public class FormProduzirRelato extends SimpleForm {
         initComponents();
         // remove background customizado e volta ao default do L&F
         pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
-        //redimensionarIcones();
-        
-        
+
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png",40);
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png",40);
-        
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png", 40);
+
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
         EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelato, btNegrito, btItalico, btSublinhado);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpTextoRelato);
-        
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -204,14 +205,23 @@ public class FormProduzirRelato extends SimpleForm {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        String textoRelato = tpTextoRelato.getText();
-        if (textoRelato == null || textoRelato.trim().isEmpty()) {
-            messagesAlert.showErrorMessage("O texto do relato não pode estar vazio.");
-            return;
-        }
+        try {
+            javax.swing.text.rtf.RTFEditorKit rtfEditorKit = new javax.swing.text.rtf.RTFEditorKit();
+            java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
+            rtfEditorKit.write(outputStream, tpTextoRelato.getDocument(), 0, tpTextoRelato.getDocument().getLength());
+            String rtfText = outputStream.toString("UTF-8");
 
-        if (onRelatoSubmetido != null) {
-            onRelatoSubmetido.accept(textoRelato);
+            if (rtfText == null || rtfText.trim().isEmpty()) {
+                messagesAlert.showErrorMessage("O texto do relato não pode estar vazio.");
+                return;
+            }
+
+            if (onRelatoSubmetido != null) {
+                onRelatoSubmetido.accept(rtfText);  // passa o RTF ao invés do texto simples
+            }
+        } catch (Exception e) {
+            messagesAlert.showErrorMessage("Erro ao salvar relato formatado.");
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -232,5 +242,5 @@ public class FormProduzirRelato extends SimpleForm {
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextPane tpTextoRelato;
     // End of variables declaration//GEN-END:variables
- 
+
 }

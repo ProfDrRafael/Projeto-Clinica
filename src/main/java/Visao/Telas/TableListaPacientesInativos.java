@@ -25,6 +25,8 @@ public class TableListaPacientesInativos extends SimpleForm {
                             FROM paciente p
                             LEFT JOIN arquivo_morto am ON p.id = am.paciente_id
                             WHERE am.paciente_id IS NOT NULL""";
+ 
+
         
         boolean acao_ativar_ou_inativar = true;
 

@@ -22,7 +22,8 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil", "Data Inscrição", "Disponiblidade"};
         String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil, data_inscricao, disponibilidade FROM paciente";
         boolean acao_ativar_ou_inativar = false;
-        
+    
+
         
         CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 

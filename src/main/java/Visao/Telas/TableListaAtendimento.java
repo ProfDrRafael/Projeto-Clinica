@@ -25,6 +25,8 @@ public class TableListaAtendimento extends SimpleForm {
         boolean acao_ativar_ou_inativar = false;
 
 
+
+
         CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout());

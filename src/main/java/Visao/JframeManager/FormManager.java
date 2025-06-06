@@ -234,8 +234,7 @@ public class FormManager {
 
             FormManager.showForm(new PageWelcome());
 
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
-                    "Bem-vindo(a), " + user.getNomeCompleto() + "!");
+        
         });
     }
 
