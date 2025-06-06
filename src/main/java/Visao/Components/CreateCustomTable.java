@@ -367,13 +367,20 @@ public class CreateCustomTable {
                 int[] selectedRows = table.getSelectedRows();
 
                 if (selectedRows.length != 1) {
-                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, 
-                        selectedRows.length == 0 ? "Selecione um paciente para editar." : "Selecione apenas um paciente para editar.");
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER,
+                            selectedRows.length == 0 ? "Selecione um paciente para editar." : "Selecione apenas um paciente para editar.");
                     return;
                 }
 
-                int selectedRow = selectedRows[0];  
+                int selectedRow = selectedRows[0];
                 Object idObj = model.getValueAt(selectedRow, 1);
+                
+                String tipoUsuario = "";
+                
+                if (tableNameDB == "Usuarios") {
+                    tipoUsuario = String.valueOf(model.getValueAt(selectedRow, 4));
+                }
+
                 Integer id = null;
 
                 try {
@@ -389,6 +396,7 @@ public class CreateCustomTable {
                 }
 
                 FormPaciente pacienteForm = new FormPaciente();
+                FormUsuario formUsuario = new FormUsuario();
 
                 try {
                     switch (tipoFormTela) {
@@ -420,7 +428,8 @@ public class CreateCustomTable {
                             break;
 
                         case "Todos os Usuários":
-                            FormManager.showForm(new FormUsuario());
+                            formUsuario.preencherDadosFormulario(id, tipoUsuario);
+                            FormManager.showForm(formUsuario);
                             break;
 
                         default:
@@ -438,89 +447,95 @@ public class CreateCustomTable {
             public void actionPerformed(ActionEvent e) {
                 if (selectedRows.size() > 0) {
                     MessagesAlert.showWarningMessage("Deseja inativar esse registro?", response -> {
-                        if (response) {
-                            Map<String, List<Object>> userTypeMap = new HashMap<>();
-                            List<Integer> rowsToRemove = new ArrayList<>(selectedRows);
-                            List<Object> selectedIds = new ArrayList<>();
+                        try {
+                            if (response) {
+                                Map<String, List<Object>> userTypeMap = new HashMap<>();
+                                List<Integer> rowsToRemove = new ArrayList<>(selectedRows);
+                                List<Object> selectedIds = new ArrayList<>();
+                                
+                                System.out.println("rowToRemove" + rowsToRemove + " selectedIds " + selectedIds + " acao " + acao_ativar_ou_inativar);
+                                
+                                for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
+                                    int row = rowsToRemove.get(i);
 
-                            for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
-                                int row = rowsToRemove.get(i);
+                                    if (row >= 0 && row < model.getRowCount()) {
+                                        Object id = model.getValueAt(row, 1);
 
-                                if (row >= 0 && row < model.getRowCount()) {
-                                    Object id = model.getValueAt(row, 1);
+                                        if ("Usuarios".equals(tableNameDB)) {
+                                            String tipoUsuario = (String) model.getValueAt(row, 4);
 
-                                    if ("Usuarios".equals(tableNameDB)) {
-                                        String tipoUsuario = (String) model.getValueAt(row, 4);
+                                            userTypeMap.computeIfAbsent(tipoUsuario, k -> new ArrayList<>()).add(id);
 
-                                        userTypeMap.computeIfAbsent(tipoUsuario, k -> new ArrayList<>()).add(id);
+                                        } else {
+                                            selectedIds.add(id);
+                                        }
+                                    }
+                                }
+
+                                boolean allSuccess = true;
+
+                                if ("Usuarios".equals(tableNameDB)) {
+                                    for (Map.Entry<String, List<Object>> entry : userTypeMap.entrySet()) {
+                                        if (entry.getKey().equals("Administrador")) {
+                                            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Não é possível remover o administrador!");
+                                            return;
+                                        }
+
+                                        boolean result = TabelaDAO.inativarRegistroConsultaAnonima(entry.getValue(), tableNameDB, acao_ativar_ou_inativar, entry.getKey());
+
+                                        if (!result) {
+                                            allSuccess = false;
+                                        }
+                                    }
+                                } else {
+                                    if ("Paciente".equals(tableNameDB)) {
+                                        allSuccess = TabelaDAO.inativarPacienteArquivoMorto(selectedIds);
 
                                     } else {
-                                        selectedIds.add(id);
+
+                                        allSuccess = TabelaDAO.inativarRegistroConsultaAnonima(selectedIds, tableNameDB, acao_ativar_ou_inativar, "");
+
                                     }
                                 }
-                            }
 
-                            boolean allSuccess = true;
+                                if (allSuccess) {
+                                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Registros inativados com sucesso");
+                                    List<Integer> viewRowsToRemove = new ArrayList<>(selectedRows);
+                                    TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
 
-                            if ("Usuarios".equals(tableNameDB)) {
-                                for (Map.Entry<String, List<Object>> entry : userTypeMap.entrySet()) {
-                                    if (entry.getKey().equals("Administrador")) {
-                                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Não é possível remover o administrador!");
-                                        return;
+                                    Collections.sort(viewRowsToRemove, Collections.reverseOrder());
+                                    
+                                    for (Integer viewRow : viewRowsToRemove) {
+                                        try {
+                                            int modelRow = sorter.convertRowIndexToModel(viewRow);
+
+                                            if (modelRow >= 0 && modelRow < model.getRowCount()) {
+                                                model.removeRow(modelRow);
+                                            }
+                                        } catch (IndexOutOfBoundsException error) {
+                                            System.err.println("Erro ao remover linha: " + viewRow + " - " + error.getMessage());
+                                        }
                                     }
 
-                                    boolean result = TabelaDAO.inativarRegistroConsultaAnonima(entry.getValue(), tableNameDB, acao_ativar_ou_inativar, entry.getKey());
+                                    selectedRows.clear();
 
-                                    if (!result) {
-                                        allSuccess = false;
+                                    int totalFiltered = sorter.getViewRowCount();
+                                    totalPages = (int) Math.ceil((double) totalFiltered / ROWS_PER_PAGE);
+
+                                    if (currentPage > totalPages) {
+                                        currentPage = totalPages;
                                     }
-                                }
-                            } else {
-                                if ("Paciente".equals(tableNameDB)) {
-                                    allSuccess = TabelaDAO.inativarPacienteArquivoMorto(selectedIds);
+
+                                    updateRowFilter(currentPage);
+                                    pagination.setPagegination(currentPage, totalPages);
 
                                 } else {
-
-                                    allSuccess = TabelaDAO.inativarRegistroConsultaAnonima(selectedIds, tableNameDB, acao_ativar_ou_inativar, "");
-
+                                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao inativar registros");
                                 }
+
                             }
-
-                            if (allSuccess) {
-                                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Registros inativados com sucesso");
-                                List<Integer> viewRowsToRemove = new ArrayList<>(selectedRows);
-                                TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
-
-                                Collections.sort(viewRowsToRemove, Collections.reverseOrder());
-
-                                for (Integer viewRow : viewRowsToRemove) {
-                                    try {
-                                        int modelRow = sorter.convertRowIndexToModel(viewRow);
-
-                                        if (modelRow >= 0 && modelRow < model.getRowCount()) {
-                                            model.removeRow(modelRow);
-                                        }
-                                    } catch (IndexOutOfBoundsException error) {
-                                        System.err.println("Erro ao remover linha: " + viewRow + " - " + error.getMessage());
-                                    }
-                                }
-
-                                selectedRows.clear();
-
-                                int totalFiltered = sorter.getViewRowCount();
-                                totalPages = (int) Math.ceil((double) totalFiltered / ROWS_PER_PAGE);
-
-                                if (currentPage > totalPages) {
-                                    currentPage = totalPages;
-                                }
-
-                                updateRowFilter(currentPage);
-                                pagination.setPagegination(currentPage, totalPages);
-
-                            } else {
-                                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao inativar registros");
-                            }
-
+                        } catch (Exception error) {
+                            System.out.println("Não foi possível inativar, erro: " + error);
                         }
                     });
                 } else {

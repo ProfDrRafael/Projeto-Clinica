@@ -1,6 +1,5 @@
 package Visao.Telas;
 
-import OrientadorRN.OrientadorRN;
 import Persistencia.Dao.CidadeDAO;
 import Persistencia.Dao.EstadoDAO;
 import Persistencia.Dao.PaisDAO;
@@ -11,6 +10,7 @@ import Persistencia.Entity.Endereco;
 import Persistencia.Entity.Estado;
 import Persistencia.Entity.Pais;
 import Persistencia.Entity.Responsavel;
+import Regradenegocio.OrientadorRN;
 import Regradenegocio.EnderecoRN;
 import Regradenegocio.EstagiarioRN;
 import Regradenegocio.PacienteRN;
