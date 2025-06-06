@@ -1,26 +1,11 @@
 package Visao.Telas;
 
-import Persistencia.Dao.CidadeDAO;
-import Persistencia.Dao.EstadoDAO;
-import Persistencia.Dao.PaisDAO;
-import Persistencia.Dao.ResponsavelDAO;
-import Persistencia.Entity.Cidade;
+import Persistencia.Dao.*;
+import Persistencia.Entity.*;
 import Persistencia.modelTemp.EnderecoModelCepApi;
-import Persistencia.Entity.Endereco;
-import Persistencia.Entity.Estado;
-import Persistencia.Entity.Pais;
-import Persistencia.Entity.Responsavel;
-import Regradenegocio.OrientadorRN;
-import Regradenegocio.EnderecoRN;
-import Regradenegocio.EstagiarioRN;
-import Regradenegocio.PacienteRN;
-import Regradenegocio.ResponsavelRN;
+import Regradenegocio.*;
 import Services.ViaCepService;
-import VO.EnderecoVO;
-import VO.EstagiarioVO;
-import VO.OrientadorVO;
-import VO.PacienteVO;
-import VO.ResponsavelVO;
+import VO.*;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.RedimencionarIcones;
@@ -69,6 +54,12 @@ public class FormPaciente extends SimpleForm {
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDisponibilidade);
         EditorTextPaneEstilization.JTextComponentStylization(tpDisponibilidade, btNegrito, btItalico, btSublinhado);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpDisponibilidade);
+
+        cbbGrupos.setVisible(false);
+        cbCriarGrupo.setVisible(false);
+        mostrarCamposCriacaoGrupo(false);
+
+        configurarComponentesGrupo();
     }
 
     public void preencherDadosFormulario(int pacienteId) {
@@ -256,12 +247,23 @@ public class FormPaciente extends SimpleForm {
         btSublinhado = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
+        pGrupo = new javax.swing.JPanel();
+        cbVerificaGrupo = new javax.swing.JCheckBox();
+        cbbGrupos = new javax.swing.JComboBox<>();
+        cbCriarGrupo = new javax.swing.JCheckBox();
+        lbDescricaoGrupo = new javax.swing.JLabel();
+        lbNomeGrupo = new javax.swing.JLabel();
+        tfNomeGrupo = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taDescricaoGrupo = new javax.swing.JTextArea();
+        jSeparator1 = new javax.swing.JSeparator();
+        btnSalvarGrupo = new javax.swing.JButton();
 
         dateChooser1.setTextField(tfData);
 
-        setMaximumSize(new java.awt.Dimension(950, 1450));
-        setMinimumSize(new java.awt.Dimension(950, 1450));
-        setPreferredSize(new java.awt.Dimension(950, 1450));
+        setMaximumSize(new java.awt.Dimension(1024, 1450));
+        setMinimumSize(new java.awt.Dimension(1024, 1450));
+        setPreferredSize(new java.awt.Dimension(1024, 1900));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
@@ -620,7 +622,7 @@ public class FormPaciente extends SimpleForm {
                                 .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbRua))))
-                        .addGap(0, 9, Short.MAX_VALUE))
+                        .addGap(0, 15, Short.MAX_VALUE))
                     .addGroup(pEnderecoLayout.createSequentialGroup()
                         .addGroup(pEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pEnderecoLayout.createSequentialGroup()
@@ -783,7 +785,7 @@ public class FormPaciente extends SimpleForm {
                         .addGroup(pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbAtendido)
                             .addComponent(cbAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         pInscricaoLayout.setVerticalGroup(
             pInscricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -840,27 +842,128 @@ public class FormPaciente extends SimpleForm {
             }
         });
 
+        pGrupo.setBackground(java.awt.SystemColor.controlHighlight);
+        pGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grupo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), java.awt.SystemColor.controlDkShadow)); // NOI18N
+
+        cbVerificaGrupo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbVerificaGrupo.setForeground(new java.awt.Color(0, 0, 0));
+        cbVerificaGrupo.setText("Você faz parte de algum grupo?");
+        cbVerificaGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbVerificaGrupoActionPerformed(evt);
+            }
+        });
+
+        cbbGrupos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        cbCriarGrupo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbCriarGrupo.setForeground(new java.awt.Color(0, 0, 0));
+        cbCriarGrupo.setText("Criar novo grupo");
+        cbCriarGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCriarGrupoActionPerformed(evt);
+            }
+        });
+
+        lbDescricaoGrupo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbDescricaoGrupo.setForeground(new java.awt.Color(0, 102, 102));
+        lbDescricaoGrupo.setText("Descrição");
+
+        lbNomeGrupo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbNomeGrupo.setForeground(new java.awt.Color(0, 102, 102));
+        lbNomeGrupo.setText("Nome");
+
+        tfNomeGrupo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        taDescricaoGrupo.setColumns(20);
+        taDescricaoGrupo.setRows(5);
+        jScrollPane2.setViewportView(taDescricaoGrupo);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        btnSalvarGrupo.setBackground(new java.awt.Color(153, 255, 102));
+        btnSalvarGrupo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvarGrupo.setForeground(new java.awt.Color(51, 51, 51));
+        btnSalvarGrupo.setText("Salvar");
+        btnSalvarGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarGrupoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pGrupoLayout = new javax.swing.GroupLayout(pGrupo);
+        pGrupo.setLayout(pGrupoLayout);
+        pGrupoLayout.setHorizontalGroup(
+            pGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pGrupoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbbGrupos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbVerificaGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(cbCriarGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(60, 60, 60)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lbNomeGrupo)
+                        .addComponent(tfNomeGrupo)
+                        .addComponent(lbDescricaoGrupo)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvarGrupo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pGrupoLayout.setVerticalGroup(
+            pGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pGrupoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pGrupoLayout.createSequentialGroup()
+                        .addComponent(lbNomeGrupo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbDescricaoGrupo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalvarGrupo)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pGrupoLayout.createSequentialGroup()
+                        .addGroup(pGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pGrupoLayout.createSequentialGroup()
+                                .addComponent(cbVerificaGrupo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbbGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbCriarGrupo))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 15, Short.MAX_VALUE))))
+        );
+
         javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
         pCentro.setLayout(pCentroLayout);
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                        .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, Short.MAX_VALUE)
-                        .addGap(904, 904, 904))
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pCentroLayout.createSequentialGroup()
+                        .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 110, Short.MAX_VALUE)
+                        .addGap(846, 846, 846))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pCentroLayout.createSequentialGroup()
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pIdentificacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pInscricao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(pEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
                     .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(pIdentificacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pInscricao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(pEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
-                                .addComponent(btEditar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btSalvar)))
-                        .addContainerGap(58, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btSalvar)))
+                .addGap(52, 52, 52))
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -871,12 +974,14 @@ public class FormPaciente extends SimpleForm {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btEditar))
-                .addGap(106, 106, 106)
+                .addGap(19, 19, 19)
                 .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
@@ -994,7 +1099,31 @@ public class FormPaciente extends SimpleForm {
                 );
 
                 // salvar o paciente
-                if (pacienteRN.salvarPaciente(pacienteVO)) {
+                Paciente pacienteSalvo = pacienteRN.salvarPacienteRetornandoEntidade(pacienteVO);
+
+                if (pacienteSalvo != null) {
+                    Integer pacienteId = pacienteSalvo.getId();
+
+                    if (cbVerificaGrupo.isSelected()) {
+                        Integer grupoId = Integer.parseInt(cbbGrupos.getSelectedItem().toString().split(" - ")[0]);
+
+                        GrupoXPacienteRN grupoXPacienteRN = new GrupoXPacienteRN();
+
+                        // Remover associações anteriores
+                        List<GrupoXPaciente> anteriores = grupoXPacienteRN.listarPorPaciente(pacienteId);
+                        for (GrupoXPaciente registro : anteriores) {
+                            new GrupoXPacienteDAO().deletar(registro);
+                        }
+
+                        // Nova associação
+                        GrupoXPacienteVO grupoXPacienteVO = new GrupoXPacienteVO();
+                        grupoXPacienteVO.setPacienteId(pacienteId);
+                        grupoXPacienteVO.setGrupoId(grupoId);
+                        grupoXPacienteVO.setDataEntrada(LocalDate.now());
+
+                        grupoXPacienteRN.salvar(grupoXPacienteVO);
+                    }
+
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
                             "Paciente salvo com sucesso!");
                     FormManager.showForm(new PageWelcome());
@@ -1109,6 +1238,25 @@ public class FormPaciente extends SimpleForm {
             pacienteVO.setId(pacienteId);
 
             if (pacienteRN.editarPaciente(pacienteVO)) {
+                // Se estiver habilitado o grupo
+                if (cbVerificaGrupo.isSelected()) {
+                    Integer grupoId = Integer.parseInt(cbbGrupos.getSelectedItem().toString().split(" - ")[0]);
+
+                    GrupoXPacienteRN grupoXPacienteRN = new GrupoXPacienteRN();
+
+                    // Remove associações anteriores do paciente
+//                    List<GrupoXPaciente> anteriores = grupoXPacienteRN.listarPorPaciente(pacienteId);
+//                    for (GrupoXPaciente registro : anteriores) {
+//                        new GrupoXPacienteDAO().deletar(registro);
+//                    }
+
+                    // Cria nova associação com grupo
+                    GrupoXPacienteVO grupoXPacienteVO = new GrupoXPacienteVO();
+                    grupoXPacienteVO.setPacienteId(pacienteId);
+                    grupoXPacienteVO.setGrupoId(grupoId);
+                    grupoXPacienteRN.salvar(grupoXPacienteVO);
+                }
+
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Paciente editado com sucesso!");
                 FormManager.showForm(new PageWelcome());
             } else {
@@ -1127,6 +1275,82 @@ public class FormPaciente extends SimpleForm {
         });
     }//GEN-LAST:event_btEditarActionPerformed
 
+    private void configurarComponentesGrupo() {
+        // Estado inicial
+        cbbGrupos.setEnabled(false);
+        cbCriarGrupo.setEnabled(false);
+
+        lbNomeGrupo.setVisible(false);
+        lbDescricaoGrupo.setVisible(false);
+        tfNomeGrupo.setVisible(false);
+        taDescricaoGrupo.setVisible(false);
+        btnSalvarGrupo.setVisible(false);
+
+        // Inicializa combobox de grupos
+        Regradenegocio.GrupoRN grupoRN = new Regradenegocio.GrupoRN();
+        grupoRN.listarTodos().forEach(g -> cbbGrupos.addItem(g.getId() + " - " + g.getNome()));
+    }
+
+    private void mostrarCamposCriacaoGrupo(boolean visivel) {
+        lbNomeGrupo.setVisible(visivel);
+        tfNomeGrupo.setVisible(visivel);
+        lbDescricaoGrupo.setVisible(visivel);
+        taDescricaoGrupo.setVisible(visivel);
+        jScrollPane2.setVisible(visivel);
+        taDescricaoGrupo.getParent().revalidate();
+        taDescricaoGrupo.getParent().repaint();
+        btnSalvarGrupo.setVisible(visivel);
+    }
+
+    private void btnSalvarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarGrupoActionPerformed
+        String nome = tfNomeGrupo.getText().trim();
+        String descricao = taDescricaoGrupo.getText().trim();
+
+        if (nome.isEmpty() || descricao.isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER,
+                    "Preencha todos os campos do grupo!");
+            return;
+        }
+
+        GrupoVO grupoVO = new GrupoVO();
+        grupoVO.setNome(nome);
+        grupoVO.setDescricao(descricao);
+
+        Regradenegocio.GrupoRN grupoRN = new Regradenegocio.GrupoRN();
+        try {
+            grupoRN.salvar(grupoVO);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
+                    "Grupo salvo com sucesso!");
+
+            // Atualizar o combobox com todos os grupos
+            cbbGrupos.removeAllItems();
+            grupoRN.listarTodos().forEach(g -> cbbGrupos.addItem(g.getId() + " - " + g.getNome()));
+            cbCriarGrupo.setSelected(false);
+            mostrarCamposCriacaoGrupo(false);
+        } catch (Exception e) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER,
+                    "Erro ao salvar grupo: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnSalvarGrupoActionPerformed
+
+    private void cbVerificaGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVerificaGrupoActionPerformed
+        boolean selecionado = cbVerificaGrupo.isSelected();
+        cbbGrupos.setEnabled(selecionado);
+        cbbGrupos.setVisible(selecionado);
+        cbCriarGrupo.setEnabled(selecionado);
+        cbCriarGrupo.setVisible(selecionado);
+
+        if (!selecionado) {
+            cbCriarGrupo.setSelected(false);
+            mostrarCamposCriacaoGrupo(false);
+        }
+    }//GEN-LAST:event_cbVerificaGrupoActionPerformed
+
+    private void cbCriarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCriarGrupoActionPerformed
+        boolean criar = cbCriarGrupo.isSelected();
+        mostrarCamposCriacaoGrupo(criar);
+    }//GEN-LAST:event_cbCriarGrupoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscarCep;
@@ -1135,8 +1359,10 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JButton btNegrito;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSublinhado;
+    private javax.swing.JButton btnSalvarGrupo;
     private javax.swing.JCheckBox cbAtendido;
     private javax.swing.JComboBox<String> cbCidade;
+    private javax.swing.JCheckBox cbCriarGrupo;
     private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JComboBox<String> cbEstadoCivil;
     private javax.swing.JComboBox<String> cbEstagiario;
@@ -1146,6 +1372,8 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JComboBox<String> cbOrientacao;
     private javax.swing.JComboBox<String> cbOrientador;
     private javax.swing.JComboBox<String> cbRacaCorEtnia;
+    private javax.swing.JCheckBox cbVerificaGrupo;
+    private javax.swing.JComboBox<String> cbbGrupos;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JFormattedTextField ftfCelular;
     private javax.swing.JFormattedTextField ftfCelularContato;
@@ -1153,6 +1381,8 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JFormattedTextField ftfCep;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbAtendido;
     private javax.swing.JLabel lbBairro;
     private javax.swing.JLabel lbCelular;
@@ -1163,6 +1393,7 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JLabel lbContato2;
     private javax.swing.JLabel lbContato3;
     private javax.swing.JLabel lbDataNascimento;
+    private javax.swing.JLabel lbDescricaoGrupo;
     private javax.swing.JLabel lbDisponibilidade;
     private javax.swing.JLabel lbEstado;
     private javax.swing.JLabel lbEstadoCivil;
@@ -1172,6 +1403,7 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JLabel lbLogoCadastro;
     private javax.swing.JLabel lbNaturalidade;
     private javax.swing.JLabel lbNaturalidade1;
+    private javax.swing.JLabel lbNomeGrupo;
     private javax.swing.JLabel lbNumero;
     private javax.swing.JLabel lbOrientacao;
     private javax.swing.JLabel lbOrientador;
@@ -1184,12 +1416,15 @@ public class FormPaciente extends SimpleForm {
     private javax.swing.JPanel pBotoes;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pEndereco;
+    private javax.swing.JPanel pGrupo;
     private javax.swing.JPanel pIdentificacao;
     private javax.swing.JPanel pInscricao;
     private javax.swing.JPanel pNorth;
+    private javax.swing.JTextArea taDescricaoGrupo;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfComplemento;
     private javax.swing.JTextField tfData;
+    private javax.swing.JTextField tfNomeGrupo;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPaciente;
     private javax.swing.JTextField tfProfissao;
