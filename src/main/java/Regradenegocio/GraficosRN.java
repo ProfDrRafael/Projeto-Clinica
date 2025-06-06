@@ -1,10 +1,13 @@
 package Regradenegocio;
 
-import Persistencia.Dao.TabelaEstatisticaDAO;
+import Persistencia.Dao.GraficosDAO;
 import Persistencia.Entity.Atendimento;
+import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.text.AttributedString;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,8 +17,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartMouseEvent;
+import org.jfree.chart.ChartMouseListener;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.entity.ChartEntity;
+import org.jfree.chart.entity.PieSectionEntity;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.Plot;
@@ -26,10 +38,11 @@ import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 
-public class EstatisticasRN {
+public class GraficosRN {
 
-    private TabelaEstatisticaDAO tabelaEstatisticaDAO = new TabelaEstatisticaDAO();
+    private GraficosDAO tabelaEstatisticaDAO = new GraficosDAO();
     private JFreeChart graficoGeneroDados;
     private JFreeChart graficoEstadoCivilDados;
     private JFreeChart graficoRacaCorEtniaDados;
@@ -92,37 +105,37 @@ public class EstatisticasRN {
             PiePlot piePlot = (PiePlot) plot;
             piePlot.setOutlineVisible(false);
             piePlot.setBackgroundPaint(Color.WHITE);
-            piePlot.setLabelFont(new Font(fontName, Font.PLAIN, 12));
+            piePlot.setLabelFont(new Font(fontName, Font.PLAIN, 10));
             piePlot.setLabelPaint(Color.decode("#444444"));
         }
     }
 
     public static long getTotalPacientesAtivos() {
-        return TabelaEstatisticaDAO.getTotalPacientesAtivos();
+        return GraficosDAO.getTotalPacientesAtivos();
     }
 
     public static double getTaxaMediaComparecimento() {
-        return TabelaEstatisticaDAO.getTaxaMediaComparecimento();
+        return GraficosDAO.getTaxaMediaComparecimento();
     }
 
     public static long getPacientesListaEspera() {
-        return TabelaEstatisticaDAO.getPacientesListaEspera();
+        return GraficosDAO.getPacientesListaEspera();
     }
 
     public static long getTotalAtendimentosMesAtual() {
-        return TabelaEstatisticaDAO.getTotalAtendimentosMesAtual();
+        return GraficosDAO.getTotalAtendimentosMesAtual();
     }
 
     public static long getEstagiariosAtivos() {
-        return TabelaEstatisticaDAO.getEstagiariosAtivos();
+        return GraficosDAO.getEstagiariosAtivos();
     }
 
     //========================================
     // Line Charts
     //========================================
-    public JFreeChart createEvolucaoAtendimentoChartPanel() {
+    public ChartPanel createEvolucaoAtendimentoChartPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> atendimentos = TabelaEstatisticaDAO.buscarAtendimentosPorUsuario(null);
+        List<Object[]> atendimentos = GraficosDAO.buscarAtendimentosPorUsuario(null);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         if (atendimentos != null && !atendimentos.isEmpty()) {
             Map<String, Integer> dataCount = new HashMap<>();
@@ -155,12 +168,16 @@ public class EstatisticasRN {
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#38bdf8"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createEvolucaoAtendimentoChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
+    public ChartPanel createEvolucaoAtendimentoChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> atendimentos = TabelaEstatisticaDAO.buscarEvolucaoAtendimentos(inicio, fim, periodo);
+        List<Object[]> atendimentos = GraficosDAO.buscarEvolucaoAtendimentos(inicio, fim, periodo);
 
         for (Object[] row : atendimentos) {
             String label;
@@ -214,12 +231,16 @@ public class EstatisticasRN {
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#38bdf8"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createAgendadosVSRealizadosChartPanel() {
+    public ChartPanel createAgendadosVSRealizadosChartPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> result = TabelaEstatisticaDAO.buscarAtendimentosAgendadosVersusRealizados(null);
+        List<Object[]> result = GraficosDAO.buscarAtendimentosAgendadosVersusRealizados(null);
 
         if (result != null && !result.isEmpty()) {
             for (Object[] row : result) {
@@ -250,12 +271,89 @@ public class EstatisticasRN {
         renderer.setSeriesPaint(0, Color.decode("#38bdf8")); // azul
         renderer.setSeriesPaint(1, Color.decode("#fb7185")); // rosa
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createPacientesListaEsperaChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
+    public ChartPanel createAgendadosVSRealizadosChartPanel(LocalDate inicio, LocalDate fim, String periodo, String tipoAtendimento) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> evolucaoLista = TabelaEstatisticaDAO.getEvolucaoListaEspera(inicio, fim, periodo);
+        List<Object[]> result = GraficosDAO.buscarAtendimentosAgendadosVersusRealizados(inicio, fim, periodo, tipoAtendimento, null);
+
+        if (result != null && !result.isEmpty()) {
+            for (Object[] row : result) {
+                String label;
+                Number agendados;
+                Number realizados;
+
+                switch (periodo) {
+                    case "dia" -> {
+                        LocalDate data = (LocalDate) row[0];
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        label = data.format(formatter);
+                        agendados = (Number) row[1];
+                        realizados = (Number) row[2];
+                    }
+                    case "semana" -> {
+                        int ano = (Integer) row[0];
+                        int semana = (Integer) row[1];
+                        label = "Semana " + semana + "/" + ano;
+                        agendados = (Number) row[2];
+                        realizados = (Number) row[3];
+                    }
+                    case "mês" -> {
+                        int ano = (Integer) row[0];
+                        int mes = (Integer) row[1];
+                        label = String.format("%02d/%d", mes, ano);
+                        agendados = (Number) row[2];
+                        realizados = (Number) row[3];
+                    }
+                    case "ano" -> {
+                        int ano = (Integer) row[0];
+                        label = String.valueOf(ano);
+                        agendados = (Number) row[1];
+                        realizados = (Number) row[2];
+                    }
+                    default ->
+                        throw new IllegalArgumentException("Período inválido: " + periodo);
+                }
+
+                dataset.addValue(agendados, "Agendados", label);
+                dataset.addValue(realizados, "Realizados", label);
+            }
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Agendados vs Realizados",
+                "Período",
+                "Quantidade",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        themeStylization(chart);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.WHITE);
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setSeriesPaint(0, Color.decode("#38bdf8")); // azul
+        renderer.setSeriesPaint(1, Color.decode("#fb7185")); // rosa
+
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
+    }
+
+    public ChartPanel createPacientesListaEsperaChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        List<Object[]> evolucaoLista = GraficosDAO.getEvolucaoListaEspera(inicio, fim, periodo);
 
         SimpleDateFormat format;
         switch (periodo) {
@@ -328,12 +426,16 @@ public class EstatisticasRN {
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#34d399"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createPacientesListaEsperaChartPanel() {
+    public ChartPanel createPacientesListaEsperaChartPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> evolucaoLista = TabelaEstatisticaDAO.getEvolucaoListaEspera();
+        List<Object[]> evolucaoLista = GraficosDAO.getEvolucaoListaEspera();
 
         if (evolucaoLista != null && !evolucaoLista.isEmpty()) {
             for (Object[] row : evolucaoLista) {
@@ -363,12 +465,16 @@ public class EstatisticasRN {
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#34d399"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createTempoMedioAtendimentoChartPanel() {
+    public ChartPanel createTempoMedioAtendimentoChartPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> result = TabelaEstatisticaDAO.getTempoMedioEspera();
+        List<Object[]> result = GraficosDAO.getTempoMedioEspera();
 
         for (Object[] row : result) {
             String value = row[0].toString();
@@ -394,19 +500,146 @@ public class EstatisticasRN {
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#fb7185"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
+    }
+
+    public ChartPanel createTempoMedioAtendimentoChartPanel(LocalDate inicio, LocalDate fim, String periodo, String tipoAtendimento) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        List<Object[]> result = GraficosDAO.buscarTempoMedioEspera(inicio, fim, periodo, tipoAtendimento);
+        System.err.println("QUERY:::" + result);
+        if (result != null && !result.isEmpty()) {
+            for (Object[] row : result) {
+                String label;
+                Number tempoMedio;
+
+                switch (periodo) {
+                    case "dia" -> {
+                        LocalDate data = (LocalDate) row[0];
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        label = data.format(formatter);
+                        tempoMedio = (Number) row[1];
+                    }
+                    case "semana" -> {
+                        int ano = (Integer) row[0];
+                        int semana = (Integer) row[1];
+                        label = "Semana " + semana + "/" + ano;
+                        tempoMedio = (Number) row[1];
+                    }
+                    case "mês" -> {
+                        int ano = (Integer) row[0];
+                        int mes = (Integer) row[1];
+                        label = String.format("%02d/%d", mes, ano);
+                        tempoMedio = (Number) row[2];
+                    }
+                    case "ano" -> {
+                        int ano = (Integer) row[0];
+                        label = String.valueOf(ano);
+                        tempoMedio = (Number) row[1];
+                    }
+                    default ->
+                        throw new IllegalArgumentException("Período inválido: " + periodo);
+                }
+
+                dataset.addValue(tempoMedio, "Tempo Médio", label);
+            }
+        }
+
+        JFreeChart chart = ChartFactory.createLineChart(
+                "Tempo Médio de Espera",
+                "Período",
+                "Dias",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        themeStylization(chart);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.WHITE);
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+        renderer.setSeriesPaint(0, Color.decode("#fb7185")); // rosa
+
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
     //========================================
     // Pie Charts
     //========================================
-    public JFreeChart createGenderPieChartPanel(Set filtrosSelecionados) {
+    public void criarEventoDestaqueGraficoPizza(ChartPanel painelGrafico, JFreeChart chart) {
+        painelGrafico.addChartMouseListener(new ChartMouseListener() {
+            private Comparable ultimaChave;
+
+            @Override
+            public void chartMouseMoved(ChartMouseEvent evento) {
+                ChartEntity entidade = evento.getEntity();
+                PiePlot plot = (PiePlot) chart.getPlot();
+
+                if (entidade instanceof PieSectionEntity) {
+                    PieSectionEntity secao = (PieSectionEntity) entidade;
+                    Comparable chaveAtual = secao.getSectionKey();
+
+                    if (!chaveAtual.equals(ultimaChave)) {
+                        if (ultimaChave != null) {
+                            plot.setExplodePercent(ultimaChave, 0);
+
+                        }
+
+                        plot.setExplodePercent(chaveAtual, 0.10);
+                        plot.setLabelPaint(Color.BLACK);
+                        plot.setLabelFont(new Font("SansSerif", Font.PLAIN, 12));
+
+                        plot.setLabelGenerator(new PieSectionLabelGenerator() {
+                            @Override
+                            public String generateSectionLabel(PieDataset dados, Comparable chave) {
+                                if (chave.equals(chaveAtual)) {
+                                    Number valor = dados.getValue(chave);
+                                    return chave + ": " + valor;
+                                } else {
+                                    return null;
+                                }
+
+                            }
+
+                            @Override
+                            public AttributedString generateAttributedSectionLabel(PieDataset dados, Comparable chave) {
+                                return null;
+                            }
+                        });
+
+                        ultimaChave = chaveAtual;
+                    }
+                } else if (ultimaChave != null) {
+                    plot.setExplodePercent(ultimaChave, 0);
+                    ultimaChave = null;
+                }
+
+            }
+
+            @Override
+            public void chartMouseClicked(ChartMouseEvent event) {
+
+            }
+        });
+    }
+
+    public ChartPanel createGenderPieChartPanel(Set filtrosSelecionados) {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        Map<String, Long> distribuicaoGenero = TabelaEstatisticaDAO.getDistribuicaoPacientes("genero");
+        Map<String, Long> distribuicaoGenero = GraficosDAO.getDistribuicaoPacientes("genero");
 
         for (Map.Entry<String, Long> entry : distribuicaoGenero.entrySet()) {
             if (filtrosSelecionados == null || filtrosSelecionados.isEmpty() || filtrosSelecionados.contains(entry.getKey())) {
-                dataset.setValue(entry.getKey() + ": " + entry.getValue(), entry.getValue());
+                dataset.setValue(entry.getKey(), entry.getValue());
             }
         }
 
@@ -420,16 +653,22 @@ public class EstatisticasRN {
 
         themeStylization(chart);
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        criarEventoDestaqueGraficoPizza(painelGrafico, chart);
+
+        return painelGrafico;
     }
 
-    public JFreeChart createEstadoCivilPieChartPanel(Set filtrosSelecionados) {
+    public ChartPanel createEstadoCivilPieChartPanel(Set filtrosSelecionados) {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        Map<String, Long> distribuicaoEstadoCivil = TabelaEstatisticaDAO.getDistribuicaoPacientes("estadoCivil");
+        Map<String, Long> distribuicaoEstadoCivil = GraficosDAO.getDistribuicaoPacientes("estadoCivil");
 
         for (Map.Entry<String, Long> entry : distribuicaoEstadoCivil.entrySet()) {
             if (filtrosSelecionados == null || filtrosSelecionados.isEmpty() || filtrosSelecionados.contains(entry.getKey())) {
-                dataset.setValue(entry.getKey() + ": " + entry.getValue(), entry.getValue());
+                dataset.setValue(entry.getKey(), entry.getValue());
             }
         }
 
@@ -443,15 +682,21 @@ public class EstatisticasRN {
 
         themeStylization(chart);
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        criarEventoDestaqueGraficoPizza(painelGrafico, chart);
+
+        return painelGrafico;
     }
 
-    public JFreeChart createRacaCorEtniaPieChartPanel(Set filtrosSelecionados) {
+    public ChartPanel createRacaCorEtniaPieChartPanel(Set filtrosSelecionados) {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        Map<String, Long> distribuicaoRaca = TabelaEstatisticaDAO.getDistribuicaoPacientes("racaCorEtnia");
+        Map<String, Long> distribuicaoRaca = GraficosDAO.getDistribuicaoPacientes("racaCorEtnia");
         for (Map.Entry<String, Long> entry : distribuicaoRaca.entrySet()) {
             if (filtrosSelecionados == null || filtrosSelecionados.isEmpty() || filtrosSelecionados.contains(entry.getKey())) {
-                dataset.setValue(entry.getKey() + ": " + entry.getValue(), entry.getValue());
+                dataset.setValue(entry.getKey(), entry.getValue());
             }
         }
         JFreeChart chart = ChartFactory.createPieChart(
@@ -466,15 +711,21 @@ public class EstatisticasRN {
 
         chart.setBackgroundPaint(Color.white);
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        criarEventoDestaqueGraficoPizza(painelGrafico, chart);
+
+        return painelGrafico;
     }
 
     //========================================
     // Bar Charts
     //========================================
-    public JFreeChart createPacienteIdadeBarChartPanel() {
+    public ChartPanel createPacienteIdadeBarChartPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> faixasEtarias = TabelaEstatisticaDAO.getPacientesPorFaixaEtaria();
+        List<Object[]> faixasEtarias = GraficosDAO.getPacientesPorFaixaEtaria();
         if (faixasEtarias != null && !faixasEtarias.isEmpty()) {
             for (Object[] row : faixasEtarias) {
                 String faixa = (String) row[0];
@@ -500,12 +751,18 @@ public class EstatisticasRN {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#10b981"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createPacienteIdadeBarChartPanel(List<int[]> faixasEtariasSelecionadas) {
+    public ChartPanel createPacienteIdadeBarChartPanel(List<int[]> faixasEtariasSelecionadas) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> faixasEtarias = TabelaEstatisticaDAO.getPacientesPorFaixaEtaria(faixasEtariasSelecionadas);
+
+        List<Object[]> faixasEtarias = GraficosDAO.getPacientesPorFaixaEtaria(faixasEtariasSelecionadas);
+
         if (faixasEtarias != null && !faixasEtarias.isEmpty()) {
             for (Object[] row : faixasEtarias) {
                 String faixa = (String) row[0];
@@ -533,12 +790,16 @@ public class EstatisticasRN {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#10b981"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createPacienteComparecimentoBarChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
+    public ChartPanel createPacienteComparecimentoBarChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> taxasComparecimento = TabelaEstatisticaDAO.getTaxaComparecimentoPorPeriodo(inicio, fim, periodo);
+        List<Object[]> taxasComparecimento = GraficosDAO.getTaxaComparecimentoPorPeriodo(inicio, fim, periodo);
 
         SimpleDateFormat format;
         switch (periodo) {
@@ -623,12 +884,16 @@ public class EstatisticasRN {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#f97316"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createPacienteComparecimentoBarChartPanel() {
+    public ChartPanel createPacienteComparecimentoBarChartPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> taxasComparecimento = TabelaEstatisticaDAO.getTaxaComparecimentoPorPeriodo("mes");
+        List<Object[]> taxasComparecimento = GraficosDAO.getTaxaComparecimentoPorPeriodo("mes");
 
         if (taxasComparecimento != null && !taxasComparecimento.isEmpty()) {
             for (Object[] row : taxasComparecimento) {
@@ -663,105 +928,109 @@ public class EstatisticasRN {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, Color.decode("#f97316"));
 
-        return chart;
+        ChartPanel painelGrafico = new ChartPanel(chart);
+        painelGrafico.setBackground(Color.white);
+        painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
+
+        return painelGrafico;
     }
 
-    public JFreeChart createSalaOcupacaoBarChartPanel(String filtroSala) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> ocupacaoSalas = TabelaEstatisticaDAO.getOcupacaoSalas();
+    public ChartPanel createSalaOcupacaoBarChartPanel() {
+        DefaultCategoryDataset dsQuantidade = new DefaultCategoryDataset();
+        DefaultCategoryDataset dsPercentual = new DefaultCategoryDataset();
 
-        if (ocupacaoSalas != null && !ocupacaoSalas.isEmpty()) {
-            for (Object[] row : ocupacaoSalas) {
-                String nomeSala = row[0].toString();
-                Long ocupacao = (Long) row[1];
+        List<Object[]> raw = GraficosDAO.getDistribuicaoAtendimentosPorSala();
+        long total = raw.stream().mapToLong(r -> (Long) r[1]).sum();
 
-                if (filtroSala == null || filtroSala.equals("Todos") || nomeSala.equals(filtroSala)) {
-                    dataset.addValue(ocupacao, "Ocupação", nomeSala);
-                }
-            }
-        } else {
-            dataset.addValue(0.0, "Ocupação", "Sem dados");
+        for (Object[] row : raw) {
+            String sala = row[0].toString();
+            long qtd = (Long) row[1];
+            double pct = total > 0 ? qtd * 100.0 / total : 0;
+
+            dsQuantidade.addValue(qtd, "Quantidade", sala);
+            dsPercentual.addValue(pct, "Percentual", sala);
         }
 
-        JFreeChart chart = ChartFactory.createBarChart(
-                "Ocupação de Salas",
-                "Sala",
-                "Quantidade",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
-        );
+        // plot com dois eixos
+        CategoryPlot plot = new CategoryPlot();
+        // eixo primário: quantidade
+        plot.setDataset(0, dsQuantidade);
+        plot.setRenderer(0, new BarRenderer());
+        plot.setRangeAxis(0, new NumberAxis("Quantidade"));
 
+        // eixo secundário: percentual
+        plot.setDataset(1, dsPercentual);
+        LineAndShapeRenderer lineRenderer = new LineAndShapeRenderer();
+        lineRenderer.setDefaultShapesVisible(true);
+        plot.setRenderer(1, lineRenderer);
+        NumberAxis pctAxis = new NumberAxis("Percentual (%)");
+        plot.setRangeAxis(1, pctAxis);
+        plot.mapDatasetToRangeAxis(1, 1);
+
+        plot.setDomainAxis(new CategoryAxis("Sala"));
+        plot.setOrientation(PlotOrientation.VERTICAL);
+        plot.setBackgroundPaint(Color.WHITE);
+
+        // legenda, título, tema
+        JFreeChart chart = new JFreeChart(
+                "Ocupação de Salas", JFreeChart.DEFAULT_TITLE_FONT, plot, true
+        );
         themeStylization(chart);
 
-        this.graficoOcupacaoSalaDados = chart;
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setBackgroundPaint(Color.WHITE);
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setSeriesPaint(0, Color.decode("#10b981"));
-
-        return chart;
+        ChartPanel panel = new ChartPanel(chart);
+        panel.setBackground(Color.WHITE);
+        return panel;
     }
 
-    public JFreeChart createDistribuicaoAtendimentosBarChartPanel(String filtroSala) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> distribuicaoAtendimentos = TabelaEstatisticaDAO.getDistribuicaoAtendimentosPorSala();
+    public ChartPanel createSalaOcupacaoBarChartPanel(
+        LocalDate inicio, LocalDate fim,
+        int horaInicio, int horaFim
+) {
+    DefaultCategoryDataset dsQuantidade = new DefaultCategoryDataset();
+    DefaultCategoryDataset dsPercentual  = new DefaultCategoryDataset();
 
-        if (distribuicaoAtendimentos != null && !distribuicaoAtendimentos.isEmpty()) {
-            long totalAtendimentos = 0;
-
-            for (Object[] row : distribuicaoAtendimentos) {
-                String sala = row[0].toString();
-                if (filtroSala == null || filtroSala.equals("Todos") || sala.equals(filtroSala)) {
-                    totalAtendimentos += (Long) row[1];
-                }
-            }
-
-            for (Object[] row : distribuicaoAtendimentos) {
-                String sala = row[0].toString();
-                Long quantidade = (Long) row[1];
-
-                if (filtroSala == null || filtroSala.equals("Todos") || sala.equals(filtroSala)) {
-                    double percentual = 0;
-                    if (totalAtendimentos > 0) {
-                        percentual = (quantidade.doubleValue() / totalAtendimentos) * 100;
-                    }
-                    dataset.addValue(percentual, "Percentual", sala);
-                }
-            }
-        } else {
-            dataset.addValue(0.0, "Percentual", "Sem dados");
-        }
-
-        JFreeChart chart = ChartFactory.createBarChart(
-                "Distribuição de Atendimentos por Sala",
-                "Sala",
-                "Percentual",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
-        );
-
-        themeStylization(chart);
-
-        this.graficoDistribuicaoAtendimentoDados = chart;
-
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setBackgroundPaint(Color.WHITE);
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setSeriesPaint(0, Color.decode("#10b981"));
-
-        return chart;
+    List<Object[]> raw = GraficosDAO.getDistribuicaoAtendimentosPorSala(
+        inicio, fim, horaInicio, horaFim
+    );
+    long total = raw.stream().mapToLong(r -> (Long) r[1]).sum();
+    for (Object[] row : raw) {
+        String sala = row[0].toString();
+        long qtd    = (Long) row[1];
+        double pct  = total > 0 ? qtd * 100.0 / total : 0;
+        dsQuantidade.addValue(qtd,       "Quantidade", sala);
+        dsPercentual .addValue(pct,       "Percentual", sala);
     }
+
+    // Montagem do gráfico com dois eixos
+    CategoryPlot plot = new CategoryPlot();
+    plot.setDataset(0, dsQuantidade);
+    plot.setRenderer(0, new BarRenderer());
+    plot.setRangeAxis(0, new NumberAxis("Quantidade"));
+
+    plot.setDataset(1, dsPercentual);
+    LineAndShapeRenderer lr = new LineAndShapeRenderer();
+    lr.setDefaultShapesVisible(true);
+    plot.setRenderer(1, lr);
+    NumberAxis pctAxis = new NumberAxis("Percentual (%)");
+    plot.setRangeAxis(1, pctAxis);
+    plot.mapDatasetToRangeAxis(1, 1);
+
+    plot.setDomainAxis(new CategoryAxis("Sala"));
+    plot.setOrientation(PlotOrientation.VERTICAL);
+    plot.setBackgroundPaint(Color.WHITE);
+
+    JFreeChart chart = new JFreeChart(
+        "Ocupação de Salas", JFreeChart.DEFAULT_TITLE_FONT, plot, true
+    );
+    themeStylization(chart);
+    return new ChartPanel(chart);
+}
+
 
     /**
      * @return the tabelaEstatisticaDAO
      */
-    public TabelaEstatisticaDAO getTabelaEstatisticaDAO() {
+    public GraficosDAO getTabelaEstatisticaDAO() {
         return tabelaEstatisticaDAO;
     }
 

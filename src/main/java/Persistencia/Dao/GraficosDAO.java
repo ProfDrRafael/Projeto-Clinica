@@ -9,7 +9,6 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +19,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author john
  */
-public class TabelaEstatisticaDAO {
+public class GraficosDAO {
 
-    private static final Logger logger = LoggerFactory.getLogger(TabelaEstatisticaDAO.class);
+    private static final Logger logger = LoggerFactory.getLogger(GraficosDAO.class);
 
     public static List<Object[]> buscarAtendimentosPorUsuario(Integer estagiarioId) {
         EntityManager em = JPAUtil.getEntityManager();
@@ -113,6 +112,82 @@ public class TabelaEstatisticaDAO {
             result = query.getResultList();
         } catch (IllegalArgumentException e) {
             logger.error("Erro ao buscar atendimentos: ", e);
+            return null;
+        } finally {
+            em.close();
+        }
+        return result;
+    }
+
+    public static List<Object[]> buscarAtendimentosAgendadosVersusRealizados(
+            LocalDate inicio,
+            LocalDate fim,
+            String periodo,
+            String tipoAtendimento,
+            Integer estagiarioId
+    ) {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Object[]> result = new ArrayList<>();
+        try {
+            StringBuilder hql = new StringBuilder("SELECT ");
+
+            switch (periodo) {
+                case "dia" ->
+                    hql.append("a.data, ");
+                case "semana" ->
+                    hql.append("YEAR(a.data), WEEK(a.data), ");
+                case "mês" ->
+                    hql.append("YEAR(a.data), MONTH(a.data), ");
+                case "ano" ->
+                    hql.append("YEAR(a.data), ");
+                default ->
+                    throw new IllegalArgumentException("Período inválido: " + periodo);
+            }
+
+            hql.append("COUNT(CASE WHEN a.comparecimento = false THEN 1 END), ")
+                    .append("COUNT(CASE WHEN a.comparecimento = true THEN 1 END) ")
+                    .append("FROM Atendimento a WHERE 1=1 ");
+
+            if (inicio != null) {
+                hql.append("AND a.data >= :inicio ");
+            }
+            if (fim != null) {
+                hql.append("AND a.data <= :fim ");
+            }
+            if (tipoAtendimento != null && !tipoAtendimento.isEmpty()) {
+                hql.append("AND a.tipoAtendimento = :tipoAtendimento ");
+            }
+            if (estagiarioId != null) {
+                hql.append("AND a.estagiario.id = :estagiarioId ");
+            }
+
+            switch (periodo) {
+                case "dia" ->
+                    hql.append("GROUP BY a.data ORDER BY a.data");
+                case "mês" ->
+                    hql.append("GROUP BY YEAR(a.data), MONTH(a.data) ORDER BY YEAR(a.data), MONTH(a.data)");
+                case "ano" ->
+                    hql.append("GROUP BY YEAR(a.data) ORDER BY YEAR(a.data)");
+            }
+
+            TypedQuery<Object[]> query = em.createQuery(hql.toString(), Object[].class);
+
+            if (inicio != null) {
+                query.setParameter("inicio", inicio);
+            }
+            if (fim != null) {
+                query.setParameter("fim", fim);
+            }
+            if (tipoAtendimento != null && !tipoAtendimento.isEmpty()) {
+                query.setParameter("tipoAtendimento", tipoAtendimento);
+            }
+            if (estagiarioId != null) {
+                query.setParameter("estagiarioId", estagiarioId);
+            }
+
+            result = query.getResultList();
+        } catch (IllegalArgumentException e) {
+            logger.error("Erro ao buscar atendimentos agendados vs realizados: ", e);
             return null;
         } finally {
             em.close();
@@ -326,17 +401,78 @@ public class TabelaEstatisticaDAO {
         return result;
     }
 
-    public static List<Object[]> getOcupacaoSalas() {
+    public static List<Object[]> buscarTempoMedioEspera(LocalDate inicio,
+            LocalDate fim,
+            String periodo,
+            String tipoAtendimento) {
         EntityManager em = JPAUtil.getEntityManager();
-        List<Object[]> result = new ArrayList<>();
         try {
-            String hql = "SELECT a.sala, COUNT(a) FROM Agenda a GROUP BY a.sala ORDER BY COUNT(a) DESC";
+            StringBuilder hql = new StringBuilder();
 
-            result = em.createQuery(hql, Object[].class).getResultList();
+            // SELECT dinâmico
+            hql.append("SELECT ");
+            switch (periodo) {
+                case "dia" ->
+                    hql.append("a.data, ");
+                case "semana" ->
+                    hql.append("YEAR(a.data), FUNCTION('week', a.data), ");
+                case "mês" ->
+                    hql.append("YEAR(a.data), MONTH(a.data), ");
+                case "ano" ->
+                    hql.append("YEAR(a.data), ");
+                default ->
+                    throw new IllegalArgumentException("Período inválido: " + periodo);
+            }
+
+            hql.append("AVG(CAST(FUNCTION('DATEDIFF', a.data, p.dataInscricao) AS integer)) ");
+
+            // FROM e JOINs
+            hql.append("FROM Atendimento a ")
+                    .append("JOIN a.prontuario pr ")
+                    .append("JOIN pr.paciente p ")
+                    .append("WHERE a.data BETWEEN :inicio AND :fim ");
+
+            if (tipoAtendimento != null && !tipoAtendimento.isBlank()) {
+                hql.append("AND a.tipoAtendimento = :tipoAtendimento ");
+            }
+
+            // primeiro atendimento de todos os tempos
+            hql.append("AND a.data = (")
+                    .append("  SELECT MIN(a2.data) ")
+                    .append("  FROM Atendimento a2 ")
+                    .append("  WHERE a2.prontuario = pr")
+                    .append(") ");
+
+            // GROUP BY dinâmico
+            switch (periodo) {
+                case "dia" ->
+                    hql.append("GROUP BY a.data ");
+                case "semana" ->
+                    hql.append("GROUP BY YEAR(a.data), FUNCTION('week', a.data) ");
+                case "mês", "mes" ->
+                    hql.append("GROUP BY YEAR(a.data), MONTH(a.data) ");
+                case "ano" ->
+                    hql.append("GROUP BY YEAR(a.data) ");
+            }
+
+            hql.append("ORDER BY 1");
+
+            // criação da query
+            TypedQuery<Object[]> query = em.createQuery(hql.toString(), Object[].class)
+                    .setParameter("inicio", inicio)
+                    .setParameter("fim", fim);
+
+            if (tipoAtendimento != null && !tipoAtendimento.isBlank()) {
+                query.setParameter("tipoAtendimento", tipoAtendimento);
+            }
+
+            List<Object[]> result = query.getResultList();
+            System.err.println(">> rows: " + result.size());
+            return result;
+
         } finally {
             em.close();
         }
-        return result;
     }
 
     public static List<Object[]> getDistribuicaoAtendimentosPorSala() {
@@ -354,6 +490,28 @@ public class TabelaEstatisticaDAO {
             em.close();
         }
         return result;
+    }
+
+    public static List<Object[]> getDistribuicaoAtendimentosPorSala(
+            LocalDate inicio, LocalDate fim,
+            int horaInicio, int horaFim
+    ) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            String hql = "SELECT a.sala, COUNT(a) "
+                    + "FROM Agenda a "
+                    + "WHERE a.data BETWEEN :inicio AND :fim "
+                    + "AND HOUR(a.hora) BETWEEN :hIni AND :hFim "
+                    + "GROUP BY a.sala ORDER BY a.sala";
+            TypedQuery<Object[]> q = em.createQuery(hql, Object[].class)
+                    .setParameter("inicio", inicio)
+                    .setParameter("fim", fim)
+                    .setParameter("hIni", horaInicio)
+                    .setParameter("hFim", horaFim);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     public static long getTotalPacientesAtivos() {
