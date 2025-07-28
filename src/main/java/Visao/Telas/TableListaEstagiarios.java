@@ -4,8 +4,8 @@
  */
 package Visao.Telas;
 
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
@@ -14,7 +14,7 @@ import javax.swing.JToggleButton;
  *
  * @author john
  */
-public class TableListaEstagiarios extends SimpleForm {
+public class TableListaEstagiarios extends PanelTemplate {
 
     private static final String QUERY_ATIVOS = """
         SELECT e.id, e.nome, e.email, e.ativo, e.ano, e.orientador_id
@@ -31,7 +31,7 @@ public class TableListaEstagiarios extends SimpleForm {
     private final String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Ativo", "Ano", "Orientador"};
     private boolean mostrandoInativos = false;
     private JToggleButton switchToggle;
-    private CreateCustomTable customTable;
+    private Table customTable;
 
     public TableListaEstagiarios() {
         initComponents();
@@ -74,29 +74,41 @@ public class TableListaEstagiarios extends SimpleForm {
     }
 
     private void rebuildTable() {
+        // Lógica existente que você já tem
         String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
-        boolean acaoInativar = mostrandoInativos;  // se mostra ativos, botão inativar; se mostra inativos, botão ativar
+        boolean acaoInativar = mostrandoInativos;
         String botaoLabel = mostrandoInativos ? "Ativar" : "Inativar";
-        String icone = mostrandoInativos ? "/Multimidia/imagens/cadeado.png" : "/Multimidia/icon/cadeado_desbloqueado.png";
+        String iconeNaTabela = mostrandoInativos ? "/Multimidia/imagens/cadeado.png" : "/Multimidia/icon/cadeado_desbloqueado.png";
 
+        // NOVO E CORRIGIDO: Definir o título e o ícone do cabeçalho dinamicamente
+        String titulo = mostrandoInativos ? "Lista de Estagiários Inativos" : "Lista de Estagiários";
+        String iconeLogoPath = mostrandoInativos
+                ? "/Multimidia/imagens/logoListaEstagiariosInativos.png" // Sua imagem para inativos
+                : "/Multimidia/imagens/logoListaEstagiarios.png";      // Sua imagem padrão para ativos
+
+        // NOVO E CORRIGIDO: Atualizar AMBOS os componentes do cabeçalho
+        lbListaEstagiarios.setText(titulo);
+        lblLogoListaEstagiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconeLogoPath)));
+
+        // Lógica existente para reconstruir a tabela
         painel_lista_espera.removeAll();
 
-        customTable = new CreateCustomTable(
+        customTable = new Table(
                 query,
                 tableColumns,
                 "Todos os Estagiários",
                 "Estagiario",
                 acaoInativar,
                 botaoLabel,
-                icone
+                iconeNaTabela
         );
 
         painel_lista_espera.add(
                 customTable.createCustomTable(
                         query,
                         tableColumns,
-                        "Todos os Estagiários",
-                        "Estagiario"
+                        "Estagiario",
+                        null
                 ),
                 BorderLayout.CENTER
         );
@@ -119,7 +131,8 @@ public class TableListaEstagiarios extends SimpleForm {
         tbListaEsperaNaoAtendidos = new javax.swing.JTable();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
-        lbOrientador = new javax.swing.JLabel();
+        lbListaEstagiarios = new javax.swing.JLabel();
+        lblLogoListaEstagiarios = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(950, 650));
         setMinimumSize(new java.awt.Dimension(950, 650));
@@ -173,29 +186,36 @@ public class TableListaEstagiarios extends SimpleForm {
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
         lbClinica.setText("Clínica de Psicologia");
 
-        lbOrientador.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        lbOrientador.setText("Lista de Estagiários");
+        lbListaEstagiarios.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        lbListaEstagiarios.setForeground(new java.awt.Color(255, 255, 255));
+        lbListaEstagiarios.setText("Lista de Estagiários");
+
+        lblLogoListaEstagiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoListaEstagiarios.png"))); // NOI18N
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(lblLogoListaEstagiarios)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
-                    .addComponent(lbOrientador))
-                .addGap(0, 618, Short.MAX_VALUE))
+                    .addComponent(lbListaEstagiarios))
+                .addContainerGap(492, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 67, Short.MAX_VALUE)
-                .addComponent(lbOrientador)
+                .addGap(58, 58, 58)
+                .addComponent(lbListaEstagiarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addComponent(lblLogoListaEstagiarios, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -205,7 +225,8 @@ public class TableListaEstagiarios extends SimpleForm {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
-    private javax.swing.JLabel lbOrientador;
+    private javax.swing.JLabel lbListaEstagiarios;
+    private javax.swing.JLabel lblLogoListaEstagiarios;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_espera;
     private javax.swing.JTable tbListaEsperaNaoAtendidos;

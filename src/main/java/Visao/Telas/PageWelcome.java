@@ -7,7 +7,7 @@ package Visao.Telas;
 import Services.ArticleData;
 import Services.NewsApiService;
 import Visao.Components.Carousel;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JPanel;
@@ -17,7 +17,7 @@ import javax.swing.SwingUtilities;
  *
  * @author john
  */
-public class PageWelcome extends SimpleForm {
+public class PageWelcome extends PanelTemplate {
 
     private JPanel pSouth;
     private Carousel carousel;

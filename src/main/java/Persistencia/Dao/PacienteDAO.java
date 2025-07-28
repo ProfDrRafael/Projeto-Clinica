@@ -20,6 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Persistencia.Dao.JPAUtil.getEntityManager;
+import Persistencia.Entity.Cidade;
+import Persistencia.Entity.Endereco;
+import Persistencia.Entity.Estado;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -301,6 +308,136 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         return pacientesVO;
     }
 
+    public List<Paciente> buscarPorFiltros(PacienteVO filtro) {
+        StringBuilder jpql = new StringBuilder(
+                "SELECT p FROM Paciente p "
+                + "JOIN FETCH p.endereco e "
+                + "JOIN FETCH e.cidade c "
+                + "JOIN FETCH c.estado est "
+                + "LEFT JOIN FETCH p.responsavel r "
+                + "LEFT JOIN FETCH p.nacionalidade n "
+                + "WHERE 1=1"
+        );
+        Map<String, Object> params = new HashMap<>();
 
+        if (filtro.getNome() != null && !filtro.getNome().isEmpty() && !"null".equals(filtro.getNome())) {
+            jpql.append(" AND p.nome LIKE :nome");
+            params.put("nome", "%" + filtro.getNome() + "%");
+        }
+        if (filtro.getProfissao() != null && !filtro.getProfissao().isEmpty() && !"null".equals(filtro.getProfissao())) {
+            jpql.append(" AND p.profissao LIKE :profissao");
+            params.put("profissao", "%" + filtro.getProfissao() + "%");
+        }
+        if (filtro.getResponsavel() != null && filtro.getResponsavel().getNome() != null && !filtro.getResponsavel().getNome().isEmpty() && !"null".equals(filtro.getResponsavel().getNome())) {
+            jpql.append(" AND r.nome LIKE :responsavel");
+            params.put("responsavel", "%" + filtro.getResponsavel().getNome() + "%");
+        }
+
+        Endereco endereco = filtro.getEndereco();
+        if (endereco != null) {
+            if (endereco.getRua() != null && !endereco.getRua().isEmpty() && !"null".equals(endereco.getRua())) {
+                jpql.append(" AND e.rua LIKE :rua");
+                params.put("rua", "%" + endereco.getRua() + "%");
+            }
+            if (endereco.getNumero() != null) {
+                jpql.append(" AND e.numero = :numero");
+                params.put("numero", endereco.getNumero());
+            }
+            if (endereco.getComplemento() != null && !endereco.getComplemento().isEmpty() && !"null".equals(endereco.getComplemento())) {
+                jpql.append(" AND e.complemento LIKE :complemento");
+                params.put("complemento", "%" + endereco.getComplemento() + "%");
+            }
+            if (endereco.getBairro() != null && !endereco.getBairro().isEmpty() && !"null".equals(endereco.getBairro())) {
+                jpql.append(" AND e.bairro LIKE :bairro");
+                params.put("bairro", "%" + endereco.getBairro() + "%");
+            }
+            if (endereco.getCep() != null && !endereco.getCep().isEmpty() && !"null".equals(endereco.getCep())) {
+                jpql.append(" AND e.cep = :cep");
+                params.put("cep", formatarCep(endereco.getCep()));
+            }
+            if (endereco.getCidade() != null) {
+                Cidade cidadeFiltro = filtro.getEndereco().getCidade();
+                if (cidadeFiltro != null) {
+                    if (cidadeFiltro.getId() != null) {
+                        jpql.append(" AND c.id = :cidadeId");
+                        params.put("cidadeId", cidadeFiltro.getId());
+                    }
+
+                    Estado estadoFiltro = cidadeFiltro.getEstado();
+                    if (estadoFiltro != null && estadoFiltro.getId() != null) {
+                        jpql.append(" AND est.id = :estadoId");
+                        params.put("estadoId", estadoFiltro.getId());
+                    }
+                }
+            }
+        }
+
+        if (filtro.getEstadoCivil() != null && !filtro.getEstadoCivil().isEmpty() && !"null".equals(filtro.getEstadoCivil())) {
+            jpql.append(" AND p.estadoCivil = :estadoCivil");
+            params.put("estadoCivil", filtro.getEstadoCivil());
+        }
+        if (filtro.getEstagiario() != null) {
+            jpql.append(" AND p.estagiario.id = :estagiario");
+            params.put("estagiario", filtro.getEstagiario());
+        }
+        if (filtro.getGenero() != null && !filtro.getGenero().isEmpty() && !"null".equals(filtro.getGenero())) {
+            jpql.append(" AND p.genero = :genero");
+            params.put("genero", filtro.getGenero());
+        }
+        if (filtro.getInstrucao() != null && !filtro.getInstrucao().isEmpty() && !"null".equals(filtro.getInstrucao())) {
+            jpql.append(" AND p.grauInstrucao = :instrucao");
+            params.put("instrucao", filtro.getInstrucao());
+        }
+        if (filtro.getNacionalidade() != null) {
+            jpql.append(" AND p.nacionalidade.id = :nacionalidade");
+            params.put("nacionalidade", filtro.getNacionalidade());
+        }
+        if (filtro.getOrientacao() != null && !filtro.getOrientacao().isEmpty() && !"null".equals(filtro.getOrientacao())) {
+            jpql.append(" AND p.orientacaoSexual = :orientacao");
+            params.put("orientacao", filtro.getOrientacao());
+        }
+        if (filtro.getRaca_cor_etnia() != null && !filtro.getRaca_cor_etnia().isEmpty() && !"null".equals(filtro.getRaca_cor_etnia())) {
+            jpql.append(" AND p.racaCorEtnia = :racaCorEtnia");
+            params.put("racaCorEtnia", filtro.getRaca_cor_etnia());
+        }
+        if (filtro.getDataNascimento() != null && !filtro.getDataNascimento().isEmpty() && !"null".equals(filtro.getDataNascimento())) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate dataNascimento = LocalDate.parse(filtro.getDataNascimento(), formatter);
+
+                jpql.append(" AND p.dataNascimento = :dataNascimento");
+                params.put("dataNascimento", dataNascimento);
+            } catch (DateTimeParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if (filtro.getDataInscricao() != null) {
+            jpql.append(" AND p.dataInscricao = :dataInscricao");
+            params.put("dataInscricao", filtro.getDataInscricao());
+        }
+        jpql.append(" AND p.atendido = :atendido");
+        params.put("atendido", filtro.isAtendido());
+
+        jpql.append(" AND p.ativo = :ativo");
+        params.put("ativo", filtro.isAtivo());
+
+        // Imprime antes de criar a query
+        System.out.println("JPQL gerada:");
+        System.out.println(jpql.toString());
+
+        System.out.println("Parâmetros:");
+        params.forEach((chave, valor) -> System.out.println(chave + " = " + valor));
+
+        TypedQuery<Paciente> query = getEntityManager().createQuery(jpql.toString(), Paciente.class);
+        params.forEach(query::setParameter);
+        return query.getResultList();
+    }
+
+    public static String formatarCep(String cep) {
+        if (cep == null || cep.length() != 8) {
+            return cep;
+        }
+        return cep.substring(0, 2) + "." + cep.substring(2, 5) + "-" + cep.substring(5);
+    }
 
 }

@@ -10,7 +10,7 @@ import Regradenegocio.EstagiarioRN;
 import Regradenegocio.OrientadorRN;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author john
  */
-public class FormEstagiario extends SimpleForm {
+public class FormEstagiario extends PanelTemplate {
 
     private final MessagesAlert messagesAlert;
 

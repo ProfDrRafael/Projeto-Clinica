@@ -43,7 +43,7 @@ public class Paciente {
     @ColumnDefault("'Heterossexual'")
     @Lob
     @Column(name = "orientacao_sexual")
-    private String orientacao_sexual;
+    private String orientacaoSexual;
 
     @Lob
     @Column(name = "estado_civil")
@@ -81,6 +81,14 @@ public class Paciente {
     @ColumnDefault("0")
     @Column(name = "grupo")
     private Byte grupo;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orientador_id")
+    private Persistencia.Entity.Orientador orientador;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estagiario_id")
+    private Persistencia.Entity.Estagiario estagiario;
 
     public Integer getId() {
         return id;
@@ -237,17 +245,46 @@ public class Paciente {
     
 
     /**
-     * @return the orientacao_sexual
+     * @return the orientacaoSexual
      */
-    public String getOrientacao_sexual() {
-        return orientacao_sexual;
+    public String getOrientacaoSexual() {
+        return orientacaoSexual;
     }
 
     /**
-     * @param orientacao_sexual the orientacao_sexual to set
+     * @param orientacaoSexual the orientacaoSexual to set
      */
-    public void setOrientacao_sexual(String orientacao_sexual) {
-        this.orientacao_sexual = orientacao_sexual;
+    public void setOrientacaoSexual(String orientacaoSexual) {
+        this.orientacaoSexual = orientacaoSexual;
+    }
+    
+    
+    /**
+     * @return the orientador
+     */
+    public Persistencia.Entity.Orientador getOrientador() {
+        return orientador;
+    }
+
+    /**
+     * @param orientador the orientador to set
+     */
+    public void setOrientador(Persistencia.Entity.Orientador orientador) {
+        this.orientador = orientador;
+    }
+
+    /**
+     * @return the estagiario
+     */
+    public Persistencia.Entity.Estagiario getEstagiario() {
+        return estagiario;
+    }
+
+    /**
+     * @param estagiario the estagiario to set
+     */
+    public void setEstagiario(Persistencia.Entity.Estagiario estagiario) {
+        this.estagiario = estagiario;
     }
 
     @Override

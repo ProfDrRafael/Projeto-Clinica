@@ -7,10 +7,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.AttributedString;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +27,6 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.entity.PieSectionEntity;
 import org.jfree.chart.labels.PieSectionLabelGenerator;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.Plot;
@@ -135,7 +134,7 @@ public class GraficosRN {
     //========================================
     public ChartPanel createEvolucaoAtendimentoChartPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        List<Object[]> atendimentos = GraficosDAO.buscarAtendimentosPorUsuario(null);
+        List<Object[]> atendimentos = GraficosDAO.buscarAtendimentosPorUsuario(null);   
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         if (atendimentos != null && !atendimentos.isEmpty()) {
             Map<String, Integer> dataCount = new HashMap<>();
@@ -176,8 +175,17 @@ public class GraficosRN {
     }
 
     public ChartPanel createEvolucaoAtendimentoChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
+        System.out.println("=== DEBUG createEvolucaoAtendimentoChartPanel (com filtros) ===");
+        System.out.println("Parâmetros recebidos:");
+        System.out.println("  - Data início: " + inicio);
+        System.out.println("  - Data fim: " + fim);
+        System.out.println("  - Período: " + periodo);
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<Object[]> atendimentos = GraficosDAO.buscarEvolucaoAtendimentos(inicio, fim, periodo);
+        
+        System.out.println("=== DEBUG createEvolucaoAtendimentoChartPanel (com filtros) ===");
+        System.out.println("  - Retorno do DAO: " + atendimentos);
 
         for (Object[] row : atendimentos) {
             String label;
@@ -281,7 +289,7 @@ public class GraficosRN {
     public ChartPanel createAgendadosVSRealizadosChartPanel(LocalDate inicio, LocalDate fim, String periodo, String tipoAtendimento) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<Object[]> result = GraficosDAO.buscarAtendimentosAgendadosVersusRealizados(inicio, fim, periodo, tipoAtendimento, null);
-
+        
         if (result != null && !result.isEmpty()) {
             for (Object[] row : result) {
                 String label;
@@ -354,7 +362,7 @@ public class GraficosRN {
     public ChartPanel createPacientesListaEsperaChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<Object[]> evolucaoLista = GraficosDAO.getEvolucaoListaEspera(inicio, fim, periodo);
-
+        
         SimpleDateFormat format;
         switch (periodo) {
             case "dia" ->
@@ -371,7 +379,7 @@ public class GraficosRN {
 
         for (Object[] row : evolucaoLista) {
             String label;
-
+           
             switch (periodo) {
                 case "dia" -> {
                     Date data = (Date) row[0];
@@ -508,9 +516,17 @@ public class GraficosRN {
     }
 
     public ChartPanel createTempoMedioAtendimentoChartPanel(LocalDate inicio, LocalDate fim, String periodo, String tipoAtendimento) {
+        System.out.println("=== DEBUG createTempoMedioAtendimentoChartPanel (com filtros) ===");
+        System.out.println("Parâmetros recebidos:");
+        System.out.println("  - Data início: " + inicio);
+        System.out.println("  - Data fim: " + fim);
+        System.out.println("  - Período: " + periodo);
+        System.out.println("  - Tipo de Atendimento: " + tipoAtendimento);
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<Object[]> result = GraficosDAO.buscarTempoMedioEspera(inicio, fim, periodo, tipoAtendimento);
-        System.err.println("QUERY:::" + result);
+        System.out.println("=== DEBUG createTempoMedioAtendimentoChartPanel (com filtros) ===");
+        System.err.println("RESULTADO DO DAO:::" + result);
         if (result != null && !result.isEmpty()) {
             for (Object[] row : result) {
                 String label;
@@ -798,8 +814,17 @@ public class GraficosRN {
     }
 
     public ChartPanel createPacienteComparecimentoBarChartPanel(LocalDate inicio, LocalDate fim, String periodo) {
+        System.out.println("=== DEBUG createPacienteComparecimentoBarChartPanel (com filtros) ===");
+        System.out.println("Parâmetros recebidos:");
+        System.out.println("  - Data início: " + inicio);
+        System.out.println("  - Data fim: " + fim);
+        System.out.println("  - Período: " + periodo);
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<Object[]> taxasComparecimento = GraficosDAO.getTaxaComparecimentoPorPeriodo(inicio, fim, periodo);
+        
+        System.out.println("=== DEBUG createPacienteComparecimentoBarChartPanel (com filtros) ===");
+        System.out.println("  - RETORNO DO DAO: " + taxasComparecimento);
 
         SimpleDateFormat format;
         switch (periodo) {

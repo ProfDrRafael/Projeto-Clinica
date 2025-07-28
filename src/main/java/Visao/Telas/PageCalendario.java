@@ -8,7 +8,7 @@ import Regradenegocio.AgendaRN;
 import Regradenegocio.SessaoRN;
 import VO.AgendaVO;
 import VO.SessaoVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.BorderLayout;
@@ -39,7 +39,7 @@ import javax.swing.SwingConstants;
  *
  * @author otniel
  */
-public class PageCalendario extends SimpleForm {
+public class PageCalendario extends PanelTemplate {
 
     private YearMonth currentYearMonth;
     private Map<LocalDate, List<AgendaVO>> agendamentos;
@@ -63,6 +63,7 @@ public class PageCalendario extends SimpleForm {
 
         carregarAgendamentosDoBanco(sessao.buscarUltimaSessao());
         updateCalendar();
+        configureTheme();
     }
 
     /**
@@ -321,7 +322,48 @@ public class PageCalendario extends SimpleForm {
     private javax.swing.JPanel pnPageCalendario;
     // End of variables declaration//GEN-END:variables
 
-   
+    private void configureTheme() {
+        // 1. Força o painel de fundo a SEGUIR o tema
+        pnPageCalendario.putClientProperty(FlatClientProperties.STYLE, "background: null");
+
+        // 2. FORÇA os painéis internos a IGNORAREM o tema, mantendo o fundo claro.
+        Color fundoClaro = new Color(242, 242, 242);
+
+        // Blindando o Cabeçalho
+        pnCabecalho.setOpaque(true);
+        pnCabecalho.setBackground(fundoClaro);
+
+        // Blindando a Grade do Calendário
+        pnCalendario.setOpaque(true);
+        pnCalendario.setBackground(Color.WHITE);
+
+        // Blindando a Área de Agendamentos
+        pnAgendamentos.setOpaque(true);
+        pnAgendamentos.setBackground(fundoClaro);
+        pnHorarios.setOpaque(true);
+        pnHorarios.setBackground(fundoClaro);
+        jScrollPane1.getViewport().setBackground(Color.WHITE);
+        jScrollPane2.getViewport().setBackground(fundoClaro);
+        jTextArea1.setBackground(Color.WHITE);
+
+        // 3. NOVO: AJUSTA A COR DAS FONTES DENTRO DOS PAINÉIS BLINDADOS
+        if (com.formdev.flatlaf.FlatLaf.isLafDark()) {
+            // Se o tema for escuro, fontes ficam claras
+            Color fonteClara = new Color(200, 200, 200); // Um cinza bem claro
+            lbAgendamentos.setForeground(fonteClara);
+            jLabel1.setForeground(fonteClara); // "Horários disponíveis:"
+            lbMesAno.setForeground(fonteClara);
+            jTextArea1.setForeground(fonteClara);
+
+        } else {
+            // Se o tema for claro, fontes ficam escuras
+            Color fonteEscura = Color.BLACK;
+            lbAgendamentos.setForeground(fonteEscura);
+            jLabel1.setForeground(fonteEscura);
+            lbMesAno.setForeground(fonteEscura);
+            jTextArea1.setForeground(fonteEscura);
+        }
+    }
 
     private void navigateMonth(int months) {
         currentYearMonth = months > 0
@@ -380,22 +422,33 @@ public class PageCalendario extends SimpleForm {
         JLabel lblDia = new JLabel(String.valueOf(dia), SwingConstants.CENTER);
         lblDia.setFont(new Font("Arial", Font.PLAIN, 14));
 
+        //Define a cor da fonte do número do dia como preta
+        lblDia.setForeground(Color.BLACK);
+
         if (isOutroMes) {
-            panel.setBackground(new Color(230, 230, 230, 255)); // Cinza claro para dias de outros meses
+            panel.setBackground(new Color(245, 245, 245)); // Um cinza bem claro
             lblDia.setForeground(Color.GRAY);
         } else if (data.equals(hoje)) {
-            panel.setBackground(COR_DIA_HOJE); // Azul claro para hoje
+            panel.setBackground(COR_DIA_HOJE);
         } else if (agendamentos.containsKey(data)) {
-            panel.setBackground(COR_AGENDAMENTO); // Verde claro para consultas
+            panel.setBackground(COR_AGENDAMENTO);
+        } else {
+            // ADICIONE ESTE ELSE PARA GARANTIR O FUNDO BRANCO NOS DIAS NORMAIS
+            panel.setBackground(Color.WHITE);
         }
 
         // Adicionar o número de consultas
         if (agendamentos.containsKey(data)) {
-            JLabel lblConsultas = new JLabel(agendamentos.get(data).size() > 1 ? agendamentos.get(data).size() + " consultas" : agendamentos.get(data).size() + " consulta", SwingConstants.CENTER);
+            int numConsultas = agendamentos.get(data).size();
+            String textoConsultas = (numConsultas > 1) ? numConsultas + " consultas" : numConsultas + " consulta";
+            JLabel lblConsultas = new JLabel(textoConsultas, SwingConstants.CENTER);
             lblConsultas.setFont(new Font("Arial", Font.ITALIC, 10));
+
+            // NOVO: Define a cor da fonte do texto de consultas como preta
+            lblConsultas.setForeground(Color.BLACK);
+
             panel.add(lblConsultas, BorderLayout.SOUTH);
         }
-
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -468,7 +521,12 @@ public class PageCalendario extends SimpleForm {
 
         // Bloqueia dias passados
         if (data.isBefore(LocalDate.now())) {
-            pnHorarios.add(new JLabel("Não é possível agendar para datas passadas."));
+            JLabel lblMsg = new JLabel("Não é possível agendar para datas passadas.");
+            // NOVO: Define a cor da fonte da mensagem
+            if (com.formdev.flatlaf.FlatLaf.isLafDark()) {
+                lblMsg.setForeground(new Color(200, 200, 200));
+            }
+            pnHorarios.add(lblMsg);
             pnHorarios.revalidate();
             pnHorarios.repaint();
             return;
@@ -528,13 +586,16 @@ public class PageCalendario extends SimpleForm {
         }
 
         if (!encontrouHorario) {
-            pnHorarios.add(new JLabel("Nenhum horário disponível para esta sala."));
+            JLabel lblMsg = new JLabel("Nenhum horário disponível para esta sala.");
+            // NOVO: Define a cor da fonte da mensagem
+            if (com.formdev.flatlaf.FlatLaf.isLafDark()) {
+                lblMsg.setForeground(new Color(200, 200, 200));
+            }
+            pnHorarios.add(lblMsg);
         }
 
         pnHorarios.revalidate();
         pnHorarios.repaint();
     }
-    
-    
 
 }

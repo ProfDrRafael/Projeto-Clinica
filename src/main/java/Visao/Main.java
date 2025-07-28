@@ -75,6 +75,9 @@ public class Main extends JFrame {
         // Chama o método de logout, que provavelmente limpa a sessão ou volta para uma tela de login
         FormManager.logout();
         
+        // LOGIN DE ADMIN PARA FINS DE TESTE
+        //FormManager.login();
+        
         // Comentário de código que pode ser utilizado para alterar a orientação dos componentes para direita-esquerda (opcional)
         // applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }

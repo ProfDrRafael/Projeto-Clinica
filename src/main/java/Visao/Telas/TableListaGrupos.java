@@ -6,8 +6,8 @@ package Visao.Telas;
 
 import Persistencia.Entity.Grupo;
 import Regradenegocio.GrupoRN;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author john
  */
-public class TableListaGrupos extends SimpleForm {
+public class TableListaGrupos extends PanelTemplate {
 
     /**
      * Creates new form listaEsperaTable
@@ -32,9 +32,9 @@ public class TableListaGrupos extends SimpleForm {
         boolean acao_ativar_ou_inativar = false;
 
         // Cria e adiciona a tabela customizada
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Grupos", "Grupo", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Grupos", "Grupo", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
         painel_lista_grupos.setLayout(new BorderLayout());
-        painel_lista_grupos.add(customTable.createCustomTable(queryTable, tableColumns, "Grupos", "Grupo"), BorderLayout.CENTER);
+        painel_lista_grupos.add(customTable.createCustomTable(queryTable, tableColumns, "Grupo", null), BorderLayout.CENTER);
     }
 
     /**
@@ -52,10 +52,11 @@ public class TableListaGrupos extends SimpleForm {
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbTitulo = new javax.swing.JLabel();
+        lbLogoGruposDois = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1000, 768));
-        setMinimumSize(new java.awt.Dimension(1000, 768));
-        setPreferredSize(new java.awt.Dimension(1000, 768));
+        setMaximumSize(new java.awt.Dimension(950, 630));
+        setMinimumSize(new java.awt.Dimension(950, 630));
+        setPreferredSize(new java.awt.Dimension(950, 630));
         setLayout(new java.awt.BorderLayout());
 
         painel_lista_grupos.setBackground(new java.awt.Color(255, 255, 255));
@@ -107,25 +108,33 @@ public class TableListaGrupos extends SimpleForm {
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lbTitulo.setText("Lista de Grupos");
 
+        lbLogoGruposDois.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoGrupos.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lbLogoGruposDois)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbTitulo))
-                .addGap(0, 631, Short.MAX_VALUE))
+                .addGap(0, 504, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 67, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(lbTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(lbLogoGruposDois, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -135,6 +144,7 @@ public class TableListaGrupos extends SimpleForm {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbLogoGruposDois;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_grupos;

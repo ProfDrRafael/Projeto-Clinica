@@ -1,4 +1,4 @@
-package Persistencia.modelTemp;
+package Persistencia.Model;
 
 import VO.UsuarioVO;
 

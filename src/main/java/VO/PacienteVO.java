@@ -47,6 +47,10 @@ public class PacienteVO {
     private boolean ativo;
     private Byte grupo; // Campo adicional para grupo
 
+    public PacienteVO(){
+        // Preencher manualmente
+    }
+    
     // Construtor com todos os campos como argumentos
     public PacienteVO(
             String genero,
@@ -312,6 +316,14 @@ public class PacienteVO {
         this.grupo = grupo;
     }
 
+    public LocalDate getDataInscricao() {
+        return dataInscricao;
+    }
+
+    public void setDataInscricao(LocalDate dataInscricao) {
+        this.dataInscricao = dataInscricao;
+    }
+
     // Método de conversão de Entity para VO
     public static PacienteVO fromEntity(Paciente entity) {
         return new PacienteVO(
@@ -363,7 +375,7 @@ public class PacienteVO {
         paciente.setDisponibilidade(disponibilidade);
         paciente.setEndereco(endereco);
         paciente.setResponsavel(responsavel);
-        paciente.setOrientacao_sexual(orientacao);
+        paciente.setOrientacaoSexual(orientacao);
         paciente.setAtendido(this.atendido);
         paciente.setAtivo(this.ativo);
         paciente.setGrupo(this.grupo);
@@ -391,7 +403,30 @@ public class PacienteVO {
 
     @Override
     public String toString() {
-        return this.nome;
+        return "PacienteVO{"
+                + "id=" + id
+                + ", nome='" + nome + '\''
+                + ", genero='" + genero + '\''
+                + ", celularContato='" + celularContato + '\''
+                + ", celular='" + celular + '\''
+                + ", paciente='" + paciente + '\''
+                + ", dataNascimento='" + dataNascimento + '\''
+                + ", dataInscricao=" + dataInscricao
+                + ", instrucao='" + instrucao + '\''
+                + ", profissao='" + profissao + '\''
+                + ", estadoCivil='" + estadoCivil + '\''
+                + ", raca_cor_etnia='" + raca_cor_etnia + '\''
+                + ", orientacao='" + orientacao + '\''
+                + ", nacionalidade=" + nacionalidade
+                + ", disponibilidade='" + disponibilidade + '\''
+                + ", estagiario=" + estagiario
+                + ", orientador=" + orientador
+                + ", endereco=" + (endereco != null ? endereco.toString() : "null")
+                + ", responsavel=" + (responsavel != null ? responsavel.toString() : "null")
+                + ", atendido=" + atendido
+                + ", ativo=" + ativo
+                + ", grupo=" + grupo
+                + '}';
     }
 
 }

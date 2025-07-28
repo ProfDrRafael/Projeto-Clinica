@@ -2,6 +2,7 @@ package Visao.JframeManager;
 
 import Regradenegocio.SessaoRN;
 import Services.AutenticacaoService;
+import VO.AdministradorVO;
 import VO.SessaoVO;
 import VO.UsuarioVO;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange; // Utilitário para mudanças de temas com animações
@@ -9,8 +10,8 @@ import com.formdev.flatlaf.extras.FlatAnimatedLafChange; // Utilitário para mud
 import java.awt.*;
 import javax.swing.*;
 
-import Visao.Components.MainForm; // Componente principal do formulário
-import Visao.Components.SimpleForm; // Classe base para formulários simples
+import Visao.Components.NavigationBar; // Componente principal do formulário
+import Visao.Components.PanelTemplate; // Classe base para formulários simples
 import Visao.Slider.PanelSlider; // Painel que implementa transições deslizantes
 import Visao.Slider.SimpleTransition; // Transições simples para o PanelSlider
 import Visao.Utils.UndoRedo;
@@ -34,12 +35,12 @@ public class FormManager {
     private static FormManager instance; // Instância única da classe (Singleton)
     private final JFrame frame; // Janela principal da aplicação
 
-    private final UndoRedo<SimpleForm> forms = new UndoRedo<>(); // Controle de formulários com funções de desfazer/refazer
+    private final UndoRedo<PanelTemplate> forms = new UndoRedo<>(); // Controle de formulários com funções de desfazer/refazer
 
     private boolean menuShowing = true; // Estado atual do menu (se está visível ou não)
     private final PanelSlider panelSlider; // Painel que implementa as transições entre menu e formulários
-    private final MainForm mainForm; // Formulário principal da aplicação
-    private final Menu menu; // Menu lateral da aplicação
+    private final NavigationBar mainForm; // Formulário principal da aplicação
+    private final Sidebar menu; // Sidebar lateral da aplicação
     private final boolean undecorated; // Define se a janela está sem decoração (barra de título, bordas)
 
     /**
@@ -63,8 +64,8 @@ public class FormManager {
     private FormManager(JFrame frame, boolean undecorated) {
         this.frame = frame; // Associa a janela principal
         panelSlider = new PanelSlider(); // Inicializa o painel deslizante
-        mainForm = new MainForm(undecorated); // Inicializa o formulário principal
-        menu = new Menu(new MyDrawerBuilder()); // Inicializa o menu com um Drawer personalizado
+        mainForm = new NavigationBar(undecorated); // Inicializa o formulário principal
+        menu = new Sidebar(new SidebarContent()); // Inicializa o menu com um Drawer personalizado
         this.undecorated = undecorated; // Define se a janela é decorada
     }
 
@@ -84,12 +85,12 @@ public class FormManager {
      *
      * @param component Formulário a ser exibido
      */
-    public static void showForm(SimpleForm component) {
+    public static void showForm(PanelTemplate component) {
         if (!isNewFormAble()) {
             return;
         }
 
-        SimpleForm atual = instance.forms.getCurrent();
+        PanelTemplate atual = instance.forms.getCurrent();
         // Se já estamos exibindo um formulário do mesmo tipo, não empilha de novo
         if (atual != null && atual.getClass().equals(component.getClass())) {
             // Apenas reaplica/transiciona para o mesmo form sem empilhar
@@ -131,7 +132,7 @@ public class FormManager {
      *
      * @param esqueciSenha
      */
-    public static void EsqueciSenha(SimpleForm esqueciSenha) {
+    public static void EsqueciSenha(PanelTemplate esqueciSenha) {
         FlatAnimatedLafChange.showSnapshot();
 
         // Esconde a tela atual com fade-out
@@ -193,7 +194,9 @@ public class FormManager {
 
     public static void loading(PageProgressBar telaLoading) {
         instance.frame.getContentPane().removeAll();
-        
+
+        instance.frame.getContentPane().setLayout(new MigLayout("fill", "[]", "[]"));
+
         instance.frame.getContentPane().add(telaLoading, "grow");
 
         instance.frame.revalidate();
@@ -223,8 +226,8 @@ public class FormManager {
             new SessaoRN().salvarSessao(sessao);
 
             // Configura o menu dinamicamente com base no tipo do usuário
-            MyDrawerBuilder drawerBuilder = (MyDrawerBuilder) instance.menu.getDrawerBuilder();
-            
+            SidebarContent drawerBuilder = (SidebarContent) instance.menu.getDrawerBuilder();
+
             drawerBuilder.setUser(user); // Define o usuário no menu
 
             // Exibe a interface principal
@@ -234,7 +237,44 @@ public class FormManager {
 
             FormManager.showForm(new PageWelcome());
 
-        
+        });
+    }
+    
+    // Login para testes
+    public static void login() {
+        FlatAnimatedLafChange.showSnapshot();
+
+        SwingUtilities.invokeLater(() -> {
+            instance.frame.getContentPane().removeAll();
+            instance.frame.getContentPane().setLayout(new BorderLayout());
+            instance.frame.getContentPane().add(instance.panelSlider);
+            
+            String nome = "admin";
+            String email = "admin@admin.com";
+            String senha = "senha";
+
+            SessaoVO sessao = new SessaoVO();
+            sessao.setId(null);
+            sessao.setNome("admin");
+            sessao.setEmail("admin@admin.com");
+            sessao.setTipo("Administrador");
+
+            new SessaoRN().salvarSessao(sessao);
+            
+            UsuarioVO user = new AdministradorVO(1, nome, email, senha);
+
+            // Configura o menu dinamicamente com base no tipo do usuário
+            SidebarContent drawerBuilder = (SidebarContent) instance.menu.getDrawerBuilder();
+
+            drawerBuilder.setUser(user); // Define o usuário no menu
+
+            // Exibe a interface principal
+            instance.frame.repaint();
+            instance.frame.revalidate();
+            FlatAnimatedLafChange.hideSnapshotWithAnimation();
+
+            FormManager.showForm(new PageWelcome());
+
         });
     }
 
@@ -292,7 +332,7 @@ public class FormManager {
      *
      * @return Objeto de controle de desfazer/refazer para formulários.
      */
-    public static UndoRedo<SimpleForm> getForms() {
+    public static UndoRedo<PanelTemplate> getForms() {
         return instance.forms; // Retorna a pilha de formulários
     }
 
@@ -312,8 +352,8 @@ public class FormManager {
      * aparência (look and feel).
      */
     public static void updateTempFormUI() {
-        // 1) atualiza cada SimpleForm registrado
-        for (SimpleForm f : instance.forms) {
+        // 1) atualiza cada PanelTemplate registrado
+        for (PanelTemplate f : instance.forms) {
             SwingUtilities.updateComponentTreeUI(f);
         }
         // 2) atualiza TODO o restante da UI: frame, panelSlider, mainForm, menus, etc.
@@ -324,11 +364,11 @@ public class FormManager {
 
     public static void reloadCurrentForm() {
         if (!instance.menuShowing && instance.forms.getCurrent() != null) {
-            SimpleForm currentForm = instance.forms.getCurrent();
+            PanelTemplate currentForm = instance.forms.getCurrent();
 
             if (isNewFormAble()) {
                 try {
-                    SimpleForm newForm = currentForm.getClass().getDeclaredConstructor().newInstance();
+                    PanelTemplate newForm = currentForm.getClass().getDeclaredConstructor().newInstance();
 
                     showForm(newForm);
 

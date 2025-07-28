@@ -15,7 +15,7 @@ import raven.drawer.component.DrawerPanel; // Painel que representa o conteúdo 
  * 
  * @author Raven
  */
-public class Menu extends JPanel {
+public class Sidebar extends JPanel {
 
     private final DrawerBuilder drawerBuilder; // Construtor do painel de menu
 
@@ -33,7 +33,7 @@ public class Menu extends JPanel {
      * 
      * @param drawerBuilder O construtor para o painel lateral do menu
      */
-    public Menu(DrawerBuilder drawerBuilder) {
+    public Sidebar(DrawerBuilder drawerBuilder) {
         this.drawerBuilder = drawerBuilder; // Inicializa o construtor do menu
         init(); // Chama o método de inicialização
     }

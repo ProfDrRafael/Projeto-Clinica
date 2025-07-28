@@ -10,14 +10,14 @@ import Persistencia.Entity.Orientador;
 import Regradenegocio.SessaoRN;
 import Services.SenhaService;
 import VO.SessaoVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import javax.swing.*;
 
 /**
  *
  * @author otnie
  */
-public class PageConfiguracoes extends SimpleForm {
+public class PageConfiguracoes extends PanelTemplate {
 
     /**
      * Creates new form PageConfiguracoes

@@ -10,6 +10,7 @@ import Persistencia.Entity.Prontuario;
 import Persistencia.Entity.Paciente;
 import VO.PacienteVO;
 import VO.ProntuarioEletronicoVO;
+import java.time.LocalDate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,5 +90,9 @@ public class PacienteRN {
 
     public List<PacienteVO> listarPacientesSemAtendimento() {
         return pacienteDAO.listarPacientesSemAtendimento();
+    }
+    
+    public List<Paciente> filtrarPacientes(PacienteVO filtro) {
+        return pacienteDAO.buscarPorFiltros(filtro);
     }
 }

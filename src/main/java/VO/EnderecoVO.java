@@ -13,19 +13,20 @@ import Persistencia.Entity.Endereco;
  * @author john
  */
 public class EnderecoVO {
+
     private Integer id;
     private String rua;
     private Integer numero;
     private String bairro;
-    private Integer cidadeId; 
+    private Integer cidadeId;
     private String cep;
     private String complemento;
 
     // Construtor vazio
     public EnderecoVO() {
     }
-    
-     // Construtor sem id
+
+    // Construtor sem id
     public EnderecoVO(String rua, Integer numero, String bairro, Integer cidadeId, String cep, String complemento) {
         this.rua = rua;
         this.numero = numero;
@@ -44,6 +45,18 @@ public class EnderecoVO {
         this.cidadeId = cidadeId;
         this.cep = cep;
         this.complemento = complemento;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Endereço [Rua: %s, Número: %s, Bairro: %s, CidadeID: %s, CEP: %s, Complemento: %s]",
+                rua != null ? rua : "-",
+                numero != null ? numero : "-",
+                bairro != null ? bairro : "-",
+                cidadeId != null ? cidadeId : "-",
+                cep != null ? cep : "-",
+                complemento != null ? complemento : "-"
+        );
     }
 
     /**
@@ -143,24 +156,24 @@ public class EnderecoVO {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-    
+
     // Método de conversão de Entity para VO
     public static EnderecoVO fromEntity(Endereco entity) {
         return new EnderecoVO(
-            entity.getId(),
-            entity.getRua(),
-            entity.getNumero(),
-            entity.getBairro(),
-            entity.getCidade().getId(),
-            entity.getCep(),
-            entity.getComplemento()
+                entity.getId(),
+                entity.getRua(),
+                entity.getNumero(),
+                entity.getBairro(),
+                entity.getCidade().getId(),
+                entity.getCep(),
+                entity.getComplemento()
         );
     }
 
     // Método de conversão de VO para Entity
     public Endereco toEntity() {
         Cidade cidadeBusca = CidadeDAO.buscarPorNome(cidadeId);
-        
+
         var endereco = new Endereco();
         endereco.setId(id);
         endereco.setRua(rua);
@@ -175,7 +188,7 @@ public class EnderecoVO {
     // Método para atualizar uma entidade existente
     public void updateEntity(Endereco entity) {
         Cidade cidadeBusca = CidadeDAO.buscarPorNome(cidadeId);
-        
+
         entity.setId(id);
         entity.setRua(rua);
         entity.setNumero(numero);

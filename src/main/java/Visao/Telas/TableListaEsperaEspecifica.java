@@ -3,15 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
+import Visao.JframeManager.FormManager;
 import java.awt.BorderLayout;
+import javax.swing.JButton;
 
 /**
  *
  * @author john
  */
-public class TableListaEsperaEspecifica extends SimpleForm {
+public class TableListaEsperaEspecifica extends PanelTemplate {
         
     /**
      * Creates new form listaEsperaTable
@@ -20,17 +22,21 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         initComponents();
      
         String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil", "Data Inscrição", "Disponiblidade"};
-        String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil, data_inscricao, disponibilidade FROM paciente";
+        String queryTable = "SELECT p.id as paciente_id, p.nome, p.telefone, p.data_nascimento, p.genero, p.estado_civil, p.data_inscricao, p.disponibilidade "
+                + "FROM paciente p "
+                + "INNER JOIN prontuario pr ON pr.paciente_id = p.id " 
+                + "INNER JOIN atendimento a ON a.prontuario_id = pr.id";
+        
         boolean acao_ativar_ou_inativar = false;
     
 
         
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout()); 
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente"), BorderLayout.CENTER);
-    }
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", null), BorderLayout.CENTER);
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,6 +51,7 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListaEsperaEspecifica = new javax.swing.JTable();
         pNorth = new javax.swing.JPanel();
+        btnTrocar = new javax.swing.JButton();
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
         lbLogoEspecifica = new javax.swing.JLabel();
@@ -79,23 +86,30 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         painel_lista_espera.setLayout(painel_lista_esperaLayout);
         painel_lista_esperaLayout.setHorizontalGroup(
             painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_lista_esperaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_lista_esperaLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 944, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(22, 22, 22))
         );
         painel_lista_esperaLayout.setVerticalGroup(
             painel_lista_esperaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_lista_esperaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         add(painel_lista_espera, java.awt.BorderLayout.CENTER);
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
         pNorth.setPreferredSize(new java.awt.Dimension(638, 183));
+
+        btnTrocar.setText("Ir Para Lista de Geral");
+        btnTrocar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrocarActionPerformed(evt);
+            }
+        });
 
         lbClinica.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,13 +128,19 @@ public class TableListaEsperaEspecifica extends SimpleForm {
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbLogoEspecifica)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbOrientador)
                     .addGroup(pNorthLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lbClinica)))
-                .addGap(0, 429, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbOrientador)
+                            .addGroup(pNorthLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lbClinica)))
+                        .addGap(0, 431, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTrocar)
+                        .addContainerGap())))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,14 +152,21 @@ public class TableListaEsperaEspecifica extends SimpleForm {
                 .addComponent(lbOrientador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
+                .addGap(31, 31, 31)
+                .addComponent(btnTrocar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTrocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarActionPerformed
+       FormManager.showForm(new TableListaEsperaGeral());
+    }//GEN-LAST:event_btnTrocarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTrocar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbLogoEspecifica;
