@@ -96,38 +96,50 @@ public class TableListaUsuarios extends SimpleForm {
      * Remove o conteúdo antigo e recria CreateCustomTable com a query adequada.
      */
     private void rebuildTable() {
-        String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
-        boolean acaoInativar = mostrandoInativos;                // true = inativar, false = ativar
-        String botaoLabel = mostrandoInativos ? "Ativar" : "Inativar";
-        String icone = mostrandoInativos
-                ? "/Multimidia/imagens/cadeado.png"
-                : "/Multimidia/icon/cadeado_desbloqueado.png";
+           // Lógica existente que você já tem
+    String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
+    boolean acaoInativar = mostrandoInativos;
+    String botaoLabel = mostrandoInativos ? "Ativar" : "Inativar";
+    String iconeNaTabela = mostrandoInativos
+            ? "/Multimidia/imagens/cadeado.png"
+            : "/Multimidia/icon/cadeado_desbloqueado.png";
 
-        painel_lista_espera.removeAll();
+    // NOVO: Definir o título e o ícone do cabeçalho dinamicamente
+    String titulo = mostrandoInativos ? "Lista de Usuários Inativos" : "Lista de Usuários";
+    String iconeLogoPath = mostrandoInativos 
+            ? "/Multimidia/imagens/logoUsuariosInativos.png"  // 
+            : "/Multimidia/imagens/logoUsuarios.png"; // 
 
-        customTable = new CreateCustomTable(
-                query,
-                tableColumns,
-                "Todos os Usuários",
-                "Usuarios",
-                acaoInativar,
-                botaoLabel,
-                icone
-        );
+    // NOVO: Atualizar os componentes do cabeçalho
+    lbListaUsuarios.setText(titulo);
+    lbLogoListaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconeLogoPath)));
 
-        painel_lista_espera.add(
-                customTable.createCustomTable(
-                        query,
-                        tableColumns,
-                        "Todos os Usuários",
-                        "Usuarios"
-                ),
-                BorderLayout.CENTER
-        );
+    // Lógica existente para reconstruir a tabela
+    painel_lista_espera.removeAll();
 
-        painel_lista_espera.revalidate();
-        painel_lista_espera.repaint();
-    }
+    customTable = new CreateCustomTable(
+            query,
+            tableColumns,
+            "Todos os Usuários",
+            "Usuarios",
+            acaoInativar,
+            botaoLabel,
+            iconeNaTabela
+    );
+
+    painel_lista_espera.add(
+            customTable.createCustomTable(
+                    query,
+                    tableColumns,
+                    "Todos os Usuários",
+                    "Usuarios"
+            ),
+            BorderLayout.CENTER
+    );
+
+    painel_lista_espera.revalidate();
+    painel_lista_espera.repaint();
+}
     /**
 
     /**
@@ -144,7 +156,7 @@ public class TableListaUsuarios extends SimpleForm {
         tbListaEsperaNaoAtendidos = new javax.swing.JTable();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
-        lbOrientador = new javax.swing.JLabel();
+        lbListaUsuarios = new javax.swing.JLabel();
         lbLogoListaUsuarios = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(950, 650));
@@ -199,33 +211,37 @@ public class TableListaUsuarios extends SimpleForm {
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
         lbClinica.setText("Clínica de Psicologia");
 
-        lbOrientador.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        lbOrientador.setText("Lista de Usuários");
+        lbListaUsuarios.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        lbListaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        lbListaUsuarios.setText("Lista de Usuários");
 
-        lbLogoListaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoOrientador2_resized.png"))); // NOI18N
+        lbLogoListaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoUsuarios.png"))); // NOI18N
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addComponent(lbLogoListaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(lbLogoListaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
-                    .addComponent(lbOrientador))
-                .addContainerGap(588, Short.MAX_VALUE))
+                    .addComponent(lbListaUsuarios))
+                .addContainerGap(541, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbLogoListaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 183, Short.MAX_VALUE)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(lbOrientador)
+                .addContainerGap()
+                .addComponent(lbLogoListaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(pNorthLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(lbListaUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
@@ -235,8 +251,8 @@ public class TableListaUsuarios extends SimpleForm {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbListaUsuarios;
     private javax.swing.JLabel lbLogoListaUsuarios;
-    private javax.swing.JLabel lbOrientador;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_espera;
     private javax.swing.JTable tbListaEsperaNaoAtendidos;

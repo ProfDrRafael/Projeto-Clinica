@@ -75,36 +75,46 @@ public class TableListaPacientes extends SimpleForm {
     }
 
     private void rebuildTable() {
-        String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
-        boolean acaoInativar = mostrandoInativos;  // true para "Ativar", false para "Inativar"
-        String botaoLabel = mostrandoInativos ? "Ativar" : "Inativar";
-        String icone = mostrandoInativos ? "/Multimidia/imagens/cadeado.png" : "/Multimidia/icon/cadeado_desbloqueado.png";
+       // Lógica existente que você já tem
+    String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
+    boolean acaoInativar = mostrandoInativos;
+    String botaoLabel = mostrandoInativos ? "Ativar" : "Inativar";
+    String iconeNaTabela = mostrandoInativos ? "/Multimidia/imagens/cadeado.png" : "/Multimidia/icon/cadeado_desbloqueado.png";
 
-        painel_lista_espera.removeAll();
+    // NOVO: Definir o título e o ícone do cabeçalho dinamicamente
+    String titulo = mostrandoInativos ? "Lista de Pacientes Inativos" : "Lista de Pacientes";
+    String iconeLogo = mostrandoInativos ? "/Multimidia/imagens/listaPacientes_inativos.png" : "/Multimidia/imagens/listaPacientes.png";
 
-        customTable = new CreateCustomTable(
+    // NOVO: Atualizar os componentes do cabeçalho
+    lbListaPacientes.setText(titulo);
+    lblLogoListaPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconeLogo)));
+
+    // Lógica existente para reconstruir a tabela
+    painel_lista_espera.removeAll();
+
+    customTable = new CreateCustomTable(
             query,
             tableColumns,
-            "Todos os Pacientes",
+            "Todos os Pacientes", // Este título parece ser interno do componente da tabela
             "Paciente",
             acaoInativar,
             botaoLabel,
-            icone
-        );
+            iconeNaTabela
+    );
 
-        painel_lista_espera.add(
+    painel_lista_espera.add(
             customTable.createCustomTable(
-                query,
-                tableColumns,
-                "Todos os Pacientes",
-                "Paciente"
+                    query,
+                    tableColumns,
+                    "Todos os Pacientes",
+                    "Paciente"
             ),
             BorderLayout.CENTER
-        );
+    );
 
-        painel_lista_espera.revalidate();
-        painel_lista_espera.repaint();
-    }
+    painel_lista_espera.revalidate();
+    painel_lista_espera.repaint();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,7 +130,7 @@ public class TableListaPacientes extends SimpleForm {
         tbListaEsperaNaoAtendidos = new javax.swing.JTable();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
-        lbOrientador = new javax.swing.JLabel();
+        lbListaPacientes = new javax.swing.JLabel();
         lblLogoListaPacientes = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(950, 650));
@@ -175,9 +185,9 @@ public class TableListaPacientes extends SimpleForm {
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
         lbClinica.setText("Clínica de Psicologia");
 
-        lbOrientador.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        lbOrientador.setForeground(new java.awt.Color(255, 255, 255));
-        lbOrientador.setText("Lista de Pacientes");
+        lbListaPacientes.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        lbListaPacientes.setForeground(new java.awt.Color(255, 255, 255));
+        lbListaPacientes.setText("Lista de Pacientes");
 
         lblLogoListaPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/listaPacientes.png"))); // NOI18N
 
@@ -191,14 +201,14 @@ public class TableListaPacientes extends SimpleForm {
                 .addGap(20, 20, 20)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
-                    .addComponent(lbOrientador))
+                    .addComponent(lbListaPacientes))
                 .addContainerGap(530, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(lbOrientador)
+                .addComponent(lbListaPacientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -214,7 +224,7 @@ public class TableListaPacientes extends SimpleForm {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
-    private javax.swing.JLabel lbOrientador;
+    private javax.swing.JLabel lbListaPacientes;
     private javax.swing.JLabel lblLogoListaPacientes;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel painel_lista_espera;
