@@ -9,6 +9,7 @@ import Persistencia.Entity.Paciente;
 import Regradenegocio.EstagiarioRN;
 import Regradenegocio.SessaoRN;
 import VO.EstagiarioVO;
+import VO.PacienteVO;
 import VO.SessaoVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.EditorTextPaneEstilization;
@@ -560,11 +561,11 @@ public class FormProntuario extends SimpleForm {
             if (estagiarioSelecionado != null) {
                 try {
                     EstagiarioRN estagiarioRN = new EstagiarioRN();
-                    List<Paciente> pacientes = estagiarioRN.buscarPacientesPorEstagiarioId(estagiarioSelecionado.getId());
+                    List<PacienteVO> pacientes = estagiarioRN.buscarPacientesPorEstagiarioId(estagiarioSelecionado.getId());
 
                     DefaultComboBoxModel<Paciente> modelo = new DefaultComboBoxModel<>();
-                    for (Paciente paciente : pacientes) {
-                        modelo.addElement(paciente);
+                    for (PacienteVO paciente : pacientes) {
+                        modelo.addElement(paciente.toEntity());
                     }
 
                     cbPaciente.setModel((DefaultComboBoxModel) modelo);
