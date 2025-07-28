@@ -241,21 +241,24 @@ public class AtendimentoVO {
         return entity;
     }
 
+    // @Override
+    // public String toString() {
+    //     return "AtendimentoVO{" +
+    //             "id=" + id +
+    //             ", data=" + data +
+    //             ", hora=" + hora +
+    //             ", preenchido=" + preenchido +
+    //             ", comparecimento=" + comparecimento +
+    //             ", justificativa='" + justificativa + '\'' +
+    //             ", relatoAtendimento='" + relatoAtendimento + '\'' +
+    //             ", prontuario=" + (prontuario != null ? prontuario.getId() : "null") +
+    //             ", estagiarioResponsavel=" + (estagiarioResponsavel != null ? estagiarioResponsavel.getNomeCompleto() : "null") +
+    //             ", paciente=" + (paciente != null ? paciente.getPaciente() : "null") +
+    //             '}';
+    // }
+
     @Override
     public String toString() {
-        return "AtendimentoVO{" +
-                "id=" + id +
-                ", data=" + data +
-                ", hora=" + hora +
-                ", preenchido=" + preenchido +
-                ", comparecimento=" + comparecimento +
-                ", justificativa='" + justificativa + '\'' +
-                ", relatoAtendimento='" + relatoAtendimento + '\'' +
-                ", prontuario=" + (prontuario != null ? prontuario.getId() : "null") +
-                ", estagiarioResponsavel=" + (estagiarioResponsavel != null ? estagiarioResponsavel.getNomeCompleto() : "null") +
-                ", paciente=" + (paciente != null ? paciente.getPaciente() : "null") +
-                '}';
+        return id + "-" + data + "-" + hora;
     }
-
-
 }
