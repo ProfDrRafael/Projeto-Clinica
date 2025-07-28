@@ -4,8 +4,8 @@
  */
 package Visao.Telas;
 
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import Visao.Utils.RedimencionarIcones;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +15,7 @@ import javax.swing.JToggleButton;
  *
  * @author john
  */
-public class TableListaUsuarios extends SimpleForm {
+public class TableListaUsuarios extends PanelTemplate {
 
     /**
      * Creates new form listaEsperaTable
@@ -47,7 +47,7 @@ public class TableListaUsuarios extends SimpleForm {
     private final String[] tableColumns = {"#", "ID", "Nome", "Email", "Tipo"};
     private boolean mostrandoInativos = false;
     private JToggleButton switchToggle;
-    private CreateCustomTable customTable;
+    private Table customTable;
 
     public TableListaUsuarios() {
         initComponents();
@@ -93,7 +93,7 @@ public class TableListaUsuarios extends SimpleForm {
     }
 
     /**
-     * Remove o conteúdo antigo e recria CreateCustomTable com a query adequada.
+     * Remove o conteúdo antigo e recria Table com a query adequada.
      */
     private void rebuildTable() {
         String query = mostrandoInativos ? QUERY_INATIVOS : QUERY_ATIVOS;
@@ -105,7 +105,7 @@ public class TableListaUsuarios extends SimpleForm {
 
         painel_lista_espera.removeAll();
 
-        customTable = new CreateCustomTable(
+        customTable = new Table(
                 query,
                 tableColumns,
                 "Todos os Usuários",
@@ -119,8 +119,8 @@ public class TableListaUsuarios extends SimpleForm {
                 customTable.createCustomTable(
                         query,
                         tableColumns,
-                        "Todos os Usuários",
-                        "Usuarios"
+                        "Usuarios",
+                        null
                 ),
                 BorderLayout.CENTER
         );

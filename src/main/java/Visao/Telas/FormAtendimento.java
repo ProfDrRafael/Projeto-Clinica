@@ -10,7 +10,7 @@ import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Sessao;
 import Regradenegocio.*;
 import VO.*;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  *
  * @author john
  */
-public class FormAtendimento extends SimpleForm {
+public class FormAtendimento extends PanelTemplate {
 
     private String relatoAtendimento;
     private final MessagesAlert messagesAlert;

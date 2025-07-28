@@ -3,15 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 
 /**
  *
  * @author john
  */
-public class TableListaEsperaEspecifica extends SimpleForm {
+public class TableListaEsperaEspecifica extends PanelTemplate {
         
     /**
      * Creates new form listaEsperaTable
@@ -20,16 +20,20 @@ public class TableListaEsperaEspecifica extends SimpleForm {
         initComponents();
      
         String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil", "Data Inscrição", "Disponiblidade"};
-        String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil, data_inscricao, disponibilidade FROM paciente";
+        String queryTable = "SELECT p.id as paciente_id, p.nome, p.telefone, p.data_nascimento, p.genero, p.estado_civil, p.data_inscricao, p.disponibilidade "
+                + "FROM paciente p "
+                + "INNER JOIN prontuario pr ON pr.paciente_id = p.id " 
+                + "INNER JOIN atendimento a ON a.prontuario_id = pr.id";
+        
         boolean acao_ativar_ou_inativar = false;
     
 
         
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout()); 
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Lista de Espera Especifica", "Paciente"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Paciente", null), BorderLayout.CENTER);
     }
 
     /**

@@ -4,7 +4,7 @@
  */
 package Visao.Telas;
 
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
@@ -15,7 +15,7 @@ import raven.alerts.MessageAlerts;
  *
  * @author john
  */
-public class MenuAdministrador extends SimpleForm {
+public class MenuAdministrador extends PanelTemplate {
 
     /**
      * Creates new form administradorMenu

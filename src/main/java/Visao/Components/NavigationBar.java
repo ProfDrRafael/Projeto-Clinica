@@ -22,13 +22,13 @@ import Visao.Slider.SliderTransition;
  * Componente principal que gerencia o layout da interface e o conteúdo dos formulários.
  * @author Raven
  */
-public class MainForm extends JPanel {
+public class NavigationBar extends JPanel {
 
     // Indica se a janela é undecorated (sem bordas)
     private final boolean undecorated;
 
     // Construtor que recebe o valor de undecorated e chama o método de inicialização
-    public MainForm(boolean undecorated) {
+    public NavigationBar(boolean undecorated) {
         this.undecorated = undecorated;
         init();
     }

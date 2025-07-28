@@ -4,7 +4,7 @@
  */
 package Visao.Telas;
 import Services.RedefinirSenhaService;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.MessagesAlert;
@@ -16,7 +16,7 @@ import javax.swing.*;
  *
  * @author john
  */
-public class FormEsqueciSenha extends SimpleForm {
+public class FormEsqueciSenha extends PanelTemplate {
 
     /**
      * Creates new form formLogin

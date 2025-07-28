@@ -33,11 +33,11 @@ import Visao.Telas.*;
 import Visao.Utils.MessagesAlert;
 import raven.swing.AvatarIcon;
 import VO.UsuarioVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import jakarta.persistence.EntityManager;
 import java.util.stream.Collectors;
 
-public class MyDrawerBuilder extends SimpleDrawerBuilder {
+public class SidebarContent extends SimpleDrawerBuilder {
 
     private UsuarioVO user; // Modelo do usuário atual
     private final ThemesChange themesChange; // Classe para mudança de temas
@@ -67,7 +67,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     /**
      * Construtor da classe que inicializa a mudança de temas.
      */
-    public MyDrawerBuilder() {
+    public SidebarContent() {
         themesChange = new ThemesChange();
     }
 
@@ -139,6 +139,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item.Label("Principal"), // Label
             new Item("Estatísticas", "dashboard.svg"), // index 0
             new Item("Calendário", "calendar.svg"), // index 1
+            new Item("Busca Avançada", "search.svg"), // index 1
             new Item.Label("Menus"), // Label
             new Item("Administrador", "menu.svg"), // index 2
             new Item("Orientador", "menu.svg"), // index 3
@@ -240,8 +241,15 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             @Override
             public void selected(MenuAction action, int[] index) {
                 String menuName = menuNames.get(index[0]);
+                
+                if (menuName.equals("Deslogar")) {
+                    MessagesAlert logout = new MessagesAlert();
+                    logout.MessageAlertDesconectarOpcoes();
+                }else{
+                    FormManager.showForm(new PageProgressBar(() -> FormManager.showForm(getFormByName(menuName))));
+                    
+                }
 
-                FormManager.showForm(new PageProgressBar(() -> FormManager.showForm(getFormByName(menuName))));
             }
         });
 
@@ -253,14 +261,10 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         return simpleMenuOption; // Retorna as opções de menu
     }
 
-    private SimpleForm getFormByName(String menuName) {
-        if (menuName.equals("Deslogar")) {
-            MessagesAlert logout = new MessagesAlert();
-            logout.MessageAlertDesconectarOpcoes();
-        }
-
+    private PanelTemplate getFormByName(String menuName) {  
         return switch (menuName) {
             case "Estatísticas" -> new TableEstatisticas();
+            case "Busca Avançada" -> new FormBuscaAvancadaPaciente();
             case "Administrador" -> new MenuAdministrador();
             case "Orientador" -> new MenuOrientador();
             case "Secretária" -> new MenuSecretaria();

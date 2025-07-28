@@ -68,8 +68,8 @@
             <artifactId>gson</artifactId>
             <version>2.10</version>
         </dependency>
-        
-        
+
+
         <dependency>
             <groupId>com.github.KwabenBerko</groupId>
             <artifactId>News-API-Java</artifactId>

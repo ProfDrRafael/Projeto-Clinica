@@ -2,7 +2,7 @@ package Visao.Utils.table;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
-import Persistencia.modelTemp.ModelProfile;
+import Persistencia.Model.ModelProfile;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;

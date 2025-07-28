@@ -3,15 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 
 /**
  *
  * @author john
  */
-public class TableListaEsperaGeral extends SimpleForm {
+public class TableListaEsperaGeral extends PanelTemplate {
     
     /**
      * Creates new form listaEsperaTable
@@ -20,19 +20,24 @@ public class TableListaEsperaGeral extends SimpleForm {
         initComponents();
         
         String[] tableColumns = new String[]{"#", "ID", "Nome", "Telefone", "Data de Nascimento", "Gênero","Estado Civil", "Data Inscrição", "Disponiblidade"};
-        String queryTable = "SELECT id, nome, telefone, data_nascimento, genero, estado_civil, data_inscricao, disponibilidade FROM paciente WHERE ativo = 1";
+        String queryTable = "SELECT p.id as paciente_id, p.nome, p.telefone, p.data_nascimento, p.genero, p.estado_civil, p.data_inscricao, p.disponibilidade "
+                + "FROM paciente p "
+                + "LEFT JOIN prontuario pr ON pr.paciente_id = p.id " 
+                + "LEFT JOIN atendimento a ON a.prontuario_id = pr.id "
+                + "WHERE ativo = 1 "
+                    + "AND a.id IS NULL;";
  
 
         boolean acao_ativar_ou_inativar = false;
         
         
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Lista de Espera Geral", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Lista de Espera Geral", "Paciente", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         // Set up the painel_lista_espera layout
         painel_lista_espera.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
         // Add the custom table to the center of the panel
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Lista de Espera Geral", "Paciente"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Paciente", null), BorderLayout.CENTER);
     }
 
     /**

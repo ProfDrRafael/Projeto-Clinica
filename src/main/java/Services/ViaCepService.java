@@ -11,7 +11,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 
-import Persistencia.modelTemp.EnderecoModelCepApi;
+import Persistencia.Model.EnderecoModelCepApi;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import raven.toast.Notifications;

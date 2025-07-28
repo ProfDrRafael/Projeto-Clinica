@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
@@ -13,7 +13,7 @@ import com.formdev.flatlaf.FlatClientProperties;
  *
  * @author john
  */
-public class MenuEstagiario extends SimpleForm {
+public class MenuEstagiario extends PanelTemplate {
 
     /**
      * Creates new form estagiarioMenu

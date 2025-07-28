@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Persistencia.modelTemp;
+package Persistencia.Model;
 
 /**
  *
@@ -20,12 +20,19 @@ public class EnderecoModelCepApi {
 	private String gia;
 	private String ddd;
 	private String siafi;
+	private String estado;
 	
 	public String getCep() {
 		return cep;
 	}
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+        public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	public String getLogradouro() {
 		return logradouro;

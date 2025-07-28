@@ -4,8 +4,8 @@
  */
 package Visao.Telas;
 
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
@@ -14,7 +14,7 @@ import javax.swing.JToggleButton;
  *
  * @author john
  */
-public class TableListaEstagiarios extends SimpleForm {
+public class TableListaEstagiarios extends PanelTemplate {
 
     private static final String QUERY_ATIVOS = """
         SELECT e.id, e.nome, e.email, e.ativo, e.ano, e.orientador_id
@@ -31,7 +31,7 @@ public class TableListaEstagiarios extends SimpleForm {
     private final String[] tableColumns = new String[]{"#", "ID", "Nome", "Email", "Ativo", "Ano", "Orientador"};
     private boolean mostrandoInativos = false;
     private JToggleButton switchToggle;
-    private CreateCustomTable customTable;
+    private Table customTable;
 
     public TableListaEstagiarios() {
         initComponents();
@@ -81,7 +81,7 @@ public class TableListaEstagiarios extends SimpleForm {
 
         painel_lista_espera.removeAll();
 
-        customTable = new CreateCustomTable(
+        customTable = new Table(
                 query,
                 tableColumns,
                 "Todos os Estagiários",
@@ -95,8 +95,8 @@ public class TableListaEstagiarios extends SimpleForm {
                 customTable.createCustomTable(
                         query,
                         tableColumns,
-                        "Todos os Estagiários",
-                        "Estagiario"
+                        "Estagiario",
+                        null
                 ),
                 BorderLayout.CENTER
         );

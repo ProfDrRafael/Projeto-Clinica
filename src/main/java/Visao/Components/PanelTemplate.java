@@ -7,9 +7,9 @@ import javax.swing.JPanel;
  *
  * @author Raven
  */
-public class SimpleForm extends JPanel {
+public class PanelTemplate extends JPanel {
 
-    public SimpleForm() {
+    public PanelTemplate() {
         init();
     }
 

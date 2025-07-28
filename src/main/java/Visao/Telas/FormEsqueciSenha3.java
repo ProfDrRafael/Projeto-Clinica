@@ -4,7 +4,7 @@
  */
 package Visao.Telas;
 
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Services.RedefinirSenhaService;
 import Visao.Utils.MessagesAlert;
@@ -15,7 +15,7 @@ import javax.swing.*;
  *
  * @author john
  */
-public class FormEsqueciSenha3 extends SimpleForm {
+public class FormEsqueciSenha3 extends PanelTemplate {
 
     private String email;
     private String tipoUsuario;

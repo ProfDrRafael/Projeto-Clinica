@@ -3,15 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 
 /**
  *
  * @author john
  */
-public class TableListaAgenda extends SimpleForm {
+public class TableListaAgenda extends PanelTemplate {
     
     /**
      * Creates new form listaEsperaTable
@@ -25,11 +25,11 @@ public class TableListaAgenda extends SimpleForm {
 
         
         
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Agendamentos", "Agenda", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Agendamentos", "Agenda", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout()); 
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Agendamentos", "Agenda"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Agenda", null), BorderLayout.CENTER);
     }
 
     /**

@@ -8,9 +8,11 @@ import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Paciente;
 import Regradenegocio.EstagiarioRN;
 import Regradenegocio.SessaoRN;
+import Regradenegocio.UsuarioRN;
 import VO.EstagiarioVO;
 import VO.SessaoVO;
-import Visao.Components.SimpleForm;
+import VO.UsuarioVO;
+import Visao.Components.PanelTemplate;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.RedimencionarIcones;
 
@@ -25,7 +27,7 @@ import java.util.List;
  *
  * @author john
  */
-public class FormProntuario extends SimpleForm {
+public class FormProntuario extends PanelTemplate {
 
     private final MessagesAlert messagesAlert;
 
@@ -50,11 +52,23 @@ public class FormProntuario extends SimpleForm {
         EditorTextPaneEstilization.JTextComponentStylization(tpQueixa, btNegritoQueixa, btItalicoQueixa, btSublinhadoQueixa);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpQueixa);
 
-// Para o campo de Observações, use os botões de Observações:
+        // Para o campo de Observações, use os botões de Observações:
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
         EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegritoObs, btItalicoObs, btSublinhadoObs);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpObservacoes);
         inicializarComboBoxEstagiarios();
+        
+        //Desabilitar combobox paciente se user for pesquisador
+        filtroUsuarioPesquisador();
+    }
+    
+    public void filtroUsuarioPesquisador(){
+        SessaoVO sessaoVO = new SessaoRN().buscarUltimaSessao();
+        if(sessaoVO.getTipo().equals("Pesquisador")){
+            cbPaciente.insertItemAt("", 0);
+            cbPaciente.setSelectedIndex(0);
+            cbPaciente.setEnabled(false);
+        }
     }
 
     /**

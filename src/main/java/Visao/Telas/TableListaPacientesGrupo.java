@@ -6,8 +6,8 @@ package Visao.Telas;
 
 import Persistencia.Entity.Grupo;
 import Regradenegocio.GrupoRN;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author john
  */
-public class TableListaPacientesGrupo extends SimpleForm {
+public class TableListaPacientesGrupo extends PanelTemplate {
 
     /**
      * Creates new form listaEsperaTable
@@ -42,7 +42,7 @@ public class TableListaPacientesGrupo extends SimpleForm {
 
         boolean acaoRemoverPaciente = true;
 
-        CreateCustomTable customTable = new CreateCustomTable(
+        Table customTable = new Table(
                 queryTable,
                 tableColumns,
                 "Pacientes do Grupo",    
@@ -58,7 +58,7 @@ public class TableListaPacientesGrupo extends SimpleForm {
         painel_lista_grupos.add(
                 customTable.createCustomTable(
                         queryTable, tableColumns,
-                        "Pacientes do Grupo", "Paciente"
+                        "Paciente", null
                 ),
                 BorderLayout.CENTER
         );

@@ -8,7 +8,7 @@ import Regradenegocio.AgendaRN;
 import Regradenegocio.SessaoRN;
 import VO.AgendaVO;
 import VO.SessaoVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.BorderLayout;
@@ -39,7 +39,7 @@ import javax.swing.SwingConstants;
  *
  * @author otniel
  */
-public class PageCalendario extends SimpleForm {
+public class PageCalendario extends PanelTemplate {
 
     private YearMonth currentYearMonth;
     private Map<LocalDate, List<AgendaVO>> agendamentos;

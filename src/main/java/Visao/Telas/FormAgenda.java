@@ -9,7 +9,7 @@ import VO.AgendaVO;
 import VO.EstagiarioVO;
 import VO.EstagiarioXPacienteVO;
 import VO.PacienteVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author john
  */
-public class FormAgenda extends SimpleForm {
+public class FormAgenda extends PanelTemplate {
 
     private final MessagesAlert messagesAlert;
 

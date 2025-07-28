@@ -1,13 +1,13 @@
 package Visao.Telas;
 
-import Persistencia.modelTemp.EnderecoModelCepApi;
+import Persistencia.Model.EnderecoModelCepApi;
 import Persistencia.Entity.Endereco;
 import Regradenegocio.EnderecoRN;
 import Regradenegocio.PacienteRN;
 import Services.ViaCepService;
 import VO.EnderecoVO;
 import VO.PacienteVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.Utils.RedimencionarIcones;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
@@ -27,7 +27,7 @@ import raven.toast.Notifications;
  *
  * @author john
  */
-public class FormValidarRelatos extends SimpleForm {
+public class FormValidarRelatos extends PanelTemplate {
 
 
     /**

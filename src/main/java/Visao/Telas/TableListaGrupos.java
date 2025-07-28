@@ -6,8 +6,8 @@ package Visao.Telas;
 
 import Persistencia.Entity.Grupo;
 import Regradenegocio.GrupoRN;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author john
  */
-public class TableListaGrupos extends SimpleForm {
+public class TableListaGrupos extends PanelTemplate {
 
     /**
      * Creates new form listaEsperaTable
@@ -32,9 +32,9 @@ public class TableListaGrupos extends SimpleForm {
         boolean acao_ativar_ou_inativar = false;
 
         // Cria e adiciona a tabela customizada
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Grupos", "Grupo", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Grupos", "Grupo", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
         painel_lista_grupos.setLayout(new BorderLayout());
-        painel_lista_grupos.add(customTable.createCustomTable(queryTable, tableColumns, "Grupos", "Grupo"), BorderLayout.CENTER);
+        painel_lista_grupos.add(customTable.createCustomTable(queryTable, tableColumns, "Grupo", null), BorderLayout.CENTER);
     }
 
     /**

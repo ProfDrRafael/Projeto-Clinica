@@ -4,15 +4,15 @@
  */
 package Visao.Telas;
 
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 
 /**
  *
  * @author john
  */
-public class TableListaAtendimento extends SimpleForm {
+public class TableListaAtendimento extends PanelTemplate {
 
     /**
      * Creates new form listaEsperaTable
@@ -21,15 +21,15 @@ public class TableListaAtendimento extends SimpleForm {
         initComponents();
 
         String[] tableColumns = new String[]{"#", "ID", "Data", "Hora", "Preenchido", "Comparecimento", "Tipo Atendimento", "Prontuário", "Estagiário"};
-        String queryTable = "SELECT id, data, hora, preenchido, comparecimento, plantao, tipo_atendimento, estagiario_id FROM atendimento";
+        String queryTable = "SELECT id, data, hora, preenchido, comparecimento, tipo_atendimento, prontuario_id, estagiario_id FROM atendimento";
         boolean acao_ativar_ou_inativar = false;
 
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Atendimentos", "Atendimento", acao_ativar_ou_inativar, "Inativar", "/Multimidia/imagens/cadeado.png");
 
         painel_lista_espera.setLayout(new BorderLayout());
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Atendimentos", "Atendimento"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Atendimento", null), BorderLayout.CENTER);
     }
 
     /**

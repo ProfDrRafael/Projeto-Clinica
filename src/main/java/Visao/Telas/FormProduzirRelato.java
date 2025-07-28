@@ -4,7 +4,7 @@
  */
 package Visao.Telas;
 
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.EditorTextPaneEstilization;
 import Visao.Utils.MessagesAlert;
@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  *
  * @author john
  */
-public class FormProduzirRelato extends SimpleForm {
+public class FormProduzirRelato extends PanelTemplate {
 
     private final Consumer<String> onRelatoSubmetido;
     private final MessagesAlert messagesAlert;

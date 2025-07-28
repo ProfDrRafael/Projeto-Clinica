@@ -3,15 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Visao.Components.CreateCustomTable;
-import Visao.Components.SimpleForm;
+import Visao.Components.Table;
+import Visao.Components.PanelTemplate;
 import java.awt.BorderLayout;
 
 /**
  *
  * @author john
  */
-public class TableListaEstagiariosInativos extends SimpleForm {
+public class TableListaEstagiariosInativos extends PanelTemplate {
     
     /**
      * Creates new form listaEsperaTable
@@ -25,11 +25,11 @@ public class TableListaEstagiariosInativos extends SimpleForm {
 
         boolean acao_ativar_ou_inativar = true;
 
-        CreateCustomTable customTable = new CreateCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Ativar", "/Multimidia/icon/cadeado_desbloqueado.png");
+        Table customTable = new Table(queryTable, tableColumns, "Todos os Estagiários", "Estagiario", acao_ativar_ou_inativar, "Ativar", "/Multimidia/icon/cadeado_desbloqueado.png");
 
         painel_lista_espera.setLayout(new BorderLayout());
 
-        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Todos os Estagiários", "Estagiario"), BorderLayout.CENTER);
+        painel_lista_espera.add(customTable.createCustomTable(queryTable, tableColumns, "Estagiario", null), BorderLayout.CENTER);
     }
 
     /**

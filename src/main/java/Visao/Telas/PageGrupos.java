@@ -17,7 +17,7 @@ import VO.GrupoVO;
 import VO.GrupoXPacienteVO;
 import VO.PacienteVO;
 import VO.SessaoVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 
@@ -31,7 +31,7 @@ import javax.swing.*;
  *
  * @author otnie
  */
-public class PageGrupos extends SimpleForm {
+public class PageGrupos extends PanelTemplate {
     private final MessagesAlert messagesAlert;
 
     /**
