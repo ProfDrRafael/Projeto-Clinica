@@ -1,12 +1,24 @@
 package Visao.Telas;
 
 import Persistencia.modelTemp.EnderecoModelCepApi;
+import Persistencia.Entity.Atendimento;
 import Persistencia.Entity.Endereco;
+import Persistencia.Entity.Sessao;
+import Regradenegocio.AtendimentoRN;
 import Regradenegocio.EnderecoRN;
+import Regradenegocio.EstagiarioRN;
 import Regradenegocio.PacienteRN;
+import Regradenegocio.SessaoRN;
+import Regradenegocio.UsuarioRN;
+import Services.CriptografiaService;
+import Services.EmailService;
 import Services.ViaCepService;
+import VO.AtendimentoVO;
 import VO.EnderecoVO;
+import VO.EstagiarioVO;
 import VO.PacienteVO;
+import VO.SessaoVO;
+import VO.UsuarioVO;
 import Visao.Components.SimpleForm;
 import Visao.Utils.RedimencionarIcones;
 import Visao.Utils.EditorTextPaneEstilization;
@@ -15,6 +27,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import raven.toast.Notifications;
@@ -29,7 +42,6 @@ import raven.toast.Notifications;
  */
 public class FormValidarRelatos extends SimpleForm {
 
-
     /**
      * Creates new form telaCadastroPacientePanel
      */
@@ -42,6 +54,15 @@ public class FormValidarRelatos extends SimpleForm {
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/cancelar-btn.png", 40);
           pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
           pIdentificacao.putClientProperty(FlatClientProperties.STYLE, "background:null");
+        //RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
+        //redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
+        //redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
+        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
+        pIdentificacao.putClientProperty(FlatClientProperties.STYLE, "background:null");
+
+        tfDataAtendimento.setVisible(false);
+        carregarEstagiarios();
+        adicionarListenerDataAtendimento();
     }
 
     /**
@@ -65,11 +86,13 @@ public class FormValidarRelatos extends SimpleForm {
         lbDataDoAtendimento = new javax.swing.JLabel();
         tfDataAtendimento = new javax.swing.JTextField();
         cbEstagiario = new javax.swing.JComboBox<>();
-        cbSelecionarPaciente = new javax.swing.JComboBox<>();
+        cbPaciente = new javax.swing.JComboBox<>();
+        cbDataAtendimento = new javax.swing.JComboBox<>();
         pBotoes = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taFeedback = new javax.swing.JTextArea();
         lbTextoRelato = new javax.swing.JLabel();
         lbPeriodoTrabalho = new javax.swing.JLabel();
-        tfFeedback = new javax.swing.JTextField();
         btEditar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -151,20 +174,26 @@ public class FormValidarRelatos extends SimpleForm {
         lbDataDoAtendimento.setForeground(new java.awt.Color(0, 102, 102));
         lbDataDoAtendimento.setText("Data do Atendimento:");
 
-        tfDataAtendimento.setMaximumSize(new java.awt.Dimension(112, 36));
-        tfDataAtendimento.setMinimumSize(new java.awt.Dimension(112, 36));
-        tfDataAtendimento.setPreferredSize(new java.awt.Dimension(112, 36));
+        tfDataAtendimento.setEnabled(false);
 
         cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbEstagiario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
         cbEstagiario.setMaximumSize(new java.awt.Dimension(112, 36));
         cbEstagiario.setMinimumSize(new java.awt.Dimension(112, 36));
         cbEstagiario.setPreferredSize(new java.awt.Dimension(112, 36));
+        cbEstagiario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstagiarioActionPerformed(evt);
+            }
+        });
 
-        cbSelecionarPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cbSelecionarPaciente.setMaximumSize(new java.awt.Dimension(112, 36));
-        cbSelecionarPaciente.setMinimumSize(new java.awt.Dimension(112, 36));
-        cbSelecionarPaciente.setPreferredSize(new java.awt.Dimension(112, 36));
+        cbPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPacienteActionPerformed(evt);
+            }
+        });
+
+        cbDataAtendimento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout pIdentificacaoLayout = new javax.swing.GroupLayout(pIdentificacao);
         pIdentificacao.setLayout(pIdentificacaoLayout);
@@ -174,18 +203,22 @@ public class FormValidarRelatos extends SimpleForm {
                 .addContainerGap()
                 .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pIdentificacaoLayout.createSequentialGroup()
+                        .addComponent(lbDataDoAtendimento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfDataAtendimento)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
                         .addComponent(lbEstagiario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addComponent(lbPaciente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbSelecionarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                        .addComponent(lbDataDoAtendimento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         pIdentificacaoLayout.setVerticalGroup(
             pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,11 +227,12 @@ public class FormValidarRelatos extends SimpleForm {
                     .addComponent(lbEstagiario)
                     .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSelecionarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDataDoAtendimento)
-                    .addComponent(tfDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -218,6 +252,10 @@ public class FormValidarRelatos extends SimpleForm {
             .addGap(0, 74, Short.MAX_VALUE)
         );
 
+        taFeedback.setColumns(20);
+        taFeedback.setRows(5);
+        jScrollPane2.setViewportView(taFeedback);
+
         lbTextoRelato.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbTextoRelato.setForeground(new java.awt.Color(0, 102, 102));
         lbTextoRelato.setText("Texto do Relatório:");
@@ -226,13 +264,15 @@ public class FormValidarRelatos extends SimpleForm {
         lbPeriodoTrabalho.setForeground(new java.awt.Color(0, 102, 102));
         lbPeriodoTrabalho.setText("Feedback para o Aluno:");
 
-        tfFeedback.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tfFeedback.setToolTipText("ex. Rafael da Silva");
-
         btEditar.setBackground(new java.awt.Color(255, 51, 51));
         btEditar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btEditar.setForeground(new java.awt.Color(51, 51, 51));
         btEditar.setText("Solicitar Correções");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
 
         btSalvar.setBackground(new java.awt.Color(102, 255, 102));
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -260,12 +300,12 @@ public class FormValidarRelatos extends SimpleForm {
                     .addComponent(pBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pCentroLayout.createSequentialGroup()
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
                             .addGroup(pCentroLayout.createSequentialGroup()
                                 .addComponent(btEditar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfFeedback, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbTextoRelato, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbPeriodoTrabalho, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -278,16 +318,19 @@ public class FormValidarRelatos extends SimpleForm {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbTextoRelato)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbPeriodoTrabalho)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
+                .addGap(133, 133, 133)
                 .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -296,17 +339,75 @@ public class FormValidarRelatos extends SimpleForm {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        
+        EstagiarioVO estagiario = (EstagiarioVO) cbEstagiario.getSelectedItem();
+        PacienteVO paciente = (PacienteVO) cbPaciente.getSelectedItem();
+        AtendimentoVO atendimento = (AtendimentoVO) cbDataAtendimento.getSelectedItem();
+
+        if (estagiario == null || paciente == null || atendimento == null) {
+            MessagesAlert.showWarningMessage("Estagiário, paciente ou atendimento não selecionado.", null);
+            return;
+        }
+
+        String feedback = taFeedback.getText().trim();
+        String assunto = "Relatório Aprovado";
+        String mensagem = String.format(
+                "Olá %s,\n\nO relatório referente ao atendimento do(a) paciente %s em %s foi aprovado.\n\nFeedback:\n%s\n\nAtenciosamente,\nEquipe da Clínica.",
+                estagiario.getNomeCompleto(),
+                paciente.getNome(),
+                atendimento.getData() + " às " + atendimento.getHora(), // método opcional: veja nota abaixo
+                feedback.isEmpty() ? "[Sem feedback adicional]" : feedback
+        );
+
+        EmailService emailService = new EmailService();
+        emailService.enviarEmail(estagiario.getEmail(), assunto, mensagem);
+
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Relatório aprovado e e-mail enviado com sucesso.");
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        EstagiarioVO estagiario = (EstagiarioVO) cbEstagiario.getSelectedItem();
+        PacienteVO paciente = (PacienteVO) cbPaciente.getSelectedItem();
+        AtendimentoVO atendimento = (AtendimentoVO) cbDataAtendimento.getSelectedItem();
+
+        if (estagiario == null || paciente == null || atendimento == null) {
+            MessagesAlert.showWarningMessage("Estagiário, paciente ou atendimento não selecionado.", null);
+            return;
+        }
+
+        String feedback = taFeedback.getText().trim();
+        String assunto = "Correções Solicitadas no Relatório";
+        String mensagem = String.format(
+                "Olá %s,\n\nFoi solicitado que você realize correções no relatório referente ao atendimento do(a) paciente %s em %s.\n\nFeedback:\n%s\n\nAtenciosamente,\nEquipe da Clínica.",
+                estagiario.getNomeCompleto(),
+                paciente.getNome(),
+                atendimento.getData() + " às " + atendimento.getHora(),
+                feedback.isEmpty() ? "[Sem feedback adicional]" : feedback
+        );
+
+        EmailService emailService = new EmailService();
+        emailService.enviarEmail(estagiario.getEmail(), assunto, mensagem);
+
+        Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, "Correções solicitadas e e-mail enviado com sucesso.");
+    }//GEN-LAST:event_btEditarActionPerformed
+
+    private void cbEstagiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstagiarioActionPerformed
+        carregarPacientes();
+    }//GEN-LAST:event_cbEstagiarioActionPerformed
+
+    private void cbPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPacienteActionPerformed
+        carregarHorariosAtendimento();
+    }//GEN-LAST:event_cbPacienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox<String> cbEstagiario;
-    private javax.swing.JComboBox<String> cbSelecionarPaciente;
+    private javax.swing.JComboBox<AtendimentoVO> cbDataAtendimento;
+    private javax.swing.JComboBox<EstagiarioVO> cbEstagiario;
+    private javax.swing.JComboBox<PacienteVO> cbPaciente;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbDataDoAtendimento;
     private javax.swing.JLabel lbEstagiario;
@@ -319,9 +420,131 @@ public class FormValidarRelatos extends SimpleForm {
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pIdentificacao;
     private javax.swing.JPanel pNorth;
+    private javax.swing.JTextArea taFeedback;
     private javax.swing.JTextField tfDataAtendimento;
     private javax.swing.JTextField tfFeedback;
     private javax.swing.JTextPane tpTextoDoRelatorio;
     // End of variables declaration//GEN-END:variables
+
+    public UsuarioVO getUsuarioLogado() {
+        SessaoRN sessaoRN = new SessaoRN();
+        SessaoVO sessaoVO = sessaoRN.buscarUltimaSessao();
+
+        if (sessaoVO == null) {
+            throw new IllegalStateException("Nenhuma sessão ativa encontrada.");
+        }
+
+        UsuarioRN usuarioRN = new UsuarioRN();
+        UsuarioVO usuarioVO = usuarioRN.buscarUsuarioPorEmail(sessaoVO.getEmail(), sessaoVO.getTipo());
+        if (usuarioVO == null) {
+            throw new IllegalStateException("Usuário não encontrado na sessão ativa.");
+        }
+        return usuarioVO;
+
+    }
+
+    public void carregarEstagiarios() {
+        try {
+            UsuarioVO usuario = getUsuarioLogado();
+            if (usuario == null || !usuario.getTipo().equals("Orientador") && !usuario.getTipo().equals("Administrador")) {
+                MessagesAlert.showWarningMessage("Usuário não é um orientador ou administrador.", null);
+                return;
+            }
+
+            cbEstagiario.removeAllItems();
+            List<EstagiarioVO> estagiarios = new EstagiarioRN().buscarEstagiariosPorOrientadorId(usuario.getId());
+            if (estagiarios.isEmpty()) {
+                MessagesAlert.showWarningMessage("Nenhum estagiário encontrado para o orientador.", null);
+                return;
+            }
+            for (EstagiarioVO estagiario : estagiarios) {
+                cbEstagiario.addItem(estagiario);
+            }
+
+        } catch (Exception e) {
+            MessagesAlert.showWarningMessage("Erro ao carregar estagiários: " + e.getMessage(), null);
+        }
+    }
+
+    public void carregarPacientes() {
+        try {
+            UsuarioVO usuario = getUsuarioLogado();
+            if (usuario == null || !usuario.getTipo().equals("Orientador") && !usuario.getTipo().equals("Administrador")) {
+                MessagesAlert.showWarningMessage("Usuário não é um orientador ou administrador.", null);
+                return;
+            }
+
+            EstagiarioVO estagiarioSelecionado = (EstagiarioVO) cbEstagiario.getSelectedItem();
+            if (estagiarioSelecionado == null) {
+                MessagesAlert.showWarningMessage("Selecione um estagiário antes de carregar os pacientes.", null);
+                return;
+            }
+            cbPaciente.removeAllItems();
+            List<PacienteVO> pacientes = new EstagiarioRN().buscarPacientesPorEstagiarioId(estagiarioSelecionado.getId());
+            if (pacientes.isEmpty()) {
+                MessagesAlert.showWarningMessage("Nenhum paciente encontrado para o estagiário.", null);
+                return;
+            }
+            for (PacienteVO paciente : pacientes) {
+                cbPaciente.addItem(paciente);
+            }
+
+        } catch (Exception e) {
+            MessagesAlert.showWarningMessage("Erro ao carregar pacientes: " + e.getMessage(), null);
+        }
+    }
+
+    public void carregarHorariosAtendimento() {
+        try {
+            PacienteVO pacienteSelecionado = (PacienteVO) cbPaciente.getSelectedItem();
+            if (pacienteSelecionado == null) {
+                MessagesAlert.showWarningMessage("Selecione um paciente antes de carregar os horários de atendimento.", null);
+                return;
+            }
+
+            cbDataAtendimento.removeAllItems();
+            List<AtendimentoVO> datasAtendimento = new AtendimentoRN().buscarAtendimentosPorPacienteId(pacienteSelecionado.getId());
+            if (datasAtendimento == null || datasAtendimento.isEmpty()) {
+                MessagesAlert.showWarningMessage("Nenhum horário de atendimento encontrado para o paciente.", null);
+                return;
+            }
+            for (AtendimentoVO atendimento : datasAtendimento) {
+                cbDataAtendimento.addItem(atendimento);
+            }
+
+        } catch (Exception e) {
+            MessagesAlert.showWarningMessage("Erro ao carregar horários de atendimento: " + e.getMessage(), null);
+        }
+    }
+
+    private void adicionarListenerDataAtendimento() {
+        cbDataAtendimento.addActionListener(evt -> {
+            AtendimentoVO atendimentoSelecionado = (AtendimentoVO) cbDataAtendimento.getSelectedItem();
+
+            if (atendimentoSelecionado == null || atendimentoSelecionado.getRelatoAtendimento() == null) {
+                tpTextoDoRelatorio.setText(""); // limpa o texto
+                return;
+            }
+
+            try {
+                // Descriptografar o relato
+                CriptografiaService criptografiaService = new CriptografiaService();
+                String relatoRTFCriptografado = atendimentoSelecionado.getRelatoAtendimento();
+                String relatoRTF = criptografiaService.decifrarTexto(relatoRTFCriptografado);
+
+                // Carregar o RTF no JTextPane
+                javax.swing.text.rtf.RTFEditorKit rtfEditorKit = new javax.swing.text.rtf.RTFEditorKit();
+                tpTextoDoRelatorio.setEditorKit(rtfEditorKit);
+                tpTextoDoRelatorio.setContentType("text/rtf");
+
+                java.io.ByteArrayInputStream inputStream = new java.io.ByteArrayInputStream(relatoRTF.getBytes("UTF-8"));
+                rtfEditorKit.read(inputStream, tpTextoDoRelatorio.getDocument(), 0);
+
+            } catch (Exception e) {
+                tpTextoDoRelatorio.setText("[Erro ao carregar relato formatado]");
+                e.printStackTrace();
+            }
+        });
+    }
 
 }
