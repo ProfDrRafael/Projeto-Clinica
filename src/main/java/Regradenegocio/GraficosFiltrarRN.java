@@ -15,7 +15,6 @@ import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -29,14 +28,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import net.miginfocom.swing.MigLayout;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
 import raven.alerts.MessageAlerts;
 
 /**
@@ -294,16 +290,14 @@ public class GraficosFiltrarRN {
 
                         novoPainel.add(painelFiltro, BorderLayout.NORTH);
 
-                        novoPainel.add(painelFiltro, BorderLayout.NORTH);
-
                         ChartPanel painelGrafico = graficosRN.createEvolucaoAtendimentoChartPanel(dataInicio, dataFim, periodo);
                         painelGrafico.setBackground(Color.white);
                         painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
 
                         novoPainel.add(painelGrafico, BorderLayout.CENTER);
 
-                        containerGrafico.add(novoPainel, "createEvolucaoAtendimentoChartPanel");
-                        ((CardLayout) containerGrafico.getLayout()).show(containerGrafico, "createEvolucaoAtendimentoChartPanel");
+                        containerGrafico.add(novoPainel, "Evolução Atendimentos");
+                        ((CardLayout) containerGrafico.getLayout()).show(containerGrafico, "Evolução Atendimentos");
 
                         bottomPanel.revalidate();
                         bottomPanel.repaint();
@@ -366,8 +360,6 @@ public class GraficosFiltrarRN {
 
                         novoPainel.add(painelFiltro, BorderLayout.NORTH);
 
-                        novoPainel.add(painelFiltro, BorderLayout.NORTH);
-
                         ChartPanel painelGrafico = graficosRN.createAgendadosVSRealizadosChartPanel(dataInicio, dataFim, periodo, tipoAtendimento);
                         painelGrafico.setBackground(Color.white);
                         painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
@@ -427,8 +419,6 @@ public class GraficosFiltrarRN {
                         JPanel novoPainel = new JPanel(new BorderLayout());
                         novoPainel.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
                         novoPainel.setPreferredSize(new Dimension(larguraGrafico, alturaGrafico + 500));
-
-                        novoPainel.add(painelFiltro, BorderLayout.NORTH);
 
                         novoPainel.add(painelFiltro, BorderLayout.NORTH);
 
@@ -502,8 +492,6 @@ public class GraficosFiltrarRN {
 
                         novoPainel.add(painelFiltro, BorderLayout.NORTH);
 
-                        novoPainel.add(painelFiltro, BorderLayout.NORTH);
-
                         ChartPanel painelGrafico = graficosRN.createTempoMedioAtendimentoChartPanel(dataInicio, dataFim, periodo, tipoAtendimento);
                         painelGrafico.setBackground(Color.white);
                         painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
@@ -524,27 +512,29 @@ public class GraficosFiltrarRN {
             }
             case "Paciente por Idade" -> {
                 painelFiltro.setPreferredSize(new Dimension(larguraGrafico, 300));
-                painelFiltro.setLayout(new GridLayout(4, 1));
+                painelFiltro.setLayout(new MigLayout("wrap 1", "[grow]"));
 
                 List<JSpinner[]> spinners = new ArrayList<>();
 
                 for (int i = 0; i < 3; i++) {
-                    JPanel faixaPanel = new JPanel();
+                    JPanel faixaPanel = new JPanel(new MigLayout("insets 5", "[][grow]10[][grow]", ""));
 
-                    faixaPanel.add(new JLabel("Inicio da Faixa " + (i + 1)));
+                    faixaPanel.setBorder(BorderFactory.createTitledBorder("Faixa Etária " + (i + 1)));
+
+                    faixaPanel.add(new JLabel("Início:"), "right");
                     JSpinner spinnerInicio = new JSpinner(new SpinnerNumberModel(0, 0, 150, 1));
-                    faixaPanel.add(spinnerInicio);
+                    faixaPanel.add(spinnerInicio, "growx");
 
-                    faixaPanel.add(new JLabel("Fim da Faixa " + (i + 1)));
+                    faixaPanel.add(new JLabel("Fim:"), "right");
                     JSpinner spinnerFim = new JSpinner(new SpinnerNumberModel(0, 0, 150, 1));
-                    faixaPanel.add(spinnerFim);
+                    faixaPanel.add(spinnerFim, "growx");
 
                     spinners.add(new JSpinner[]{spinnerInicio, spinnerFim});
-                    painelFiltro.add(faixaPanel);
+                    painelFiltro.add(faixaPanel, "growx");
                 }
 
                 JButton btAplicar = new JButton("Aplicar");
-                painelFiltro.add(btAplicar);
+                painelFiltro.add(btAplicar, "align center");
 
                 btAplicar.addActionListener(e -> {
                     List<int[]> faixas = new ArrayList<>();
@@ -568,7 +558,7 @@ public class GraficosFiltrarRN {
                     painelGrafico.setBackground(Color.white);
                     painelGrafico.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
 
-                    novoPainel.add(painelGrafico, BorderLayout.CENTER);
+                    novoPainel.add(painelGrafico, BorderLayout.SOUTH);
 
                     containerGrafico.add(novoPainel, "Paciente por Idade");
                     ((CardLayout) containerGrafico.getLayout()).show(containerGrafico, "Paciente por Idade");
@@ -620,8 +610,6 @@ public class GraficosFiltrarRN {
                         JPanel novoPainel = new JPanel(new BorderLayout());
                         novoPainel.putClientProperty(FlatClientProperties.STYLE, "border:5,5,5,5,$Component.borderColor,,20");
                         novoPainel.setPreferredSize(new Dimension(larguraGrafico, alturaGrafico + 500));
-
-                        novoPainel.add(painelFiltro, BorderLayout.NORTH);
 
                         novoPainel.add(painelFiltro, BorderLayout.NORTH);
 
