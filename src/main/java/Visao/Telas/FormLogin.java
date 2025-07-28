@@ -8,7 +8,7 @@ package Visao.Telas;
 import Services.AutenticacaoService;
 // import VO.SessaoVO;
 import VO.UsuarioVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
 import java.awt.Color;
@@ -19,9 +19,10 @@ import javax.swing.SwingWorker;
  *
  * @author john
  */
-public class FormLogin extends SimpleForm {
+public class FormLogin extends PanelTemplate {
 
     private AutenticacaoService autenticacaoService;
+    private MessagesAlert messagesAlert = new MessagesAlert();
 
     /**
      * Creates new form formLogin
@@ -31,7 +32,7 @@ public class FormLogin extends SimpleForm {
     public FormLogin(AutenticacaoService autenticacaoService) {
         this.autenticacaoService = autenticacaoService;
         initComponents();
-     
+
         tfLogin.setText("admin@admin.com");
         pfSenha.setText("senha123");
         addEnterKeyListener();
@@ -232,36 +233,50 @@ public class FormLogin extends SimpleForm {
         pfSenha.addKeyListener(enterKeyListener);
     }
 
+    public SwingWorker<UsuarioVO, Void> swAutenticarAssicrono(String email, String senha) {
+        return new SwingWorker<>() {
+            @Override
+            protected UsuarioVO doInBackground() throws Exception {
+                Thread.sleep(2000);
+                return autenticacaoService.autenticar(email, senha);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    UsuarioVO usuario = get();
+                    messagesAlert.showSuccessMessage("Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
+                    FormManager.login(usuario);
+                } catch (Exception ex) {
+                    messagesAlert.showErrorMessage("Erro de autenticação: " + ex.getMessage());
+                    FormManager.logout();
+                }
+            }
+        };
+    }
+
     private void realizarLogin() {
         String email = tfLogin.getText().trim();
         String senha = new String(pfSenha.getPassword());
-        MessagesAlert messagesAlert = new MessagesAlert();
-        
-        PageProgressBar telaCarregamento = new PageProgressBar(() -> {
-            SwingWorker<UsuarioVO, Void> worker = new SwingWorker() {
-                @Override
-                protected UsuarioVO doInBackground() {
-                    return autenticacaoService.autenticar(email, senha);
-                }
 
-                @Override
-                protected void done() {
-                    try {
-                        UsuarioVO usuario = autenticacaoService.autenticar(email, senha);
+        final PageProgressBar[] telaRef = new PageProgressBar[1];
 
-                        messagesAlert.showSuccessMessage("Bem-vindo, " + usuario.getNomeCompleto() + " (" + usuario.getTipo() + ")");
-                        FormManager.login(usuario);
-                    } catch (Exception ex) {
-                        messagesAlert.showErrorMessage("Erro de autenticação: " + ex.getMessage());
-                        FormManager.logout();
-                    }
-                }
-                
-            };
-            worker.execute();
+        SwingWorker<UsuarioVO, Void> workerAutenticacao = swAutenticarAssicrono(email, senha);
+
+        telaRef[0] = new PageProgressBar(() -> {
+            workerAutenticacao.execute();
+
+            try {
+                workerAutenticacao.get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                telaRef[0].setCarregamentoPronto(true);
+            }
         });
-        
-        FormManager.loading(telaCarregamento);
+
+        FormManager.loading(telaRef[0]);
+
     }
     private void tfLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginFocusLost
         // TODO add your handling code here:

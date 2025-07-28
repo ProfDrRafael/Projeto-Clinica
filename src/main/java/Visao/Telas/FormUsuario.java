@@ -13,7 +13,7 @@ import VO.UsuarioVO;
 import Regradenegocio.UsuarioRN;
 import Regradenegocio.PermissoesRN;
 import VO.PesquisadorVO;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.Utils.MessagesAlert;
 import Visao.Utils.RedimencionarIcones;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -34,7 +34,7 @@ import raven.toast.Notifications;
  *
  * @author john
  */
-public class FormUsuario extends SimpleForm {
+public class FormUsuario extends PanelTemplate {
 
     private final Border defaultBorder = (new JTextField()).getBorder();
     private final Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);
@@ -52,7 +52,7 @@ public class FormUsuario extends SimpleForm {
         this.isFormSendoEditado = false;
         
         // remove background customizado e volta ao default do L&F
-        pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
+        pUsuario.putClientProperty(FlatClientProperties.STYLE, "background:null");
         // redimensionarIcones();
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
@@ -67,18 +67,18 @@ public class FormUsuario extends SimpleForm {
     private void addPanelPermissoes() {
         if (panelPermissoes == null) {
             panelPermissoes = new PanelPermissoesPesquisador(); 
-            add(panelPermissoes, BorderLayout.SOUTH);
-            revalidate();
-            repaint();
+            pCentro.add(panelPermissoes); // Append ao final
+            pCentro.revalidate();
+            pCentro.repaint();
         }
     }
 
     private void removePanelPermissoes() {
         if (panelPermissoes != null) {
-            remove(panelPermissoes);
+            pCentro.remove(panelPermissoes);
             panelPermissoes = null;
-            revalidate();
-            repaint();
+            pCentro.revalidate();
+            pCentro.repaint();
         }
     }
 
@@ -97,6 +97,7 @@ public class FormUsuario extends SimpleForm {
         lbProntuario = new javax.swing.JLabel();
         lbLogoCadastro = new javax.swing.JLabel();
         pCentro = new javax.swing.JPanel();
+        pUsuario = new javax.swing.JPanel();
         tfNome = new javax.swing.JTextField();
         lbNome = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
@@ -161,8 +162,15 @@ public class FormUsuario extends SimpleForm {
 
         add(pNorth, java.awt.BorderLayout.NORTH);
 
-        pCentro.setBackground(java.awt.SystemColor.controlHighlight);
-        pCentro.setPreferredSize(new java.awt.Dimension(1024, 768));
+        pCentro.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        pCentro.setMinimumSize(new java.awt.Dimension(1000, 300));
+        pCentro.setPreferredSize(new java.awt.Dimension(1000, 300));
+        pCentro.setLayout(new javax.swing.BoxLayout(pCentro, javax.swing.BoxLayout.Y_AXIS));
+
+        pUsuario.setBackground(java.awt.SystemColor.controlHighlight);
+        pUsuario.setMaximumSize(new java.awt.Dimension(1000, 300));
+        pUsuario.setMinimumSize(new java.awt.Dimension(1000, 300));
+        pUsuario.setPreferredSize(new java.awt.Dimension(1000, 300));
 
         tfNome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -218,75 +226,77 @@ public class FormUsuario extends SimpleForm {
         lbPasswordWarning2.setForeground(java.awt.Color.red);
         lbPasswordWarning2.setText(" ");
 
-        javax.swing.GroupLayout pCentroLayout = new javax.swing.GroupLayout(pCentro);
-        pCentro.setLayout(pCentroLayout);
-        pCentroLayout.setHorizontalGroup(
-            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pUsuarioLayout = new javax.swing.GroupLayout(pUsuario);
+        pUsuario.setLayout(pUsuarioLayout);
+        pUsuarioLayout.setHorizontalGroup(
+            pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(pCentroLayout.createSequentialGroup()
+            .addGroup(pUsuarioLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lbSenha)
                         .addComponent(lbNome))
                     .addComponent(lbEmail))
                 .addGap(12, 12, 12)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pUsuarioLayout.createSequentialGroup()
+                        .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pCentroLayout.createSequentialGroup()
+                            .addGroup(pUsuarioLayout.createSequentialGroup()
                                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lbFuncao)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbFuncao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pCentroLayout.createSequentialGroup()
+                    .addGroup(pUsuarioLayout.createSequentialGroup()
+                        .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pUsuarioLayout.createSequentialGroup()
                                 .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lbConfirmarSenha))
                             .addComponent(lbPasswordWarning1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbPasswordWarning2)
                             .addComponent(pfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 17, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCentroLayout.createSequentialGroup()
+                .addGap(0, 65, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pUsuarioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSalvar)
                 .addContainerGap())
         );
-        pCentroLayout.setVerticalGroup(
-            pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCentroLayout.createSequentialGroup()
+        pUsuarioLayout.setVerticalGroup(
+            pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pUsuarioLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNome)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbFuncao)
                     .addComponent(cbFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbEmail)
                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbConfirmarSenha)
                     .addComponent(pfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbSenha))
                 .addGap(3, 3, 3)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPasswordWarning1)
                     .addComponent(lbPasswordWarning2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSalvar)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        pCentro.add(pUsuario);
 
         add(pCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -354,7 +364,7 @@ public class FormUsuario extends SimpleForm {
             UsuarioVO usuarioResultado = usuarioRN.salvarUsuario(usuarioVO);
 
             // salvar o usuário
-            if (usuarioRN.salvarUsuario(usuarioVO) != null) {
+            if (usuarioResultado != null) {
                 messagesAlert.showSuccessMessage("Usuário salvo com sucesso!");
 
                 if (usuarioVO instanceof PesquisadorVO) {
@@ -539,6 +549,7 @@ public class FormUsuario extends SimpleForm {
     private javax.swing.JLabel lbSenha;
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
+    private javax.swing.JPanel pUsuario;
     private javax.swing.JPasswordField pfConfirmarSenha;
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JTextField tfEmail;

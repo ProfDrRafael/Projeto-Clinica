@@ -4,26 +4,28 @@
  */
 package Visao.Telas;
 
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
 
 /**
  *
  * @author john
  */
-public class PageProgressBar extends SimpleForm {
+public class PageProgressBar extends PanelTemplate {
 
     private Runnable onComplete;
+    private volatile boolean carregamentoPronto = false;
 
     public PageProgressBar(Runnable onComplete) {
         this.onComplete = onComplete;
         initComponents();
-       
+
+        setBackground(new Color(0, 102, 102));
 
         loadProgressBar();
 
@@ -32,32 +34,41 @@ public class PageProgressBar extends SimpleForm {
     private void loadProgressBar() {
         SwingWorker<Void, Integer> worker = new SwingWorker<>() {
             @Override
-            protected Void doInBackground() throws InterruptedException {
-                for (int i = 0; i <= 100; i += 5) {
-                    Thread.sleep(50);
-                    publish(i);
+            protected Void doInBackground() throws Exception {
+                int progress = 0;
+
+                // Executa o trabalho de forma assíncrona
+                Thread tarefaThread = new Thread(() -> {
+                    if (getOnComplete() != null) {
+                        getOnComplete().run();
+                    }
+                    setCarregamentoPronto(true); 
+                });
+                tarefaThread.start();
+
+                // Enquanto não estiver pronto, avança a barra
+                while (!isCarregamentoPronto()) {
+                    Thread.sleep(100);
+                    progress = Math.min(progress + 1, 99);
+                    publish(progress);
                 }
+
+                publish(100);
                 return null;
             }
 
             @Override
             protected void process(List<Integer> chunks) {
-                pbCarregando.setValue(chunks.get(chunks.size() - 1));
-                lbCarregando.setText("Carregando" + (pbCarregando.getValue() % 2 == 0 ? ".." : "..."));
+                int value = chunks.get(chunks.size() - 1);
+                pbCarregando.setValue(value);
+                lbCarregando.setText("Carregando" + (value % 2 == 0 ? ".." : "..."));
             }
 
             @Override
             protected void done() {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        FormManager.getForms().undo();
-                        if (onComplete != null) {
-                            onComplete.run();
-                        }
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    FormManager.getForms().undo();
                 });
-
             }
         };
         worker.execute();
@@ -80,64 +91,86 @@ public class PageProgressBar extends SimpleForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pNorth = new javax.swing.JPanel();
-        lbCarregando = new javax.swing.JLabel();
-        pbCarregando = new javax.swing.JProgressBar();
         lbLogoCapiva = new javax.swing.JLabel();
+        pbCarregando = new javax.swing.JProgressBar();
+        lbCarregando = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(975, 630));
+        setBackground(new java.awt.Color(0, 102, 102));
+        setMaximumSize(new java.awt.Dimension(2000, 2000));
         setMinimumSize(new java.awt.Dimension(975, 630));
         setPreferredSize(new java.awt.Dimension(975, 630));
-        setLayout(new java.awt.BorderLayout());
 
-        pNorth.setBackground(new java.awt.Color(0, 102, 102));
-        pNorth.setPreferredSize(new java.awt.Dimension(638, 183));
+        lbLogoCapiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/capivaraLoading.gif"))); // NOI18N
+
+        pbCarregando.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        pbCarregando.setStringPainted(true);
 
         lbCarregando.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         lbCarregando.setForeground(new java.awt.Color(255, 255, 255));
         lbCarregando.setText("Carregando...");
 
-        pbCarregando.setStringPainted(true);
-
-        lbLogoCapiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/capivaraLoading.gif"))); // NOI18N
-
-        javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
-        pNorth.setLayout(pNorthLayout);
-        pNorthLayout.setHorizontalGroup(
-            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
-                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                        .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                        .addComponent(lbLogoCapiva)
-                        .addGap(361, 361, 361))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                        .addComponent(lbCarregando)
-                        .addGap(420, 420, 420))))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(422, 422, 422)
+                        .addComponent(lbCarregando))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(359, 359, 359)
+                        .addComponent(lbLogoCapiva))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
-        pNorthLayout.setVerticalGroup(
-            pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(149, 149, 149)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(283, Short.MAX_VALUE)
                 .addComponent(lbLogoCapiva)
                 .addGap(18, 18, 18)
-                .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pbCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lbCarregando)
-                .addContainerGap(338, Short.MAX_VALUE))
+                .addGap(192, 192, 192))
         );
-
-        add(pNorth, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbCarregando;
     private javax.swing.JLabel lbLogoCapiva;
-    private javax.swing.JPanel pNorth;
     private javax.swing.JProgressBar pbCarregando;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the onComplete
+     */
+    public Runnable getOnComplete() {
+        return onComplete;
+    }
+
+    /**
+     * @param onComplete the onComplete to set
+     */
+    public void setOnComplete(Runnable onComplete) {
+        this.onComplete = onComplete;
+    }
+
+    /**
+     * @return the carregamentoPronto
+     */
+    public boolean isCarregamentoPronto() {
+        return carregamentoPronto;
+    }
+
+    /**
+     * @param carregamentoPronto the carregamentoPronto to set
+     */
+    public void setCarregamentoPronto(boolean carregamentoPronto) {
+        this.carregamentoPronto = carregamentoPronto;
+    }
 }
