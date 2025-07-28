@@ -20,6 +20,7 @@ import VO.SessaoVO;
 import Visao.Components.SimpleForm;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
+import Visao.Utils.RedimencionarIcones;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +33,7 @@ import javax.swing.*;
  * @author otnie
  */
 public class PageGrupos extends SimpleForm {
+
     private final MessagesAlert messagesAlert;
 
     /**
@@ -39,7 +41,21 @@ public class PageGrupos extends SimpleForm {
      */
     public PageGrupos() {
         initComponents();
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
+        // Ícones que você já tinha
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 20);
+        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png", 40);
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png", 40);
 
+        // =========================================================================
+        // NOVO: Adicionando os ícones aos outros botões
+        // =========================================================================
+        // Ícone para o botão "Ver Pacientes do Grupo"
+        redimencionarIcone.redimensionarIcones(btnListarPacientes, "/Multimidia/imagens/view.png", 40);
+
+        // Ícone para os botões "Adicionar" (usando o mesmo ícone para ambos)
+        redimencionarIcone.redimensionarIcones(btnAdicionarPaciente, "/Multimidia/imagens/add.png", 20);
+        redimencionarIcone.redimensionarIcones(btnAdicionarEstagiario, "/Multimidia/imagens/add.png", 20);
         messagesAlert = new MessagesAlert();
 
         lbNovoNome.setVisible(false);
@@ -60,9 +76,11 @@ public class PageGrupos extends SimpleForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         pNorth = new javax.swing.JPanel();
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
+        lbLogoCriarGrupos = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
         lbNome = new javax.swing.JLabel();
         cbNome = new javax.swing.JComboBox<>();
@@ -83,8 +101,9 @@ public class PageGrupos extends SimpleForm {
         tfNovoNome = new javax.swing.JTextField();
 
         setFocusable(false);
-        setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        setMinimumSize(new java.awt.Dimension(648, 160));
+        setMaximumSize(new java.awt.Dimension(950, 630));
+        setMinimumSize(new java.awt.Dimension(950, 630));
+        setPreferredSize(new java.awt.Dimension(950, 630));
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
         pNorth.setMaximumSize(new java.awt.Dimension(638, 150));
@@ -98,12 +117,16 @@ public class PageGrupos extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Grupos");
 
+        lbLogoCriarGrupos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoGpAdd.png"))); // NOI18N
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(118, 118, 118)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbLogoCriarGrupos)
+                .addGap(18, 18, 18)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
@@ -112,11 +135,16 @@ public class PageGrupos extends SimpleForm {
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(0, 44, Short.MAX_VALUE)
-                .addComponent(lbProntuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbClinica)
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbLogoCriarGrupos))
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(lbProntuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbClinica)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btSalvar.setBackground(new java.awt.Color(102, 255, 102));
@@ -222,38 +250,41 @@ public class PageGrupos extends SimpleForm {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(btnListarPacientes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btSalvar))
+                    .addComponent(jScrollPane1)
                     .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbAdicionarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAdicionarPaciente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbAdicionarEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAdicionarEstagiario))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbDescricao)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnListarPacientes)
-                                .addGap(292, 292, 292)
-                                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btEditar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btSalvar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cbAdicionarEstagiario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbAdicionarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnAdicionarEstagiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnAdicionarPaciente)))
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNome)
-                                    .addComponent(cbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNovoNome)
-                                    .addComponent(tfNovoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(290, 290, 290)
+                                .addComponent(jLabel2)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbNome)
+                            .addComponent(cbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNovoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbNovoNome))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -270,34 +301,32 @@ public class PageGrupos extends SimpleForm {
                     .addComponent(tfNovoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbDescricao)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnListarPacientes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbAdicionarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionarPaciente))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbAdicionarEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionarEstagiario))
-                .addGap(18, 18, 18))
+                    .addComponent(btnAdicionarPaciente)
+                    .addComponent(btnAdicionarEstagiario)
+                    .addComponent(cbAdicionarEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(124, 124, 124))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        String novoNome      = tfNovoNome.getText().trim();
+        String novoNome = tfNovoNome.getText().trim();
         String novaDescricao = taDescricao.getText().trim();
 
         if (novoNome.isEmpty()) {
@@ -397,10 +426,12 @@ public class PageGrupos extends SimpleForm {
     private javax.swing.JComboBox<GrupoVO> cbNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbDescricao;
+    private javax.swing.JLabel lbLogoCriarGrupos;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbNovoNome;
     private javax.swing.JLabel lbProntuario;
@@ -472,8 +503,8 @@ public class PageGrupos extends SimpleForm {
             return;
         }
 
-        TableListaPacientesGrupo painel =
-                new TableListaPacientesGrupo(
+        TableListaPacientesGrupo painel
+                = new TableListaPacientesGrupo(
                         grupoSelecionado.getId(),
                         grupoSelecionado.getNome()
                 );

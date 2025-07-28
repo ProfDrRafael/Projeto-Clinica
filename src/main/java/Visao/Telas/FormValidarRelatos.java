@@ -37,9 +37,9 @@ public class FormValidarRelatos extends SimpleForm {
         initComponents();
         //redimensionarIcones();
 
-        //RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        //redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/salvar-btn.png");
-        //redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png");
+        RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
+        redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/cancelar-btn.png", 40);
           pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
           pIdentificacao.putClientProperty(FlatClientProperties.STYLE, "background:null");
     }
@@ -65,7 +65,7 @@ public class FormValidarRelatos extends SimpleForm {
         lbDataDoAtendimento = new javax.swing.JLabel();
         tfDataAtendimento = new javax.swing.JTextField();
         cbEstagiario = new javax.swing.JComboBox<>();
-        tfPaciente = new javax.swing.JTextField();
+        cbSelecionarPaciente = new javax.swing.JComboBox<>();
         pBotoes = new javax.swing.JPanel();
         lbTextoRelato = new javax.swing.JLabel();
         lbPeriodoTrabalho = new javax.swing.JLabel();
@@ -78,15 +78,15 @@ public class FormValidarRelatos extends SimpleForm {
         dateChooser1.setTextField(tfDataAtendimento);
         dateChooser1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        setMaximumSize(new java.awt.Dimension(950, 630));
-        setMinimumSize(new java.awt.Dimension(950, 630));
-        setPreferredSize(new java.awt.Dimension(950, 630));
+        setMaximumSize(new java.awt.Dimension(950, 835));
+        setMinimumSize(new java.awt.Dimension(950, 835));
+        setPreferredSize(new java.awt.Dimension(950, 835));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
-        pNorth.setMaximumSize(new java.awt.Dimension(950, 160));
-        pNorth.setMinimumSize(new java.awt.Dimension(950, 160));
-        pNorth.setPreferredSize(new java.awt.Dimension(950, 160));
+        pNorth.setMaximumSize(new java.awt.Dimension(950, 195));
+        pNorth.setMinimumSize(new java.awt.Dimension(950, 195));
+        pNorth.setPreferredSize(new java.awt.Dimension(950, 195));
 
         lbClinica.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,7 +96,7 @@ public class FormValidarRelatos extends SimpleForm {
         lbProntuario.setForeground(new java.awt.Color(255, 255, 255));
         lbProntuario.setText("Validar Relatos ou Relatórios");
 
-        lbLogoValidar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoOrientador2_resized.png"))); // NOI18N
+        lbLogoValidar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/imgRelatosRelatorios.png"))); // NOI18N
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
@@ -105,24 +105,25 @@ public class FormValidarRelatos extends SimpleForm {
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbLogoValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addContainerGap(387, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbLogoValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(pNorthLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lbProntuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbClinica)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(lbProntuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbClinica))
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbLogoValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         add(pNorth, java.awt.BorderLayout.PAGE_START);
@@ -134,8 +135,9 @@ public class FormValidarRelatos extends SimpleForm {
         pIdentificacao.setBackground(java.awt.SystemColor.controlHighlight);
         pIdentificacao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, btSalvar.getFont(), java.awt.SystemColor.controlDkShadow));
         pIdentificacao.setForeground(java.awt.SystemColor.controlHighlight);
-        pIdentificacao.setMaximumSize(new java.awt.Dimension(1024, 450));
-        pIdentificacao.setMinimumSize(new java.awt.Dimension(1024, 450));
+        pIdentificacao.setMaximumSize(new java.awt.Dimension(950, 630));
+        pIdentificacao.setMinimumSize(new java.awt.Dimension(950, 630));
+        pIdentificacao.setPreferredSize(new java.awt.Dimension(950, 630));
 
         lbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbEstagiario.setForeground(new java.awt.Color(0, 102, 102));
@@ -149,15 +151,20 @@ public class FormValidarRelatos extends SimpleForm {
         lbDataDoAtendimento.setForeground(new java.awt.Color(0, 102, 102));
         lbDataDoAtendimento.setText("Data do Atendimento:");
 
+        tfDataAtendimento.setMaximumSize(new java.awt.Dimension(112, 36));
+        tfDataAtendimento.setMinimumSize(new java.awt.Dimension(112, 36));
+        tfDataAtendimento.setPreferredSize(new java.awt.Dimension(112, 36));
+
         cbEstagiario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         cbEstagiario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bruna", "Pedro", "Maria" }));
         cbEstagiario.setMaximumSize(new java.awt.Dimension(112, 36));
         cbEstagiario.setMinimumSize(new java.awt.Dimension(112, 36));
         cbEstagiario.setPreferredSize(new java.awt.Dimension(112, 36));
 
-        tfPaciente.setMaximumSize(new java.awt.Dimension(112, 36));
-        tfPaciente.setMinimumSize(new java.awt.Dimension(112, 36));
-        tfPaciente.setPreferredSize(new java.awt.Dimension(112, 36));
+        cbSelecionarPaciente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbSelecionarPaciente.setMaximumSize(new java.awt.Dimension(112, 36));
+        cbSelecionarPaciente.setMinimumSize(new java.awt.Dimension(112, 36));
+        cbSelecionarPaciente.setPreferredSize(new java.awt.Dimension(112, 36));
 
         javax.swing.GroupLayout pIdentificacaoLayout = new javax.swing.GroupLayout(pIdentificacao);
         pIdentificacao.setLayout(pIdentificacaoLayout);
@@ -165,30 +172,29 @@ public class FormValidarRelatos extends SimpleForm {
             pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pIdentificacaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pIdentificacaoLayout.createSequentialGroup()
                         .addComponent(lbEstagiario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbPaciente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbSelecionarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pIdentificacaoLayout.createSequentialGroup()
                         .addComponent(lbDataDoAtendimento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataAtendimento)))
-                .addGap(18, 18, 18)
-                .addComponent(lbPaciente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                        .addComponent(tfDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pIdentificacaoLayout.setVerticalGroup(
             pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pIdentificacaoLayout.createSequentialGroup()
-                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbEstagiario)
-                        .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tfPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbEstagiario)
+                    .addComponent(cbEstagiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbSelecionarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDataDoAtendimento)
@@ -247,11 +253,11 @@ public class FormValidarRelatos extends SimpleForm {
         pCentro.setLayout(pCentroLayout);
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pIdentificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pIdentificacao, javax.swing.GroupLayout.DEFAULT_SIZE, 997, Short.MAX_VALUE)
             .addGroup(pCentroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
+                    .addComponent(pBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pCentroLayout.createSequentialGroup()
                         .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
@@ -276,12 +282,12 @@ public class FormValidarRelatos extends SimpleForm {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbPeriodoTrabalho)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(132, 132, 132)
+                .addGap(36, 36, 36)
                 .addComponent(pBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -298,6 +304,7 @@ public class FormValidarRelatos extends SimpleForm {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox<String> cbEstagiario;
+    private javax.swing.JComboBox<String> cbSelecionarPaciente;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
@@ -314,7 +321,6 @@ public class FormValidarRelatos extends SimpleForm {
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextField tfDataAtendimento;
     private javax.swing.JTextField tfFeedback;
-    private javax.swing.JTextField tfPaciente;
     private javax.swing.JTextPane tpTextoDoRelatorio;
     // End of variables declaration//GEN-END:variables
 
