@@ -151,7 +151,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Prontuário", "forms.svg"), // index 9
             new Item("Agenda", "calendar.svg"), // index 10
             new Item("Atendimento", "forms.svg"), // index 11
-            new Item("Grupos", "group.svg"),
+            new Item("Grupos", "user.svg"),
             new Item.Label("Listagem"), // Label
             new Item("Lista de Espera Geral", "listing.svg"), // index 11
             new Item("Lista de Espera Específica", "listing.svg"), // index 12
@@ -160,13 +160,10 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Todos os Estagiários", "listing.svg"), // index 15
             new Item("Todos os Pacientes", "listing.svg"), // index 16
             new Item("Todos os Usuários", "listing.svg"), // index 17
-            new Item("Todos os Pacientes Inativos", "listing.svg"), // index 18
-            new Item("Todos os Estagiários Inativos", "listing.svg"), // index 19
-            new Item("Todos os Usuários Inativos", "listing.svg"), // index 2
-            new Item("Todos os Grupos", "listing.svg"),
+            new Item("Todos os Grupos", "listing.svg"), // index 18
             new Item.Label("Outros"), // Label
-            new Item("Configurações", "settings.svg"), // index 21
-            new Item("Deslogar", "logout.svg") // index 22
+            new Item("Configurações", "settings.svg"), // index 19
+            new Item("Deslogar", "logout.svg") // index 20
         };
 
         // Construir a lista de nomes de menu sem labels
@@ -265,7 +262,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             case "Orientador" -> new MenuOrientador();
             case "Secretária" -> new MenuSecretaria();
             case "Estagiário" -> new MenuEstagiario();
-            case "Estagiário Cadastro" -> new FormEstagiario();
+            case "Vincular Estagiário" -> new FormEstagiario();
             case "Usuário" -> new FormUsuario();
             case "Paciente" -> new FormPaciente();
             case "Prontuário" -> new FormProntuario();
@@ -280,9 +277,6 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             case "Todos os Estagiários" -> new TableListaEstagiarios();
             case "Todos os Pacientes" -> new TableListaPacientes();
             case "Todos os Usuários" -> new TableListaUsuarios();
-            case "Todos os Pacientes Inativos" -> new TableListaPacientesInativos();
-            case "Todos os Estagiários Inativos" -> new TableListaEstagiariosInativos();
-            case "Todos os Usuários Inativos" -> new TableListaUsuariosInativos();
             case "Todos os Grupos" -> new TableListaGrupos();
             case "Configurações" -> new PageConfiguracoes();
             default -> new PageWelcome();
