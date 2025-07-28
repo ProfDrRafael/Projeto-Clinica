@@ -6,7 +6,7 @@ import Persistencia.Model.EnderecoModelCepApi;
 import Regradenegocio.*;
 import Services.ViaCepService;
 import VO.*;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.RedimencionarIcones;
 import Visao.Utils.EditorTextPaneEstilization;
@@ -23,7 +23,6 @@ import Visao.Utils.validation.ValidationService;
 import Visao.Utils.validation.rules.NotEmptyRule;
 import Visao.Utils.validation.rules.MinLengthRule;
 import Visao.Utils.validation.rules.NumericFilterRule;
-import Visao.Utils.combobox.ComboBoxFiltro;
 import Visao.Utils.validation.rules.ComboBoxSelectionRule;
 
 /*
@@ -34,7 +33,7 @@ import Visao.Utils.validation.rules.ComboBoxSelectionRule;
  *
  * @author john
  */
-public class FormPaciente extends SimpleForm {
+public class FormPaciente extends PanelTemplate {
 
     private ValidationService validationService;
     private Endereco enderecoObject;

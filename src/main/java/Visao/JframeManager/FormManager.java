@@ -249,8 +249,8 @@ public class FormManager {
             instance.frame.getContentPane().setLayout(new BorderLayout());
             instance.frame.getContentPane().add(instance.panelSlider);
             
-            String nome = "nome";
-            String email = "email";
+            String nome = "admin";
+            String email = "admin@admin.com";
             String senha = "senha";
 
             SessaoVO sessao = new SessaoVO();
