@@ -8,6 +8,7 @@ import Persistencia.Entity.Paciente;
 import VO.EstagiarioVO;
 import VO.OrientadorVO;
 import Services.SenhaService;
+import VO.PacienteVO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -109,13 +110,15 @@ public class EstagiarioRN {
         return null;
     }
 
-    public List<Paciente> buscarPacientesPorEstagiarioId(Integer estagiarioId) {
+    public List<PacienteVO> buscarPacientesPorEstagiarioId(Integer estagiarioId) {
         if (estagiarioId == null || estagiarioId <= 0) {
             throw new IllegalArgumentException("ID do estagiário inválido.");
         }
 
         ProntuarioDAO prontuarioDAO = new ProntuarioDAO();
-        return prontuarioDAO.buscarPacientesPorEstagiarioId(estagiarioId);
+        return prontuarioDAO.buscarPacientesPorEstagiarioId(estagiarioId).stream()
+                .map(PacienteVO::fromEntity)
+                .collect(Collectors.toList());
     }
 
     // Método para buscar um estagiário por ID
@@ -134,5 +137,22 @@ public class EstagiarioRN {
     public OrientadorVO buscarOrientadorPorNome(String nome) {
         var orientador = orientadorDAO.buscarPorNome(nome);
         return orientador != null ? OrientadorVO.fromEntity(orientador) : null;
+    }
+
+    // Método para buscar um estagiário por e-mail
+    public EstagiarioVO buscarEstagiarioPorEmail(String email) {
+        var estagiario = estagiarioDAO.buscarPorEmail(email);
+        return estagiario != null ? EstagiarioVO.fromEntity(estagiario) : null;
+    }
+
+    // Método para buscar um estagiários por orientador
+    public List<EstagiarioVO> buscarEstagiariosPorOrientadorId(Integer orientadorId) {
+        if (orientadorId == null || orientadorId <= 0) {
+            throw new IllegalArgumentException("ID do orientador inválido.");
+        }
+
+        return estagiarioDAO.buscarEstagiariosPorOrientadorId(orientadorId).stream()
+                .map(EstagiarioVO::fromEntity)
+                .collect(Collectors.toList());
     }
 }
