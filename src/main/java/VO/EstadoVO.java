@@ -1,6 +1,7 @@
 package VO;
 
 import Persistencia.Entity.Estado;
+import java.util.Objects;
 
 public class EstadoVO {
     private int id;
@@ -81,5 +82,36 @@ public class EstadoVO {
         estado.setNome(this.nome);
         estado.setSigla(this.sigla);
         return estado;
+    }
+    
+     // --- MÉTODOS ADICIONADOS PARA INTEGRAÇÃO COM JCOMBOBOX ---
+
+    /**
+     * ESSENCIAL: Define o texto que será exibido no ComboBox.
+     * @return O nome do estado.
+     */
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+
+    /**
+     * BOA PRÁTICA: Permite que o Java compare dois objetos EstadoVO pelo seu ID.
+     * Útil para o JComboBox encontrar e selecionar o item correto.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EstadoVO estadoVO = (EstadoVO) o;
+        return id == estadoVO.id;
+    }
+
+    /**
+     * BOA PRÁTICA: Necessário ao sobrescrever o método equals.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

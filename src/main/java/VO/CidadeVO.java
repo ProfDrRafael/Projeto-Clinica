@@ -1,13 +1,22 @@
 package VO;
 
 import Persistencia.Entity.Cidade;
+import java.util.Objects;
 
 public class CidadeVO {
+
     private int id;
     private String nome;
     private EstadoVO EstadoVO;
 
     public CidadeVO() {
+    }
+
+    // Adicionei este construtor para o placeholder, se necessário
+    public CidadeVO(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+        this.EstadoVO = null; // Estado é nulo para o placeholder
     }
 
     public CidadeVO(int id, String nome, EstadoVO EstadoVO) {
@@ -86,5 +95,29 @@ public class CidadeVO {
         }
 
         return cidade;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+
+    }
+
+    // --- MÉTODOS ADICIONADOS PARA CONSISTÊNCIA ---
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CidadeVO cidadeVO = (CidadeVO) o;
+        return id == cidadeVO.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
