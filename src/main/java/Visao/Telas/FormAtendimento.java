@@ -40,7 +40,6 @@ public class FormAtendimento extends SimpleForm {
     public FormAtendimento() {
         initComponents();
         messagesAlert = new MessagesAlert();
-        //redimensionarIcones();
 
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpDescricao);
 
@@ -56,7 +55,6 @@ public class FormAtendimento extends SimpleForm {
 
         cbTipoAtendimento.setSelectedIndex(-1);
         inicializarComboBoxPacientes();
-//        carregarAgendamentosPlantao();
         tfDataEmergencial.setVisible(false);
         ftfHoraEmergencial.setVisible(false);
 
@@ -362,8 +360,8 @@ public class FormAtendimento extends SimpleForm {
                 }
 
                 EstagiarioRN estagiarioRN = new EstagiarioRN();
-//                EstagiarioVO estagiarioVO = estagiarioRN.buscarEstagiarioPorNome(new SessaoRN().buscarUltimaSessao().getNome());
-                EstagiarioVO estagiarioVO = estagiarioRN.buscarEstagiarioPorNome("João Silva");
+                EstagiarioVO estagiarioVO = estagiarioRN.buscarEstagiarioPorNome(new SessaoRN().buscarUltimaSessao().getNome());
+//                EstagiarioVO estagiarioVO = estagiarioRN.buscarEstagiarioPorNome("João Silva");
                 if (estagiarioVO == null) {
                     messagesAlert.showErrorMessage("Estagiário não encontrado.");
                     return;
@@ -468,7 +466,7 @@ public class FormAtendimento extends SimpleForm {
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox<String> cbData;
     private javax.swing.JComboBox<String> cbTipoAtendimento;
-    private javax.swing.JComboBox<String> cbbPaciente;
+    private javax.swing.JComboBox<PacienteVO> cbbPaciente;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JFormattedTextField ftfHora;
     private javax.swing.JFormattedTextField ftfHoraEmergencial;
@@ -501,19 +499,19 @@ public class FormAtendimento extends SimpleForm {
                 return;
             }
 
-            DefaultComboBoxModel<PacienteVO> modelo = new DefaultComboBoxModel<>();
-            for (PacienteVO paciente : pacientes) {
-                modelo.addElement(paciente);
-            }
+            // cria o modelo já tipado
+            DefaultComboBoxModel<PacienteVO> modelo =
+                    new DefaultComboBoxModel<>(pacientes.toArray(new PacienteVO[0]));
 
-            cbbPaciente.setModel((DefaultComboBoxModel) modelo);
+            cbbPaciente.setModel(modelo);        //  <<< LINE RESTAURADA !!!
             cbbPaciente.setSelectedIndex(-1);
 
-            // Adiciona o listener para reagir à mudança de seleção
+            // listener para atualizar responsável
             cbbPaciente.addActionListener(e -> atualizarNomeResponsavel());
         } catch (Exception e) {
             messagesAlert.showErrorMessage("Erro ao carregar pacientes!");
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Erro ao carregar pacientes", e);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                    "Erro ao carregar pacientes", e);
         }
     }
 
