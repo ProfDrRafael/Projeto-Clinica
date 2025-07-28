@@ -163,7 +163,7 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lbClinica" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbOrientador" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbListaPacientes" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="530" max="32767" attributes="0"/>
               </Group>
@@ -173,7 +173,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                  <Component id="lbOrientador" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbListaPacientes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbClinica" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -197,7 +197,7 @@
             <Property name="text" type="java.lang.String" value="Cl&#xed;nica de Psicologia"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbOrientador">
+        <Component class="javax.swing.JLabel" name="lbListaPacientes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="24" style="1"/>

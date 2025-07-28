@@ -5,6 +5,7 @@
 package Visao.Telas;
 import Visao.Components.Table;
 import Visao.Components.PanelTemplate;
+import Visao.JframeManager.FormManager;
 import java.awt.BorderLayout;
 
 /**
@@ -56,6 +57,7 @@ public class TableListaEsperaGeral extends PanelTemplate {
         lbClinica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
         lbLogoGeral = new javax.swing.JLabel();
+        btnTrocar = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(950, 650));
         setMinimumSize(new java.awt.Dimension(950, 650));
@@ -115,6 +117,13 @@ public class TableListaEsperaGeral extends PanelTemplate {
 
         lbLogoGeral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/listaEsperaGeral.png"))); // NOI18N
 
+        btnTrocar.setText("Ir para Lista Especifica");
+        btnTrocar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrocarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
         pNorthLayout.setHorizontalGroup(
@@ -122,13 +131,19 @@ public class TableListaEsperaGeral extends PanelTemplate {
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(lbLogoGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbOrientador)
                     .addGroup(pNorthLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lbClinica)))
-                .addGap(0, 355, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbOrientador)
+                            .addGroup(pNorthLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lbClinica)))
+                        .addGap(0, 358, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTrocar)
+                        .addContainerGap())))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,17 +153,26 @@ public class TableListaEsperaGeral extends PanelTemplate {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClinica)
                 .addGap(58, 58, 58))
-            .addGroup(pNorthLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pNorthLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbLogoGeral, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pNorthLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnTrocar))
+                    .addComponent(lbLogoGeral, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         add(pNorth, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTrocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarActionPerformed
+      FormManager.showForm(new TableListaEsperaEspecifica());
+    }//GEN-LAST:event_btnTrocarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTrocar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbClinica;
     private javax.swing.JLabel lbLogoGeral;

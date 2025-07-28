@@ -40,4 +40,10 @@ public class OrientadorRN {
         var orientador = orientadorDAO.buscarPorNome(nome);
         return orientador != null ? OrientadorVO.fromEntity(orientador) : null;
     }
+
+    // Método para buscar um orientador por e-mail
+    public OrientadorVO buscarOrientadorPorEmail(String email) {
+        var orientador = orientadorDAO.buscarPorEmail(email);
+        return orientador != null ? OrientadorVO.fromEntity(orientador) : null;
+    }
 }

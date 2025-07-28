@@ -74,7 +74,7 @@ public class AtendimentoRN {
         }
     }
 
-    public List<Atendimento> buscarAtendimentosPorPacienteId(Integer pacienteId) {
+    public List<AtendimentoVO> buscarAtendimentosPorPacienteId(Integer pacienteId) {
         PacienteRN pacienteRN = new PacienteRN();
         ProntuarioEletronicoVO prontuario = pacienteRN.buscarProntuarioPorPacienteId(pacienteId);
 
@@ -83,7 +83,10 @@ public class AtendimentoRN {
         }
 
         AtendimentoDAO atendimentoDAO = new AtendimentoDAO();
-        return atendimentoDAO.buscarPorProntuario(prontuario.getId());
+        return atendimentoDAO.buscarPorProntuario(prontuario.getId())
+                .stream()
+                .map(AtendimentoVO::fromEntity)
+                .toList();
     }
 
 }

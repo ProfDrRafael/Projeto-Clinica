@@ -105,4 +105,24 @@ public class EstagiarioDAO extends GenericoDAO<Estagiario> {
         }
         return estagiarios;
     }
+
+    public List<Estagiario> buscarEstagiariosPorOrientadorId(Integer orientadorId) {
+        if (orientadorId == null || orientadorId <= 0) {
+            throw new IllegalArgumentException("ID do orientador inválido.");
+        }
+
+        EntityManager entityManager = JPAUtil.getEntityManager();
+        List<Estagiario> estagiarios = null;
+        try {
+            TypedQuery<Estagiario> query = entityManager.createQuery(
+                    "SELECT e FROM Estagiario e WHERE e.orientador.id = :orientadorId", Estagiario.class);
+            query.setParameter("orientadorId", orientadorId);
+            estagiarios = query.getResultList();
+        } catch (Exception e) {
+            logger.error("Erro ao buscar Estagiarios por Orientador ID: ", e);
+        } finally {
+            entityManager.close();
+        }
+        return estagiarios;
+    }
 }

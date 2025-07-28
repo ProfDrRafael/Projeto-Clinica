@@ -119,9 +119,9 @@ public class MenuAdministrador extends PanelTemplate {
         btRelatorioClinica.setActionCommand("Relatórios ");
         btRelatorioClinica.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btRelatorioClinica.setMargin(new java.awt.Insets(5, 10, 5, 10));
-        btRelatorioClinica.setMaximumSize(new java.awt.Dimension(185, 40));
-        btRelatorioClinica.setMinimumSize(new java.awt.Dimension(185, 40));
-        btRelatorioClinica.setPreferredSize(new java.awt.Dimension(185, 40));
+        btRelatorioClinica.setMaximumSize(new java.awt.Dimension(180, 40));
+        btRelatorioClinica.setMinimumSize(new java.awt.Dimension(180, 40));
+        btRelatorioClinica.setPreferredSize(new java.awt.Dimension(180, 40));
         btRelatorioClinica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btRelatorioClinicaActionPerformed(evt);
@@ -139,12 +139,12 @@ public class MenuAdministrador extends PanelTemplate {
         btGerenciarListas.setBackground(new java.awt.Color(91, 46, 72));
         btGerenciarListas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btGerenciarListas.setForeground(new java.awt.Color(255, 255, 255));
-        btGerenciarListas.setText("Gerenciar Listas");
+        btGerenciarListas.setText("<html>Gerenciar<br>Listas</html>");
         btGerenciarListas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btGerenciarListas.setMargin(new java.awt.Insets(5, 10, 5, 10));
-        btGerenciarListas.setMaximumSize(new java.awt.Dimension(185, 40));
-        btGerenciarListas.setMinimumSize(new java.awt.Dimension(185, 40));
-        btGerenciarListas.setPreferredSize(new java.awt.Dimension(185, 40));
+        btGerenciarListas.setMaximumSize(new java.awt.Dimension(180, 40));
+        btGerenciarListas.setMinimumSize(new java.awt.Dimension(180, 40));
+        btGerenciarListas.setPreferredSize(new java.awt.Dimension(180, 40));
         btGerenciarListas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciarListasActionPerformed(evt);
@@ -162,13 +162,13 @@ public class MenuAdministrador extends PanelTemplate {
         btProntuarioPesquisa.setBackground(new java.awt.Color(30, 27, 24));
         btProntuarioPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btProntuarioPesquisa.setForeground(new java.awt.Color(255, 255, 255));
-        btProntuarioPesquisa.setText("   Pesquisar ");
+        btProntuarioPesquisa.setText("<html>Pesquisar<br>Relatórios</html>");
         btProntuarioPesquisa.setActionCommand("Pesquisar Prontuários");
         btProntuarioPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btProntuarioPesquisa.setMargin(new java.awt.Insets(5, 10, 5, 10));
-        btProntuarioPesquisa.setMaximumSize(new java.awt.Dimension(185, 40));
-        btProntuarioPesquisa.setMinimumSize(new java.awt.Dimension(185, 40));
-        btProntuarioPesquisa.setPreferredSize(new java.awt.Dimension(185, 40));
+        btProntuarioPesquisa.setMaximumSize(new java.awt.Dimension(180, 40));
+        btProntuarioPesquisa.setMinimumSize(new java.awt.Dimension(180, 40));
+        btProntuarioPesquisa.setPreferredSize(new java.awt.Dimension(180, 40));
         btProntuarioPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btProntuarioPesquisaActionPerformed(evt);
@@ -189,9 +189,9 @@ public class MenuAdministrador extends PanelTemplate {
         btGerenciarAgenda.setText("<html>Gerenciar<br>Agendas</html>");
         btGerenciarAgenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btGerenciarAgenda.setMargin(new java.awt.Insets(5, 10, 5, 10));
-        btGerenciarAgenda.setMaximumSize(new java.awt.Dimension(185, 40));
-        btGerenciarAgenda.setMinimumSize(new java.awt.Dimension(185, 40));
-        btGerenciarAgenda.setPreferredSize(new java.awt.Dimension(185, 40));
+        btGerenciarAgenda.setMaximumSize(new java.awt.Dimension(180, 40));
+        btGerenciarAgenda.setMinimumSize(new java.awt.Dimension(180, 40));
+        btGerenciarAgenda.setPreferredSize(new java.awt.Dimension(180, 40));
         btGerenciarAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciarAgendaActionPerformed(evt);
@@ -211,9 +211,9 @@ public class MenuAdministrador extends PanelTemplate {
         btAcessarListaEspera.setText("Lista de Espera");
         btAcessarListaEspera.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btAcessarListaEspera.setMargin(new java.awt.Insets(5, 10, 5, 10));
-        btAcessarListaEspera.setMaximumSize(new java.awt.Dimension(185, 40));
-        btAcessarListaEspera.setMinimumSize(new java.awt.Dimension(185, 40));
-        btAcessarListaEspera.setPreferredSize(new java.awt.Dimension(185, 40));
+        btAcessarListaEspera.setMaximumSize(new java.awt.Dimension(180, 40));
+        btAcessarListaEspera.setMinimumSize(new java.awt.Dimension(180, 40));
+        btAcessarListaEspera.setPreferredSize(new java.awt.Dimension(180, 40));
         btAcessarListaEspera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAcessarListaEsperaActionPerformed(evt);
@@ -234,9 +234,9 @@ public class MenuAdministrador extends PanelTemplate {
         btGerenciarUsuarios.setText("<html>Gerenciar<br>Usuários</html>");
         btGerenciarUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btGerenciarUsuarios.setMargin(new java.awt.Insets(5, 10, 5, 10));
-        btGerenciarUsuarios.setMaximumSize(new java.awt.Dimension(185, 40));
-        btGerenciarUsuarios.setMinimumSize(new java.awt.Dimension(185, 40));
-        btGerenciarUsuarios.setPreferredSize(new java.awt.Dimension(185, 40));
+        btGerenciarUsuarios.setMaximumSize(new java.awt.Dimension(180, 40));
+        btGerenciarUsuarios.setMinimumSize(new java.awt.Dimension(180, 40));
+        btGerenciarUsuarios.setPreferredSize(new java.awt.Dimension(180, 40));
         btGerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciarUsuariosActionPerformed(evt);

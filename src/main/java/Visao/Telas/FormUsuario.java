@@ -113,9 +113,9 @@ public class FormUsuario extends PanelTemplate {
         lbPasswordWarning1 = new javax.swing.JLabel();
         lbPasswordWarning2 = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1000, 2000));
-        setMinimumSize(new java.awt.Dimension(1000, 480));
-        setPreferredSize(new java.awt.Dimension(1000, 480));
+        setMaximumSize(new java.awt.Dimension(950, 480));
+        setMinimumSize(new java.awt.Dimension(950, 480));
+        setPreferredSize(new java.awt.Dimension(950, 480));
         setLayout(new java.awt.BorderLayout());
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));

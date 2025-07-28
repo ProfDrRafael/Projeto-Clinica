@@ -44,4 +44,18 @@ public class GrupoRN {
         return GrupoVO.fromEntity(grupo);
     }
 
+    public List<GrupoVO> listarGruposDoEstagiario(int estagiarioId) {
+        List<Grupo> grupos = grupoDAO.listarGruposDoEstagiario(estagiarioId);
+        return grupos.stream()
+                .map(GrupoVO::fromEntity)
+                .toList();
+    }
+
+    public List<GrupoVO> listarGruposDoOrientador(int orientadorId) {
+        List<Grupo> grupos = grupoDAO.listarGruposDoOrientador(orientadorId);
+        return grupos.stream()
+                .map(GrupoVO::fromEntity)
+                .toList();
+    }
+
 }

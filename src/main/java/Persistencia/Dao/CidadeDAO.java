@@ -17,13 +17,14 @@ import org.slf4j.LoggerFactory;
  * @author john
  */
 public class CidadeDAO extends GenericoDAO<Cidade> {
+
     private static final Logger logger = (Logger) LoggerFactory.getLogger(GenericoDAO.class);
     private Cidade cidadeEntity;
 
     public CidadeDAO() {
         super(Cidade.class);
     }
-    
+
     public static Cidade buscarPorNome(Integer id) {
         EntityManager entityManager = JPAUtil.getEntityManager();
         Cidade cidade = null;
@@ -41,15 +42,18 @@ public class CidadeDAO extends GenericoDAO<Cidade> {
         }
         return cidade;
     }
-   
+
     public List<Cidade> buscarPorEstado(int estadoId) {
         EntityManager em = null;
         List<Cidade> resultados = null;
         try {
             em = JPAUtil.getEntityManager();
 
-            TypedQuery<Cidade> query = em.createQuery("SELECT e FROM Cidade e WHERE e.estado.id = :estado_id", Cidade.class);
-            query.setParameter("estado_id", estadoId);
+            TypedQuery<Cidade> query = em.createQuery(
+                    "SELECT c FROM Cidade c JOIN FETCH c.estado WHERE c.estado.id = :estadoId",
+                    Cidade.class
+            );
+            query.setParameter("estadoId", estadoId);
             resultados = query.getResultList();
 
         } catch (Exception e) {
@@ -62,8 +66,7 @@ public class CidadeDAO extends GenericoDAO<Cidade> {
         }
         return resultados;
     }
-    
-    
+
     public List<Cidade> buscarTodos() {
         EntityManager em = null;
         List<Cidade> resultados = null;
@@ -72,15 +75,38 @@ public class CidadeDAO extends GenericoDAO<Cidade> {
 
             TypedQuery<Cidade> query = em.createQuery("SELECT e FROM Cidade e", Cidade.class);
             resultados = query.getResultList();
-            
+
         } catch (Exception e) {
             logger.error("Erro ao buscar todas as entidades: ", e);
-            
+
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();
             }
         }
         return resultados;
+    }
+
+    public Cidade buscarPorNomeEUF(String nomeCidade, String siglaEstado) {
+        EntityManager em = JPAUtil.getEntityManager();
+        Cidade cidade = null;
+        try {
+            TypedQuery<Cidade> query = em.createQuery(
+                    "SELECT c FROM Cidade c WHERE c.nome = :nomeCidade AND c.estado.sigla = :siglaEstado",
+                    Cidade.class
+            );
+            query.setParameter("nomeCidade", nomeCidade);
+            query.setParameter("siglaEstado", siglaEstado);
+            cidade = query.getSingleResult();
+        } catch (NoResultException e) {
+            logger.warn("Cidade não encontrada com o nome '{}' no estado '{}'", nomeCidade, siglaEstado);
+        } catch (Exception e) {
+            logger.error("Erro ao buscar Cidade por nome e UF: ", e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return cidade;
     }
 }

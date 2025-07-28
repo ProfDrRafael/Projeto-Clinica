@@ -82,4 +82,6 @@ public class OrientadorVO extends UsuarioVO {
         orientador.setAtivo(this.getAtivo());
         orientador.setLinhaTeorica(this.getLinhaTeorica());
     }
+    
+    
 }

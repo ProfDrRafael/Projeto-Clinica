@@ -222,7 +222,10 @@ public class UsuarioRN {
         Class<?> tipoUsuarioClass = null;
         
         switch (tipoUsuario) {
-            case "Usuário":
+            // case "Usuário":
+            //     tipoUsuarioClass = Estagiario.class;
+            //     break;
+            case "Estagiário":
                 tipoUsuarioClass = Estagiario.class;
                 break;
             case "Orientador":

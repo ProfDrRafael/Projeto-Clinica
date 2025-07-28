@@ -51,7 +51,7 @@ public class FormBuscaAvancadaProntuario extends PanelTemplate {
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpObservacoes);
         EditorTextPaneEstilization.JTextComponentStylization(tpObservacoes, btNegritoObs, btItalicoObs, btSublinhadoObs);
         EditorTextPaneEstilization.JTextComponentUndoRedo(tpObservacoes);
-        inicializarComboBoxEstagiarios();
+        //inicializarComboBoxEstagiarios();
     }
 
     /**
@@ -535,104 +535,104 @@ public class FormBuscaAvancadaProntuario extends PanelTemplate {
     /**
      * Inicializa o comboBox de estagiários.
      */
-    private void inicializarComboBoxEstagiarios() {
-        try {
-            SessaoRN sessaoRN = new SessaoRN();
-            SessaoVO sessaoAtual = sessaoRN.buscarUltimaSessao(); // Obtém a sessão atual
-
-            // Verifica se a sessão foi encontrada
-            if (sessaoAtual == null) {
-                bloquearCampos();
-                messagesAlert.showErrorMessage("Sessão não encontrada. Por favor, faça login novamente.");
-                return;
-            }
-
-            EstagiarioRN estagiarioRN = new EstagiarioRN();
-            List<EstagiarioVO> estagiariosVO = estagiarioRN.listarEstagiarios();
-            List<Estagiario> estagiarios = estagiariosVO.stream()
-                    .map(EstagiarioVO::toEntity)
-                    .toList();
-
-            // Se não houver estagiários cadastrados, bloqueia os campos e exibe a mensagem
-            if (estagiarios == null || estagiarios.isEmpty()) {
-                bloquearCampos();
-                cbEstagiario.setModel(new DefaultComboBoxModel<>()); // Limpa o combo box
-                messagesAlert.showErrorMessage("Não há estagiários cadastrados no sistema.");
-                return;
-            }
-
-            // Prepara o modelo para o combo box e atribui-o
-            DefaultComboBoxModel<Estagiario> modelo = new DefaultComboBoxModel<>();
-            for (Estagiario estagiario : estagiarios) {
-                modelo.addElement(estagiario);
-            }
-            cbEstagiario.setModel(modelo);
-
-            // Verifica se a sessão é de um estagiário
-            if ("Estagiario".equalsIgnoreCase(sessaoAtual.getTipo())) {
-                // Procura o estagiário que corresponde ao e-mail da sessão
-                Estagiario estagiarioSessao = estagiarios.stream()
-                        .filter(estagiario -> estagiario.getEmail().equals(sessaoAtual.getEmail()))
-                        .findFirst()
-                        .orElse(null);
-
-                if (estagiarioSessao != null) {
-                    cbEstagiario.setSelectedItem(estagiarioSessao); // Seleciona o estagiário
-                    cbEstagiario.setEnabled(false); // Desabilita o combo box
-                    carregarPacientesPorEstagiario(); // Atualiza a lista de pacientes
-                } else {
-                    // Caso o estagiário da sessão não esteja na lista cadastrada
-                    bloquearCampos();
-                    messagesAlert.showErrorMessage("Estagiário da sessão não está cadastrado no sistema.");
-                    return;
-                }
-            } else {
-                // Se a sessão for de outro tipo (ex: coordenador ou administrador), deixa o combo box sem seleção
-                cbEstagiario.setSelectedIndex(-1);
-            }
-
-            // Adiciona o listener para carregar pacientes ao selecionar um estagiário
-            cbEstagiario.addActionListener(e -> carregarPacientesPorEstagiario());
-        } catch (Exception e) {
-//            messagesAlert.showErrorMessage("Erro ao carregar estagiários: " + e.getMessage());
-            bloquearCampos();
-            messagesAlert.showErrorMessage("Estagiário da sessão não está cadastrado no sistema.");
-        }
-    }
+//    private void inicializarComboBoxEstagiarios() {
+//        try {
+//            SessaoRN sessaoRN = new SessaoRN();
+//            SessaoVO sessaoAtual = sessaoRN.buscarUltimaSessao(); // Obtém a sessão atual
+//
+//            // Verifica se a sessão foi encontrada
+//            if (sessaoAtual == null) {
+//                bloquearCampos();
+//                messagesAlert.showErrorMessage("Sessão não encontrada. Por favor, faça login novamente.");
+//                return;
+//            }
+//
+//            EstagiarioRN estagiarioRN = new EstagiarioRN();
+//            List<EstagiarioVO> estagiariosVO = estagiarioRN.listarEstagiarios();
+//            List<Estagiario> estagiarios = estagiariosVO.stream()
+//                    .map(EstagiarioVO::toEntity)
+//                    .toList();
+//
+//            // Se não houver estagiários cadastrados, bloqueia os campos e exibe a mensagem
+//            if (estagiarios == null || estagiarios.isEmpty()) {
+//                bloquearCampos();
+//                cbEstagiario.setModel(new DefaultComboBoxModel<>()); // Limpa o combo box
+//                messagesAlert.showErrorMessage("Não há estagiários cadastrados no sistema.");
+//                return;
+//            }
+//
+//            // Prepara o modelo para o combo box e atribui-o
+//            DefaultComboBoxModel<Estagiario> modelo = new DefaultComboBoxModel<>();
+//            for (Estagiario estagiario : estagiarios) {
+//                modelo.addElement(estagiario);
+//            }
+//            cbEstagiario.setModel(modelo);
+//
+//            // Verifica se a sessão é de um estagiário
+//            if ("Estagiario".equalsIgnoreCase(sessaoAtual.getTipo())) {
+//                // Procura o estagiário que corresponde ao e-mail da sessão
+//                Estagiario estagiarioSessao = estagiarios.stream()
+//                        .filter(estagiario -> estagiario.getEmail().equals(sessaoAtual.getEmail()))
+//                        .findFirst()
+//                        .orElse(null);
+//
+//                if (estagiarioSessao != null) {
+//                    cbEstagiario.setSelectedItem(estagiarioSessao); // Seleciona o estagiário
+//                    cbEstagiario.setEnabled(false); // Desabilita o combo box
+//                    carregarPacientesPorEstagiario(); // Atualiza a lista de pacientes
+//                } else {
+//                    // Caso o estagiário da sessão não esteja na lista cadastrada
+//                    bloquearCampos();
+//                    messagesAlert.showErrorMessage("Estagiário da sessão não está cadastrado no sistema.");
+//                    return;
+//                }
+//            } else {
+//                // Se a sessão for de outro tipo (ex: coordenador ou administrador), deixa o combo box sem seleção
+//                cbEstagiario.setSelectedIndex(-1);
+//            }
+//
+//            // Adiciona o listener para carregar pacientes ao selecionar um estagiário
+//            cbEstagiario.addActionListener(e -> carregarPacientesPorEstagiario());
+//        } catch (Exception e) {
+////            messagesAlert.showErrorMessage("Erro ao carregar estagiários: " + e.getMessage());
+//            bloquearCampos();
+//            messagesAlert.showErrorMessage("Estagiário da sessão não está cadastrado no sistema.");
+//        }
+//    }
 
     /**
      * Carrega os pacientes do estagiário selecionado no comboBox de pacientes.
      */
-    private void carregarPacientesPorEstagiario() {
-        try {
-            Estagiario estagiarioSelecionado = (Estagiario) cbEstagiario.getSelectedItem();
-            if (estagiarioSelecionado != null) {
-                try {
-                    EstagiarioRN estagiarioRN = new EstagiarioRN();
-                    List<Paciente> pacientes = estagiarioRN.buscarPacientesPorEstagiarioId(estagiarioSelecionado.getId());
-
-                    DefaultComboBoxModel<Paciente> modelo = new DefaultComboBoxModel<>();
-                    for (Paciente paciente : pacientes) {
-                        modelo.addElement(paciente);
-                    }
-
-                    cbPaciente.setModel((DefaultComboBoxModel) modelo);
-                    cbPaciente.setSelectedIndex(-1);
-
-                    // Remove listeners antigos e adiciona o novo
-                    for (ActionListener al : cbPaciente.getActionListeners()) {
-                        cbPaciente.removeActionListener(al);
-                    }
-                } catch (Exception e) {
-                    messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
-                }
-            } else {
-                cbPaciente.setModel((DefaultComboBoxModel) new DefaultComboBoxModel<Paciente>()); // Limpa o combo se nenhum estagiário for selecionado
-            }
-        } catch (Exception e) {
-            messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
-        }
-    }
+//    private void carregarPacientesPorEstagiario() {
+//        try {
+//            Estagiario estagiarioSelecionado = (Estagiario) cbEstagiario.getSelectedItem();
+//            if (estagiarioSelecionado != null) {
+//                try {
+//                    EstagiarioRN estagiarioRN = new EstagiarioRN();
+//                    List<Paciente> pacientes = estagiarioRN.buscarPacientesPorEstagiarioId(estagiarioSelecionado.getId());
+//
+//                    DefaultComboBoxModel<Paciente> modelo = new DefaultComboBoxModel<>();
+//                    for (Paciente paciente : pacientes) {
+//                        modelo.addElement(paciente);
+//                    }
+//
+//                    cbPaciente.setModel((DefaultComboBoxModel) modelo);
+//                    cbPaciente.setSelectedIndex(-1);
+//
+//                    // Remove listeners antigos e adiciona o novo
+//                    for (ActionListener al : cbPaciente.getActionListeners()) {
+//                        cbPaciente.removeActionListener(al);
+//                    }
+//                } catch (Exception e) {
+//                    messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
+//                }
+//            } else {
+//                cbPaciente.setModel((DefaultComboBoxModel) new DefaultComboBoxModel<Paciente>()); // Limpa o combo se nenhum estagiário for selecionado
+//            }
+//        } catch (Exception e) {
+//            messagesAlert.showErrorMessage("Erro ao carregar pacientes: " + e.getMessage() + "Erro");
+//        }
+//    }
 
     private boolean validarCampos() {
         if (cbEstagiario.getSelectedIndex() == -1) {

@@ -35,8 +35,8 @@ public class FormProduzirRelato extends PanelTemplate {
         pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
 
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
-        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png", 40);
+        redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 20);
+        redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png", 45);
 
         EditorTextPaneEstilization.EstilizeEditorTextPane(tpTextoRelato);
         EditorTextPaneEstilization.JTextComponentStylization(tpTextoRelato, btNegrito, btItalico, btSublinhado);
@@ -68,14 +68,16 @@ public class FormProduzirRelato extends PanelTemplate {
         lbProntuario = new javax.swing.JLabel();
         lblLogoRelato = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(1000, 680));
-        setMinimumSize(new java.awt.Dimension(1000, 680));
-        setPreferredSize(new java.awt.Dimension(1000, 680));
+        setMaximumSize(new java.awt.Dimension(950, 630));
+        setMinimumSize(new java.awt.Dimension(950, 630));
+        setPreferredSize(new java.awt.Dimension(950, 630));
         setLayout(new java.awt.BorderLayout());
 
         pCentro.setBackground(java.awt.SystemColor.controlHighlight);
         pCentro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        pCentro.setPreferredSize(new java.awt.Dimension(1024, 768));
+        pCentro.setMaximumSize(new java.awt.Dimension(950, 450));
+        pCentro.setMinimumSize(new java.awt.Dimension(950, 450));
+        pCentro.setPreferredSize(new java.awt.Dimension(950, 450));
 
         ldDescricao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         ldDescricao.setForeground(new java.awt.Color(0, 102, 102));
@@ -98,9 +100,9 @@ public class FormProduzirRelato extends PanelTemplate {
         btCancelar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btCancelar.setForeground(new java.awt.Color(51, 51, 51));
         btCancelar.setText("Cancelar");
-        btCancelar.setMaximumSize(new java.awt.Dimension(108, 39));
-        btCancelar.setMinimumSize(new java.awt.Dimension(108, 39));
-        btCancelar.setPreferredSize(new java.awt.Dimension(108, 39));
+        btCancelar.setMaximumSize(new java.awt.Dimension(134, 38));
+        btCancelar.setMinimumSize(new java.awt.Dimension(134, 38));
+        btCancelar.setPreferredSize(new java.awt.Dimension(134, 38));
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelarActionPerformed(evt);
@@ -112,21 +114,6 @@ public class FormProduzirRelato extends PanelTemplate {
         pCentroLayout.setHorizontalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(19, Short.MAX_VALUE))
-                    .addGroup(pCentroLayout.createSequentialGroup()
-                        .addComponent(ldDescricao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btNegrito)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btItalico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btSublinhado)
-                        .addGap(84, 84, 84))))
-            .addGroup(pCentroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
                 .addContainerGap())
@@ -135,32 +122,53 @@ public class FormProduzirRelato extends PanelTemplate {
                 .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btSalvar)
-                .addGap(44, 44, 44))
+                .addGap(43, 43, 43))
+            .addGroup(pCentroLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addComponent(ldDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btNegrito)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btItalico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btSublinhado)
+                        .addGap(40, 40, 40))))
         );
         pCentroLayout.setVerticalGroup(
             pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCentroLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btNegrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ldDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btSublinhado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btNegrito, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                            .addComponent(btItalico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btSublinhado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pCentroLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(ldDescricao)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         add(pCentro, java.awt.BorderLayout.CENTER);
 
         pNorth.setBackground(new java.awt.Color(0, 102, 102));
-        pNorth.setPreferredSize(new java.awt.Dimension(638, 183));
+        pNorth.setMaximumSize(new java.awt.Dimension(950, 180));
+        pNorth.setMinimumSize(new java.awt.Dimension(950, 180));
+        pNorth.setPreferredSize(new java.awt.Dimension(950, 180));
 
         lbClinica.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lbClinica.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,13 +190,13 @@ public class FormProduzirRelato extends PanelTemplate {
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
                     .addComponent(lbProntuario))
-                .addContainerGap(549, Short.MAX_VALUE))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addComponent(lblLogoRelato, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(lbProntuario)
