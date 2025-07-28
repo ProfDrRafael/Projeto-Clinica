@@ -3,13 +3,13 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[950, 270]"/>
+      <Dimension value="[950, 312]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[950, 270]"/>
+      <Dimension value="[950, 312]"/>
     </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[950, 270]"/>
+      <Dimension value="[950, 312]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -33,28 +33,6 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lbGraficosPermissoes" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="cbGenero" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbEstadoCivil" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbRaca" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbEvolucaoAtendimento" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbAgendadosRealizados" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbListaEspera" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="cbOcupacaoSala" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbTempoMedio" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbPacienteIdade" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbPacienteComparecimento" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Component id="cbTabelas" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cbListaEsperaTabela" min="-2" max="-2" attributes="0"/>
@@ -83,10 +61,45 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cbPaginaAgenda" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbBuscaAvancada" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cbPaginaAtendimento" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cbTotalPacientesAtivos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbTaxaMediaComparecimento" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbPacientesListaEspera" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbTotalAtendimentosMes" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cbEstagiariosAtivos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbGenero" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbEstadoCivil" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbRaca" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbEvolucaoAtendimento" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbAgendadosRealizados" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cbListaEspera" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbOcupacaoSala" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbTempoMedio" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbPacienteIdade" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbPacienteComparecimento" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -95,23 +108,31 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lbGraficosPermissoes" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cbTotalPacientesAtivos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbTaxaMediaComparecimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbPacientesListaEspera" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbTotalAtendimentosMes" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cbEstagiariosAtivos" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbGenero" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbEstadoCivil" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbRaca" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbEvolucaoAtendimento" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbAgendadosRealizados" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbListaEspera" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cbListaEspera" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbOcupacaoSala" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbTempoMedio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbPacienteIdade" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbPacienteComparecimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbOcupacaoSala" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="cbTabelas" min="-2" max="-2" attributes="0"/>
@@ -137,8 +158,9 @@
                   <Component id="cbPaginaProntuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbPaginaAgenda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbPaginaAtendimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbBuscaAvancada" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -300,6 +322,42 @@
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbPacientesListaEspera">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Pacientes na Lista de Espera"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbTotalAtendimentosMes">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Total de Atendimentos (M&#xea;s Atual)"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbEstagiariosAtivos">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Estagi&#xe1;rios Ativos"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbTotalPacientesAtivos">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Total de Pacientes Ativos"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbTaxaMediaComparecimento">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Taxa M&#xe9;dia de Comparecimento"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbBuscaAvancada">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Busca Avan&#xe7;ada"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

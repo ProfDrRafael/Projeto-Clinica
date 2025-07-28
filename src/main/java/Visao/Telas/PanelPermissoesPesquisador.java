@@ -32,6 +32,11 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
         };
 
         // Gráficos
+        if (cbTotalPacientesAtivos.isSelected()) adicionar.accept("Gráfico", "Total de Pacientes Ativos");
+        if (cbTaxaMediaComparecimento.isSelected()) adicionar.accept("Gráfico", "Taxa Média de Comparecimento");
+        if (cbPacientesListaEspera.isSelected()) adicionar.accept("Gráfico", "Pacientes na Lista de Espera");
+        if (cbTotalAtendimentosMes.isSelected()) adicionar.accept("Gráfico", "Total de Atendimentos (Mês Atual)");
+        if (cbEstagiariosAtivos.isSelected()) adicionar.accept("Gráfico", "Estagiários Ativos");
         if (cbGenero.isSelected()) adicionar.accept("Gráfico", "Gênero");
         if (cbEstadoCivil.isSelected()) adicionar.accept("Gráfico", "Estado Civil");
         if (cbRaca.isSelected()) adicionar.accept("Gráfico", "Raça/Cor/Etnia");
@@ -59,6 +64,7 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
         if (cbPaginaUsuario.isSelected()) adicionar.accept("Formulário", "Usuário");
         if (cbPaginaProntuario.isSelected()) adicionar.accept("Formulário", "Prontuário");
         if (cbPaginaAgenda.isSelected()) adicionar.accept("Formulário", "Agenda");
+        if (cbPaginaAgenda.isSelected()) adicionar.accept("Formulário", "Busca Avançada");
 
         return selecionados;
     }
@@ -106,10 +112,16 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
         cbPaginaAgenda = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        cbPacientesListaEspera = new javax.swing.JCheckBox();
+        cbTotalAtendimentosMes = new javax.swing.JCheckBox();
+        cbEstagiariosAtivos = new javax.swing.JCheckBox();
+        cbTotalPacientesAtivos = new javax.swing.JCheckBox();
+        cbTaxaMediaComparecimento = new javax.swing.JCheckBox();
+        cbBuscaAvancada = new javax.swing.JCheckBox();
 
-        setMaximumSize(new java.awt.Dimension(950, 270));
-        setMinimumSize(new java.awt.Dimension(950, 270));
-        setPreferredSize(new java.awt.Dimension(950, 270));
+        setMaximumSize(new java.awt.Dimension(950, 312));
+        setMinimumSize(new java.awt.Dimension(950, 312));
+        setPreferredSize(new java.awt.Dimension(950, 312));
 
         lbGraficosPermissoes.setText("Quais gráficos são permitidos?");
 
@@ -186,6 +198,24 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
         cbPaginaAgenda.setSelected(true);
         cbPaginaAgenda.setText("Agenda");
 
+        cbPacientesListaEspera.setSelected(true);
+        cbPacientesListaEspera.setText("Pacientes na Lista de Espera");
+
+        cbTotalAtendimentosMes.setSelected(true);
+        cbTotalAtendimentosMes.setText("Total de Atendimentos (Mês Atual)");
+
+        cbEstagiariosAtivos.setSelected(true);
+        cbEstagiariosAtivos.setText("Estagiários Ativos");
+
+        cbTotalPacientesAtivos.setSelected(true);
+        cbTotalPacientesAtivos.setText("Total de Pacientes Ativos");
+
+        cbTaxaMediaComparecimento.setSelected(true);
+        cbTaxaMediaComparecimento.setText("Taxa Média de Comparecimento");
+
+        cbBuscaAvancada.setSelected(true);
+        cbBuscaAvancada.setText("Busca Avançada");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,26 +226,6 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbGraficosPermissoes)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbGenero)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbEstadoCivil)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbRaca)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbEvolucaoAtendimento)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbAgendadosRealizados)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbListaEspera))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbOcupacaoSala)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbTempoMedio)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbPacienteIdade)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbPacienteComparecimento))
                     .addComponent(cbTabelas)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbListaEsperaTabela)
@@ -243,29 +253,68 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(cbPaginaAgenda)
                         .addGap(18, 18, 18)
-                        .addComponent(cbPaginaAtendimento)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(cbBuscaAvancada)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbPaginaAtendimento))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbTotalPacientesAtivos)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbTaxaMediaComparecimento)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbPacientesListaEspera)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbTotalAtendimentosMes))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbEstagiariosAtivos)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbGenero)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbEstadoCivil)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbRaca)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbEvolucaoAtendimento)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbAgendadosRealizados))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbListaEspera)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbOcupacaoSala)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbTempoMedio)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbPacienteIdade)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbPacienteComparecimento)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbGraficosPermissoes)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbTotalPacientesAtivos)
+                    .addComponent(cbTaxaMediaComparecimento)
+                    .addComponent(cbPacientesListaEspera)
+                    .addComponent(cbTotalAtendimentosMes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbEstagiariosAtivos)
                     .addComponent(cbGenero)
                     .addComponent(cbEstadoCivil)
                     .addComponent(cbRaca)
                     .addComponent(cbEvolucaoAtendimento)
-                    .addComponent(cbAgendadosRealizados)
-                    .addComponent(cbListaEspera))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cbAgendadosRealizados))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbListaEspera)
+                    .addComponent(cbOcupacaoSala)
                     .addComponent(cbTempoMedio)
                     .addComponent(cbPacienteIdade)
-                    .addComponent(cbPacienteComparecimento)
-                    .addComponent(cbOcupacaoSala))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cbPacienteComparecimento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbTabelas)
@@ -289,8 +338,9 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
                     .addComponent(cbPaginaUsuario)
                     .addComponent(cbPaginaProntuario)
                     .addComponent(cbPaginaAgenda)
-                    .addComponent(cbPaginaAtendimento))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(cbPaginaAtendimento)
+                    .addComponent(cbBuscaAvancada))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -299,7 +349,9 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
     private javax.swing.JCheckBox cbAgendadosRealizados;
     private javax.swing.JCheckBox cbAgendamentosTabela;
     private javax.swing.JCheckBox cbAtendimentosTabela;
+    private javax.swing.JCheckBox cbBuscaAvancada;
     private javax.swing.JCheckBox cbEstadoCivil;
+    private javax.swing.JCheckBox cbEstagiariosAtivos;
     private javax.swing.JCheckBox cbEstagiariosTabela;
     private javax.swing.JCheckBox cbEvolucaoAtendimento;
     private javax.swing.JCheckBox cbGenero;
@@ -309,6 +361,7 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
     private javax.swing.JCheckBox cbOcupacaoSala;
     private javax.swing.JCheckBox cbPacienteComparecimento;
     private javax.swing.JCheckBox cbPacienteIdade;
+    private javax.swing.JCheckBox cbPacientesListaEspera;
     private javax.swing.JCheckBox cbPacientesTabela;
     private javax.swing.JCheckBox cbPaginaAgenda;
     private javax.swing.JCheckBox cbPaginaAtendimento;
@@ -319,7 +372,10 @@ public class PanelPermissoesPesquisador extends javax.swing.JPanel {
     private javax.swing.JCheckBox cbRaca;
     private javax.swing.JLabel cbTabelas;
     private javax.swing.JLabel cbTabelas1;
+    private javax.swing.JCheckBox cbTaxaMediaComparecimento;
     private javax.swing.JCheckBox cbTempoMedio;
+    private javax.swing.JCheckBox cbTotalAtendimentosMes;
+    private javax.swing.JCheckBox cbTotalPacientesAtivos;
     private javax.swing.JCheckBox cbUsuariosTabela;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
