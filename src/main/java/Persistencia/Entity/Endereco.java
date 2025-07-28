@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "endereco")
 public class Endereco {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ou outra estratégia dependendo do seu banco
     @Column(name = "id", nullable = false)
@@ -83,6 +84,19 @@ public class Endereco {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{"
+                + "id=" + id
+                + ", rua='" + rua + '\''
+                + ", numero=" + numero
+                + ", bairro='" + bairro + '\''
+                + ", cidade=" + (cidade != null ? cidade.getNome() : "null")
+                + ", cep='" + cep + '\''
+                + ", complemento='" + complemento + '\''
+                + '}';
     }
 
 }

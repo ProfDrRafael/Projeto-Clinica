@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Visao.Telas;
-import Visao.Components.SimpleForm;
+import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Services.RedefinirSenhaService;
 
@@ -14,7 +14,7 @@ import javax.swing.*;
  *
  * @author john
  */
-public class FormEsqueciSenha2 extends SimpleForm {
+public class FormEsqueciSenha2 extends PanelTemplate {
     private String email;
     private String tipoUsuario;
     private RedefinirSenhaService redefinirSenhaService;
