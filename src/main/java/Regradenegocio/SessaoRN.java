@@ -22,6 +22,13 @@ public class SessaoRN {
         sessaoDAO.salvar(sessao);
     }
 
+    public void alterarSessao(SessaoVO sessaoVO) {
+        validarSessao(sessaoVO);
+        Sessao sessao = sessaoVO.toEntity();
+        sessao.setId(sessao.getId());
+        sessaoDAO.atualizar(sessao);
+    }
+
     // Buscar todas as Sessões
     public List<SessaoVO> buscarTodasSessoes() {
         return sessaoDAO.buscarTodos()
