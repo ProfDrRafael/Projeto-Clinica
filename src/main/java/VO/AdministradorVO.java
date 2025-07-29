@@ -8,11 +8,6 @@ public class AdministradorVO extends UsuarioVO {
         super(id, nomeCompleto, email, senha);
     }
 
-    @Override
-    public String getTipo() {
-        return "Administrador";
-    }
-
     public static AdministradorVO fromEntity(Administrador administrador) {
         return new AdministradorVO(
                 administrador.getId(),
@@ -20,5 +15,19 @@ public class AdministradorVO extends UsuarioVO {
                 administrador.getEmail(),
                 null
         );
+    }
+
+    public Administrador toEntity() {
+        var admin = new Administrador();
+        admin.setId(this.getId());
+        admin.setNome(this.getNomeCompleto());
+        admin.setEmail(this.getEmail());
+        admin.setSenha(this.getSenha());
+        return admin;
+    }
+
+    @Override
+    public String getTipo() {
+        return "Administrador";
     }
 }
