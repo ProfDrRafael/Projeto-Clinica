@@ -9,8 +9,11 @@ import Persistencia.Entity.Estagiario;
 import Persistencia.Entity.Orientador;
 import Regradenegocio.SessaoRN;
 import Services.SenhaService;
+import Services.UsuarioService;
 import VO.SessaoVO;
 import Visao.Components.PanelTemplate;
+import Visao.JframeManager.FormManager;
+import Visao.Utils.MessagesAlert;
 import javax.swing.*;
 
 /**
@@ -19,11 +22,20 @@ import javax.swing.*;
  */
 public class PageConfiguracoes extends PanelTemplate {
 
+    private final MessagesAlert messagesAlert;
+    private final UsuarioService usuarioService;
+    private final SessaoVO sessao;
+
     /**
      * Creates new form PageConfiguracoes
      */
     public PageConfiguracoes() {
         initComponents();
+        
+        messagesAlert = new MessagesAlert();
+        usuarioService = new UsuarioService();
+        sessao = new SessaoRN().buscarUltimaSessao();
+        
         carregarDadosUsuarioComBaseNaSessao();
     }
 
@@ -42,28 +54,26 @@ public class PageConfiguracoes extends PanelTemplate {
         lblLogoSecretaria = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnPerfil = new javax.swing.JButton();
-        btnExtra1 = new javax.swing.JButton();
-        btnExtra2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lbDadosUsuario = new javax.swing.JLabel();
+        lbEmail = new javax.swing.JLabel();
+        tfNome = new javax.swing.JTextField();
+        btnAlterarEmail = new javax.swing.JButton();
+        lbNome = new javax.swing.JLabel();
         lbAnoEntrada = new javax.swing.JLabel();
         lbLinhaTeorica = new javax.swing.JLabel();
         lbOrientador = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        lbFuncao = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel8 = new javax.swing.JLabel();
+        lbInformacoesAcademicas = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         tfEmail = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        lbSenha = new javax.swing.JLabel();
         tfSenha = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
+        btnAlterarSenha = new javax.swing.JButton();
         tfAnoEntrada = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        tfFuncao = new javax.swing.JTextField();
         tfLinhaTeorica = new javax.swing.JTextField();
         tfOrientador = new javax.swing.JTextField();
 
@@ -85,7 +95,6 @@ public class PageConfiguracoes extends PanelTemplate {
         lbProntuario.setText("Configurações");
 
         lblLogoSecretaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimidia/imagens/logoCapivasConfig (1).png"))); // NOI18N
-        lblLogoSecretaria.setPreferredSize(new java.awt.Dimension(230, 230));
 
         javax.swing.GroupLayout pNorthLayout = new javax.swing.GroupLayout(pNorth);
         pNorth.setLayout(pNorthLayout);
@@ -93,7 +102,7 @@ public class PageConfiguracoes extends PanelTemplate {
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNorthLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblLogoSecretaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblLogoSecretaria)
                 .addGap(1, 1, 1)
                 .addGroup(pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbClinica)
@@ -116,37 +125,28 @@ public class PageConfiguracoes extends PanelTemplate {
 
         btnPerfil.setText("Perfil");
 
-        btnExtra1.setText("Extra1");
-        btnExtra1.addActionListener(new java.awt.event.ActionListener() {
+        lbDadosUsuario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbDadosUsuario.setText("Dados do Usuário");
+
+        lbEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbEmail.setText("Email:");
+
+        tfNome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfNome.setFocusable(false);
+        tfNome.setMinimumSize(new java.awt.Dimension(72, 38));
+
+        btnAlterarEmail.setBackground(new java.awt.Color(0, 102, 102));
+        btnAlterarEmail.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnAlterarEmail.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlterarEmail.setText("Alterar email");
+        btnAlterarEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExtra1ActionPerformed(evt);
+                btnAlterarEmailActionPerformed(evt);
             }
         });
 
-        btnExtra2.setText("Extra2");
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Dados do Usuário");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("Email:");
-
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jTextField1.setFocusable(false);
-        jTextField1.setMinimumSize(new java.awt.Dimension(72, 38));
-
-        jButton5.setBackground(new java.awt.Color(0, 102, 102));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Alterar email");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Nome:");
+        lbNome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbNome.setText("Nome:");
 
         lbAnoEntrada.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbAnoEntrada.setText("Ano de Entrada:");
@@ -167,37 +167,37 @@ public class PageConfiguracoes extends PanelTemplate {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel7.setText("Função:");
+        lbFuncao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbFuncao.setText("Função:");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel8.setText("Informações Acadêmicas");
+        lbInformacoesAcademicas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbInformacoesAcademicas.setText("Informações Acadêmicas");
 
         tfEmail.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         tfEmail.setFocusable(false);
         tfEmail.setMinimumSize(new java.awt.Dimension(72, 38));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel9.setText("Senha:");
+        lbSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbSenha.setText("Senha:");
 
         tfSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         tfSenha.setFocusable(false);
 
-        jButton7.setBackground(new java.awt.Color(0, 102, 102));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Alterar senha");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterarSenha.setBackground(new java.awt.Color(0, 102, 102));
+        btnAlterarSenha.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnAlterarSenha.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlterarSenha.setText("Alterar senha");
+        btnAlterarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnAlterarSenhaActionPerformed(evt);
             }
         });
 
         tfAnoEntrada.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         tfAnoEntrada.setFocusable(false);
 
-        jTextField6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jTextField6.setFocusable(false);
+        tfFuncao.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tfFuncao.setFocusable(false);
 
         tfLinhaTeorica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         tfLinhaTeorica.setFocusable(false);
@@ -210,24 +210,17 @@ public class PageConfiguracoes extends PanelTemplate {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(322, 322, 322)
-                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExtra1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExtra2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addComponent(lbDadosUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addComponent(lbFuncao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lbAnoEntrada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -242,77 +235,77 @@ public class PageConfiguracoes extends PanelTemplate {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel9)
+                            .addComponent(lbSenha)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAlterarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel8)
+                            .addComponent(lbInformacoesAcademicas)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(btSalvar)
                             .addGap(53, 53, 53)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lbNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(470, 470, 470))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(lbEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnAlterarEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbLinhaTeorica)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfLinhaTeorica, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(pNorth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(410, 410, 410)
+                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pNorth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExtra1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExtra2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbDadosUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
+                    .addComponent(lbEmail)
                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAlterarEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbNome)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)))
+                        .addComponent(lbSenha)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbInformacoesAcademicas, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFuncao)
+                    .addComponent(tfFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbAnoEntrada)
                     .addComponent(tfAnoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -333,115 +326,16 @@ public class PageConfiguracoes extends PanelTemplate {
         // TODO add your handling code here:
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void btnExtra1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtra1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExtra1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        JTextField tfNovoEmail = new JTextField();
-        JTextField tfConfirmarEmail = new JTextField();
-        JPasswordField pfSenha = new JPasswordField();
-
-        Object[] campos = {
-                "Novo email:", tfNovoEmail,
-                "Confirmar email:", tfConfirmarEmail,
-                "Senha atual:", pfSenha
-        };
-
-        int result = JOptionPane.showConfirmDialog(this, campos, "Alterar Email", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
-            String novoEmail = tfNovoEmail.getText();
-            String confirmarEmail = tfConfirmarEmail.getText();
-            String senhaAtual = new String(pfSenha.getPassword());
-
-            if (!novoEmail.equals(confirmarEmail)) {
-                JOptionPane.showMessageDialog(this, "Os emails não coincidem.");
-                return;
-            }
-
-            if (!novoEmail.contains("@")) {
-                JOptionPane.showMessageDialog(this, "Email inválido.");
-                return;
-            }
-
-            SessaoVO sessao = new SessaoRN().buscarUltimaSessao();
-            SenhaService senhaService = new SenhaService();
-
-            boolean atualizado = false;
-
-            switch (sessao.getTipo()) {
-                case "Estagiario" -> {
-                    EstagiarioDAO dao = new EstagiarioDAO();
-                    var est = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, est.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    est.setEmail(novoEmail);
-                    dao.atualizar(est);
-                    atualizado = true;
-                }
-                case "Orientador" -> {
-                    OrientadorDAO dao = new OrientadorDAO();
-                    var ori = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, ori.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    ori.setEmail(novoEmail);
-                    dao.atualizar(ori);
-                    atualizado = true;
-                }
-                case "Secretaria" -> {
-                    SecretariaDAO dao = new SecretariaDAO();
-                    var sec = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, sec.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    sec.setEmail(novoEmail);
-                    dao.atualizar(sec);
-                    atualizado = true;
-                }
-                case "Administrador" -> {
-                    AdministradorDAO dao = new AdministradorDAO();
-                    var adm = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, adm.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    adm.setEmail(novoEmail);
-                    dao.atualizar(adm);
-                    atualizado = true;
-                }
-            }
-
-            if (atualizado) {
-                // Atualiza campo na tela
-                tfEmail.setText(novoEmail);
-
-                // Atualiza a sessão
-                SessaoRN sessaoRN = new SessaoRN();
-                SessaoVO sessaoAntiga = sessaoRN.buscarUltimaSessao();
-                new SessaoDAO().deletar(sessaoAntiga.toEntity());
-
-                SessaoVO novaSessao = new SessaoVO(null, sessaoAntiga.getNome(), novoEmail, sessaoAntiga.getTipo());
-                sessaoRN.salvarSessao(novaSessao);
-
-                JOptionPane.showMessageDialog(this, "Email atualizado com sucesso!");
-            }
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarSenhaActionPerformed
         JPasswordField pfAtual = new JPasswordField();
         JPasswordField pfNova = new JPasswordField();
         JPasswordField pfConfirm = new JPasswordField();
 
         Object[] campos = {
-                "Senha atual:", pfAtual,
-                "Nova senha:", pfNova,
-                "Confirmar nova senha:", pfConfirm
+            "Senha atual:", pfAtual,
+            "Nova senha:", pfNova,
+            "Confirmar nova senha:", pfConfirm
         };
 
         int result = JOptionPane.showConfirmDialog(this, campos, "Alterar Senha", JOptionPane.OK_CANCEL_OPTION);
@@ -451,163 +345,168 @@ public class PageConfiguracoes extends PanelTemplate {
             String confirmar = new String(pfConfirm.getPassword());
 
             if (!novaSenha.equals(confirmar)) {
-                JOptionPane.showMessageDialog(this, "As novas senhas não coincidem.");
+                messagesAlert.showErrorMessage("As novas senhas não coincidem.");
                 return;
             }
 
-            SessaoVO sessao = new SessaoRN().buscarUltimaSessao();
-            SenhaService senhaService = new SenhaService();
-            boolean atualizado = false;
-
-            switch (sessao.getTipo()) {
-                case "Estagiario" -> {
-                    EstagiarioDAO dao = new EstagiarioDAO();
-                    var usuario = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, usuario.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    usuario.setSenha(senhaService.criptografarSenha(novaSenha));
-                    dao.atualizar(usuario);
-                    atualizado = true;
-                }
-                case "Orientador" -> {
-                    OrientadorDAO dao = new OrientadorDAO();
-                    var usuario = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, usuario.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    usuario.setSenha(senhaService.criptografarSenha(novaSenha));
-                    dao.atualizar(usuario);
-                    atualizado = true;
-                }
-                case "Secretaria" -> {
-                    SecretariaDAO dao = new SecretariaDAO();
-                    var usuario = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, usuario.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    usuario.setSenha(senhaService.criptografarSenha(novaSenha));
-                    dao.atualizar(usuario);
-                    atualizado = true;
-                }
-                case "Administrador" -> {
-                    AdministradorDAO dao = new AdministradorDAO();
-                    var usuario = dao.buscarPorEmail(sessao.getEmail());
-                    if (!senhaService.verificarSenha(senhaAtual, usuario.getSenha())) {
-                        JOptionPane.showMessageDialog(this, "Senha atual incorreta.");
-                        return;
-                    }
-                    usuario.setSenha(senhaService.criptografarSenha(novaSenha));
-                    dao.atualizar(usuario);
-                    atualizado = true;
-                }
-            }
-
-            if (atualizado) {
-                JOptionPane.showMessageDialog(this, "Senha alterada com sucesso!");
+            try {
+                usuarioService.alterarSenha(sessao.getEmail(), senhaAtual, novaSenha, sessao.getTipo());
+                messagesAlert.showSuccessMessage("Senha alterada com sucesso!");
+                pfNova.setText("");
+            } catch (RuntimeException ex) {
+                messagesAlert.showErrorMessage(ex.getMessage());
             }
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnAlterarSenhaActionPerformed
 
+    private void btnAlterarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarEmailActionPerformed
+        JTextField tfNovoEmail = new JTextField();
+        JTextField tfConfirmarEmail = new JTextField();
+        JPasswordField pfSenha = new JPasswordField();
+
+        Object[] campos = {
+            "Novo email:", tfNovoEmail,
+            "Confirmar email:", tfConfirmarEmail,
+            "Senha atual:", pfSenha
+        };
+
+        int result = JOptionPane.showConfirmDialog(this, campos, "Alterar Email", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            String novoEmail = tfNovoEmail.getText();
+            String confirmarEmail = tfConfirmarEmail.getText();
+            String senhaAtual = new String(pfSenha.getPassword());
+
+            if (!novoEmail.equals(confirmarEmail)) {
+                messagesAlert.showErrorMessage("Os emails não coincidem.");
+                return;
+            }
+
+            // Fazer a validação do email aqui
+            if (!novoEmail.contains("@")) {
+                messagesAlert.showErrorMessage("Email inválido.");
+                return;
+            }
+
+            try {
+                usuarioService.alterarEmail(sessao.getEmail(), novoEmail, senhaAtual, sessao.getTipo());
+                messagesAlert.showSuccessMessage("Email alterado com sucesso!");
+
+                // Atualiza sessão
+                SessaoRN sessaoRN = new SessaoRN();
+                sessao.setEmail(novoEmail);
+                sessaoRN.alterarSessao(sessao);
+            } catch (RuntimeException ex) {
+                messagesAlert.showErrorMessage(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnAlterarEmailActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvar;
-    private javax.swing.JButton btnExtra1;
-    private javax.swing.JButton btnExtra2;
+    private javax.swing.JButton btnAlterarEmail;
+    private javax.swing.JButton btnAlterarSenha;
     private javax.swing.JButton btnPerfil;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel lbAnoEntrada;
     private javax.swing.JLabel lbClinica;
+    private javax.swing.JLabel lbDadosUsuario;
+    private javax.swing.JLabel lbEmail;
+    private javax.swing.JLabel lbFuncao;
+    private javax.swing.JLabel lbInformacoesAcademicas;
     private javax.swing.JLabel lbLinhaTeorica;
+    private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbOrientador;
     private javax.swing.JLabel lbProntuario;
+    private javax.swing.JLabel lbSenha;
     private javax.swing.JLabel lblLogoSecretaria;
     private javax.swing.JPanel pNorth;
     private javax.swing.JTextField tfAnoEntrada;
     private javax.swing.JTextField tfEmail;
+    private javax.swing.JTextField tfFuncao;
     private javax.swing.JTextField tfLinhaTeorica;
+    private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfOrientador;
     private javax.swing.JTextField tfSenha;
     // End of variables declaration//GEN-END:variables
 
-    private void carregarDadosUsuarioComBaseNaSessao() {
-        SessaoRN sessaoRN = new SessaoRN();
-        SessaoVO sessao = sessaoRN.buscarUltimaSessao();
+    // Este método auxiliar controla um grupo de componentes
+    private void configurarCamposAcademicos(boolean visivel) {
+        lbAnoEntrada.setVisible(visivel);
+        lbLinhaTeorica.setVisible(visivel);
+        lbOrientador.setVisible(visivel);
 
-        if (sessao == null) {
-            System.out.println("Nenhuma sessão ativa.");
-            return;
-        }
-
-        jTextField1.setText(sessao.getNome());
-        tfEmail.setText(sessao.getEmail());
-        tfSenha.setText("********");
-        jTextField6.setText(sessao.getTipo());
+        tfAnoEntrada.setVisible(visivel);
+        tfLinhaTeorica.setVisible(visivel);
+        tfOrientador.setVisible(visivel);
 
         // Campos padrões desabilitados
-        tfAnoEntrada.setText("");
-        tfLinhaTeorica.setText("");
-        tfOrientador.setText("");
+        if (!visivel) {
+            tfAnoEntrada.setText("");
+            tfLinhaTeorica.setText("");
+            tfOrientador.setText("");
+        }
+    }
 
-        tfAnoEntrada.setEnabled(false); // ano
-        tfLinhaTeorica.setEnabled(false); // linha teórica
-        tfOrientador.setEnabled(false); // orientador
-        tfAnoEntrada.setVisible(false);
-        tfLinhaTeorica.setVisible(false);
-        tfOrientador.setVisible(false);
-        lbAnoEntrada.setVisible(false);
-        lbLinhaTeorica.setVisible(false);
-        lbOrientador.setVisible(false);
+    /**
+     * Controla a visibilidade de um grupo de componentes na tela.
+     *
+     * @param label O JLabel a ser configurado.
+     * @param textField O JTextField a ser configurado.
+     * @param visivel true para mostrar, false para esconder.
+     */
+    private void configurarVisibilidadeCampo(JLabel label, JTextField textField, boolean visivel) {
+        label.setVisible(visivel);
+        textField.setVisible(visivel);
+        textField.setEnabled(visivel);
+        if (!visivel) {
+            textField.setText("");
+        }
+    }
+
+    private void carregarDadosUsuarioComBaseNaSessao() {
+        if (sessao == null) {
+            messagesAlert.showErrorMessage(
+                    "Sua sessão expirou ou não foi encontrada. Por favor, faça o login novamente."
+            );
+            FormManager.logout();
+            return;
+        }
+        
+        tfNome.setText(sessao.getNome());
+        tfEmail.setText(sessao.getEmail());
+        tfSenha.setText("********"); // placeholder
+        tfFuncao.setText(sessao.getTipo());
+
+        configurarCamposAcademicos(false);
 
         switch (sessao.getTipo()) {
             case "Estagiario" -> {
                 Estagiario estagiario = new EstagiarioDAO().buscarPorEmailComOrientador(sessao.getEmail());
                 if (estagiario != null) {
+                    configurarVisibilidadeCampo(lbAnoEntrada, tfAnoEntrada, true);
                     tfAnoEntrada.setText(estagiario.getAno() != null ? String.valueOf(estagiario.getAno()) : "");
-                    tfAnoEntrada.setEnabled(true);
-                    tfAnoEntrada.setVisible(true);
-                    lbAnoEntrada.setVisible(true);
 
                     if (estagiario.getOrientador() != null) {
+                        configurarVisibilidadeCampo(lbLinhaTeorica, tfLinhaTeorica, true);
+                        configurarVisibilidadeCampo(lbOrientador, tfOrientador, true);
+
                         tfLinhaTeorica.setText(estagiario.getOrientador().getLinhaTeorica());
                         tfOrientador.setText(estagiario.getOrientador().getNome());
-                        tfLinhaTeorica.setEnabled(true);
-                        tfLinhaTeorica.setVisible(true);
-                        tfOrientador.setEnabled(true);
-                        tfOrientador.setVisible(true);
-                        lbLinhaTeorica.setVisible(true);
-                        lbOrientador.setVisible(true);
                     }
                 }
             }
             case "Orientador" -> {
                 Orientador orientador = new OrientadorDAO().buscarPorEmail(sessao.getEmail());
                 if (orientador != null) {
+                    configurarVisibilidadeCampo(lbLinhaTeorica, tfLinhaTeorica, true);
                     tfLinhaTeorica.setText(orientador.getLinhaTeorica());
-                    tfLinhaTeorica.setEnabled(true);
-                    tfLinhaTeorica.setVisible(true);
                 }
             }
             case "Secretaria", "Administrador" -> {
-                // Nada a preencher nos campos acadêmicos
             }
         }
     }
-
 }

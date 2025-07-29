@@ -4,19 +4,12 @@
  */
 package Visao.Telas;
 
-import Persistencia.Dao.*;
-import Persistencia.Entity.Estagiario;
-import Persistencia.Entity.Grupo;
-import Persistencia.Entity.Orientador;
 import Regradenegocio.GrupoRN;
 import Regradenegocio.GrupoXPacienteRN;
 import Regradenegocio.PacienteRN;
-import Regradenegocio.SessaoRN;
-import Services.SenhaService;
 import VO.GrupoVO;
 import VO.GrupoXPacienteVO;
 import VO.PacienteVO;
-import VO.SessaoVO;
 import Visao.Components.PanelTemplate;
 import Visao.JframeManager.FormManager;
 import Visao.Utils.MessagesAlert;
@@ -41,14 +34,11 @@ public class PageGrupos extends PanelTemplate {
     public PageGrupos() {
         initComponents();
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
-        // Ícones que você já tinha
+
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 20);
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png", 40);
         redimencionarIcone.redimensionarIcones(btCancelar, "/Multimidia/imagens/cancelar-btn.png", 40);
 
-        // =========================================================================
-        // NOVO: Adicionando os ícones aos outros botões
-        // =========================================================================
         // Ícone para o botão "Ver Pacientes do Grupo"
         redimencionarIcone.redimensionarIcones(btnListarPacientes, "/Multimidia/imagens/view.png", 40);
 
@@ -57,10 +47,7 @@ public class PageGrupos extends PanelTemplate {
         redimencionarIcone.redimensionarIcones(btnAdicionarEstagiario, "/Multimidia/imagens/add.png", 20);
         messagesAlert = new MessagesAlert();
 
-        lbNovoNome.setVisible(false);
-        tfNovoNome.setVisible(false);
-        taDescricao.setEnabled(false);
-        btSalvar.setEnabled(false);
+        bloquearCampos();
 
         inicializarComboBoxPacientes();
         inicializarComboBoxGrupos();
@@ -86,7 +73,7 @@ public class PageGrupos extends PanelTemplate {
         lbDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taDescricao = new javax.swing.JTextArea();
-        cbAdicionarPaciente = new javax.swing.JComboBox<>();
+        cbAdicionarPaciente = new JComboBox<PacienteVO>();
         btnAdicionarPaciente = new javax.swing.JButton();
         cbAdicionarEstagiario = new javax.swing.JComboBox<>();
         btnAdicionarEstagiario = new javax.swing.JButton();
@@ -333,7 +320,6 @@ public class PageGrupos extends PanelTemplate {
             return;
         }
 
-        // atualiza o VO
         GrupoVO vo = new GrupoVO();
         GrupoVO atual = (GrupoVO) cbNome.getSelectedItem();
         assert atual != null;
@@ -341,17 +327,12 @@ public class PageGrupos extends PanelTemplate {
         vo.setNome(novoNome);
         vo.setDescricao(novaDescricao);
 
-        // persiste (merge)
         new GrupoRN().salvar(vo);
 
         messagesAlert.showSuccessMessage("Grupo atualizado com sucesso!");
 
         // volta ao estado inicial
-        lbNovoNome.setVisible(false);
-        tfNovoNome.setVisible(false);
-        btSalvar.setEnabled(false);
-        taDescricao.setEnabled(false);
-        btEditar.setEnabled(true);
+        bloquearCampos();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btnAdicionarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPacienteActionPerformed
@@ -399,17 +380,11 @@ public class PageGrupos extends PanelTemplate {
     }//GEN-LAST:event_btnListarPacientesActionPerformed
 
     private void btEditarComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_btEditarComponentHidden
-
+        liberarEdicao();
     }//GEN-LAST:event_btEditarComponentHidden
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        lbNovoNome.setVisible(true);
-        tfNovoNome.setVisible(true);
-
-        taDescricao.setEnabled(true);
-        btSalvar.setEnabled(true);
-
-        btEditar.setEnabled(false);
+        liberarEdicao();
     }//GEN-LAST:event_btEditarActionPerformed
 
 
@@ -421,7 +396,7 @@ public class PageGrupos extends PanelTemplate {
     private javax.swing.JButton btnAdicionarPaciente;
     private javax.swing.JButton btnListarPacientes;
     private javax.swing.JComboBox<String> cbAdicionarEstagiario;
-    private javax.swing.JComboBox<String> cbAdicionarPaciente;
+    private JComboBox<PacienteVO> cbAdicionarPaciente;
     private javax.swing.JComboBox<GrupoVO> cbNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -440,13 +415,23 @@ public class PageGrupos extends PanelTemplate {
     // End of variables declaration//GEN-END:variables
 
     private void inicializarComboBoxPacientes() {
+        /*
+         * NOTA PARA FUTUROS DESENVOLVEDORES:
+         * Este método é intencionalmente repetido e muito similar ao "inicializarComboBoxPacientes".
+         * A duplicação foi mantida para facilitar uma futura implementação que poderá, por exemplo,
+         * incluir o nome do responsável junto ao grupo, diferenciando a lógica de busca.
+         *
+         * Caso essa alteração específica não seja realizada, é altamente recomendável
+         * refatorar ambos os métodos para uma única função genérica a fim de eliminar
+         * a repetição de código.
+         */
         try {
             PacienteRN pacienteRN = new PacienteRN();
             List<PacienteVO> pacientes = pacienteRN.listarPacientes();
 
             if (pacientes == null || pacientes.isEmpty()) {
-//                bloquearCampos();
-//                messagesAlert.showErrorMessage("Não há pacientes cadastrados no sistema.");
+                bloquearCampos();
+                messagesAlert.showErrorMessage("Não há pacientes cadastrados no sistema.");
                 return;
             }
 
@@ -455,13 +440,11 @@ public class PageGrupos extends PanelTemplate {
                 modelo.addElement(paciente);
             }
 
-            cbAdicionarPaciente.setModel((DefaultComboBoxModel) modelo);
+            cbAdicionarPaciente.setModel(modelo);
             cbAdicionarPaciente.setSelectedIndex(-1);
 
-            // Adiciona o listener para reagir à mudança de seleção
-//            cbbPaciente.addActionListener(e -> atualizarNomeResponsavel());
         } catch (Exception e) {
-//            messagesAlert.showErrorMessage("Erro ao carregar pacientes!");
+            messagesAlert.showErrorMessage("Erro ao carregar pacientes!");
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Erro ao carregar pacientes", e);
         }
     }
@@ -472,8 +455,8 @@ public class PageGrupos extends PanelTemplate {
             List<GrupoVO> grupos = grupoRN.listarTodos();
 
             if (grupos == null || grupos.isEmpty()) {
-//                bloquearCampos();
-//                messagesAlert.showErrorMessage("Não há pacientes cadastrados no sistema.");
+                bloquearCampos();
+                messagesAlert.showErrorMessage("Não há pacientes cadastrados no sistema.");
                 return;
             }
 
@@ -483,11 +466,8 @@ public class PageGrupos extends PanelTemplate {
             }
             cbNome.setModel(modelo);
             cbNome.setSelectedIndex(-1);
-
-            // Adiciona o listener para reagir à mudança de seleção
-//            cbbPaciente.addActionListener(e -> atualizarNomeResponsavel());
         } catch (Exception e) {
-//            messagesAlert.showErrorMessage("Erro ao carregar pacientes!");
+            messagesAlert.showErrorMessage("Erro ao carregar grupos!");
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Erro ao carregar grupos", e);
         }
     }
@@ -495,10 +475,7 @@ public class PageGrupos extends PanelTemplate {
     private void listarPacientes() {
         GrupoVO grupoSelecionado = (GrupoVO) cbNome.getSelectedItem();
         if (grupoSelecionado == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Selecione um grupo primeiro.",
-                    "Atenção",
-                    JOptionPane.WARNING_MESSAGE);
+            messagesAlert.showErrorMessage("Selecione um grupo primeiro.");
             return;
         }
 
@@ -511,8 +488,26 @@ public class PageGrupos extends PanelTemplate {
         JFrame frame = new JFrame("Pacientes do Grupo: " + grupoSelecionado.getNome());
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setContentPane(painel);
-        frame.pack();                    // ajusta ao tamanho preferido
+        frame.pack();                  
         frame.setLocationRelativeTo(this);
         frame.setVisible(true);
+    }
+    
+    private void liberarEdicao() {
+        lbNovoNome.setVisible(true);
+        tfNovoNome.setVisible(true);
+
+        taDescricao.setEnabled(true);
+        btSalvar.setEnabled(true);
+
+        btEditar.setEnabled(false);
+    }
+
+    private void bloquearCampos() {
+        lbNovoNome.setVisible(false);
+        tfNovoNome.setVisible(false);
+        btSalvar.setEnabled(false);
+        taDescricao.setEnabled(false);
+        btEditar.setEnabled(true);
     }
 }

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Endereco {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ou outra estratégia dependendo do seu banco
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "id", nullable = false)
     private Integer id;
 

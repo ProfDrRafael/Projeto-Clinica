@@ -238,13 +238,13 @@ public class SidebarContent extends SimpleDrawerBuilder {
             @Override
             public void selected(MenuAction action, int[] index) {
                 String menuName = menuNames.get(index[0]);
-                
+
                 if (menuName.equals("Deslogar")) {
                     MessagesAlert logout = new MessagesAlert();
                     logout.MessageAlertDesconectarOpcoes();
-                }else{
+                } else {
                     FormManager.showForm(new PageProgressBar(() -> FormManager.showForm(getFormByName(menuName))));
-                    
+
                 }
 
             }
@@ -258,32 +258,56 @@ public class SidebarContent extends SimpleDrawerBuilder {
         return simpleMenuOption; // Retorna as opções de menu
     }
 
-    private PanelTemplate getFormByName(String menuName) {  
+    private PanelTemplate getFormByName(String menuName) {
         return switch (menuName) {
-            case "Estatísticas" -> new TableEstatisticas();
-            case "Busca Avançada" -> new FormBuscaAvancadaPaciente();
-            case "Administrador" -> new MenuAdministrador();
-            case "Orientador" -> new MenuOrientador();
-            case "Secretária" -> new MenuSecretaria();
-            case "Estagiário" -> new MenuEstagiario();
-            case "Vincular Estagiário" -> new FormEstagiario();
-            case "Usuário" -> new FormUsuario();
-            case "Paciente" -> new FormPaciente();
-            case "Prontuário" -> new FormProntuario();
-            case "Agenda" -> new FormAgenda();
-            case "Calendário" -> new PageCalendario();
-            case "Atendimento" -> new FormAtendimento();
-            case "Grupos" -> new PageGrupos();
-            case "Lista de Espera Geral" -> new TableListaEsperaGeral();
-            case "Lista de Espera Específica" -> new TableListaEsperaEspecifica();
-            case "Agendamentos" -> new TableListaAgenda();
-            case "Atendimentos" -> new TableListaAtendimento();
-            case "Todos os Estagiários" -> new TableListaEstagiarios();
-            case "Todos os Pacientes" -> new TableListaPacientes();
-            case "Todos os Usuários" -> new TableListaUsuarios();
-            case "Todos os Grupos" -> new TableListaGrupos();
-            case "Configurações" -> new PageConfiguracoes();
-            default -> new PageWelcome();
+            case "Estatísticas" ->
+                new TableEstatisticas();
+            case "Busca Avançada" ->
+                new FormBuscaAvancadaPaciente();
+            case "Administrador" ->
+                new MenuAdministrador();
+            case "Orientador" ->
+                new MenuOrientador();
+            case "Secretária" ->
+                new MenuSecretaria();
+            case "Estagiário" ->
+                new MenuEstagiario();
+            case "Vincular Estagiário" ->
+                new FormEstagiario();
+            case "Usuário" ->
+                new FormUsuario();
+            case "Paciente" ->
+                new FormPaciente();
+            case "Prontuário" ->
+                new FormProntuario();
+            case "Agenda" ->
+                new FormAgenda();
+            case "Calendário" ->
+                new PageCalendario();
+            case "Atendimento" ->
+                new FormAtendimento();
+            case "Grupos" ->
+                new PageGrupos();
+            case "Lista de Espera Geral" ->
+                new TableListaEsperaGeral();
+            case "Lista de Espera Específica" ->
+                new TableListaEsperaEspecifica();
+            case "Agendamentos" ->
+                new TableListaAgenda();
+            case "Atendimentos" ->
+                new TableListaAtendimento();
+            case "Todos os Estagiários" ->
+                new TableListaEstagiarios();
+            case "Todos os Pacientes" ->
+                new TableListaPacientes();
+            case "Todos os Usuários" ->
+                new TableListaUsuarios();
+            case "Todos os Grupos" ->
+                new TableListaGrupos();
+            case "Configurações" ->
+                new PageConfiguracoes();
+            default ->
+                new PageWelcome();
         };
     }
 
@@ -347,6 +371,7 @@ public class SidebarContent extends SimpleDrawerBuilder {
                 allowedMenus.add("Todos os Estagiários");
                 allowedMenus.add("Todos os Pacientes");
                 allowedMenus.add("Todos os Usuários");
+                allowedMenus.add("Configurações");
                 allowedMenus.add("Deslogar");
             }
             case "Orientador" -> {
@@ -357,6 +382,7 @@ public class SidebarContent extends SimpleDrawerBuilder {
                 allowedMenus.add("Atendimento");
                 allowedMenus.add("Lista de Espera Geral");
                 allowedMenus.add("Lista de Espera Especifica");
+                allowedMenus.add("Configurações");
                 allowedMenus.add("Deslogar");
             }
             case "Estagiario" -> {
@@ -369,6 +395,7 @@ public class SidebarContent extends SimpleDrawerBuilder {
                 allowedMenus.add("Atendimento");
                 allowedMenus.add("Lista de Espera Geral");
                 allowedMenus.add("Lista de Espera Especifica");
+                allowedMenus.add("Configurações");
                 allowedMenus.add("Deslogar");
             }
             case "Pesquisador" -> {
@@ -397,10 +424,12 @@ public class SidebarContent extends SimpleDrawerBuilder {
                         allowedMenus.add(menu);
                     }
                 }
+                
                 allowedMenus.add("Deslogar");
             }
-            default ->
+            default -> {
                 allowedMenus.add("Deslogar");
+            }
         }
         return allowedMenus;
     }

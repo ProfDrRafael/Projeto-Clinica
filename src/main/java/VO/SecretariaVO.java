@@ -29,4 +29,13 @@ public class SecretariaVO extends UsuarioVO {
                 null // senha é null
         );
     }
+
+    public Secretaria toEntity() {
+        var secretaria = new Secretaria();
+        secretaria.setId(this.getId());
+        secretaria.setNome(this.getNomeCompleto());
+        secretaria.setEmail(this.getEmail());
+        secretaria.setSenha(this.getSenha());
+        return secretaria;
+    }
 }

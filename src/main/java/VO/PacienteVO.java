@@ -401,32 +401,13 @@ public class PacienteVO {
         throw new IllegalArgumentException("Data inválida: " + dateStr + ". Formatos aceitos: dd-MM-yyyy, yyyy-MM-dd, dd/MM/yyyy");
     }
 
+    /*
+     * O método toString está sendo utilizado para definir o texto
+     * que será exibido para cada objeto Paciente no JComboBox.
+     */
     @Override
     public String toString() {
-        return "PacienteVO{"
-                + "id=" + id
-                + ", nome='" + nome + '\''
-                + ", genero='" + genero + '\''
-                + ", celularContato='" + celularContato + '\''
-                + ", celular='" + celular + '\''
-                + ", paciente='" + paciente + '\''
-                + ", dataNascimento='" + dataNascimento + '\''
-                + ", dataInscricao=" + dataInscricao
-                + ", instrucao='" + instrucao + '\''
-                + ", profissao='" + profissao + '\''
-                + ", estadoCivil='" + estadoCivil + '\''
-                + ", raca_cor_etnia='" + raca_cor_etnia + '\''
-                + ", orientacao='" + orientacao + '\''
-                + ", nacionalidade=" + nacionalidade
-                + ", disponibilidade='" + disponibilidade + '\''
-                + ", estagiario=" + estagiario
-                + ", orientador=" + orientador
-                + ", endereco=" + (endereco != null ? endereco.toString() : "null")
-                + ", responsavel=" + (responsavel != null ? responsavel.toString() : "null")
-                + ", atendido=" + atendido
-                + ", ativo=" + ativo
-                + ", grupo=" + grupo
-                + '}';
+        return this.getNome();
     }
-
+    
 }
