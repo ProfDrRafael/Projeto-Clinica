@@ -422,7 +422,7 @@ public class PageCalendario extends PanelTemplate {
         JLabel lblDia = new JLabel(String.valueOf(dia), SwingConstants.CENTER);
         lblDia.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        //Define a cor da fonte do número do dia como preta
+        // Define a cor da fonte do número do dia como preta
         lblDia.setForeground(Color.BLACK);
 
         if (isOutroMes) {
@@ -433,18 +433,18 @@ public class PageCalendario extends PanelTemplate {
         } else if (agendamentos.containsKey(data)) {
             panel.setBackground(COR_AGENDAMENTO);
         } else {
-            // ADICIONE ESTE ELSE PARA GARANTIR O FUNDO BRANCO NOS DIAS NORMAIS
+            // Garante o fundo branco nos dias normais 
             panel.setBackground(Color.WHITE);
         }
 
-        // Adicionar o número de consultas
+        // Adiciona o número de consultas
         if (agendamentos.containsKey(data)) {
             int numConsultas = agendamentos.get(data).size();
             String textoConsultas = (numConsultas > 1) ? numConsultas + " consultas" : numConsultas + " consulta";
             JLabel lblConsultas = new JLabel(textoConsultas, SwingConstants.CENTER);
             lblConsultas.setFont(new Font("Arial", Font.ITALIC, 10));
 
-            // NOVO: Define a cor da fonte do texto de consultas como preta
+            // Define a cor da fonte do texto de consultas como preta
             lblConsultas.setForeground(Color.BLACK);
 
             panel.add(lblConsultas, BorderLayout.SOUTH);
@@ -522,7 +522,7 @@ public class PageCalendario extends PanelTemplate {
         // Bloqueia dias passados
         if (data.isBefore(LocalDate.now())) {
             JLabel lblMsg = new JLabel("Não é possível agendar para datas passadas.");
-            // NOVO: Define a cor da fonte da mensagem
+            // Define a cor da fonte da mensagem
             if (com.formdev.flatlaf.FlatLaf.isLafDark()) {
                 lblMsg.setForeground(new Color(200, 200, 200));
             }
@@ -587,7 +587,7 @@ public class PageCalendario extends PanelTemplate {
 
         if (!encontrouHorario) {
             JLabel lblMsg = new JLabel("Nenhum horário disponível para esta sala.");
-            // NOVO: Define a cor da fonte da mensagem
+            // Define a cor da fonte da mensagem
             if (com.formdev.flatlaf.FlatLaf.isLafDark()) {
                 lblMsg.setForeground(new Color(200, 200, 200));
             }
