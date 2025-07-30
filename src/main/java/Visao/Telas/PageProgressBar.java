@@ -21,35 +21,50 @@ public class PageProgressBar extends PanelTemplate {
     private Runnable onComplete;
     private volatile boolean carregamentoPronto = false;
 
-    public PageProgressBar(Runnable onComplete) {
-        this.onComplete = onComplete;
+    /**
+     * NOVO: Construtor padrão para permitir a criação da instância pelo
+     * FormManager sem a tarefa inicial.
+     */
+    public PageProgressBar() {
         initComponents();
-
         setBackground(new Color(0, 102, 102));
-
-        loadProgressBar();
-
+        // O carregamento não é iniciado aqui.
     }
 
-    private void loadProgressBar() {
+    /**
+     * Construtor original mantido para uso direto.
+     *
+     * @param onComplete A tarefa a ser executada em segundo plano.
+     */
+    public PageProgressBar(Runnable onComplete) {
+        this(); // Chama o construtor padrão para inicializar os componentes
+        this.onComplete = onComplete;
+        loadProgressBar(); // Inicia o carregamento
+    }
+
+ 
+    /**
+     * NOVO MÉTODO PÚBLICO: Inicia o processo de carregamento.
+     * Agora pode ser chamado pelo FormManager após a criação da tela.
+     */
+    public void loadProgressBar() {
         SwingWorker<Void, Integer> worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
                 int progress = 0;
-
                 // Executa o trabalho de forma assíncrona
                 Thread tarefaThread = new Thread(() -> {
                     if (getOnComplete() != null) {
                         getOnComplete().run();
                     }
-                    setCarregamentoPronto(true); 
+                    setCarregamentoPronto(true);
                 });
                 tarefaThread.start();
 
                 // Enquanto não estiver pronto, avança a barra
                 while (!isCarregamentoPronto()) {
                     Thread.sleep(100);
-                    progress = Math.min(progress + 1, 99);
+                    progress = Math.min(progress + 5, 99); // Aumentei um pouco a velocidade
                     publish(progress);
                 }
 
@@ -61,26 +76,22 @@ public class PageProgressBar extends PanelTemplate {
             protected void process(List<Integer> chunks) {
                 int value = chunks.get(chunks.size() - 1);
                 pbCarregando.setValue(value);
-                lbCarregando.setText("Carregando" + (value % 2 == 0 ? ".." : "..."));
+                lbCarregando.setText("Carregando" + (value % 3 == 0 ? "." : (value % 3 == 1 ? ".." : "...")));
             }
 
             @Override
             protected void done() {
-                SwingUtilities.invokeLater(() -> {
-                    FormManager.getForms().undo();
-                });
+                // O método done() não é mais necessário aqui, pois o FormManager
+                // já lida com a troca de telas no método que chama o ProgressBar.
+                // A tarefa real (onComplete) já terminou.
             }
         };
         worker.execute();
     }
 
-    private void close() {
-        if (getParent() != null) {
-            getParent().remove(this);
-            getParent().revalidate();
-            getParent().repaint();
-        }
-    }
+    // O método close() foi removido pois não era utilizado e a gestão
+    // da remoção do painel é feita pelo FormManager.
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

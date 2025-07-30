@@ -93,7 +93,6 @@ public class FormManager {
         PanelTemplate atual = instance.forms.getCurrent();
         // Se já estamos exibindo um formulário do mesmo tipo, não empilha de novo
         if (atual != null && atual.getClass().equals(component.getClass())) {
-            // Apenas reaplica/transiciona para o mesmo form sem empilhar
             if (instance.menuShowing) {
                 instance.menuShowing = false;
                 Image oldImage = instance.panelSlider.createOldImage();
@@ -110,8 +109,10 @@ public class FormManager {
             return;
         }
 
-        // Se for um form novo, empilha normalmente
-        instance.forms.add(component);
+        // SÓ ADICIONA À PILHA SE NÃO FOR A TELA DE CARREGAMENTO
+        if (!(component instanceof PageProgressBar)) {
+            instance.forms.add(component);
+        }
 
         if (instance.menuShowing) {
             instance.menuShowing = false;
@@ -125,7 +126,11 @@ public class FormManager {
             instance.mainForm.showForm(component);
         }
 
-        instance.forms.getCurrent().formInitAndOpen();
+        // A chamada a formInitAndOpen() em um ProgressBar não é necessária,
+        // pois sua lógica de vida é controlada pelo SwingWorker.
+        if (!(component instanceof PageProgressBar)) {
+            instance.forms.getCurrent().formInitAndOpen();
+        }
     }
 
     /**
@@ -239,7 +244,7 @@ public class FormManager {
 
         });
     }
-    
+
     // Login para testes
     public static void login() {
         FlatAnimatedLafChange.showSnapshot();
@@ -248,7 +253,7 @@ public class FormManager {
             instance.frame.getContentPane().removeAll();
             instance.frame.getContentPane().setLayout(new BorderLayout());
             instance.frame.getContentPane().add(instance.panelSlider);
-            
+
             String nome = "admin";
             String email = "admin@admin.com";
             String senha = "senha";
@@ -260,7 +265,7 @@ public class FormManager {
             sessao.setTipo("Administrador");
 
             new SessaoRN().salvarSessao(sessao);
-            
+
             UsuarioVO user = new AdministradorVO(1, nome, email, senha);
 
             // Configura o menu dinamicamente com base no tipo do usuário
@@ -362,6 +367,46 @@ public class FormManager {
         }
     }
 
+// Dentro da classe FormManager.java
+    public static void reloadCurrentForm() {
+        if (instance.menuShowing || instance.forms.getCurrent() == null) {
+            return;
+        }
+
+        if (!isNewFormAble()) {
+            return;
+        }
+
+        try {
+            PanelTemplate oldForm = instance.forms.getCurrent();
+            Class<? extends PanelTemplate> formClass = oldForm.getClass();
+
+            // 1. Cria a nova instância usando o construtor padrão (agora funciona para todas as telas)
+            PanelTemplate newForm = formClass.getDeclaredConstructor().newInstance();
+
+            // 2. Lógica especial para a PageProgressBar
+            if (oldForm instanceof PageProgressBar && newForm instanceof PageProgressBar) {
+                // Transfere a tarefa da instância antiga para a nova
+                Runnable task = ((PageProgressBar) oldForm).getOnComplete();
+                ((PageProgressBar) newForm).setOnComplete(task);
+            }
+
+            // 3. Substitui o formulário na pilha e exibe
+            instance.forms.undo(); // Remove o formulário antigo do topo
+            showForm(newForm);     // Adiciona e exibe o novo no topo
+
+            // 4. Se for a PageProgressBar, inicia o carregamento agora que a tarefa foi definida
+            if (newForm instanceof PageProgressBar) {
+                ((PageProgressBar) newForm).loadProgressBar();
+            }
+
+        } catch (Exception e) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER,
+                    "Erro ao recarregar o formulário: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    /*
     public static void reloadCurrentForm() {
         if (!instance.menuShowing && instance.forms.getCurrent() != null) {
             PanelTemplate currentForm = instance.forms.getCurrent();
@@ -378,5 +423,5 @@ public class FormManager {
                 }
             }
         }
-    }
+    }  */
 }
