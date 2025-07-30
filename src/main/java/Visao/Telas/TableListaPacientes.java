@@ -83,7 +83,7 @@ public class TableListaPacientes extends PanelTemplate {
 
     // NOVO: Definir o título e o ícone do cabeçalho dinamicamente
     String titulo = mostrandoInativos ? "Lista de Pacientes Inativos" : "Lista de Pacientes";
-    String iconeLogo = mostrandoInativos ? "/Multimidia/imagens/listaPacientes_inativos.png" : "/Multimidia/imagens/listaPacientes.png";
+    String iconeLogo = mostrandoInativos ? "/Multimidia/imagens/listaPacientes_Inativos.png" : "/Multimidia/imagens/listaPacientes.png";
 
     // NOVO: Atualizar os componentes do cabeçalho
     lbListaPacientes.setText(titulo);
