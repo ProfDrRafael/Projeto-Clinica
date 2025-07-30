@@ -48,9 +48,9 @@ public class FormUsuario extends PanelTemplate {
      */
     public FormUsuario() {
         initComponents();
-        
+
         this.isFormSendoEditado = false;
-        
+
         // remove background customizado e volta ao default do L&F
         pUsuario.putClientProperty(FlatClientProperties.STYLE, "background:null");
         // redimensionarIcones();
@@ -66,8 +66,16 @@ public class FormUsuario extends PanelTemplate {
 
     private void addPanelPermissoes() {
         if (panelPermissoes == null) {
-            panelPermissoes = new PanelPermissoesPesquisador(); 
-            pCentro.add(panelPermissoes); // Append ao final
+            panelPermissoes = new PanelPermissoesPesquisador();
+            // Remove panelControles, se já estiver lá
+            pCentro.remove(panelControles);
+
+            // Adiciona o novo painel de permissões
+            pCentro.add(panelPermissoes);
+
+            // Re-adiciona o panelControles no fim
+            pCentro.add(panelControles);
+            
             pCentro.revalidate();
             pCentro.repaint();
         }
@@ -96,6 +104,7 @@ public class FormUsuario extends PanelTemplate {
         lbClinica = new javax.swing.JLabel();
         lbProntuario = new javax.swing.JLabel();
         lbLogoCadastro = new javax.swing.JLabel();
+        spCentro = new javax.swing.JScrollPane();
         pCentro = new javax.swing.JPanel();
         pUsuario = new javax.swing.JPanel();
         tfNome = new javax.swing.JTextField();
@@ -106,12 +115,13 @@ public class FormUsuario extends PanelTemplate {
         lbFuncao = new javax.swing.JLabel();
         pfSenha = new javax.swing.JPasswordField();
         lbSenha = new javax.swing.JLabel();
-        btSalvar = new javax.swing.JButton();
         pfConfirmarSenha = new javax.swing.JPasswordField();
         lbConfirmarSenha = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lbPasswordWarning1 = new javax.swing.JLabel();
         lbPasswordWarning2 = new javax.swing.JLabel();
+        panelControles = new javax.swing.JPanel();
+        btSalvar = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(950, 480));
         setMinimumSize(new java.awt.Dimension(950, 480));
@@ -144,7 +154,7 @@ public class FormUsuario extends PanelTemplate {
                         .addGap(6, 6, 6)
                         .addComponent(lbClinica))
                     .addComponent(lbProntuario))
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         pNorthLayout.setVerticalGroup(
             pNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,15 +172,18 @@ public class FormUsuario extends PanelTemplate {
 
         add(pNorth, java.awt.BorderLayout.NORTH);
 
+        spCentro.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        pCentro.setAlignmentY(Component.TOP_ALIGNMENT);
         pCentro.setMaximumSize(new java.awt.Dimension(1000, 1000));
         pCentro.setMinimumSize(new java.awt.Dimension(1000, 300));
-        pCentro.setPreferredSize(new java.awt.Dimension(1000, 300));
+        pCentro.setPreferredSize(null);
         pCentro.setLayout(new javax.swing.BoxLayout(pCentro, javax.swing.BoxLayout.Y_AXIS));
 
         pUsuario.setBackground(java.awt.SystemColor.controlHighlight);
         pUsuario.setMaximumSize(new java.awt.Dimension(1000, 300));
         pUsuario.setMinimumSize(new java.awt.Dimension(1000, 300));
-        pUsuario.setPreferredSize(new java.awt.Dimension(1000, 300));
+        pUsuario.setPreferredSize(new java.awt.Dimension(1000, 200));
 
         tfNome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -202,16 +215,6 @@ public class FormUsuario extends PanelTemplate {
         lbSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbSenha.setForeground(new java.awt.Color(0, 102, 102));
         lbSenha.setText("*Senha:");
-
-        btSalvar.setBackground(new java.awt.Color(102, 255, 102));
-        btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btSalvar.setForeground(new java.awt.Color(51, 51, 51));
-        btSalvar.setText("Salvar");
-        btSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarActionPerformed(evt);
-            }
-        });
 
         pfConfirmarSenha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         pfConfirmarSenha.setText("jPasswordField1");
@@ -261,10 +264,6 @@ public class FormUsuario extends PanelTemplate {
                             .addComponent(lbPasswordWarning2)
                             .addComponent(pfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 65, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pUsuarioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSalvar)
-                .addContainerGap())
         );
         pUsuarioLayout.setVerticalGroup(
             pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,14 +290,45 @@ public class FormUsuario extends PanelTemplate {
                     .addComponent(lbPasswordWarning2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btSalvar)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pCentro.add(pUsuario);
 
-        add(pCentro, java.awt.BorderLayout.CENTER);
+        panelControles.setBackground(java.awt.SystemColor.controlHighlight);
+
+        btSalvar.setBackground(new java.awt.Color(102, 255, 102));
+        btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btSalvar.setForeground(new java.awt.Color(51, 51, 51));
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelControlesLayout = new javax.swing.GroupLayout(panelControles);
+        panelControles.setLayout(panelControlesLayout);
+        panelControlesLayout.setHorizontalGroup(
+            panelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelControlesLayout.createSequentialGroup()
+                .addContainerGap(804, Short.MAX_VALUE)
+                .addComponent(btSalvar)
+                .addGap(33, 33, 33))
+        );
+        panelControlesLayout.setVerticalGroup(
+            panelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelControlesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btSalvar)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        pCentro.add(panelControles);
+
+        spCentro.setViewportView(pCentro);
+
+        add(spCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbFuncaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFuncaoItemStateChanged
@@ -309,8 +339,8 @@ public class FormUsuario extends PanelTemplate {
         } else {
             removePanelPermissoes();
         }
-        
-        if(isFormSendoEditado){
+
+        if (isFormSendoEditado) {
             panelPermissoes.preencherDadosEdicao(usuarioVO);
         }
     }//GEN-LAST:event_cbFuncaoItemStateChanged
@@ -487,7 +517,7 @@ public class FormUsuario extends PanelTemplate {
 
     public void preencherDadosFormulario(int pacienteId, String tipoUsuario) {
         this.isFormSendoEditado = true;
-        
+
         try {
             UsuarioRN usuarioRN = new UsuarioRN();
             UsuarioVO usuario = usuarioRN.buscarUsuarioPorId(pacienteId, tipoUsuario);
@@ -496,7 +526,7 @@ public class FormUsuario extends PanelTemplate {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Usuário não encontrado!");
                 return;
             }
-            
+
             this.usuarioVO = usuario;
 
             tfNome.setText(usuario.getNomeCompleto());
@@ -504,7 +534,6 @@ public class FormUsuario extends PanelTemplate {
             pfSenha.setText(usuario.getSenha());
             pfConfirmarSenha.setText(usuario.getSenha());
             cbFuncao.setSelectedItem(tipoUsuario);
-
 
         } catch (Exception ex) {
             System.out.println("Erro ao editar paciente: " + ex);
@@ -550,8 +579,10 @@ public class FormUsuario extends PanelTemplate {
     private javax.swing.JPanel pCentro;
     private javax.swing.JPanel pNorth;
     private javax.swing.JPanel pUsuario;
+    private javax.swing.JPanel panelControles;
     private javax.swing.JPasswordField pfConfirmarSenha;
     private javax.swing.JPasswordField pfSenha;
+    private javax.swing.JScrollPane spCentro;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
