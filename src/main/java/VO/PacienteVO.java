@@ -342,8 +342,8 @@ public class PacienteVO {
                 null, // Orientação Sexual não definida no Entity original
                 entity.getNacionalidade().getId(),
                 entity.getDisponibilidade(),
-                null, // Estagiário não definido no Entity original
-                null, // Orientador não definido no Entity original
+                entity.getEstagiario().getId(), // Estagiário não definido no Entity original
+                entity.getOrientador().getId(), // Orientador não definido no Entity original
                 entity.getEndereco(),
                 entity.getResponsavel(),
                 entity.getAtendido(),
@@ -379,6 +379,9 @@ public class PacienteVO {
         paciente.setAtendido(this.atendido);
         paciente.setAtivo(this.ativo);
         paciente.setGrupo(this.grupo);
+        
+        paciente.setEstagiario(estagiarioDAO.buscarPorId(this.estagiario));
+        paciente.setOrientador(orientadorDAO.buscarPorId(this.orientador));
 
         return paciente;
     }
