@@ -24,6 +24,10 @@ import Visao.Utils.validation.rules.NotEmptyRule;
 import Visao.Utils.validation.rules.MinLengthRule;
 import Visao.Utils.validation.rules.NumericFilterRule;
 import Visao.Utils.validation.rules.ComboBoxSelectionRule;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -44,6 +48,8 @@ public class FormPaciente extends PanelTemplate {
      */
     public FormPaciente() {
         initComponents();
+        initValidacao();
+
         // remove background customizado e volta ao default do L&F
         pCentro.putClientProperty(FlatClientProperties.STYLE, "background:null");
         pInscricao.putClientProperty(FlatClientProperties.STYLE, "background:null");
@@ -53,7 +59,6 @@ public class FormPaciente extends PanelTemplate {
         //redimensionarIcones();
         inserirDadosFormulario();
 
-     
         RedimencionarIcones redimencionarIcone = new RedimencionarIcones();
         redimencionarIcone.redimensionarIcones(btSalvar, "/Multimidia/imagens/approved-icon.png", 40);
         redimencionarIcone.redimensionarIcones(btEditar, "/Multimidia/imagens/editar-btn.png", 40);
@@ -1269,6 +1274,37 @@ public class FormPaciente extends PanelTemplate {
         });
     }//GEN-LAST:event_btEditarActionPerformed
 
+    private void initValidacao() {
+        /* aplica filtro */
+        ((PlainDocument) tfPaciente.getDocument()).setDocumentFilter(new FormPaciente.NoDigitsFilter());
+        ((PlainDocument) tfProfissao.getDocument()).setDocumentFilter(new FormPaciente.NoDigitsFilter());
+        ((PlainDocument) tfResponsavel.getDocument()).setDocumentFilter(new FormPaciente.NoDigitsFilter());
+
+    }
+
+    private static class NoDigitsFilter extends DocumentFilter {
+
+        @Override
+        public void insertString(DocumentFilter.FilterBypass fb, int offs, String str, AttributeSet a) throws BadLocationException {
+            if (str != null && str.chars().allMatch(FormPaciente::isAllowedChar)) {
+                super.insertString(fb, offs, str, a);
+            }
+        }
+
+        @Override
+        public void replace(DocumentFilter.FilterBypass fb, int offs, int len, String str, AttributeSet a) throws BadLocationException {
+            if (str != null && str.chars().allMatch(FormPaciente::isAllowedChar)) {
+                super.replace(fb, offs, len, str, a);
+            }
+        }
+    }
+
+    /**
+     * helper: permite letras, acentos e espaço
+     */
+    private static boolean isAllowedChar(int codePoint) {
+        return Character.isLetter(codePoint) || Character.isSpaceChar(codePoint);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscarCep;
