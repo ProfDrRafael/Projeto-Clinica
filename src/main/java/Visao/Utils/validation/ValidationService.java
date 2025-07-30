@@ -120,14 +120,28 @@ public class ValidationService {
             }
         }
     }
-    
+
     /**
- * Verifica se o formulário está atualmente válido (sem erros registrados).
- * @return true se não houver erros, false caso contrário.
- */
-public boolean isFormValid() {
-    return currentErrors.isEmpty();
-}
+     * Verifica se o formulário está atualmente válido (sem erros registrados).
+     *
+     * @return true se não houver erros, false caso contrário.
+     */
+    public boolean isFormValid() {
+        return currentErrors.isEmpty();
+    }
+
+    /**
+     * Força a revalidação de um único componente.
+     *
+     * @param component O componente a ser validado.
+     */
+    public void revalidateComponent(JComponent component) {
+        if (component instanceof JTextComponent) {
+            validateComponent((JTextComponent) component);
+        } else if (component instanceof JComboBox) {
+            validateComponent((JComboBox<?>) component);
+        }
+    }
 
     public void validateInitialState() {
         for (JComponent component : rulesMap.keySet()) {

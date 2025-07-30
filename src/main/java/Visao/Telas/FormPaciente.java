@@ -24,10 +24,13 @@ import Visao.Utils.validation.rules.NotEmptyRule;
 import Visao.Utils.validation.rules.MinLengthRule;
 import Visao.Utils.validation.rules.NumericFilterRule;
 import Visao.Utils.validation.rules.ComboBoxSelectionRule;
+import Visao.Utils.validation.rules.CepRule;
+import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -81,11 +84,8 @@ public class FormPaciente extends PanelTemplate {
         // Nome do Paciente: não pode ser vazio
         validationService.addRule(tfPaciente, new NotEmptyRule("Nome do Paciente"), lbErroNome);
 
-        // CEP: deve ter 8 dígitos
-        validationService.addRule(ftfCep, new MinLengthRule(8), lbErroCep);
-
-        // CEP: deve conter apenas digitos numéricos
-        validationService.addRule(ftfCep, new NumericFilterRule(), lbErroCep);
+        // CEP: verifica o tamanho do cep retirando hiféns e pontos
+        validationService.addRule(ftfCep, new CepRule(), lbErroCep);
 
         // Celular: deve ter 10 dígitos
         validationService.addRule(ftfCelular, new MinLengthRule(10), lbErroCelular);
@@ -1012,34 +1012,38 @@ public class FormPaciente extends PanelTemplate {
             String cepSemMascara = ftfCep.getText().replaceAll("[^0-9]", "");
             EnderecoModelCepApi enderecoApi = cepService.getEndereco(cepSemMascara);
 
-            if (enderecoApi == null || enderecoApi.getLogradouro() == null) {
+            if (enderecoApi == null || enderecoApi.getLogradouro() == null || enderecoApi.getUf() == null) {
                 throw new IOException("O CEP não retornou um endereço válido.");
             }
 
-            // Preenche os campos de texto
+            // 1. Preenche os campos de texto
             tfRua.setText(enderecoApi.getLogradouro());
             tfBairro.setText(enderecoApi.getBairro());
             tfComplemento.setText(enderecoApi.getComplemento());
 
-            // --- LÓGICA ATUALIZADA PARA SELECIONAR ESTADO E CIDADE ---
-            // 1. Busca o EstadoVO correspondente à sigla (UF) retornada pela API
+            // 2. REVALIDA OS CAMPOS DE TEXTO IMEDIATAMENTE
+            validationService.revalidateComponent(tfRua);
+            validationService.revalidateComponent(tfBairro);
+
+            // 3. Encontra e seleciona o Estado
             String uf = enderecoApi.getUf();
-            EstadoRN estadoRN = new EstadoRN();
             EstadoVO estadoEncontrado = null;
             for (int i = 0; i < cbEstado.getItemCount(); i++) {
-                EstadoVO estado = (EstadoVO) cbEstado.getItemAt(i);
-                if (estado.getSigla() != null && estado.getSigla().equalsIgnoreCase(uf)) {
-                    estadoEncontrado = estado;
-                    break;
+                if (cbEstado.getItemAt(i) instanceof EstadoVO) {
+                    EstadoVO estado = (EstadoVO) cbEstado.getItemAt(i);
+                    if (estado.getSigla() != null && estado.getSigla().equalsIgnoreCase(uf)) {
+                        estadoEncontrado = estado;
+                        break;
+                    }
                 }
             }
 
-            // 2. Se encontrou o estado, seleciona-o. Isso irá disparar o `cbEstadoItemStateChanged`
-            // que carregará as cidades corretas.
             if (estadoEncontrado != null) {
+                // 4. Seleciona o estado. O listener `cbEstadoItemStateChanged` será
+                // acionado e irá popular o cbCidade.
                 cbEstado.setSelectedItem(estadoEncontrado);
 
-                // 3. Com as cidades carregadas, agora buscamos e selecionamos a cidade correta
+                // 5. Encontra e seleciona a Cidade
                 String nomeCidade = enderecoApi.getLocalidade();
                 CidadeRN cidadeRN = new CidadeRN();
                 CidadeVO cidadeEncontrada = cidadeRN.buscarPorNomeEUF(nomeCidade, uf);
@@ -1053,7 +1057,13 @@ public class FormPaciente extends PanelTemplate {
                 Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, "Estado '" + uf + "' não encontrado no banco de dados.");
             }
 
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "CEP encontrado com sucesso!");
+            // 6. REVALIDA OS COMBOBOXES DE ENDEREÇO NO FINAL
+            // Como os listeners já foram acionados, os erros devem ser limpos
+            // e o estado do botão, atualizado corretamente.
+            validationService.revalidateComponent(cbEstado);
+            validationService.revalidateComponent(cbCidade);
+
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Endereço preenchido com sucesso!");
 
         } catch (IOException ex) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Erro ao buscar o CEP: " + ex.getMessage());

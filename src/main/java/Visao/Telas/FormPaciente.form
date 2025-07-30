@@ -353,7 +353,7 @@
                               <Component id="cbRacaCorEtnia" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -841,7 +841,7 @@
                           <Component id="lbErroEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbErroCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace pref="60" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1642,7 +1642,7 @@
                           <Component id="cbOrientador" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="cbEstagiario" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace pref="24" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbErroOrientador" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbErroEstagiario" alignment="3" min="-2" max="-2" attributes="0"/>
