@@ -61,7 +61,7 @@ public class OrientadorDAO extends GenericoDAO<Orientador> {
         Orientador orientador = null;
         try {
             TypedQuery<Orientador> query = entityManager.createQuery(
-                    "SELECT e FROM Estagiario e WHERE e.id = :id", Orientador.class);
+                    "SELECT e FROM Orientador e WHERE e.id = :id", Orientador.class);
             query.setParameter("id", id);
             orientador = query.getSingleResult();
         } catch (NoResultException e) {

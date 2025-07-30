@@ -144,6 +144,13 @@ public class GenericoDAO<T> {
             em = JPAUtil.getEntityManager();
             tx = em.getTransaction();
             tx.begin();
+
+            if (entity.getResponsavel() != null && entity.getResponsavel().getId() != null) {
+                System.out.println("Persistencia.Dao.GenericoDAO.salvarRetornandoEntidade()");
+                System.out.println("Responsavel: " + entity.getId());
+                entity.setResponsavel(em.merge(entity.getResponsavel())); // Garantir entidade gerenciada
+            }
+
             em.persist(entity);
             tx.commit();
             return entity; // Agora a entidade tem o ID preenchido

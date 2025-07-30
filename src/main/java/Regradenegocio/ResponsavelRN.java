@@ -21,9 +21,8 @@ public class ResponsavelRN {
         }
 
         Responsavel responsavelEntity = responsavelVO.toEntity();
-        responsavelDAO.salvar(responsavelEntity);
 
-        return responsavelEntity;
+        return responsavelDAO.salvarERetornar(responsavelEntity);
     }
 
     public Responsavel atualizar(ResponsavelVO responsavelVO) {

@@ -1130,9 +1130,9 @@ public class FormPaciente extends PanelTemplate {
                 String contatoResponsavel = ftfCelularContatoResponsavel.getText();
                 ResponsavelVO responsavelVO = new ResponsavelVO(responsavel, "PARENTE", contatoResponsavel, null, null, null, null, null);
                 Responsavel responsavelEntity = responsalRN.salvar(responsavelVO);
-                responsavelEntity = new ResponsavelDAO().buscarPorId(responsavelEntity.getId());
-                boolean atendido = cbAtendido.isSelected();
 
+                boolean atendido = cbAtendido.isSelected();
+                
                 // Monta o PacienteVO com os IDs corretos
                 PacienteVO pacienteVO = new PacienteVO(
                         genero, celularContato, celular, pacienteNome, dataNascimento, dataAgora,
